@@ -1,5 +1,1 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-}
+/* #root max-width constraint removed — VDP page layout (1790px) managed by page components */
