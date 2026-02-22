@@ -230,6 +230,36 @@ const ICONS: Record<string, IconDefinition> = {
       'M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z',
     ],
   },
+
+  // Star / award ribbon icon (Trusted Partner Badge)
+  award_star: {
+    paths: [
+      'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+    ],
+  },
+
+  // Map pin / marker icon (dealer address)
+  location_pin: {
+    paths: [
+      'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z',
+      'M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+    ],
+  },
+
+  // Clock face icon (dealer hours)
+  clock: {
+    paths: [
+      'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z',
+      'M12 6v6l4 2',
+    ],
+  },
+
+  // Shield / protection icon (insurance card)
+  shield: {
+    paths: [
+      'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+    ],
+  },
 };
 
 export { ICONS };
