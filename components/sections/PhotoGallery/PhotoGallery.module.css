@@ -1,0 +1,90 @@
+/* PhotoGallery — hero image + 2x2 thumbnail grid with overlay badges */
+
+/* Gallery container: 557px hero + 8px gap + 555px thumbnails = 1120px */
+.gallery {
+  display: grid;
+  grid-template-columns: 557px 555px;
+  gap: 8px;
+  height: 456px;
+}
+
+/* Hero image area */
+.heroWrapper {
+  position: relative;
+  width: 557px;
+  height: 456px;
+  overflow: hidden;
+  border-radius: var(--radius-base);
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ATF-06: Tags badge — floating overlay at top-left of hero */
+.tagsBadge {
+  position: absolute;
+  top: var(--space-16);
+  left: var(--space-16);
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 var(--space-8);
+  background: var(--rv-surface-floating);
+  border-left: 2px solid var(--rv-border-tag-red);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--rv-shadow-bottom);
+}
+
+.tagText {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+}
+
+/* Thumbnail area */
+.thumbnailWrapper {
+  position: relative;
+  width: 555px;
+  height: 456px;
+}
+
+.thumbnailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-base);
+}
+
+/* ATF-05: "See all photos" button — floating overlay at bottom-right of thumbnails */
+.seeAllButton {
+  position: absolute;
+  bottom: var(--space-16);
+  right: var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 36px;
+  padding: 0 var(--space-12);
+  background: var(--rv-surface-floating);
+  border: none;
+  border-radius: var(--radius-sm);
+  font: var(--font-button-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  box-shadow: var(--rv-shadow-bottom);
+}
+
+.seeAllButton:hover {
+  background: var(--rv-surface);
+}
