@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-21)
 
 **Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 6: Left Column Lower Content
+**Current focus:** Phase 7: Right Column
 
 ## Current Position
 
-Phase: 6 of 9 (Left Column Lower Content)
-Plan: 2 of 2 in current phase
+Phase: 7 of 9 (Right Column)
+Plan: 1 of 2 in current phase
 Status: Ready
-Last activity: 2026-02-22 -- Completed 06-01-PLAN.md (Left Column Lower Sections + Icons)
+Last activity: 2026-02-22 -- Completed 06-02-PLAN.md (AboutDealership + Left Column Wiring)
 
-Progress: [████████░░] 80%
+Progress: [████████░░] 85%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
+- Total plans completed: 12
 - Average duration: 4min
-- Total execution time: 0.76 hours
+- Total execution time: 0.81 hours
 
 **By Phase:**
 
@@ -32,10 +32,10 @@ Progress: [████████░░] 80%
 | 03-page-layout | 2 | 12min | 6min |
 | 04-above-the-fold | 2 | 6min | 3min |
 | 05-left-column-upper | 2 | 6min | 3min |
-| 06-left-column-lower | 1 | 8min | 8min |
+| 06-left-column-lower | 2 | 11min | 5.5min |
 
 **Recent Trend:**
-- Last 5 plans: 04-02 (3min), 05-01 (3min), 05-02 (3min), 06-01 (8min)
+- Last 5 plans: 05-01 (3min), 05-02 (3min), 06-01 (8min), 06-02 (3min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -81,6 +81,9 @@ Recent decisions affecting current work:
 - [06-01]: LoanCalculator is static display only ($241/mo) with no interactive inputs, deferred to v2 (INT-02)
 - [06-01]: Resources insurance card uses shield icon with flex layout for card interior
 - [06-01]: ReportListing is single-line flex with flag icon and link, no wrapping container
+- [06-02]: AboutDealership uses conditional rendering for Top 50 badge based on dealer.isTop50
+- [06-02]: Dividers placed before each Phase 6 section except Disclaimer (no Divider between ReportListing and Disclaimer)
+- [06-02]: Left column fully complete with 12 real sections replacing all left column placeholders
 
 ### Pending Todos
 
@@ -93,5 +96,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 06-01-PLAN.md
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
