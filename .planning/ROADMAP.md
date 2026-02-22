@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections (completed 2026-02-22)
 - [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton (completed 2026-02-22)
 - [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display (completed 2026-02-22)
-- [ ] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content)
+- [x] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content) (completed 2026-02-22)
 - [ ] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content)
 - [ ] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots
 - [ ] **Phase 8: Full-Width Bottom Sections** - Similar listings, related categories, insurance/accessories, and ad slots
@@ -100,8 +100,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — PricePayment, AISummary, VehicleHistoryReport, WillingToNegotiate sections + spec icon registration
-- [ ] 05-02-PLAN.md — FeaturesAndSpecs, PriceAnalysis, Description sections + VehicleDetailPage wiring
+- [x] 05-01-PLAN.md — PricePayment, AISummary, VehicleHistoryReport, WillingToNegotiate sections + spec icon registration
+- [x] 05-02-PLAN.md — FeaturesAndSpecs, PriceAnalysis, Description sections + VehicleDetailPage wiring
 
 ### Phase 6: Left Column Lower Content
 **Goal**: The remaining left column sections -- loan calculator through disclaimer -- complete the full listing detail below the fold
@@ -169,7 +169,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | 2. Shared UI Primitives | 2/2 | Complete    | 2026-02-22 |
 | 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
 | 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
-| 5. Left Column Upper Content | 0/2 | Not started | - |
+| 5. Left Column Upper Content | 2/2 | Complete    | 2026-02-22 |
 | 6. Left Column Lower Content | 0/1 | Not started | - |
 | 7. Sidebar | 0/1 | Not started | - |
 | 8. Full-Width Bottom Sections | 0/1 | Not started | - |

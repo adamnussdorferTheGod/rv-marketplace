@@ -46,9 +46,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **LEFT-02**: AISummary card renders "AI summary" heading with "NEW" badge (56x22px), long-form AI text, and AI search prompt button
 - [x] **LEFT-03**: VehicleHistoryReport card renders VHR component instance at 633x224px
 - [x] **LEFT-04**: WillingToNegotiate indicator renders at 633x119px
-- [ ] **LEFT-05**: FeaturesAndSpecs section renders spec grid with key-value pairs and icons at 633x341px
-- [ ] **LEFT-06**: PriceAnalysis section renders price heading, comparison text, "Learn more" link, visual price bar with deal card, Low/Fair/High/Overpriced labels, and price history graph area at 633x452px
-- [ ] **LEFT-07**: Description section renders heading, expandable description text with "Read more" chevron toggle at 633x188px
+- [x] **LEFT-05**: FeaturesAndSpecs section renders spec grid with key-value pairs and icons at 633x341px
+- [x] **LEFT-06**: PriceAnalysis section renders price heading, comparison text, "Learn more" link, visual price bar with deal card, Low/Fair/High/Overpriced labels, and price history graph area at 633x452px
+- [x] **LEFT-07**: Description section renders heading, expandable description text with "Read more" chevron toggle at 633x188px
 - [ ] **LEFT-08**: LoanCalculator section renders heading, subtitle, payment display "$241/mo", contact prompt with CTA button, and financing disclaimer at 633x457px
 - [ ] **LEFT-09**: AboutDealership section renders dealer logo, name, location, phone, hours, Top 50 badge, dealer bio with "Read more", "View dealer inventory" CTA, and dealer website links at 633x789px
 - [ ] **LEFT-10**: Resources section renders "Resources" heading with Foremost insurance card at 633x204px
@@ -144,9 +144,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEFT-02 | Phase 5 | Complete |
 | LEFT-03 | Phase 5 | Complete |
 | LEFT-04 | Phase 5 | Complete |
-| LEFT-05 | Phase 5 | Pending |
-| LEFT-06 | Phase 5 | Pending |
-| LEFT-07 | Phase 5 | Pending |
+| LEFT-05 | Phase 5 | Complete |
+| LEFT-06 | Phase 5 | Complete |
+| LEFT-07 | Phase 5 | Complete |
 | LEFT-08 | Phase 6 | Pending |
 | LEFT-09 | Phase 6 | Pending |
 | LEFT-10 | Phase 6 | Pending |
