@@ -1,0 +1,14 @@
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rv-surface-placeholder);
+  border: 1px dashed var(--rv-border);
+  box-sizing: border-box;
+}
+
+.label {
+  font: var(--font-title-2);
+  color: var(--rv-border);
+  text-align: center;
+}
