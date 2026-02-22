@@ -71,8 +71,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Integration
 
-- [ ] **INTG-01**: All components use CSS Modules with design token custom properties (no hardcoded colors)
-- [ ] **INTG-02**: PriceAnalysis section wraps existing PriceDistributionChart component with appropriate props
+- [x] **INTG-01**: All components use CSS Modules with design token custom properties (no hardcoded colors)
+- [x] **INTG-02**: PriceAnalysis section wraps existing PriceDistributionChart component with appropriate props
 - [ ] **INTG-03**: Page renders complete VDP at 1790px width matching reference layout positions
 
 ## v2 Requirements
@@ -160,8 +160,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FULL-03 | Phase 8 | Complete |
 | FULL-04 | Phase 8 | Complete |
 | FULL-05 | Phase 8 | Complete |
-| INTG-01 | Phase 9 | Pending |
-| INTG-02 | Phase 9 | Pending |
+| INTG-01 | Phase 9 | Complete |
+| INTG-02 | Phase 9 | Complete |
 | INTG-03 | Phase 9 | Pending |
 
 **Coverage:**

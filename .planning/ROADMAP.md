@@ -154,10 +154,11 @@ Plans:
   1. Every component uses CSS Modules with design token custom properties -- no hardcoded color hex values exist in any .module.css file outside of token definition files
   2. PriceAnalysis section wraps the existing PriceDistributionChart component with correct props and the chart renders within the price analysis layout
   3. The full VDP page renders at 1790px width with all sections visible and positioned matching the reference layout (1120px content area centered, 633/455 column split, correct vertical section order)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: TBD
+- [ ] 09-01-PLAN.md — CSS token compliance cleanup and PriceDistributionChart integration into PriceAnalysis
+- [ ] 09-02-PLAN.md — Full build verification, CSS audit, and visual layout checkpoint
 
 ## Progress
 

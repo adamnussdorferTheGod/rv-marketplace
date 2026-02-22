@@ -9,5 +9,6 @@ export default defineConfig({
     alias: {
       '@components': path.resolve(__dirname, '../components'),
     },
+    dedupe: ['react', 'react-dom'],
   },
 })
