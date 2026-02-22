@@ -1,0 +1,15 @@
+.section {
+  margin-bottom: var(--space-32);
+}
+
+.heading {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.chipGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
