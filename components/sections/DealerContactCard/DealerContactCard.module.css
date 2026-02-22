@@ -1,0 +1,81 @@
+.card {
+  width: 100%;
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  box-shadow: var(--rv-shadow-bottom);
+  background: var(--rv-surface);
+  padding: var(--space-32);
+  box-sizing: border-box;
+  margin-bottom: var(--space-32);
+}
+
+.leadForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.messageInput {
+  width: 100%;
+  min-height: 91px;
+  padding: 8px 16px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  background: var(--rv-surface);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.messageInput:focus {
+  outline: none;
+  border: 2px solid var(--rv-border-high);
+  padding: 7px 15px;
+}
+
+.messageInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 16px 32px;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border: none;
+  border-radius: var(--radius-base);
+  font: var(--font-button-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.submitButton:hover {
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  color: var(--rv-primary);
+  padding: 14px 30px;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.dealerName {
+  font: var(--font-subtitle-1);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
