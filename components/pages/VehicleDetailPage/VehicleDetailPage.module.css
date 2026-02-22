@@ -30,6 +30,10 @@
   margin-bottom: var(--space-16);
 }
 
+.sidebarAd {
+  margin-bottom: var(--space-32);
+}
+
 .placeholder {
   padding: var(--space-16);
   background: var(--rv-surface-variant);
