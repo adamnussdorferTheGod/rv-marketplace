@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display (completed 2026-02-22)
 - [x] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content) (completed 2026-02-22)
 - [x] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content) (completed 2026-02-22)
-- [ ] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots
+- [x] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots (completed 2026-02-22)
 - [ ] **Phase 8: Full-Width Bottom Sections** - Similar listings, related categories, insurance/accessories, and ad slots
 - [ ] **Phase 9: Integration and Polish** - Token compliance audit, PriceDistributionChart integration, and full-page assembly verification
 
@@ -140,10 +140,11 @@ Plans:
   2. RelatedCategories renders a "Related categories" heading with 7 action chip tags arranged in 2 rows
   3. InsuranceAccessories renders two side-by-side cards (RV accessories + RV insurance) at 544px each with an insurance disclaimer
   4. AdSense section renders two ad placeholders at 1120x424px each with 16px gap, and Leaderboard ad slot renders a centered 728x90 placeholder
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 08-01: TBD
+- [ ] 08-01-PLAN.md — SimilarListings carousel with ListingCard and RelatedCategories chip grid
+- [ ] 08-02-PLAN.md — InsuranceAccessories, AdSenseSection, and VehicleDetailPage wiring
 
 ### Phase 9: Integration and Polish
 **Goal**: The complete VDP page renders at 1790px width matching the reference layout, with consistent token usage and the existing PriceDistributionChart properly integrated
@@ -172,6 +173,6 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
 | 5. Left Column Upper Content | 2/2 | Complete    | 2026-02-22 |
 | 6. Left Column Lower Content | 1/2 | Complete    | 2026-02-22 |
-| 7. Sidebar | 0/1 | Not started | - |
+| 7. Sidebar | 0/1 | Complete    | 2026-02-22 |
 | 8. Full-Width Bottom Sections | 0/1 | Not started | - |
 | 9. Integration and Polish | 0/1 | Not started | - |

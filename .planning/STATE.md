@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-21)
 
 **Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 7: Right Column
+**Current focus:** Phase 8: Full-Width Bottom
 
 ## Current Position
 
-Phase: 7 of 9 (Right Column)
+Phase: 8 of 9 (Full-Width Bottom)
 Plan: 2 of 2 in current phase
 Status: Ready
-Last activity: 2026-02-22 -- Completed 07-01-PLAN.md (Sidebar Components)
+Last activity: 2026-02-22 -- Completed 08-01-PLAN.md (SimilarListings & RelatedCategories)
 
-Progress: [████████░░] 87%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 4min
-- Total execution time: 0.88 hours
+- Total execution time: 0.98 hours
 
 **By Phase:**
 
@@ -34,9 +34,10 @@ Progress: [████████░░] 87%
 | 05-left-column-upper | 2 | 6min | 3min |
 | 06-left-column-lower | 2 | 11min | 5.5min |
 | 07-sidebar | 1 | 4min | 4min |
+| 08-full-width-bottom | 1 | 6min | 6min |
 
 **Recent Trend:**
-- Last 5 plans: 05-02 (3min), 06-01 (8min), 06-02 (3min), 07-01 (4min)
+- Last 5 plans: 06-01 (8min), 06-02 (3min), 07-01 (4min), 08-01 (6min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -87,6 +88,8 @@ Recent decisions affecting current work:
 - [06-02]: Left column fully complete with 12 real sections replacing all left column placeholders
 - [07-01]: AdSlot wrapped in .sidebarAd div for margin-bottom since AdSlot has no built-in bottom margin
 - [07-01]: Three AdSlot instances (300x250, 300x600, 300x250) matching Figma reference sidebar layout
+- [08-01]: ListingCard uses 260px fixed width for ~4 visible cards with peek at 5th in 1120px container
+- [08-01]: CSS scroll-snap (no JS library) for carousel horizontal scrolling
 
 ### Pending Todos
 
@@ -99,5 +102,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 07-01-PLAN.md
+Stopped at: Completed 08-01-PLAN.md
 Resume file: None
