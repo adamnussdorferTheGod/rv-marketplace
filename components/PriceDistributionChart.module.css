@@ -1,0 +1,267 @@
+.card {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--rv-surface, #ffffff);
+  border: 1px solid var(--rv-border-low, #e4e4e5);
+  border-radius: var(--radius-base, 8px);
+  box-shadow: var(--rv-shadow-bottom, 0px 2px 8px 2px rgba(0, 0, 0, 0.07));
+  overflow: hidden;
+}
+
+/* ── Deal Verdict Section ── */
+
+.verdictSection {
+  padding: 32px;
+}
+
+.verdictHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.verdictLeft {
+  flex: 1;
+}
+
+.verdictTitle {
+  font: var(--font-headline-1, 700 24px/33.6px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+  margin: 0 0 12px;
+}
+
+.ratingWord {
+  font-weight: 700;
+}
+
+.ratingGreat { color: var(--color-green-200, #11a94e); }
+.ratingGood  { color: var(--color-green-200, #11a94e); }
+.ratingFair  { color: var(--color-orange-200, #fa8131); }
+.ratingHigh  { color: var(--color-red-200, #d8202e); }
+
+.explanationRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.explanation {
+  font: var(--font-body-2, 400 14px/19.6px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+}
+
+.infoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--rv-border, #939598);
+  color: var(--rv-border, #939598);
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  cursor: help;
+}
+
+/* ── Price Callout ── */
+
+.priceCallout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.priceCalloutBubble {
+  background: var(--rv-surface, #ffffff);
+  border: 2px solid var(--rv-border-high, #252526);
+  border-radius: var(--radius-base, 8px);
+  padding: 8px 14px;
+  font: var(--font-title-1, 600 20px/28px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+  white-space: nowrap;
+}
+
+.priceCalloutPointer {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid var(--rv-border-high, #252526);
+}
+
+/* ── Gauge Bar ── */
+
+.gaugeContainer {
+  margin-top: 24px;
+  position: relative;
+  padding-top: 4px;
+}
+
+.gaugeTrack {
+  position: relative;
+  height: 8px;
+  border-radius: var(--radius-sm, 4px);
+  display: flex;
+  overflow: visible;
+}
+
+.gaugeSegment {
+  height: 100%;
+}
+
+.segmentGreat {
+  background: var(--color-purple-200, #756cb7);
+  border-radius: var(--radius-sm, 4px) 0 0 var(--radius-sm, 4px);
+}
+
+.segmentGood {
+  background: var(--color-green-200, #11a94e);
+}
+
+.segmentFair {
+  background: var(--color-orange-200, #fa8131);
+}
+
+.segmentHigh {
+  background: var(--color-red-200, #d8202e);
+  border-radius: 0 var(--radius-sm, 4px) var(--radius-sm, 4px) 0;
+}
+
+.gaugeMarker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--rv-surface, #ffffff);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.markerGreat { background: var(--color-purple-200, #756cb7); }
+.markerGood  { background: var(--color-green-200, #11a94e); }
+.markerFair  { background: var(--color-orange-200, #fa8131); }
+.markerHigh  { background: var(--color-red-200, #d8202e); }
+
+.gaugeLabels {
+  position: relative;
+  margin-top: 8px;
+  height: 17px;
+}
+
+.gaugeLabel {
+  position: absolute;
+  transform: translateX(-50%);
+  font: var(--font-label-3, 500 12px/16.8px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface-variant, #6e7072);
+  white-space: nowrap;
+}
+
+/* ── Price History Section ── */
+
+.divider {
+  height: 1px;
+  background: var(--rv-border-low, #e4e4e5);
+}
+
+.historySection {
+  padding: 24px 32px 32px;
+}
+
+.historyToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  font-family: inherit;
+}
+
+.historyTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.historyIcon {
+  display: flex;
+  align-items: center;
+  color: var(--rv-on-surface, #252526);
+}
+
+.historyTitle {
+  font: var(--font-headline-2, 700 20px/28px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  color: var(--rv-on-surface, #252526);
+  transition: transform 0.2s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.historyContent {
+  margin-top: 20px;
+}
+
+.historyTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.historyTable th {
+  font: var(--font-label-1-semibold, 600 16px/22.4px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+  text-align: left;
+  padding: 0 0 12px;
+}
+
+.historyTable th:last-child {
+  text-align: right;
+}
+
+.historyTable td {
+  font: var(--font-body-1, 400 16px/22.4px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface, #252526);
+  padding: 12px 0;
+  border-top: 1px solid var(--rv-border-low, #e4e4e5);
+}
+
+.historyTable td:last-child {
+  text-align: right;
+}
+
+.changeCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.changeIcon {
+  display: flex;
+  align-items: center;
+  color: var(--rv-border, #939598);
+}
+
+.disclaimer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rv-border-low, #e4e4e5);
+  font: var(--font-label-3, 500 12px/16.8px 'Montserrat', sans-serif);
+  color: var(--rv-on-surface-variant, #6e7072);
+  font-style: italic;
+}

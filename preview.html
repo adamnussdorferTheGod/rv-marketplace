@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Price Distribution Chart — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    padding: 48px 16px;
+  }
+  .wrapper { width: 100%; max-width: 633px; }
+
+  /* Card */
+  .card {
+    background: #fff;
+    border: 1px solid #e4e4e5;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px 2px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+
+  /* Verdict */
+  .verdict-section { padding: 32px; }
+  .verdict-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .verdict-left { flex: 1; }
+  .verdict-title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 33.6px;
+    color: #252526;
+    margin: 0 0 12px;
+  }
+  .rating-great { color: #11a94e; }
+  .rating-good { color: #11a94e; }
+  .rating-fair { color: #fa8131; }
+  .rating-high { color: #d8202e; }
+  .explanation-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .explanation {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19.6px;
+    color: #252526;
+  }
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid #939598;
+    color: #939598;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+    cursor: help;
+  }
+
+  /* Price callout */
+  .price-callout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .price-bubble {
+    background: #fff;
+    border: 2px solid #252526;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+    color: #252526;
+    white-space: nowrap;
+  }
+  .price-pointer {
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #252526;
+  }
+
+  /* Gauge */
+  .gauge-container {
+    margin-top: 24px;
+    position: relative;
+  }
+  .gauge-track {
+    position: relative;
+    height: 8px;
+    border-radius: 4px;
+    display: flex;
+    overflow: visible;
+  }
+  .gauge-segment { height: 100%; }
+  .gauge-segment:first-child { border-radius: 4px 0 0 4px; }
+  .gauge-segment:nth-child(4) { border-radius: 0 4px 4px 0; }
+  .seg-great { background: #7b61ff; }
+  .seg-good { background: #11a94e; }
+  .seg-fair { background: #fa8131; }
+  .seg-high { background: #d8202e; }
+  .gauge-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.15);
+    z-index: 2;
+  }
+  .marker-great { background: #7b61ff; }
+  .marker-good { background: #11a94e; }
+  .marker-fair { background: #fa8131; }
+  .marker-high { background: #d8202e; }
+  .gauge-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+  .gauge-label {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: #6e7072;
+  }
+
+  /* Divider */
+  .divider { height: 1px; background: #e4e4e5; }
+
+  /* History */
+  .history-section { padding: 24px 32px 32px; }
+  .history-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    font-family: inherit;
+  }
+  .history-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .history-icon {
+    display: flex;
+    align-items: center;
+    color: #252526;
+  }
+  .history-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    color: #252526;
+  }
+  .chevron {
+    display: flex;
+    align-items: center;
+    color: #252526;
+    transition: transform 0.2s ease;
+  }
+  .chevron.open { transform: rotate(180deg); }
+  .history-content { margin-top: 20px; }
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .history-table th {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.4px;
+    color: #252526;
+    text-align: left;
+    padding: 0 0 12px;
+  }
+  .history-table th:last-child { text-align: right; }
+  .history-table td {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    color: #252526;
+    padding: 12px 0;
+    border-top: 1px solid #e4e4e5;
+  }
+  .history-table td:last-child { text-align: right; }
+  .change-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .change-icon {
+    display: flex;
+    align-items: center;
+    color: #939598;
+  }
+  .disclaimer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e4e4e5;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16.8px;
+    color: #6e7072;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="card">
+    <!-- Verdict -->
+    <div class="verdict-section">
+      <div class="verdict-header">
+        <div class="verdict-left">
+          <h3 class="verdict-title">
+            This vehicle is a <span class="rating-fair">fair deal</span>
+          </h3>
+          <div class="explanation-row">
+            <span class="explanation">This vehicle is above the current average market range.</span>
+            <span class="info-icon">i</span>
+          </div>
+        </div>
+        <div class="price-callout">
+          <div class="price-bubble">$18,998</div>
+          <div class="price-pointer"></div>
+        </div>
+      </div>
+
+      <!-- Gauge -->
+      <div class="gauge-container">
+        <div class="gauge-track" id="gaugeTrack"></div>
+        <div class="gauge-labels">
+          <span class="gauge-label">$15,297</span>
+          <span class="gauge-label">$17,590</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Price History -->
+    <div class="history-section">
+      <button class="history-toggle" onclick="toggleHistory()">
+        <div class="history-title-row">
+          <span class="history-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 7H21V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="history-title">Price history</span>
+        </div>
+        <span class="chevron open" id="chevron">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+
+      <div class="history-content" id="historyContent">
+        <table class="history-table">
+          <thead>
+            <tr><th>Date</th><th>Change</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>02/10/26</td>
+              <td>
+                <div class="change-cell">
+                  <span class="change-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  Listed
+                </div>
+              </td>
+              <td>$18,998</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="disclaimer">Total price amount is based on price change information provided by the seller.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Build gauge bar
+  const listPrice = 18998;
+  const rangeMin = 15297;
+  const rangeMax = 17590;
+  const rangeSpan = rangeMax - rangeMin;
+  const padding = rangeSpan * 0.3;
+  const scaleMin = rangeMin - padding;
+  const scaleMax = rangeMax + padding;
+  const totalSpan = scaleMax - scaleMin;
+
+  const greatEnd = ((rangeMin - scaleMin) / totalSpan) * 100;
+  const goodEnd = ((rangeMax - scaleMin) / totalSpan) * 100;
+  const fairEnd = goodEnd + (100 - goodEnd) * 0.5;
+  const highWidth = 100 - fairEnd;
+
+  const track = document.getElementById('gaugeTrack');
+  track.innerHTML = `
+    <div class="gauge-segment seg-great" style="width:${greatEnd}%"></div>
+    <div class="gauge-segment seg-good" style="width:${goodEnd - greatEnd}%"></div>
+    <div class="gauge-segment seg-fair" style="width:${fairEnd - goodEnd}%"></div>
+    <div class="gauge-segment seg-high" style="width:${highWidth}%"></div>
+    <div class="gauge-marker marker-fair" style="left:${Math.min(98, Math.max(2, ((listPrice - scaleMin) / totalSpan) * 100))}%"></div>
+  `;
+
+  // Toggle history
+  function toggleHistory() {
+    const content = document.getElementById('historyContent');
+    const chevron = document.getElementById('chevron');
+    const visible = content.style.display !== 'none';
+    content.style.display = visible ? 'none' : 'block';
+    chevron.classList.toggle('open', !visible);
+  }
+</script>
+
+</body>
+</html>
