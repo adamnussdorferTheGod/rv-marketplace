@@ -65,9 +65,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **FULL-01**: SimilarListings renders horizontal carousel of listing cards at 1120x485px with scroll behavior
 - [x] **FULL-02**: RelatedCategories renders "Related categories" heading with 7 action chip tags in 2 rows at 1120x164px
-- [ ] **FULL-03**: InsuranceAccessories renders two side-by-side cards (RV accessories + RV insurance) at 544px each with insurance disclaimer
-- [ ] **FULL-04**: AdSense section renders two ad placeholder instances at 1120x424px each with 16px gap
-- [ ] **FULL-05**: Leaderboard ad slot renders centered 728x90 ad placeholder at 1790x122px
+- [x] **FULL-03**: InsuranceAccessories renders two side-by-side cards (RV accessories + RV insurance) at 544px each with insurance disclaimer
+- [x] **FULL-04**: AdSense section renders two ad placeholder instances at 1120x424px each with 16px gap
+- [x] **FULL-05**: Leaderboard ad slot renders centered 728x90 ad placeholder at 1790x122px
 
 ### Integration
 
@@ -157,9 +157,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SIDE-03 | Phase 7 | Complete |
 | FULL-01 | Phase 8 | Complete |
 | FULL-02 | Phase 8 | Complete |
-| FULL-03 | Phase 8 | Pending |
-| FULL-04 | Phase 8 | Pending |
-| FULL-05 | Phase 8 | Pending |
+| FULL-03 | Phase 8 | Complete |
+| FULL-04 | Phase 8 | Complete |
+| FULL-05 | Phase 8 | Complete |
 | INTG-01 | Phase 9 | Pending |
 | INTG-02 | Phase 9 | Pending |
 | INTG-03 | Phase 9 | Pending |

@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-21)
 
 **Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 8: Full-Width Bottom
+**Current focus:** Phase 9: Integration
 
 ## Current Position
 
-Phase: 8 of 9 (Full-Width Bottom)
-Plan: 2 of 2 in current phase
+Phase: 9 of 9 (Integration)
+Plan: 1 of ? in current phase
 Status: Ready
-Last activity: 2026-02-22 -- Completed 08-01-PLAN.md (SimilarListings & RelatedCategories)
+Last activity: 2026-02-22 -- Completed 08-02-PLAN.md (InsuranceAccessories, AdSenseSection & VDP wiring)
 
-Progress: [█████████░] 93%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 4min
-- Total execution time: 0.98 hours
+- Total plans completed: 15
+- Average duration: 4.5min
+- Total execution time: 1.12 hours
 
 **By Phase:**
 
@@ -34,10 +34,10 @@ Progress: [█████████░] 93%
 | 05-left-column-upper | 2 | 6min | 3min |
 | 06-left-column-lower | 2 | 11min | 5.5min |
 | 07-sidebar | 1 | 4min | 4min |
-| 08-full-width-bottom | 1 | 6min | 6min |
+| 08-full-width-bottom | 2 | 14min | 7min |
 
 **Recent Trend:**
-- Last 5 plans: 06-01 (8min), 06-02 (3min), 07-01 (4min), 08-01 (6min)
+- Last 5 plans: 06-02 (3min), 07-01 (4min), 08-01 (6min), 08-02 (8min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -90,6 +90,8 @@ Recent decisions affecting current work:
 - [07-01]: Three AdSlot instances (300x250, 300x600, 300x250) matching Figma reference sidebar layout
 - [08-01]: ListingCard uses 260px fixed width for ~4 visible cards with peek at 5th in 1120px container
 - [08-01]: CSS scroll-snap (no JS library) for carousel horizontal scrolling
+- [08-02]: InsuranceAccessories uses static content (no props) since cards are promotional cross-sell, not data-driven
+- [08-02]: All four placeholder divs replaced in single task to keep VehicleDetailPage in consistent state
 
 ### Pending Todos
 
@@ -102,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 08-01-PLAN.md
+Stopped at: Completed 08-02-PLAN.md
 Resume file: None
