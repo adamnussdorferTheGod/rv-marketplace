@@ -27,8 +27,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **LAYOUT-01**: CrossPromotionsBar renders full-width 1790x40px bar with realm tabs (RVs active)
 - [x] **LAYOUT-02**: Header renders logo (158x40), nav links (Shop, Sell, RV values, Cash offers, Research), and account button at 1789x72px
-- [ ] **LAYOUT-03**: Footer renders 4 nav columns, SEO copy ("Find RVs for sale on RV Trader"), copyright row, and scroll-to-top button at 1790x679px
-- [ ] **LAYOUT-04**: VehicleDetailPage orchestrator composes all sections within 1120px centered content area
+- [x] **LAYOUT-03**: Footer renders 4 nav columns, SEO copy ("Find RVs for sale on RV Trader"), copyright row, and scroll-to-top button at 1790x679px
+- [x] **LAYOUT-04**: VehicleDetailPage orchestrator composes all sections within 1120px centered content area
 - [x] **LAYOUT-05**: TwoColumnLayout renders 633px left column + 455px right column with 32px gap using CSS Grid
 
 ### Above-the-Fold Sections
@@ -131,8 +131,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PRIM-05 | Phase 2 | Complete |
 | LAYOUT-01 | Phase 3 | Complete |
 | LAYOUT-02 | Phase 3 | Complete |
-| LAYOUT-03 | Phase 3 | Pending |
-| LAYOUT-04 | Phase 3 | Pending |
+| LAYOUT-03 | Phase 3 | Complete |
+| LAYOUT-04 | Phase 3 | Complete |
 | LAYOUT-05 | Phase 3 | Complete |
 | ATF-01 | Phase 4 | Pending |
 | ATF-02 | Phase 4 | Pending |
