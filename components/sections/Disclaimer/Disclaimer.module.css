@@ -1,0 +1,15 @@
+.section {
+  width: 100%;
+  margin-bottom: var(--space-32);
+}
+
+.text {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-8) 0;
+  line-height: 1.5;
+}
+
+.text:last-child {
+  margin-bottom: 0;
+}

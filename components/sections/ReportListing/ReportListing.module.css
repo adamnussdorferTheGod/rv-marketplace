@@ -1,0 +1,17 @@
+.section {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-32);
+}
+
+.link {
+  font: var(--font-link-2);
+  color: var(--rv-on-surface-variant);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
