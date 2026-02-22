@@ -1,0 +1,158 @@
+/* ==========================================================================
+   TIDE 2.0 Design System — Primitive Tokens
+   Source: DESIGN_SYSTEM.md (Figma Design System TIDE 2.0)
+   ========================================================================== */
+
+:root {
+  /* Transparent */
+  --color-transparent-100: rgba(255, 255, 255, 0.9);
+  --color-transparent-200: rgba(255, 255, 255, 0.75);
+  --color-transparent-300: rgba(0, 0, 0, 0.1);
+  --color-transparent-400: rgba(0, 0, 0, 0.5);
+
+  /* Gray */
+  --color-gray-100: #FFFFFF;
+  --color-gray-200: #F2F2F2;
+  --color-gray-300: #E4E4E5;
+  --color-gray-400: #C9CACB;
+  --color-gray-500: #AEAFB2;
+  --color-gray-600: #939598;
+  --color-gray-700: #6E7072;
+  --color-gray-800: #494A4C;
+  --color-gray-900: #252526;
+  --color-gray-1000: #000000;
+
+  /* Red */
+  --color-red-100: #FBE9EA;
+  --color-red-200: #D8202E;
+  --color-red-300: #82131C;
+
+  /* Orange */
+  --color-orange-100: #FFF2EA;
+  --color-orange-200: #FA8131;
+  --color-orange-300: #964D1D;
+
+  /* Yellow */
+  --color-yellow-100: #FEF2CC;
+  --color-yellow-200: #FACA33;
+  --color-yellow-300: #90731D;
+
+  /* Lime */
+  --color-lime-100: #F7FAE9;
+  --color-lime-200: #ACC821;
+  --color-lime-300: #677814;
+
+  /* Green */
+  --color-green-100: #E7F6ED;
+  --color-green-200: #11A94E;
+  --color-green-300: #0A652F;
+
+  /* Teal */
+  --color-teal-100: #E6F7F8;
+  --color-teal-200: #21B1B2;
+  --color-teal-300: #036C6C;
+
+  /* Blue */
+  --color-blue-100: #EBF1FD;
+  --color-blue-200: #3870E9;
+  --color-blue-300: #22438C;
+
+  /* Purple */
+  --color-purple-100: #F1F0F8;
+  --color-purple-200: #756CB7;
+  --color-purple-300: #46416E;
+
+  /* Salmon */
+  --color-salmon-100: #FDF1F0;
+  --color-salmon-200: #EE706B;
+  --color-salmon-300: #8F4340;
+
+  /* Neutral */
+  --color-white: #FFFFFF;
+  --color-neutral-100: #E1E1E1;
+  --color-neutral-500: #717171;
+  --color-neutral-900: #1F1F1F;
+
+  /* Status */
+  --color-info-primary: var(--color-blue-200);
+  --color-info-surface: var(--color-blue-100);
+  --color-info-border: var(--color-blue-200);
+  --color-success-primary: var(--color-green-200);
+  --color-success-surface: var(--color-green-100);
+  --color-success-border: var(--color-green-200);
+  --color-warning-primary: var(--color-yellow-200);
+  --color-warning-surface: var(--color-yellow-100);
+  --color-warning-border: var(--color-yellow-200);
+  --color-attention-primary: var(--color-red-200);
+  --color-attention-surface: var(--color-red-100);
+  --color-attention-border: var(--color-red-200);
+
+  /* Typography */
+  --font-family: 'Montserrat', sans-serif;
+
+  /* Display */
+  --font-display-1: 700 32px/44.8px var(--font-family);
+
+  /* Headline */
+  --font-headline-1: 700 24px/33.6px var(--font-family);
+  --font-headline-2: 700 20px/28px var(--font-family);
+  --font-headline-3: 700 16px/22.4px var(--font-family);
+
+  /* Title */
+  --font-title-1: 600 20px/28px var(--font-family);
+  --font-title-2: 600 18px/25.2px var(--font-family);
+
+  /* Body */
+  --font-body-1: 400 16px/22.4px var(--font-family);
+  --font-body-2: 400 14px/19.6px var(--font-family);
+
+  /* Label */
+  --font-label-1: 500 16px/22.4px var(--font-family);
+  --font-label-1-semibold: 600 16px/22.4px var(--font-family);
+  --font-label-2: 500 14px/19.6px var(--font-family);
+  --font-label-2-semibold: 600 14px/19.6px var(--font-family);
+  --font-label-3: 500 12px/16.8px var(--font-family);
+
+  /* Link */
+  --font-link-1: 500 16px/22.4px var(--font-family);
+  --font-link-2: 500 14px/19.6px var(--font-family);
+  --font-link-3: 500 12px/16.8px var(--font-family);
+
+  /* Button */
+  --font-button-1: 600 16px/22.4px var(--font-family);
+  --font-button-2: 600 14px/19.6px var(--font-family);
+
+  /* Spacing */
+  --space-4: 4px;   /* 0.25rem */
+  --space-8: 8px;   /* 0.5rem  */
+  --space-16: 16px; /* 1rem    */
+  --space-32: 32px; /* 2rem    */
+  --space-64: 64px; /* 4rem    */
+
+  /* Border Width */
+  --border-light: 1px;
+  --border-heavy: 2px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-base: 8px;
+  --radius-lg: 16px;
+  --radius-full: 100px;
+
+  /* Border Colors */
+  --border-color-low: #E4E4E5;
+  --border-color-default: #C9CACB;
+  --border-color-medium: #939598;
+  --border-color-high: #252526;
+
+  /* Shadows */
+  --shadow-bottom: 0px 2px 8px 2px rgba(0, 0, 0, 0.07);
+  --shadow-top: 0px -2px 8px 2px rgba(0, 0, 0, 0.07);
+  --shadow-text: 0px 0px 5px rgba(0, 0, 0, 0.6);
+
+  /* Breakpoints (min-width, for reference — use in @media queries) */
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1232px;
+  --breakpoint-xl: 1920px;
+}

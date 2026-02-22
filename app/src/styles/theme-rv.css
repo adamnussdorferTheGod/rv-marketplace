@@ -1,0 +1,57 @@
+/* ==========================================================================
+   RV Trader Theme — Semantic Tokens
+   Source: THEME_RV.md (Marketplace-specific tokens for RV Trader)
+   Applied on top of TIDE 2.0 primitive tokens.
+   ========================================================================== */
+
+:root {
+  /* Primary */
+  --rv-primary: #006836;
+  --rv-primary-dark: #3E6146;
+  --rv-on-primary: #FFFFFF;
+  --rv-brand-accent: #FACA33;
+
+  /* Secondary */
+  --rv-secondary: #252526;
+  --rv-on-secondary: #FFFFFF;
+
+  /* Surface */
+  --rv-surface: #FFFFFF;
+  --rv-surface-variant: #F2F2F2;
+  --rv-surface-low: #FFFFFF;
+  --rv-surface-accent: #E0EDE7;
+  --rv-surface-floating: rgba(255, 255, 255, 0.9);
+  --rv-surface-placeholder: #F8F8F8;
+  --rv-on-surface: #252526;
+  --rv-on-surface-variant: #6E7072;
+  --rv-on-surface-brand: #006836;
+  --rv-on-surface-inverse: #FFFFFF;
+  --rv-on-surface-inverse-variant: rgba(255, 255, 255, 0.75);
+
+  /* Border */
+  --rv-border: #939598;
+  --rv-border-low: #E4E4E5;
+  --rv-border-high: #252526;
+  --rv-border-input: #D5D5D5;
+  --rv-border-floating: rgba(0, 0, 0, 0.1);
+  --rv-border-tag-red: #D8202E;
+
+  /* Shadows */
+  --rv-shadow-bottom: 0px 2px 8px 2px rgba(0, 0, 0, 0.07);
+  --rv-shadow-top: 0px -2px 8px 2px rgba(0, 0, 0, 0.07);
+  --rv-shadow-elevated: 8px -11px 44px 0px rgba(0, 0, 0, 0.09);
+  --rv-shadow-segment: 0px 2px 8px 0px rgba(0, 0, 0, 0.09);
+
+  /* Overlays */
+  --rv-overlay-light: rgba(0, 0, 0, 0.4);
+  --rv-overlay-medium: rgba(0, 0, 0, 0.46);
+  --rv-overlay-heavy: rgba(0, 0, 0, 0.55);
+  --rv-overlay-warm: rgba(49, 46, 33, 0.5);
+
+  /* Scrollbar */
+  --rv-scrollbar-thumb: rgba(63, 67, 80, 0.24);
+  --rv-scrollbar-track: rgba(217, 217, 217, 0.2);
+
+  /* Disabled */
+  --rv-disabled-opacity: 0.32;
+}
