@@ -1,0 +1,99 @@
+.section {
+  width: 100%;
+  margin-bottom: var(--space-32);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.dealerInfo {
+  display: flex;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.dealerLogo {
+  width: 88px;
+  height: 74px;
+  object-fit: contain;
+  border-radius: var(--radius-base);
+  border: 1px solid var(--rv-border-low);
+  flex-shrink: 0;
+}
+
+.contactDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dealerName {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.contactRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.trustedBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-16) 0;
+  margin-bottom: var(--space-16);
+}
+
+.badgeText {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-brand);
+}
+
+.bio {
+  margin-bottom: var(--space-24);
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border: none;
+  border-radius: var(--radius-base);
+  font: var(--font-button-1);
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: var(--space-24);
+}
+
+.ctaButton:hover {
+  opacity: 0.9;
+}
+
+.websiteLinks {
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.websiteLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-link-2);
+  color: var(--rv-primary);
+  text-decoration: none;
+}
+
+.websiteLink:hover {
+  text-decoration: underline;
+}
