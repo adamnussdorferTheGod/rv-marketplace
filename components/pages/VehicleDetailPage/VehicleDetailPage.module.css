@@ -1,0 +1,37 @@
+.page {
+  width: 1790px;
+  margin: 0 auto;
+  background: var(--rv-surface);
+}
+
+.leaderboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
+  background: var(--rv-surface);
+}
+
+.bottomLeaderboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 122px;
+  background: var(--rv-surface);
+}
+
+.content {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--space-32) 0;
+}
+
+.placeholder {
+  padding: var(--space-16);
+  background: var(--rv-surface-variant);
+  border: 1px dashed var(--rv-border);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin-bottom: var(--space-16);
+  border-radius: var(--radius-sm, 4px);
+}
