@@ -49,11 +49,11 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **LEFT-05**: FeaturesAndSpecs section renders spec grid with key-value pairs and icons at 633x341px
 - [x] **LEFT-06**: PriceAnalysis section renders price heading, comparison text, "Learn more" link, visual price bar with deal card, Low/Fair/High/Overpriced labels, and price history graph area at 633x452px
 - [x] **LEFT-07**: Description section renders heading, expandable description text with "Read more" chevron toggle at 633x188px
-- [ ] **LEFT-08**: LoanCalculator section renders heading, subtitle, payment display "$241/mo", contact prompt with CTA button, and financing disclaimer at 633x457px
+- [x] **LEFT-08**: LoanCalculator section renders heading, subtitle, payment display "$241/mo", contact prompt with CTA button, and financing disclaimer at 633x457px
 - [ ] **LEFT-09**: AboutDealership section renders dealer logo, name, location, phone, hours, Top 50 badge, dealer bio with "Read more", "View dealer inventory" CTA, and dealer website links at 633x789px
-- [ ] **LEFT-10**: Resources section renders "Resources" heading with Foremost insurance card at 633x204px
-- [ ] **LEFT-11**: ReportListing renders flag icon + "Report listing" text at 633x24px
-- [ ] **LEFT-12**: Disclaimer renders RV Trader and AI-enhanced photos disclaimer text at 633x115px
+- [x] **LEFT-10**: Resources section renders "Resources" heading with Foremost insurance card at 633x204px
+- [x] **LEFT-11**: ReportListing renders flag icon + "Report listing" text at 633x24px
+- [x] **LEFT-12**: Disclaimer renders RV Trader and AI-enhanced photos disclaimer text at 633x115px
 
 ### Sidebar (Right Column)
 
@@ -147,11 +147,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEFT-05 | Phase 5 | Complete |
 | LEFT-06 | Phase 5 | Complete |
 | LEFT-07 | Phase 5 | Complete |
-| LEFT-08 | Phase 6 | Pending |
+| LEFT-08 | Phase 6 | Complete |
 | LEFT-09 | Phase 6 | Pending |
-| LEFT-10 | Phase 6 | Pending |
-| LEFT-11 | Phase 6 | Pending |
-| LEFT-12 | Phase 6 | Pending |
+| LEFT-10 | Phase 6 | Complete |
+| LEFT-11 | Phase 6 | Complete |
+| LEFT-12 | Phase 6 | Complete |
 | SIDE-01 | Phase 7 | Pending |
 | SIDE-02 | Phase 7 | Pending |
 | SIDE-03 | Phase 7 | Pending |

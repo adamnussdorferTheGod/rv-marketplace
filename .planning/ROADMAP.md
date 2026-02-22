@@ -112,10 +112,11 @@ Plans:
   2. AboutDealership section renders dealer logo, name, location, phone, hours, Top 50 badge, expandable bio with "Read more", and "View dealer inventory" CTA
   3. Resources section renders a "Resources" heading with a Foremost insurance card
   4. ReportListing shows a flag icon with "Report listing" text, and Disclaimer renders the RV Trader and AI-enhanced photos disclaimer text below it
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 06-01: TBD
+- [x] 06-01-PLAN.md — LoanCalculator, Resources, ReportListing, Disclaimer sections + icon registration
+- [ ] 06-02-PLAN.md — AboutDealership section + VehicleDetailPage wiring with Dividers
 
 ### Phase 7: Sidebar
 **Goal**: The right column renders the dealer contact card (the primary conversion element), popularity indicator, and ad placements
@@ -170,7 +171,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
 | 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
 | 5. Left Column Upper Content | 2/2 | Complete    | 2026-02-22 |
-| 6. Left Column Lower Content | 0/1 | Not started | - |
+| 6. Left Column Lower Content | 1/2 | In progress | - |
 | 7. Sidebar | 0/1 | Not started | - |
 | 8. Full-Width Bottom Sections | 0/1 | Not started | - |
 | 9. Integration and Polish | 0/1 | Not started | - |
