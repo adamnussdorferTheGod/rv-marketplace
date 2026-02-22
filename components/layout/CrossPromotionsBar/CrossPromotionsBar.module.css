@@ -1,0 +1,33 @@
+.bar {
+  background: var(--rv-surface-accent);
+  height: 40px;
+  padding: 0 var(--space-64);
+  display: flex;
+  align-items: center;
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-16);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 var(--space-8);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.active {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  border-bottom-color: var(--rv-border-high);
+}

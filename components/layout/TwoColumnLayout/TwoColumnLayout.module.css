@@ -1,0 +1,13 @@
+.grid {
+  display: grid;
+  grid-template-columns: 633px 455px;
+  gap: var(--space-32);
+}
+
+.left {
+  min-width: 0;
+}
+
+.right {
+  min-width: 0;
+}

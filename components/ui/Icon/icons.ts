@@ -121,6 +121,22 @@ const ICONS: Record<string, IconDefinition> = {
       'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
     ],
   },
+
+  // Person icon (account button)
+  person: {
+    paths: [
+      'M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+      'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2',
+    ],
+  },
+
+  // Arrow upward (scroll-to-top)
+  arrow_upward: {
+    paths: [
+      'M12 19V5',
+      'M5 12L12 5L19 12',
+    ],
+  },
 };
 
 export { ICONS };
