@@ -33,13 +33,3 @@
 .sidebarAd {
   margin-bottom: var(--space-32);
 }
-
-.placeholder {
-  padding: var(--space-16);
-  background: var(--rv-surface-variant);
-  border: 1px dashed var(--rv-border);
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin-bottom: var(--space-16);
-  border-radius: var(--radius-sm, 4px);
-}

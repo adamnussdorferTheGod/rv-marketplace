@@ -21,6 +21,10 @@ import ReportListing from '@components/sections/ReportListing/ReportListing';
 import Disclaimer from '@components/sections/Disclaimer/Disclaimer';
 import DealerContactCard from '@components/sections/DealerContactCard/DealerContactCard';
 import PopularityStats from '@components/sections/PopularityStats/PopularityStats';
+import SimilarListings from '@components/sections/SimilarListings/SimilarListings';
+import RelatedCategories from '@components/sections/RelatedCategories/RelatedCategories';
+import InsuranceAccessories from '@components/sections/InsuranceAccessories/InsuranceAccessories';
+import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
@@ -106,10 +110,12 @@ export default function VehicleDetailPage() {
         />
 
         {/* Full-width sections below two-column area */}
-        <div className={styles.placeholder}>Similar Listings</div>
-        <div className={styles.placeholder}>Related Categories</div>
-        <div className={styles.placeholder}>Insurance &amp; Accessories</div>
-        <div className={styles.placeholder}>AdSense Slots</div>
+        <Divider />
+        <SimilarListings listings={sampleListing.similarListings} />
+        <Divider />
+        <RelatedCategories categories={sampleListing.categories} />
+        <InsuranceAccessories />
+        <AdSenseSection />
       </main>
       <div className={styles.bottomLeaderboard}>
         <AdSlot width={728} height={90} />
