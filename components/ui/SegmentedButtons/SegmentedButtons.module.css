@@ -1,0 +1,28 @@
+.track {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-4);
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-full);
+}
+
+.segment {
+  flex: 1 0 0;
+  padding: var(--space-8);
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  background: transparent;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.selected {
+  background: var(--rv-surface);
+  border-color: var(--rv-border-high);
+  color: var(--rv-on-surface);
+  box-shadow: var(--rv-shadow-segment);
+}
