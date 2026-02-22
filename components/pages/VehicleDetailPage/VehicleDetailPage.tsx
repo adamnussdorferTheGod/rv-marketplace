@@ -3,6 +3,9 @@ import Header from '@components/layout/Header/Header';
 import Footer from '@components/layout/Footer/Footer';
 import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
+import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
+import TitleSection from '@components/sections/TitleSection/TitleSection';
+import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
 export default function VehicleDetailPage() {
@@ -15,8 +18,12 @@ export default function VehicleDetailPage() {
       </div>
       <main className={styles.content}>
         {/* Full-width sections above two-column area */}
-        <div className={styles.placeholder}>Navigation Bar</div>
-        <div className={styles.placeholder}>Title Section</div>
+        <div className={styles.sectionSpacing}>
+          <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
+        </div>
+        <div className={styles.sectionSpacing}>
+          <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
+        </div>
         <div className={styles.placeholder}>Photo Gallery</div>
 
         {/* Two-column area */}

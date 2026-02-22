@@ -26,6 +26,10 @@
   padding: var(--space-32) 0;
 }
 
+.sectionSpacing {
+  margin-bottom: var(--space-16);
+}
+
 .placeholder {
   padding: var(--space-16);
   background: var(--rv-surface-variant);
