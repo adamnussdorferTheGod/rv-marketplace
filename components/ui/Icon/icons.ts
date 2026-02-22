@@ -137,6 +137,99 @@ const ICONS: Record<string, IconDefinition> = {
       'M5 12L12 5L19 12',
     ],
   },
+
+  // --- Spec icons for FeaturesAndSpecs grid ---
+
+  // Travel trailer / RV type silhouette
+  rv_type: {
+    paths: [
+      'M2 17h20',
+      'M4 17V9a2 2 0 0 1 2-2h8l4 4v6',
+      'M6 17a2 2 0 1 0 4 0',
+      'M14 17a2 2 0 1 0 4 0',
+    ],
+  },
+
+  // Measurement ruler
+  ruler: {
+    paths: [
+      'M3 5v14',
+      'M21 5v14',
+      'M3 12h18',
+      'M7 5v4',
+      'M12 5v7',
+      'M17 5v4',
+    ],
+  },
+
+  // Bed / sleeping icon
+  bed: {
+    paths: [
+      'M2 18v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5',
+      'M2 9V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+      'M2 13h20',
+    ],
+  },
+
+  // Slide-out / expandable box icon
+  slide_out: {
+    paths: [
+      'M3 5h12v14H3z',
+      'M15 9h6v6h-6',
+      'M18 9v6',
+    ],
+  },
+
+  // Scale / weight icon
+  weight: {
+    paths: [
+      'M12 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+      'M6 21l2-9h8l2 9',
+      'M6 21h12',
+    ],
+  },
+
+  // Water drop icon
+  water: {
+    paths: [
+      'M12 2c-4 4.5-7 8.1-7 11a7 7 0 0 0 14 0c0-2.9-3-6.5-7-11z',
+    ],
+  },
+
+  // Fuel pump / gas icon
+  fuel: {
+    paths: [
+      'M3 22V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v17',
+      'M3 22h12',
+      'M15 12h2a2 2 0 0 1 2 2v3a2 2 0 0 1 2-2V7l-3-3',
+      'M5 10h8',
+    ],
+  },
+
+  // Diamond / condition indicator
+  condition: {
+    paths: [
+      'M12 2l4 4-4 4-4-4z',
+      'M2 12l4 4-4 4',
+      'M22 12l-4 4 4 4',
+      'M12 14l4 4-4 4-4-4z',
+    ],
+  },
+
+  // Checkmark circle (for VHR)
+  check_circle: {
+    paths: [
+      'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z',
+      'M9 12l2 2 4-4',
+    ],
+  },
+
+  // Sparkle / AI icon
+  sparkle: {
+    paths: [
+      'M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z',
+    ],
+  },
 };
 
 export { ICONS };

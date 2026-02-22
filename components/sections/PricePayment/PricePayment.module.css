@@ -1,0 +1,60 @@
+.section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  width: 100%;
+}
+
+.priceBlock {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+}
+
+.currentPrice {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+}
+
+.originalPrice {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-decoration: line-through;
+}
+
+.divider {
+  width: 1px;
+  height: 32px;
+  background: var(--rv-border-low);
+  flex-shrink: 0;
+}
+
+.paymentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.paymentLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.paymentValue {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 4px 8px;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-sm);
+  font: var(--font-label-3);
+  color: var(--rv-on-surface);
+  white-space: nowrap;
+  flex-shrink: 0;
+}

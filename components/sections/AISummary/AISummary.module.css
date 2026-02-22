@@ -1,0 +1,60 @@
+.card {
+  width: 100%;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.heading {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.newBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 4px 12px;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border-radius: var(--radius-sm);
+  font: var(--font-label-3);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.body {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 12px 0 0 0;
+  line-height: 19.6px;
+}
+
+.searchPrompt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-16);
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--font-link-2);
+  color: var(--rv-primary);
+}
+
+.searchPrompt:hover {
+  text-decoration: underline;
+}
