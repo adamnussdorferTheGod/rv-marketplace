@@ -12,7 +12,7 @@ Build a pixel-accurate Vehicle Detail Page for RV Trader by layering from design
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system
+- [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system (completed 2026-02-22)
 - [ ] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections
 - [ ] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton
 - [ ] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display
@@ -37,7 +37,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Design tokens CSS (TIDE 2.0 + RV Trader), Montserrat font loading, global resets
-- [ ] 01-02-PLAN.md — TypeScript data interfaces, sample listing data, shared Icon component
+- [x] 01-02-PLAN.md — TypeScript data interfaces, sample listing data, shared Icon component
 
 ### Phase 2: Shared UI Primitives
 **Goal**: Reusable UI primitives are available so section components never duplicate expand/collapse, ad placeholders, dividers, segmented buttons, or chip tag patterns
@@ -49,10 +49,11 @@ Plans:
   3. ExpandableText component truncates long text to a configurable line count and reveals full text on "Read more" click with chevron animation
   4. SegmentedButtons component renders a togglable button group (e.g., Email/Call/Chat) with active state styling using design tokens
   5. ActionChip component renders a pill-shaped category tag matching the design system chip spec
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
+- [ ] 02-01-PLAN.md — Stateless primitives: Divider, AdSlot, and ActionChip components
+- [ ] 02-02-PLAN.md — Interactive primitives: ExpandableText and SegmentedButtons components
 
 ### Phase 3: Page Layout
 **Goal**: The complete page chrome and two-column layout skeleton are rendered so sections can be dropped into their correct positions
@@ -163,8 +164,8 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/2 | In progress | - |
-| 2. Shared UI Primitives | 0/1 | Not started | - |
+| 1. Foundation | 2/2 | Complete    | 2026-02-22 |
+| 2. Shared UI Primitives | 0/2 | Not started | - |
 | 3. Page Layout | 0/2 | Not started | - |
 | 4. Above-the-Fold Sections | 0/1 | Not started | - |
 | 5. Left Column Upper Content | 0/2 | Not started | - |
