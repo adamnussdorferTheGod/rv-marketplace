@@ -6,6 +6,7 @@
   display: flex;
   overflow: hidden;
   background: var(--rv-surface);
+  margin-bottom: var(--space-32);
 }
 
 .accentBar {

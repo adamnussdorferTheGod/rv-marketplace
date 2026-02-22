@@ -6,6 +6,13 @@ import AdSlot from '@components/ui/AdSlot/AdSlot';
 import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
 import TitleSection from '@components/sections/TitleSection/TitleSection';
 import PhotoGallery from '@components/sections/PhotoGallery/PhotoGallery';
+import PricePayment from '@components/sections/PricePayment/PricePayment';
+import AISummary from '@components/sections/AISummary/AISummary';
+import VehicleHistoryReport from '@components/sections/VehicleHistoryReport/VehicleHistoryReport';
+import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingToNegotiate';
+import FeaturesAndSpecs from '@components/sections/FeaturesAndSpecs/FeaturesAndSpecs';
+import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
+import Description from '@components/sections/Description/Description';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
@@ -37,13 +44,27 @@ export default function VehicleDetailPage() {
         <TwoColumnLayout
           left={
             <>
-              <div className={styles.placeholder}>Price + Payment</div>
-              <div className={styles.placeholder}>AI Summary</div>
-              <div className={styles.placeholder}>Vehicle History Report</div>
-              <div className={styles.placeholder}>Willing to Negotiate</div>
-              <div className={styles.placeholder}>Features &amp; Specs</div>
-              <div className={styles.placeholder}>Price Analysis</div>
-              <div className={styles.placeholder}>Description</div>
+              <PricePayment
+                currentPrice={sampleListing.currentPrice}
+                originalPrice={sampleListing.originalPrice}
+                monthlyPayment={sampleListing.monthlyPayment}
+                dealRating={sampleListing.dealRating}
+              />
+              <AISummary aiSummary={sampleListing.aiSummary} />
+              <VehicleHistoryReport vhrAvailable={sampleListing.vhrAvailable} />
+              <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
+              <FeaturesAndSpecs
+                specs={sampleListing.specs}
+                vin={sampleListing.vin}
+                stockNumber={sampleListing.stockNumber}
+                daysOnSite={sampleListing.daysOnSite}
+              />
+              <PriceAnalysis
+                currentPrice={sampleListing.currentPrice}
+                dealRating={sampleListing.dealRating}
+                priceAnalysis={sampleListing.priceAnalysis}
+              />
+              <Description description={sampleListing.description} />
               <div className={styles.placeholder}>Loan Calculator</div>
               <div className={styles.placeholder}>About Dealership</div>
               <div className={styles.placeholder}>Resources</div>
