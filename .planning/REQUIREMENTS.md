@@ -19,8 +19,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **PRIM-01**: Divider component renders horizontal rule with design system border tokens
 - [x] **PRIM-02**: AdSlot component renders placeholder boxes at specified dimensions (728x90, 300x250, 300x600) with "Ad" label
-- [ ] **PRIM-03**: ExpandableText component truncates text with "Read more" toggle and chevron animation
-- [ ] **PRIM-04**: SegmentedButtons component renders togglable button group with active state styling (Email/Call/Chat)
+- [x] **PRIM-03**: ExpandableText component truncates text with "Read more" toggle and chevron animation
+- [x] **PRIM-04**: SegmentedButtons component renders togglable button group with active state styling (Email/Call/Chat)
 - [x] **PRIM-05**: Action chip component renders pill-shaped category tags
 
 ### Page Layout
@@ -126,8 +126,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-05 | Phase 1 | Complete |
 | PRIM-01 | Phase 2 | Complete |
 | PRIM-02 | Phase 2 | Complete |
-| PRIM-03 | Phase 2 | Pending |
-| PRIM-04 | Phase 2 | Pending |
+| PRIM-03 | Phase 2 | Complete |
+| PRIM-04 | Phase 2 | Complete |
 | PRIM-05 | Phase 2 | Complete |
 | LAYOUT-01 | Phase 3 | Pending |
 | LAYOUT-02 | Phase 3 | Pending |

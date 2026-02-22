@@ -13,7 +13,7 @@ Build a pixel-accurate Vehicle Detail Page for RV Trader by layering from design
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system (completed 2026-02-22)
-- [ ] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections
+- [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections (completed 2026-02-22)
 - [ ] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton
 - [ ] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display
 - [ ] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content)
@@ -52,8 +52,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Stateless primitives: Divider, AdSlot, and ActionChip components
-- [ ] 02-02-PLAN.md — Interactive primitives: ExpandableText and SegmentedButtons components
+- [x] 02-01-PLAN.md — Stateless primitives: Divider, AdSlot, and ActionChip components
+- [x] 02-02-PLAN.md — Interactive primitives: ExpandableText and SegmentedButtons components
 
 ### Phase 3: Page Layout
 **Goal**: The complete page chrome and two-column layout skeleton are rendered so sections can be dropped into their correct positions
@@ -165,7 +165,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete    | 2026-02-22 |
-| 2. Shared UI Primitives | 0/2 | Not started | - |
+| 2. Shared UI Primitives | 2/2 | Complete | 2026-02-22 |
 | 3. Page Layout | 0/2 | Not started | - |
 | 4. Above-the-Fold Sections | 0/1 | Not started | - |
 | 5. Left Column Upper Content | 0/2 | Not started | - |
