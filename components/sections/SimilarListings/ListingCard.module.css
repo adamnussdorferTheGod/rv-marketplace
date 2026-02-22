@@ -1,0 +1,68 @@
+.card {
+  width: 260px;
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  background: var(--rv-surface);
+}
+
+.photoSection {
+  height: 180px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--rv-border-floating);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.content {
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.condition {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.title {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+}
+
+.divider {
+  height: 1px;
+  background: var(--rv-border-low);
+  margin: var(--space-8) 0;
+}
+
+.dealerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dealerName {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.dealerLocation {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+}

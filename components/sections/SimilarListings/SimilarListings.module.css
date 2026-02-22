@@ -1,0 +1,37 @@
+.section {
+  margin-bottom: var(--space-32);
+}
+
+.heading {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.carouselTrack {
+  display: flex;
+  gap: var(--space-16);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-8);
+}
+
+.carouselTrack::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carouselTrack::-webkit-scrollbar-thumb {
+  background: var(--rv-border);
+  border-radius: var(--radius-full);
+}
+
+.carouselTrack::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cardWrapper {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
