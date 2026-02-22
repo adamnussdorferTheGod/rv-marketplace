@@ -13,6 +13,12 @@ import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingT
 import FeaturesAndSpecs from '@components/sections/FeaturesAndSpecs/FeaturesAndSpecs';
 import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
 import Description from '@components/sections/Description/Description';
+import Divider from '@components/ui/Divider/Divider';
+import LoanCalculator from '@components/sections/LoanCalculator/LoanCalculator';
+import AboutDealership from '@components/sections/AboutDealership/AboutDealership';
+import Resources from '@components/sections/Resources/Resources';
+import ReportListing from '@components/sections/ReportListing/ReportListing';
+import Disclaimer from '@components/sections/Disclaimer/Disclaimer';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
@@ -65,11 +71,19 @@ export default function VehicleDetailPage() {
                 priceAnalysis={sampleListing.priceAnalysis}
               />
               <Description description={sampleListing.description} />
-              <div className={styles.placeholder}>Loan Calculator</div>
-              <div className={styles.placeholder}>About Dealership</div>
-              <div className={styles.placeholder}>Resources</div>
-              <div className={styles.placeholder}>Report Listing</div>
-              <div className={styles.placeholder}>Disclaimer</div>
+              <Divider />
+              <LoanCalculator
+                loanMonthlyPayment={sampleListing.loanMonthlyPayment}
+                dealerName={sampleListing.dealer.name}
+                dealerPhone={sampleListing.dealer.phone}
+              />
+              <Divider />
+              <AboutDealership dealer={sampleListing.dealer} />
+              <Divider />
+              <Resources />
+              <Divider />
+              <ReportListing />
+              <Disclaimer />
             </>
           }
           right={
