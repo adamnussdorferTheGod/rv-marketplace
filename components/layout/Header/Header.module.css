@@ -1,0 +1,65 @@
+.header {
+  background: var(--rv-surface);
+  height: 72px;
+  padding: var(--space-16) var(--space-64);
+  box-shadow: var(--rv-shadow-bottom);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.logo {
+  width: 158px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font: var(--font-title-1);
+  color: var(--rv-primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 158px;
+  height: 40px;
+  white-space: nowrap;
+}
+
+.nav ul {
+  display: flex;
+  gap: var(--space-32);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.accountButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  border-radius: 100px;
+  border: 1px solid var(--rv-border);
+  background: transparent;
+  cursor: pointer;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
