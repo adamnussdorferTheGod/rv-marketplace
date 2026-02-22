@@ -1,0 +1,9 @@
+.section {
+  margin-bottom: var(--space-32);
+}
+
+.adStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}

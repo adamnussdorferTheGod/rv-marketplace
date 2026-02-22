@@ -1,0 +1,40 @@
+.section {
+  margin-bottom: var(--space-32);
+}
+
+.cardsRow {
+  display: flex;
+  gap: var(--space-32);
+  margin-bottom: var(--space-16);
+}
+
+.card {
+  width: 544px;
+  height: 497px;
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  background: var(--rv-surface);
+  overflow: hidden;
+}
+
+.cardContent {
+  padding: var(--space-32);
+}
+
+.cardHeading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-8) 0;
+}
+
+.cardDescription {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.disclaimer {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
