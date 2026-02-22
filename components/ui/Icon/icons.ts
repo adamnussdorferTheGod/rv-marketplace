@@ -1,0 +1,127 @@
+interface IconDefinition {
+  paths: string[];
+  strokeWidth?: number;
+  fill?: (string | undefined)[];
+  viewBox?: string;
+}
+
+const ICONS: Record<string, IconDefinition> = {
+  // Extracted from PriceDistributionChart ChevronIcon
+  expand_more: {
+    paths: ['M6 9L12 15L18 9'],
+  },
+
+  expand_less: {
+    paths: ['M6 15L12 9L18 15'],
+  },
+
+  // Extracted from PriceDistributionChart ChartIcon
+  chart: {
+    paths: [
+      'M3 17L9 11L13 15L21 7',
+      'M17 7H21V11',
+    ],
+  },
+
+  // Info circle icon
+  info: {
+    paths: [
+      'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2',
+      'M12 11L12 16',
+      'M12 8L12 8.01',
+    ],
+  },
+
+  // Extracted from PriceDistributionChart TagIcon
+  tag: {
+    paths: [
+      'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z',
+    ],
+  },
+
+  // Share icon (box with arrow pointing up)
+  share: {
+    paths: [
+      'M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8',
+      'M16 6l-4-4-4 4',
+      'M12 2v13',
+    ],
+  },
+
+  // Heart outline
+  favorite: {
+    paths: [
+      'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+    ],
+  },
+
+  // External link icon
+  open_in_new: {
+    paths: [
+      'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
+      'M15 3h6v6',
+      'M10 14L21 3',
+    ],
+  },
+
+  // Left arrow
+  arrow_back: {
+    paths: [
+      'M19 12H5',
+      'M12 19L5 12L12 5',
+    ],
+  },
+
+  // Chevron left
+  chevron_left: {
+    paths: ['M15 18L9 12L15 6'],
+  },
+
+  // Chevron right
+  chevron_right: {
+    paths: ['M9 6L15 12L9 18'],
+  },
+
+  // Flag / report icon
+  flag: {
+    paths: [
+      'M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z',
+      'M4 22V15',
+    ],
+  },
+
+  // Expand / fullscreen (diagonal arrows)
+  open_in_full: {
+    paths: [
+      'M15 3h6v6',
+      'M9 21H3v-6',
+      'M21 3l-7 7',
+      'M3 21l7-7',
+    ],
+  },
+
+  // Phone icon
+  call: {
+    paths: [
+      'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z',
+    ],
+  },
+
+  // Envelope / mail icon
+  mail: {
+    paths: [
+      'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z',
+      'M22 6l-10 7L2 6',
+    ],
+  },
+
+  // Chat bubble / SMS icon
+  sms: {
+    paths: [
+      'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+    ],
+  },
+};
+
+export { ICONS };
+export default ICONS;
