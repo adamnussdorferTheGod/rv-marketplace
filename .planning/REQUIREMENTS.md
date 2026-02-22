@@ -42,10 +42,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Left Column Content
 
-- [ ] **LEFT-01**: PricePayment section renders "$96,000" with strikethrough "$98,000", divider, "Est. monthly payment" text, and price guidance badge (107x28px)
-- [ ] **LEFT-02**: AISummary card renders "AI summary" heading with "NEW" badge (56x22px), long-form AI text, and AI search prompt button
-- [ ] **LEFT-03**: VehicleHistoryReport card renders VHR component instance at 633x224px
-- [ ] **LEFT-04**: WillingToNegotiate indicator renders at 633x119px
+- [x] **LEFT-01**: PricePayment section renders "$96,000" with strikethrough "$98,000", divider, "Est. monthly payment" text, and price guidance badge (107x28px)
+- [x] **LEFT-02**: AISummary card renders "AI summary" heading with "NEW" badge (56x22px), long-form AI text, and AI search prompt button
+- [x] **LEFT-03**: VehicleHistoryReport card renders VHR component instance at 633x224px
+- [x] **LEFT-04**: WillingToNegotiate indicator renders at 633x119px
 - [ ] **LEFT-05**: FeaturesAndSpecs section renders spec grid with key-value pairs and icons at 633x341px
 - [ ] **LEFT-06**: PriceAnalysis section renders price heading, comparison text, "Learn more" link, visual price bar with deal card, Low/Fair/High/Overpriced labels, and price history graph area at 633x452px
 - [ ] **LEFT-07**: Description section renders heading, expandable description text with "Read more" chevron toggle at 633x188px
@@ -140,10 +140,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ATF-04 | Phase 4 | Complete |
 | ATF-05 | Phase 4 | Complete |
 | ATF-06 | Phase 4 | Complete |
-| LEFT-01 | Phase 5 | Pending |
-| LEFT-02 | Phase 5 | Pending |
-| LEFT-03 | Phase 5 | Pending |
-| LEFT-04 | Phase 5 | Pending |
+| LEFT-01 | Phase 5 | Complete |
+| LEFT-02 | Phase 5 | Complete |
+| LEFT-03 | Phase 5 | Complete |
+| LEFT-04 | Phase 5 | Complete |
 | LEFT-05 | Phase 5 | Pending |
 | LEFT-06 | Phase 5 | Pending |
 | LEFT-07 | Phase 5 | Pending |

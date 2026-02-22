@@ -97,11 +97,11 @@ Plans:
   4. FeaturesAndSpecs section renders a grid of key-value specification pairs with icons
   5. PriceAnalysis section renders price heading, comparison text, visual price bar with deal indicator, Low/Fair/High/Overpriced labels, and a price history graph area
   6. Description section renders listing description text with a "Read more" toggle that expands to show full content
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
+- [ ] 05-01-PLAN.md — PricePayment, AISummary, VehicleHistoryReport, WillingToNegotiate sections + spec icon registration
+- [ ] 05-02-PLAN.md — FeaturesAndSpecs, PriceAnalysis, Description sections + VehicleDetailPage wiring
 
 ### Phase 6: Left Column Lower Content
 **Goal**: The remaining left column sections -- loan calculator through disclaimer -- complete the full listing detail below the fold
