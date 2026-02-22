@@ -57,9 +57,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Sidebar (Right Column)
 
-- [ ] **SIDE-01**: DealerContactCard renders Email/Call/Chat segmented tabs, multi-line message textarea, submit CTA button, and dealer contact info (name, address, phone, hours) at 455x463px
-- [ ] **SIDE-02**: PopularityStats renders "X people viewing" engagement indicator at 455x20px
-- [ ] **SIDE-03**: Sidebar ad slots render 300x250 and 300x600 ad placeholders
+- [x] **SIDE-01**: DealerContactCard renders Email/Call/Chat segmented tabs, multi-line message textarea, submit CTA button, and dealer contact info (name, address, phone, hours) at 455x463px
+- [x] **SIDE-02**: PopularityStats renders "X people viewing" engagement indicator at 455x20px
+- [x] **SIDE-03**: Sidebar ad slots render 300x250 and 300x600 ad placeholders
 
 ### Full-Width Bottom Sections
 
@@ -152,9 +152,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEFT-10 | Phase 6 | Complete |
 | LEFT-11 | Phase 6 | Complete |
 | LEFT-12 | Phase 6 | Complete |
-| SIDE-01 | Phase 7 | Pending |
-| SIDE-02 | Phase 7 | Pending |
-| SIDE-03 | Phase 7 | Pending |
+| SIDE-01 | Phase 7 | Complete |
+| SIDE-02 | Phase 7 | Complete |
+| SIDE-03 | Phase 7 | Complete |
 | FULL-01 | Phase 8 | Pending |
 | FULL-02 | Phase 8 | Pending |
 | FULL-03 | Phase 8 | Pending |

@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton (completed 2026-02-22)
 - [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display (completed 2026-02-22)
 - [x] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content) (completed 2026-02-22)
-- [ ] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content)
+- [x] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content) (completed 2026-02-22)
 - [ ] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots
 - [ ] **Phase 8: Full-Width Bottom Sections** - Similar listings, related categories, insurance/accessories, and ad slots
 - [ ] **Phase 9: Integration and Polish** - Token compliance audit, PriceDistributionChart integration, and full-page assembly verification
@@ -126,10 +126,10 @@ Plans:
   1. DealerContactCard renders Email/Call/Chat segmented tabs (using SegmentedButtons), a multi-line message textarea, a submit CTA button, and dealer contact info (name, address, phone, hours)
   2. PopularityStats renders an "X people viewing" engagement indicator above or near the contact card
   3. Sidebar ad slots render 300x250 and 300x600 ad placeholders using the AdSlot component
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 07-01: TBD
+- [ ] 07-01-PLAN.md — DealerContactCard, PopularityStats components + sidebar wiring with AdSlots
 
 ### Phase 8: Full-Width Bottom Sections
 **Goal**: The below-the-fold full-width sections complete the page with discovery, cross-sell, and ad content
@@ -171,7 +171,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
 | 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
 | 5. Left Column Upper Content | 2/2 | Complete    | 2026-02-22 |
-| 6. Left Column Lower Content | 1/2 | In progress | - |
+| 6. Left Column Lower Content | 1/2 | Complete    | 2026-02-22 |
 | 7. Sidebar | 0/1 | Not started | - |
 | 8. Full-Width Bottom Sections | 0/1 | Not started | - |
 | 9. Integration and Polish | 0/1 | Not started | - |
