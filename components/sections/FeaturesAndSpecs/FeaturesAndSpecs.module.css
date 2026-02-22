@@ -1,0 +1,58 @@
+.section {
+  width: 100%;
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+}
+
+.cardIcon {
+  color: var(--rv-on-surface-variant);
+  display: flex;
+  align-items: center;
+}
+
+.cardValue {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22.4px;
+  color: var(--rv-on-surface);
+}
+
+.cardLabel {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: var(--rv-on-surface-variant);
+}
+
+.additionalInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-16);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.infoDot {
+  color: var(--rv-on-surface-variant);
+}

@@ -1,0 +1,14 @@
+.section {
+  width: 100%;
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-12) 0;
+}
+
+.body {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
