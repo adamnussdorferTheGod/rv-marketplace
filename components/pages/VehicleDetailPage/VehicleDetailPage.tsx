@@ -5,6 +5,7 @@ import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout'
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
 import TitleSection from '@components/sections/TitleSection/TitleSection';
+import PhotoGallery from '@components/sections/PhotoGallery/PhotoGallery';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
@@ -24,7 +25,13 @@ export default function VehicleDetailPage() {
         <div className={styles.sectionSpacing}>
           <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
         </div>
-        <div className={styles.placeholder}>Photo Gallery</div>
+        <div className={styles.sectionSpacing}>
+          <PhotoGallery
+            images={sampleListing.images}
+            totalPhotoCount={sampleListing.totalPhotoCount}
+            tagText={sampleListing.tagText}
+          />
+        </div>
 
         {/* Two-column area */}
         <TwoColumnLayout
