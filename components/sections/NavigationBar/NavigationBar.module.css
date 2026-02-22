@@ -1,0 +1,35 @@
+.navigationBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20px;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-link-2);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.resultText {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-link-2);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+}
