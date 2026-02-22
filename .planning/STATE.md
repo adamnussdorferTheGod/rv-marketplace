@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-21)
 
 **Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 2: Shared UI Primitives
+**Current focus:** Phase 3: Page Layout
 
 ## Current Position
 
-Phase: 2 of 9 (Shared UI Primitives)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-02-22 -- Completed 02-02-PLAN.md (Interactive Primitives)
+Phase: 3 of 9 (Page Layout)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-02-22 -- Completed 03-01-PLAN.md (Page Chrome and Layout Components)
 
-Progress: [███░░░░░░░] 30%
+Progress: [████░░░░░░] 38%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 4min
-- Total execution time: 0.23 hours
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [███░░░░░░░] 30%
 |-------|-------|-------|----------|
 | 01-foundation | 2 | 8min | 4min |
 | 02-shared-ui-primitives | 2 | 6min | 3min |
+| 03-page-layout | 1 | 3min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (3min), 01-02 (5min), 02-01 (3min), 02-02 (3min)
+- Last 5 plans: 01-02 (5min), 02-01 (3min), 02-02 (3min), 03-01 (3min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -56,6 +57,9 @@ Recent decisions affecting current work:
 - [02-01]: No icon included in ActionChip by default; consumers can wrap or extend if needed
 - [02-02]: ExpandableText uses inline style for WebkitLineClamp to support per-instance line counts
 - [02-02]: SegmentedButtons uses transparent 2px border on unselected segments to prevent layout shift
+- [03-01]: CrossPromotionsBar uses template literal className composition for active tab styling
+- [03-01]: Header logo is a styled span placeholder (158x40px) pending real SVG/image asset
+- [03-01]: TwoColumnLayout uses CSS Grid with explicit px column widths (633+32gap+455=1120)
 
 ### Pending Todos
 
@@ -68,5 +72,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 02-02-PLAN.md (Phase 2 complete)
+Stopped at: Completed 03-01-PLAN.md
 Resume file: None

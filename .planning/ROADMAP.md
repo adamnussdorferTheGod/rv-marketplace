@@ -65,11 +65,11 @@ Plans:
   3. Footer renders 4 navigation columns, SEO copy block, copyright row, and scroll-to-top button in a 1790x679px section at page bottom
   4. VehicleDetailPage orchestrator renders a vertically stacked page with placeholder text in each section slot, centered in a 1120px content area within the 1790px page
   5. TwoColumnLayout renders a 633px left / 455px right CSS Grid with 32px gap, and placeholder content in each column shows correct widths
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Icons, CrossPromotionsBar, Header, and TwoColumnLayout components
+- [ ] 03-02-PLAN.md — Footer component, VehicleDetailPage orchestrator, and App.tsx wiring
 
 ### Phase 4: Above-the-Fold Sections
 **Goal**: The top of the page -- navigation, title, and photo gallery -- renders with full visual fidelity, giving the page its identity
@@ -165,7 +165,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete    | 2026-02-22 |
-| 2. Shared UI Primitives | 2/2 | Complete | 2026-02-22 |
+| 2. Shared UI Primitives | 2/2 | Complete    | 2026-02-22 |
 | 3. Page Layout | 0/2 | Not started | - |
 | 4. Above-the-Fold Sections | 0/1 | Not started | - |
 | 5. Left Column Upper Content | 0/2 | Not started | - |
