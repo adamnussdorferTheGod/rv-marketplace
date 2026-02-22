@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-21)
 
 **Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 4: Title & Gallery
+**Current focus:** Phase 5: Left Column Upper Content
 
 ## Current Position
 
-Phase: 4 of 9 (Title & Gallery)
-Plan: 2 of 2 in current phase
-Status: In progress
-Last activity: 2026-02-22 -- Completed 04-01-PLAN.md (NavigationBar and TitleSection)
+Phase: 5 of 9 (Left Column Upper Content)
+Plan: 1 of 2 in current phase
+Status: Ready
+Last activity: 2026-02-22 -- Completed 04-02-PLAN.md (PhotoGallery)
 
-Progress: [█████░░░░░] 54%
+Progress: [██████░░░░] 62%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 4min
-- Total execution time: 0.48 hours
+- Total execution time: 0.53 hours
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [█████░░░░░] 54%
 | 01-foundation | 2 | 8min | 4min |
 | 02-shared-ui-primitives | 2 | 6min | 3min |
 | 03-page-layout | 2 | 12min | 6min |
-| 04-above-the-fold | 1 | 3min | 3min |
+| 04-above-the-fold | 2 | 6min | 3min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (3min), 03-01 (3min), 03-02 (9min), 04-01 (3min)
+- Last 5 plans: 03-01 (3min), 03-02 (9min), 04-01 (3min), 04-02 (3min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -67,6 +67,9 @@ Recent decisions affecting current work:
 - [04-01]: Section components live under components/sections/ separate from layout/ and ui/
 - [04-01]: sectionSpacing wrapper divs used for consistent vertical spacing between real components
 - [04-01]: Icon buttons use 40x40px clickable area with hover state for accessibility
+- [04-02]: Gallery uses CSS Grid with literal 8px gap (not var) to ensure pixel-exact 557+8+555=1120 total
+- [04-02]: Tags badge and See All button built inline in PhotoGallery rather than extracted as separate components
+- [04-02]: thumbnailWrapper provides position:relative context for See All button overlay positioning
 
 ### Pending Todos
 
@@ -79,5 +82,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-22
-Stopped at: Completed 04-01-PLAN.md
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None

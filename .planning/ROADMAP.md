@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system (completed 2026-02-22)
 - [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections (completed 2026-02-22)
 - [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton (completed 2026-02-22)
-- [ ] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display
+- [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display (completed 2026-02-22)
 - [ ] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content)
 - [ ] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content)
 - [ ] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots
@@ -83,8 +83,8 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — NavigationBar and TitleSection components with VehicleDetailPage wiring
-- [ ] 04-02-PLAN.md — PhotoGallery component with hero image, thumbnail grid, and overlay elements
+- [x] 04-01-PLAN.md — NavigationBar and TitleSection components with VehicleDetailPage wiring
+- [x] 04-02-PLAN.md — PhotoGallery component with hero image, thumbnail grid, and overlay elements
 
 ### Phase 5: Left Column Upper Content
 **Goal**: The primary content sections from price through description are rendered in the left column, delivering the core listing information a buyer needs
@@ -168,7 +168,7 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 | 1. Foundation | 2/2 | Complete    | 2026-02-22 |
 | 2. Shared UI Primitives | 2/2 | Complete    | 2026-02-22 |
 | 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
-| 4. Above-the-Fold Sections | 0/2 | Not started | - |
+| 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
 | 5. Left Column Upper Content | 0/2 | Not started | - |
 | 6. Left Column Lower Content | 0/1 | Not started | - |
 | 7. Sidebar | 0/1 | Not started | - |

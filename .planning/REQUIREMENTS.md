@@ -36,9 +36,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ATF-01**: NavigationBar renders "< Search results" back link and "Result 8 of 8,223" with Previous/Next at 1120x20px
 - [x] **ATF-02**: TitleSection renders "2024 Airstream Flying Cloud 25RB" heading with share and favorite icon buttons at 1120x74px
 - [x] **ATF-03**: TitleSection subtitle shows stock/location text, divider, and "Dealer's website" link with icon
-- [ ] **ATF-04**: PhotoGallery renders hero image (557x456px) alongside 2x2 thumbnail grid (555x456px) with 8px gaps
-- [ ] **ATF-05**: PhotoGallery shows "See all 28 photos" overlay button (182x36px) at bottom-right
-- [ ] **ATF-06**: PhotoGallery shows tags badge (139x28px) overlaid at top-left
+- [x] **ATF-04**: PhotoGallery renders hero image (557x456px) alongside 2x2 thumbnail grid (555x456px) with 8px gaps
+- [x] **ATF-05**: PhotoGallery shows "See all 28 photos" overlay button (182x36px) at bottom-right
+- [x] **ATF-06**: PhotoGallery shows tags badge (139x28px) overlaid at top-left
 
 ### Left Column Content
 
@@ -137,9 +137,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ATF-01 | Phase 4 | Complete |
 | ATF-02 | Phase 4 | Complete |
 | ATF-03 | Phase 4 | Complete |
-| ATF-04 | Phase 4 | Pending |
-| ATF-05 | Phase 4 | Pending |
-| ATF-06 | Phase 4 | Pending |
+| ATF-04 | Phase 4 | Complete |
+| ATF-05 | Phase 4 | Complete |
+| ATF-06 | Phase 4 | Complete |
 | LEFT-01 | Phase 5 | Pending |
 | LEFT-02 | Phase 5 | Pending |
 | LEFT-03 | Phase 5 | Pending |
