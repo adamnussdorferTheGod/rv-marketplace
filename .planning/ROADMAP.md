@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system (completed 2026-02-22)
 - [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections (completed 2026-02-22)
-- [ ] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton
+- [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton (completed 2026-02-22)
 - [ ] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display
 - [ ] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content)
 - [ ] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content)
@@ -80,10 +80,11 @@ Plans:
   2. TitleSection shows "2024 Airstream Flying Cloud 25RB" as the heading with share and favorite icon buttons, and a subtitle row with stock/location, divider, and "Dealer's website" link
   3. PhotoGallery renders a hero image (557x456px) next to a 2x2 thumbnail grid (555x456px total) with 8px gaps between thumbnails
   4. PhotoGallery shows a "See all 28 photos" overlay button at bottom-right and a tags badge at top-left of the hero image
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 04-01: TBD
+- [ ] 04-01-PLAN.md — NavigationBar and TitleSection components with VehicleDetailPage wiring
+- [ ] 04-02-PLAN.md — PhotoGallery component with hero image, thumbnail grid, and overlay elements
 
 ### Phase 5: Left Column Upper Content
 **Goal**: The primary content sections from price through description are rendered in the left column, delivering the core listing information a buyer needs
@@ -166,8 +167,8 @@ Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete    | 2026-02-22 |
 | 2. Shared UI Primitives | 2/2 | Complete    | 2026-02-22 |
-| 3. Page Layout | 0/2 | Not started | - |
-| 4. Above-the-Fold Sections | 0/1 | Not started | - |
+| 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
+| 4. Above-the-Fold Sections | 0/2 | Not started | - |
 | 5. Left Column Upper Content | 0/2 | Not started | - |
 | 6. Left Column Lower Content | 0/1 | Not started | - |
 | 7. Sidebar | 0/1 | Not started | - |
