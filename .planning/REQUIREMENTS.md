@@ -11,9 +11,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **FOUND-01**: Design token CSS files establish all TIDE 2.0 + RV Trader theme custom properties (colors, typography, spacing, borders, shadows)
 - [x] **FOUND-02**: Global CSS resets and Montserrat font loaded across all components
-- [ ] **FOUND-03**: TypeScript data interfaces define the complete listing data shape (vehicle, dealer, pricing, specs, photos)
-- [ ] **FOUND-04**: Static sample data file provides hardcoded Airstream Flying Cloud 25RB listing data
-- [ ] **FOUND-05**: Shared Icon component renders inline SVG icons used across VDP sections
+- [x] **FOUND-03**: TypeScript data interfaces define the complete listing data shape (vehicle, dealer, pricing, specs, photos)
+- [x] **FOUND-04**: Static sample data file provides hardcoded Airstream Flying Cloud 25RB listing data
+- [x] **FOUND-05**: Shared Icon component renders inline SVG icons used across VDP sections
 
 ### Shared UI Primitives
 
@@ -121,9 +121,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
-| FOUND-03 | Phase 1 | Pending |
-| FOUND-04 | Phase 1 | Pending |
-| FOUND-05 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Complete |
+| FOUND-04 | Phase 1 | Complete |
+| FOUND-05 | Phase 1 | Complete |
 | PRIM-01 | Phase 2 | Pending |
 | PRIM-02 | Phase 2 | Pending |
 | PRIM-03 | Phase 2 | Pending |
