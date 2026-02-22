@@ -10,15 +10,15 @@
 /* ── Deal Verdict Section ── */
 
 .verdictSection {
-  padding: 32px;
+  padding: var(--space-32);
 }
 
 .verdictHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: var(--space-16);
+  margin-bottom: var(--space-16);
 }
 
 .verdictLeft {
@@ -28,10 +28,11 @@
 .verdictTitle {
   font: var(--font-headline-1);
   color: var(--rv-on-surface);
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-12);
 }
 
 .ratingWord {
+  font: inherit;
   font-weight: 700;
 }
 
@@ -43,7 +44,7 @@
 .explanationRow {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-8);
 }
 
 .explanation {
@@ -60,8 +61,7 @@
   border-radius: 50%;
   border: 1.5px solid var(--rv-border);
   color: var(--rv-border);
-  font-size: 11px;
-  font-weight: 600;
+  font: var(--font-label-3);
   flex-shrink: 0;
   cursor: help;
 }
@@ -80,7 +80,7 @@
   background: var(--rv-surface);
   border: 2px solid var(--rv-border-high);
   border-radius: var(--radius-base);
-  padding: 8px 14px;
+  padding: var(--space-8) 14px;
   font: var(--font-title-1);
   color: var(--rv-on-surface);
   white-space: nowrap;
@@ -97,9 +97,9 @@
 /* ── Gauge Bar ── */
 
 .gaugeContainer {
-  margin-top: 24px;
+  margin-top: var(--space-24);
   position: relative;
-  padding-top: 4px;
+  padding-top: var(--space-4);
 }
 
 .gaugeTrack {
@@ -151,7 +151,7 @@
 
 .gaugeLabels {
   position: relative;
-  margin-top: 8px;
+  margin-top: var(--space-8);
   height: 17px;
 }
 
@@ -171,7 +171,7 @@
 }
 
 .historySection {
-  padding: 24px 32px 32px;
+  padding: var(--space-24) var(--space-32) var(--space-32);
 }
 
 .historyToggle {
@@ -189,7 +189,7 @@
 .historyTitleRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
 }
 
 .historyIcon {
@@ -215,7 +215,7 @@
 }
 
 .historyContent {
-  margin-top: 20px;
+  margin-top: var(--space-24);
 }
 
 .historyTable {
@@ -227,7 +227,7 @@
   font: var(--font-label-1-semibold);
   color: var(--rv-on-surface);
   text-align: left;
-  padding: 0 0 12px;
+  padding: 0 0 var(--space-12);
 }
 
 .historyTable th:last-child {
@@ -237,7 +237,7 @@
 .historyTable td {
   font: var(--font-body-1);
   color: var(--rv-on-surface);
-  padding: 12px 0;
+  padding: var(--space-12) 0;
   border-top: 1px solid var(--rv-border-low);
 }
 
@@ -248,7 +248,7 @@
 .changeCell {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-8);
 }
 
 .changeIcon {
@@ -258,8 +258,8 @@
 }
 
 .disclaimer {
-  margin-top: 16px;
-  padding-top: 16px;
+  margin-top: var(--space-16);
+  padding-top: var(--space-16);
   border-top: 1px solid var(--rv-border-low);
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);

@@ -123,11 +123,13 @@
   --font-button-2: 600 14px/19.6px var(--font-family);
 
   /* Spacing */
-  --space-4: 4px;   /* 0.25rem */
-  --space-8: 8px;   /* 0.5rem  */
-  --space-16: 16px; /* 1rem    */
-  --space-32: 32px; /* 2rem    */
-  --space-64: 64px; /* 4rem    */
+  --space-4: 4px;   /* 0.25rem  */
+  --space-8: 8px;   /* 0.5rem   */
+  --space-12: 12px; /* 0.75rem  */
+  --space-16: 16px; /* 1rem     */
+  --space-24: 24px; /* 1.5rem   */
+  --space-32: 32px; /* 2rem     */
+  --space-64: 64px; /* 4rem     */
 
   /* Border Width */
   --border-light: 1px;

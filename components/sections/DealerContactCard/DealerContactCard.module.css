@@ -18,7 +18,7 @@
 .messageInput {
   width: 100%;
   min-height: 91px;
-  padding: 8px 16px;
+  padding: var(--space-8) var(--space-16);
   border: 1px solid var(--rv-border);
   border-radius: var(--radius-base);
   background: var(--rv-surface);
@@ -31,7 +31,7 @@
 .messageInput:focus {
   outline: none;
   border: 2px solid var(--rv-border-high);
-  padding: 7px 15px;
+  padding: 7px 15px; /* focus offset: 1px less each side to compensate 2px border */
 }
 
 .messageInput::placeholder {
@@ -40,7 +40,7 @@
 
 .submitButton {
   width: 100%;
-  padding: 16px 32px;
+  padding: var(--space-16) var(--space-32);
   background: var(--rv-primary);
   color: var(--rv-on-primary);
   border: none;
@@ -54,7 +54,7 @@
   background: var(--rv-surface);
   border: 2px solid var(--rv-primary);
   color: var(--rv-primary);
-  padding: 14px 30px;
+  padding: 14px 30px; /* hover offset: 2px less each side to compensate 2px border */
 }
 
 .contactInfo {

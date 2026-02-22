@@ -23,7 +23,7 @@ export default function LoanCalculator({ loanMonthlyPayment, dealerName, dealerP
       <div className={styles.contactPrompt}>
         <p className={styles.contactText}>Questions about payment options?</p>
         <p className={styles.contactText}>
-          Contact {dealerName} at <Icon name="call" size={16} /> {dealerPhone}
+          Contact {dealerName} at <a href={`tel:${dealerPhone.replace(/[^+\d]/g, '')}`} className={styles.phoneLink}><Icon name="call" size={16} /> {dealerPhone}</a>
         </p>
         <button className={styles.ctaButton}>Get financing</button>
       </div>

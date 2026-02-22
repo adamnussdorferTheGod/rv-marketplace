@@ -18,7 +18,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-4);
   background: var(--rv-surface);
   border: 1px solid var(--rv-border-low);
   border-radius: var(--radius-base);
@@ -32,16 +32,12 @@
 }
 
 .cardValue {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22.4px;
+  font: var(--font-label-1-semibold);
   color: var(--rv-on-surface);
 }
 
 .cardLabel {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 19.6px;
+  font: var(--font-label-2);
   color: var(--rv-on-surface-variant);
 }
 

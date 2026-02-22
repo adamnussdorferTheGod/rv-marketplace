@@ -54,7 +54,7 @@
 .dealerInfo {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-4);
 }
 
 .dealerName {

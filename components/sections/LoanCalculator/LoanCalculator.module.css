@@ -50,7 +50,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
+  padding: var(--space-16) var(--space-32);
   background: var(--rv-primary);
   color: var(--rv-on-primary);
   border: none;
@@ -63,6 +63,19 @@
 
 .ctaButton:hover {
   opacity: 0.9;
+}
+
+.phoneLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-link-2);
+  color: var(--rv-primary);
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
 }
 
 .disclaimer {
