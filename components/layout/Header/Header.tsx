@@ -1,4 +1,5 @@
 import Icon from '@components/ui/Icon/Icon';
+import rvTraderLogo from '../../../app/src/assets/rv-trader-logo.svg';
 import styles from './Header.module.css';
 
 const NAV_LINKS = ['Shop', 'Sell', 'RV values', 'Cash offers', 'Research'];
@@ -7,9 +8,9 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <div className={styles.logo}>
-          <span className={styles.logoText}>RV Trader</span>
-        </div>
+        <a href="#" className={styles.logo}>
+          <img src={rvTraderLogo} alt="RV Trader" width={158} height={40} />
+        </a>
         <nav className={styles.nav}>
           <ul>
             {NAV_LINKS.map((link) => (

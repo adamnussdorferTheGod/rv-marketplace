@@ -27,11 +27,12 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background: transparent;
-  border: none;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border);
   cursor: pointer;
   color: var(--rv-on-surface);
-  border-radius: var(--radius-full, 50%);
+  border-radius: 100px;
+  padding: var(--space-8);
 }
 
 .iconButton:hover {

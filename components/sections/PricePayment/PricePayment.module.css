@@ -1,61 +1,72 @@
 .section {
   display: flex;
-  align-items: center;
-  gap: var(--space-16);
+  flex-direction: column;
+  gap: 4px;
   width: 100%;
   margin-bottom: var(--space-32);
 }
 
-.priceBlock {
+.priceRow {
   display: flex;
   align-items: baseline;
   gap: var(--space-8);
 }
 
 .currentPrice {
-  font: var(--font-headline-1);
+  font: var(--font-display-1);
   color: var(--rv-on-surface);
 }
 
 .originalPrice {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
+  font: var(--font-label-1-semibold);
+  color: var(--color-red-200);
   text-decoration: line-through;
+  margin-right: var(--space-4);
 }
 
 .divider {
   width: 1px;
-  height: 32px;
-  background: var(--rv-border-low);
+  height: 24px;
+  background: var(--rv-border);
   flex-shrink: 0;
+  align-self: center;
+  margin-right: var(--space-4);
 }
 
-.paymentBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.paymentLink {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
 }
 
-.paymentLabel {
-  font: var(--font-body-2);
+.paymentLink:hover {
   color: var(--rv-on-surface-variant);
 }
 
-.paymentValue {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface);
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 28px;
+  padding: 2px 10px 2px 2px;
+  background: var(--color-green-100);
+  border-radius: 100px;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-primary);
+  white-space: nowrap;
+  width: fit-content;
 }
 
-.badge {
+.badgeIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 28px;
-  padding: 4px 8px;
-  background: var(--rv-surface-variant);
-  border-radius: var(--radius-sm);
-  font: var(--font-label-3);
-  color: var(--rv-on-surface);
-  white-space: nowrap;
+  width: 24px;
+  height: 24px;
+  background: var(--color-green-200);
+  border-radius: 50%;
+  color: var(--rv-on-primary);
   flex-shrink: 0;
 }

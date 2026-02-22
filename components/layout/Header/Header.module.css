@@ -20,17 +20,8 @@
   width: 158px;
   height: 40px;
   flex-shrink: 0;
-}
-
-.logoText {
-  font: var(--font-title-1);
-  color: var(--rv-primary);
-  font-weight: 700;
   display: flex;
   align-items: center;
-  width: 158px;
-  height: 40px;
-  white-space: nowrap;
 }
 
 .nav ul {

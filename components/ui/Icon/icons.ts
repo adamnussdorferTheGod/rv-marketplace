@@ -254,6 +254,14 @@ const ICONS: Record<string, IconDefinition> = {
     ],
   },
 
+  // Down arrow (price guidance badge)
+  arrow_downward: {
+    paths: [
+      'M12 5v14',
+      'M19 12l-7 7-7-7',
+    ],
+  },
+
   // Shield / protection icon (insurance card)
   shield: {
     paths: [
