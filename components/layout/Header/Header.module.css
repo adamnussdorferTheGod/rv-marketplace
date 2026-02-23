@@ -39,6 +39,41 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Research dropdown */
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + var(--space-8));
+  left: 0;
+  min-width: 180px;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  box-shadow: var(--rv-shadow-bottom);
+  padding: var(--space-4) 0;
+  z-index: 100;
+}
+
+.dropdownItem {
+  display: block;
+  padding: var(--space-12) var(--space-16);
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+  transition: background-color 150ms;
+}
+
+.dropdownItem:hover {
+  background: var(--rv-surface-variant);
 }
 
 /* Desktop-only account button (no hamburger) */
