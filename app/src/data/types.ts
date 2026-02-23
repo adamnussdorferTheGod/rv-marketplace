@@ -20,12 +20,20 @@ export interface DealerInfo {
   location: string;
   address: string;
   phone: string;
+  callCode: string;
   hours: string;
   logoUrl: string;
   bio: string;
   websiteUrl: string;
   isTop50: boolean;
   yearsOnRvTrader: number;
+}
+
+export interface ListingEngagement {
+  isNewlyListed: boolean;
+  listedDate: string;
+  viewCount: number;
+  saveCount: number;
 }
 
 export interface SimilarListing {
@@ -111,4 +119,5 @@ export interface ListingData {
 
   // Engagement
   viewerCount: number;
+  engagement: ListingEngagement;
 }

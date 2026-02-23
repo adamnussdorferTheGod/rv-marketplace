@@ -83,6 +83,7 @@ export const sampleListing: ListingData = {
     location: 'Tampa, FL',
     address: '4200 N Dale Mabry Hwy, Tampa, FL 33607',
     phone: '(813) 555-0142',
+    callCode: '1021',
     hours: 'Mon-Sat 9AM-6PM, Sun 11AM-4PM',
     logoUrl: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=120&h=60&fit=crop',
     bio: 'ExploreRV has been serving the Tampa Bay area for over 12 years, specializing in premium travel trailers and motorhomes. As a Top 50 RV Trader dealer, we pride ourselves on transparent pricing and a no-pressure shopping experience. Our certified technicians perform a comprehensive multi-point inspection on every pre-owned unit before it hits our lot. Visit our 5-acre facility to browse over 200 units in stock.',
@@ -179,4 +180,10 @@ export const sampleListing: ListingData = {
 
   // Engagement
   viewerCount: 23,
+  engagement: {
+    isNewlyListed: true,
+    listedDate: 'Today',
+    viewCount: 332,
+    saveCount: 64,
+  },
 };

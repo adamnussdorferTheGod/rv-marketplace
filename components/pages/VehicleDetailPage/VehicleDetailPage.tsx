@@ -20,7 +20,6 @@ import Resources from '@components/sections/Resources/Resources';
 import ReportListing from '@components/sections/ReportListing/ReportListing';
 import Disclaimer from '@components/sections/Disclaimer/Disclaimer';
 import DealerContactCard from '@components/sections/DealerContactCard/DealerContactCard';
-import PopularityStats from '@components/sections/PopularityStats/PopularityStats';
 import SimilarListings from '@components/sections/SimilarListings/SimilarListings';
 import RelatedCategories from '@components/sections/RelatedCategories/RelatedCategories';
 import InsuranceAccessories from '@components/sections/InsuranceAccessories/InsuranceAccessories';
@@ -94,8 +93,7 @@ export default function VehicleDetailPage() {
           }
           right={
             <>
-              <DealerContactCard dealer={sampleListing.dealer} />
-              <PopularityStats viewerCount={sampleListing.viewerCount} />
+              <DealerContactCard dealer={sampleListing.dealer} engagement={sampleListing.engagement} />
               <div className={styles.sidebarAd}>
                 <AdSlot width={300} height={250} />
               </div>

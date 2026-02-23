@@ -1,12 +1,18 @@
+.wrapper {
+  margin-bottom: var(--space-32);
+}
+
 .card {
   width: 100%;
   border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-lg);
   box-shadow: var(--rv-shadow-bottom);
   background: var(--rv-surface);
-  padding: var(--space-32);
+  padding: var(--space-24);
   box-sizing: border-box;
-  margin-bottom: var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
 }
 
 .leadForm {
@@ -18,7 +24,7 @@
 .messageInput {
   width: 100%;
   min-height: 91px;
-  padding: var(--space-8) var(--space-16);
+  padding: var(--space-12) var(--space-16);
   border: 1px solid var(--rv-border);
   border-radius: var(--radius-base);
   background: var(--rv-surface);
@@ -31,7 +37,7 @@
 .messageInput:focus {
   outline: none;
   border: 2px solid var(--rv-border-high);
-  padding: 7px 15px; /* focus offset: 1px less each side to compensate 2px border */
+  padding: 11px 15px;
 }
 
 .messageInput::placeholder {
@@ -44,38 +50,88 @@
   background: var(--rv-primary);
   color: var(--rv-on-primary);
   border: none;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-full);
   font: var(--font-button-1);
   cursor: pointer;
   white-space: nowrap;
 }
 
 .submitButton:hover {
-  background: var(--rv-surface);
-  border: 2px solid var(--rv-primary);
-  color: var(--rv-primary);
-  padding: 14px 30px; /* hover offset: 2px less each side to compensate 2px border */
+  background: var(--rv-primary-dark);
 }
 
-.contactInfo {
+.divider {
+  height: 1px;
+  background: var(--rv-border-low);
+}
+
+.callSection {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.callInfo {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  padding-top: var(--space-16);
-  border-top: 1px solid var(--rv-border-low);
+  gap: var(--space-4);
 }
 
-.dealerName {
-  font: var(--font-subtitle-1);
+.callPhone {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font: var(--font-title-2);
   color: var(--rv-on-surface);
   margin: 0;
 }
 
-.contactRow {
+.callCode {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4);
   font: var(--font-body-2);
   color: var(--rv-on-surface-variant);
   margin: 0;
+}
+
+.qrCode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.qrImage {
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.qrLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.engagementRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-4) 0;
+}
+
+.newlyListed {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-brand);
+}
+
+.engagementStat {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.engagementStat strong {
+  font-weight: 700;
+  color: var(--rv-on-surface);
 }
