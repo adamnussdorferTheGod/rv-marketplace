@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Button — TIDE 2.0 Design System
+   Source: COMPONENTS_RV.md → Text Buttons
+   Types: Primary, Secondary, Tertiary, Quaternary
+   Sizes: LG, SM
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  border: none;
+  font-family: var(--font-family);
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.button:disabled {
+  opacity: var(--rv-disabled-opacity);
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--rv-primary);
+  outline-offset: 2px;
+}
+
+/* --- Sizes --- */
+
+.lg {
+  padding: var(--space-16) var(--space-32);
+  border-radius: var(--radius-full);
+  font: var(--font-button-1);
+}
+
+.sm {
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  font: var(--font-button-2);
+}
+
+/* --- Primary --- */
+
+.primary {
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  color: var(--rv-primary);
+}
+
+.primary:active:not(:disabled) {
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  opacity: 0.85;
+}
+
+/* Compensate border on hover to prevent layout shift */
+.primary.lg:hover:not(:disabled) {
+  padding: 14px 30px;
+}
+
+.primary.sm:hover:not(:disabled) {
+  padding: 6px 14px;
+}
+
+/* --- Secondary --- */
+
+.secondary {
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  color: var(--rv-primary);
+}
+
+/* Compensate border to match sizing */
+.secondary.lg {
+  padding: 14px 30px;
+}
+
+.secondary.sm {
+  padding: 6px 14px;
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+  color: var(--rv-on-primary);
+}
+
+.secondary:active:not(:disabled) {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+  color: var(--rv-on-primary);
+  opacity: 0.85;
+}
+
+.secondary.lg:hover:not(:disabled) {
+  padding: 14px 30px;
+}
+
+.secondary.sm:hover:not(:disabled) {
+  padding: 6px 14px;
+}
+
+/* --- Tertiary --- */
+
+.tertiary {
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border);
+  color: var(--rv-on-surface);
+}
+
+/* Compensate border */
+.tertiary.lg {
+  padding: 15px 31px;
+}
+
+.tertiary.sm {
+  padding: 7px 15px;
+}
+
+.tertiary:hover:not(:disabled) {
+  border-color: var(--rv-border-high);
+}
+
+.tertiary:active:not(:disabled) {
+  background: var(--rv-surface-variant);
+}
+
+/* --- Quaternary --- */
+
+.quaternary {
+  background: var(--rv-surface);
+  color: var(--rv-on-surface);
+}
+
+.quaternary:hover:not(:disabled) {
+  background: var(--rv-surface-variant);
+}
+
+.quaternary:active:not(:disabled) {
+  opacity: 0.85;
+}

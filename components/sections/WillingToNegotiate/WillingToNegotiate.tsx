@@ -1,3 +1,5 @@
+import Icon from '@components/ui/Icon/Icon';
+import Button from '@components/ui/Button/Button';
 import styles from './WillingToNegotiate.module.css';
 
 interface WillingToNegotiateProps {
@@ -11,13 +13,18 @@ export default function WillingToNegotiate({ isNegotiable }: WillingToNegotiateP
 
   return (
     <div className={styles.card}>
-      <div className={styles.accentBar} />
       <div className={styles.content}>
-        <h3 className={styles.heading}>Willing to negotiate</h3>
+        <div className={styles.titleRow}>
+          <Icon name="handshake" size={24} />
+          <h3 className={styles.heading}>Willing to negotiate</h3>
+        </div>
         <p className={styles.subtext}>
-          The seller has indicated willingness to negotiate on price.
+          Secure the right deal for your budget.
         </p>
       </div>
+      <Button variant="tertiary" size="lg" className={styles.offerButton}>
+        Make an offer
+      </Button>
     </div>
   );
 }

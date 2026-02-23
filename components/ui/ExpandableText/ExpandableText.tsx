@@ -7,6 +7,7 @@ interface ExpandableTextProps {
   maxLines: number;
   expandLabel?: string;
   collapseLabel?: string;
+  chevronDirection?: 'down' | 'right';
   className?: string;
 }
 
@@ -15,9 +16,12 @@ export default function ExpandableText({
   maxLines,
   expandLabel = 'Read more',
   collapseLabel = 'Read less',
+  chevronDirection = 'down',
   className,
 }: ExpandableTextProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const iconName = chevronDirection === 'right' ? 'chevron_right' : 'expand_more';
 
   return (
     <div className={className}>
@@ -34,9 +38,9 @@ export default function ExpandableText({
       >
         {isExpanded ? collapseLabel : expandLabel}
         <span
-          className={`${styles.chevron}${isExpanded ? ` ${styles.chevronExpanded}` : ''}`}
+          className={`${styles.chevron}${isExpanded && chevronDirection === 'down' ? ` ${styles.chevronExpanded}` : ''}`}
         >
-          <Icon name="expand_more" size={20} />
+          <Icon name={iconName} size={20} />
         </span>
       </button>
     </div>

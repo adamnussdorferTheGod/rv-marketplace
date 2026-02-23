@@ -1,15 +1,13 @@
 import Icon from '@components/ui/Icon/Icon';
+import Button from '@components/ui/Button/Button';
 import type { SpecItem } from '../../../app/src/data/types';
 import styles from './FeaturesAndSpecs.module.css';
 
 interface FeaturesAndSpecsProps {
   specs: SpecItem[];
-  vin: string;
-  stockNumber: string;
-  daysOnSite: number;
 }
 
-export default function FeaturesAndSpecs({ specs, vin, stockNumber, daysOnSite }: FeaturesAndSpecsProps) {
+export default function FeaturesAndSpecs({ specs }: FeaturesAndSpecsProps) {
   return (
     <div className={styles.section}>
       <h2 className={styles.heading}>Features and specs</h2>
@@ -24,13 +22,9 @@ export default function FeaturesAndSpecs({ specs, vin, stockNumber, daysOnSite }
           </div>
         ))}
       </div>
-      <div className={styles.additionalInfo}>
-        <span>VIN: {vin}</span>
-        <span className={styles.infoDot}>&middot;</span>
-        <span>Stock #{stockNumber}</span>
-        <span className={styles.infoDot}>&middot;</span>
-        <span>{daysOnSite} days on site</span>
-      </div>
+      <Button variant="tertiary" size="lg">
+        See all vehicle specs
+      </Button>
     </div>
   );
 }

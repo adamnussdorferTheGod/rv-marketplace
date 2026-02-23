@@ -12,10 +12,17 @@ export default function AISummary({ aiSummary }: AISummaryProps) {
         <h2 className={styles.heading}>AI summary</h2>
         <span className={styles.newBadge}>NEW</span>
       </div>
-      <p className={styles.body}>{aiSummary}</p>
+      <div className={styles.bodyWrap}>
+        <div className={styles.body}>
+          {aiSummary.split('\n\n').map((paragraph, i) => (
+            <p key={i} className={styles.paragraph}>{paragraph}</p>
+          ))}
+        </div>
+        <div className={styles.fade} />
+      </div>
       <button type="button" className={styles.searchPrompt}>
-        <Icon name="sparkle" size={16} />
-        <span>Ask about this RV</span>
+        <Icon name="sparkles" size={24} />
+        <span>Dive deeper in AI-Mode</span>
       </button>
     </div>
   );

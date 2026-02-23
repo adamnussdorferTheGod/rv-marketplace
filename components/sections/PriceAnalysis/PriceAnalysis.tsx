@@ -21,7 +21,7 @@ export default function PriceAnalysis({ currentPrice, dealRating, priceAnalysis 
           dealRating={dealRating}
           rangeMin={priceAnalysis.rangeMin}
           rangeMax={priceAnalysis.rangeMax}
-          explanation={priceAnalysis.explanation}
+          averagePrice={priceAnalysis.averagePrice}
           priceHistory={priceAnalysis.priceHistory}
         />
       </div>

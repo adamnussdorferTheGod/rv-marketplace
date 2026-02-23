@@ -1,161 +1,22 @@
-.card {
+.container {
   font-family: var(--font-family);
-  background: var(--rv-surface);
-  border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
-  box-shadow: var(--rv-shadow-bottom);
-  overflow: hidden;
 }
 
-/* ── Deal Verdict Section ── */
+/* ── Gauge Visualization ── */
 
-.verdictSection {
-  padding: var(--space-32);
-}
-
-.verdictHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-16);
-  margin-bottom: var(--space-16);
-}
-
-.verdictLeft {
-  flex: 1;
-}
-
-.verdictTitle {
-  font: var(--font-headline-1);
-  color: var(--rv-on-surface);
-  margin: 0 0 var(--space-12);
-}
-
-.ratingWord {
-  font: inherit;
-  font-weight: 700;
-}
-
-.ratingGreat { color: var(--color-green-200); }
-.ratingGood  { color: var(--color-green-200); }
-.ratingFair  { color: var(--color-orange-200); }
-.ratingHigh  { color: var(--color-red-200); }
-
-.explanationRow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-.explanation {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface);
-}
-
-.infoIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1.5px solid var(--rv-border);
-  color: var(--rv-border);
-  font: var(--font-label-3);
-  flex-shrink: 0;
-  cursor: help;
-}
-
-/* ── Price Callout ── */
-
-.priceCallout {
-  position: relative;
+.gaugeArea {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
+  gap: var(--space-4);
+  padding-top: var(--space-16);
 }
 
-.priceCalloutBubble {
-  background: var(--rv-surface);
-  border: 2px solid var(--rv-border-high);
-  border-radius: var(--radius-base);
-  padding: var(--space-8) 14px;
-  font: var(--font-title-1);
-  color: var(--rv-on-surface);
-  white-space: nowrap;
-}
-
-.priceCalloutPointer {
-  width: 0;
-  height: 0;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-top: 7px solid var(--rv-border-high);
-}
-
-/* ── Gauge Bar ── */
-
-.gaugeContainer {
-  margin-top: var(--space-24);
+.avgLabelRow {
   position: relative;
-  padding-top: var(--space-4);
-}
-
-.gaugeTrack {
-  position: relative;
-  height: 8px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  overflow: visible;
-}
-
-.gaugeSegment {
-  height: 100%;
-}
-
-.segmentGreat {
-  background: var(--color-purple-200);
-  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
-}
-
-.segmentGood {
-  background: var(--color-green-200);
-}
-
-.segmentFair {
-  background: var(--color-orange-200);
-}
-
-.segmentHigh {
-  background: var(--color-red-200);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-}
-
-.gaugeMarker {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 3px solid var(--rv-surface);
-  box-shadow: 0 0 0 2px var(--rv-border-floating);
-  z-index: 2;
-}
-
-.markerGreat { background: var(--color-purple-200); }
-.markerGood  { background: var(--color-green-200); }
-.markerFair  { background: var(--color-orange-200); }
-.markerHigh  { background: var(--color-red-200); }
-
-.gaugeLabels {
-  position: relative;
-  margin-top: var(--space-8);
   height: 17px;
 }
 
-.gaugeLabel {
+.avgLabel {
   position: absolute;
   transform: translateX(-50%);
   font: var(--font-label-3);
@@ -163,15 +24,184 @@
   white-space: nowrap;
 }
 
-/* ── Price History Section ── */
-
-.divider {
-  height: 1px;
-  background: var(--rv-border-low);
+.barArea {
+  position: relative;
+  padding-top: 72px; /* deal card (~58px) + pointer (10px) + gap (4px) */
 }
 
+.dealCardPositioner {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.dealCard {
+  background: var(--rv-surface);
+  border: var(--border-heavy) solid;
+  border-radius: var(--radius-full);
+  padding: var(--space-8) var(--space-16);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.dealCardLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface);
+}
+
+.dealCardPrice {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+}
+
+.dealCardPointer {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid;
+}
+
+.avgLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: 1px dashed var(--rv-on-surface-variant);
+  z-index: 1;
+}
+
+.gradientBar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, #61c487 6.25%, #d1de56 50%, #fa8131 100%);
+}
+
+/* ── Section Labels ── */
+
+.sectionLabels {
+  display: flex;
+  margin-top: var(--space-4);
+}
+
+.sectionLabel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.sectionLabelTitle {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.sectionLabelRange {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+/* ── Track the Price ── */
+
+.trackPrice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  background: var(--rv-surface-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  margin-top: var(--space-24);
+}
+
+.trackIconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background: var(--rv-surface);
+  border-radius: var(--radius-full);
+  box-shadow: var(--rv-shadow-bottom);
+  color: var(--color-red-200);
+  flex-shrink: 0;
+}
+
+.trackContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--space-4);
+}
+
+.trackTitle {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.trackDescription {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.toggle {
+  position: relative;
+  width: 64px;
+  height: 32px;
+  background: var(--rv-surface);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.toggle.toggleOn {
+  background: var(--rv-secondary);
+  border-color: var(--rv-secondary);
+  justify-content: flex-end;
+}
+
+.toggleThumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--rv-on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.toggleOn .toggleThumb {
+  background: var(--rv-surface);
+  box-shadow: var(--rv-shadow-bottom);
+}
+
+.toggleCheck {
+  display: none;
+  width: 24px;
+  height: 24px;
+  color: var(--rv-on-surface);
+}
+
+.toggleOn .toggleCheck {
+  display: block;
+}
+
+/* ── Price History ── */
+
 .historySection {
-  padding: var(--space-24) var(--space-32) var(--space-32);
+  padding-top: var(--space-24);
+  margin-top: var(--space-24);
+  border-top: 1px solid var(--rv-border-low);
 }
 
 .historyToggle {
@@ -199,7 +229,7 @@
 }
 
 .historyTitle {
-  font: var(--font-headline-2);
+  font: var(--font-label-1-semibold);
   color: var(--rv-on-surface);
 }
 
@@ -224,7 +254,7 @@
 }
 
 .historyTable th {
-  font: var(--font-label-1-semibold);
+  font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
   text-align: left;
   padding: 0 0 var(--space-12);

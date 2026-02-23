@@ -86,6 +86,7 @@ export interface ListingData {
 
   // Vehicle History
   vhrAvailable: boolean;
+  vhrHighlights: string[];
 
   // Negotiation
   isNegotiable: boolean;

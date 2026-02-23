@@ -1,9 +1,11 @@
+@property --shimmer-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .card {
   width: 100%;
-  background: var(--rv-surface);
-  border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
-  padding: var(--space-24);
   display: flex;
   flex-direction: column;
   margin-bottom: var(--space-32);
@@ -27,8 +29,8 @@
   justify-content: center;
   height: 22px;
   padding: var(--space-4) var(--space-12);
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
+  background: var(--rv-surface-accent);
+  color: var(--rv-on-surface-brand);
   border-radius: var(--radius-sm);
   font: var(--font-label-3);
   text-transform: uppercase;
@@ -36,25 +38,89 @@
   flex-shrink: 0;
 }
 
+.bodyWrap {
+  position: relative;
+  max-height: 110px;
+  overflow: hidden;
+  margin-top: var(--space-12);
+}
+
 .body {
   font: var(--font-body-2);
   color: var(--rv-on-surface);
-  margin: var(--space-12) 0 0 0;
+  margin: 0;
 }
 
+.paragraph {
+  margin: 0;
+}
+
+.paragraph + .paragraph {
+  margin-top: var(--space-12);
+}
+
+.fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--rv-surface));
+  pointer-events: none;
+}
+
+/* Pill button with gradient border (green → gold) */
 .searchPrompt {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-8);
+  align-self: flex-start;
   margin-top: var(--space-16);
-  padding: 0;
-  background: none;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-surface);
   border: none;
+  border-radius: var(--radius-full);
   cursor: pointer;
-  font: var(--font-link-2);
+  font: var(--font-button-1);
   color: var(--rv-primary);
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* Animated shimmer border via conic-gradient rotation */
+.searchPrompt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--border-heavy);
+  background: conic-gradient(
+    from var(--shimmer-angle),
+    var(--rv-primary) 0%,
+    var(--rv-brand-accent) 20%,
+    var(--rv-primary) 38%,
+    #fff 42%,
+    #fff 58%,
+    var(--rv-primary) 62%,
+    var(--rv-brand-accent) 80%,
+    var(--rv-primary) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+  animation: border-shimmer 3s linear infinite;
 }
 
 .searchPrompt:hover {
-  text-decoration: underline;
+  background: var(--rv-surface-accent);
+}
+
+@keyframes border-shimmer {
+  0% { --shimmer-angle: 0deg; }
+  100% { --shimmer-angle: 360deg; }
 }

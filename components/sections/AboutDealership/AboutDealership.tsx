@@ -1,5 +1,6 @@
 import Icon from '@components/ui/Icon/Icon';
 import ExpandableText from '@components/ui/ExpandableText/ExpandableText';
+import Divider from '@components/ui/Divider/Divider';
 import type { DealerInfo } from '../../../app/src/data/types';
 import styles from './AboutDealership.module.css';
 
@@ -10,59 +11,79 @@ interface AboutDealershipProps {
 export default function AboutDealership({ dealer }: AboutDealershipProps) {
   return (
     <div className={styles.section}>
-      {/* Sub-section 1: Heading */}
       <h2 className={styles.heading}>About the dealership</h2>
 
-      {/* Sub-section 2: Dealer Info Block */}
+      {/* Dealer info: logo + details */}
       <div className={styles.dealerInfo}>
         <img
           src={dealer.logoUrl}
           alt={dealer.name}
           className={styles.dealerLogo}
         />
-        <div className={styles.contactDetails}>
-          <h3 className={styles.dealerName}>{dealer.name}</h3>
-          <div className={styles.contactRow}>
-            <Icon name="location_pin" size={16} />
-            <span>{dealer.location}</span>
+        <div className={styles.dealerDetails}>
+          <div className={styles.dealerMeta}>
+            {dealer.isTop50 && (
+              <div className={styles.trustedPartner}>
+                <Icon name="award_star" size={20} />
+                <span className={styles.trustedText}>
+                  {dealer.yearsOnRvTrader} year trusted partner
+                </span>
+              </div>
+            )}
+            <h3 className={styles.dealerName}>{dealer.name}</h3>
+            <p className={styles.dealerAddress}>{dealer.address}</p>
           </div>
-          <div className={styles.contactRow}>
-            <Icon name="call" size={16} />
-            <span>{dealer.phone}</span>
-          </div>
-          <div className={styles.contactRow}>
-            <Icon name="clock" size={16} />
-            <span>{dealer.hours}</span>
+          <div className={styles.dealerLinks}>
+            <a href={`https://maps.google.com/?q=${encodeURIComponent(dealer.address)}`} className={styles.dealerLink} target="_blank" rel="noopener noreferrer">
+              Directions to the dealership <Icon name="open_in_new" size={20} />
+            </a>
+            <a href={dealer.websiteUrl} className={styles.dealerLink} target="_blank" rel="noopener noreferrer">
+              Visit dealer&apos;s website <Icon name="open_in_new" size={20} />
+            </a>
           </div>
         </div>
       </div>
 
-      {/* Sub-section 3: Top 50 Badge (conditional) */}
+      {/* Top 50 Badge */}
       {dealer.isTop50 && (
-        <div className={styles.trustedBadge}>
-          <Icon name="award_star" size={20} />
-          <span className={styles.badgeText}>
-            {dealer.yearsOnRvTrader} year trusted partner
-          </span>
+        <div className={styles.top50Badge}>
+          <Icon name="trophy" size={24} />
+          <div className={styles.top50Content}>
+            <p className={styles.top50Title}>2023 RV Business Top 50 Dealer</p>
+            <p className={styles.top50Description}>
+              Recognized for outstanding customer service, operational innovation, charitable outreach and general excellence in overall business practices.
+            </p>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-placeholder"
+            alt="RV Business Top 50 Dealer Awards"
+            className={styles.top50Logo}
+            style={{ display: 'none' }}
+          />
         </div>
       )}
 
-      {/* Sub-section 4: Dealer Bio */}
-      <ExpandableText text={dealer.bio} maxLines={3} className={styles.bio} />
+      {/* Dealer bio */}
+      <ExpandableText text={dealer.bio} maxLines={3} chevronDirection="right" className={styles.bio} />
 
-      {/* Sub-section 5: CTA Button */}
-      <button className={styles.ctaButton}>View dealer inventory</button>
+      {/* CTA Button — outlined style */}
+      <a href={`tel:${dealer.phone.replace(/[^+\d]/g, '')}`} className={styles.ctaButton}>
+        Contact the dealer
+      </a>
 
-      {/* Sub-section 6: Dealer Website Link */}
-      <div className={styles.websiteLinks}>
-        <a
-          href={dealer.websiteUrl}
-          className={styles.websiteLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Visit dealer website <Icon name="open_in_new" size={14} />
-        </a>
+      <Divider />
+
+      {/* Dealer website links card */}
+      <div className={styles.websiteLinksCard}>
+        <span className={styles.adBadge}>Ad</span>
+        <div className={styles.websiteLinksContent}>
+          <p className={styles.websiteLinksHeading}>
+            More from {dealer.name}
+          </p>
+          <a href={dealer.websiteUrl} className={styles.websiteCardLink}>Click to get financed!</a>
+          <a href={dealer.websiteUrl} className={styles.websiteCardLink}>Click to value trade!</a>
+          <a href={dealer.websiteUrl} className={styles.websiteCardLink}>Get serviced here!</a>
+        </div>
       </div>
     </div>
   );

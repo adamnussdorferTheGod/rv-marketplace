@@ -17,7 +17,7 @@ export const sampleListing: ListingData = {
     { url: 'https://images.unsplash.com/photo-1619317190381-643a6b28d6e6?w=1200&h=900&fit=crop', alt: '2024 Airstream Flying Cloud 25RB exterior front view' },
     { url: 'https://images.unsplash.com/photo-1589870505717-e9e60cec4b5c?w=600&h=450&fit=crop', alt: '2024 Airstream Flying Cloud 25RB exterior rear view' },
     { url: 'https://images.unsplash.com/photo-1693975524886-2938d6a71905?w=600&h=450&fit=crop', alt: '2024 Airstream Flying Cloud 25RB interior living area' },
-    { url: 'https://images.unsplash.com/photo-1627022231816-c445bb233b7c?w=600&h=450&fit=crop', alt: '2024 Airstream Flying Cloud 25RB kitchen' },
+    { url: 'https://images.unsplash.com/photo-1721495781960-c9dc7bf1174a?w=600&h=450&fit=crop', alt: '2024 Airstream Flying Cloud 25RB kitchen' },
     { url: 'https://images.unsplash.com/photo-1578047960766-2cc2da98009b?w=600&h=450&fit=crop', alt: '2024 Airstream Flying Cloud 25RB bedroom' },
     { url: 'https://images.unsplash.com/photo-1706049778849-02fca14ac23c?w=800&h=600&fit=crop', alt: '2024 Airstream Flying Cloud 25RB exterior side view' },
     { url: 'https://images.unsplash.com/photo-1621875149595-6ac17f2036fd?w=800&h=600&fit=crop', alt: '2024 Airstream Flying Cloud 25RB interior detail' },
@@ -30,30 +30,33 @@ export const sampleListing: ListingData = {
   totalPhotoCount: 28,
 
   // Pricing
-  currentPrice: 96000,
+  currentPrice: 88000,
   originalPrice: 98000,
   monthlyPayment: 631,
   dealRating: 'good',
 
   // AI Summary
-  aiSummary: 'The 2024 Airstream Flying Cloud 25RB features the popular rear bath floor plan with a spacious walk-through bathroom and a comfortable queen bed. Built with Airstream\'s signature aluminum construction and panoramic windows, this unit offers a bright, open living space with a fully equipped galley kitchen and convertible dinette. With a single slide-out expanding the main living area, this Flying Cloud delivers a premium travel experience at a competitive price point.',
+  aiSummary: 'The Airstream Flying Cloud is a premium travel trailer known for its iconic aluminum build, thoughtful layouts, and strong resale value. It is designed for buyers who want a refined, reliable RV that works well for both weekend trips and longer travel.\n\nThis listing features a 25-foot Flying Cloud with a front bedroom layout, offering a dedicated sleeping area, a full bathroom, and a spacious kitchen and dining setup. Despite its size, it can be easier to tow than many comparable trailers thanks to its aerodynamic aluminum shell and lower overall weight.',
 
   // Vehicle History
   vhrAvailable: true,
+  vhrHighlights: [
+    'No accidents reported',
+    '1 owner',
+    'Clean title',
+  ],
 
   // Negotiation
   isNegotiable: true,
 
   // Features and Specs
   specs: [
-    { icon: 'rv_type', label: 'Type', value: 'Travel Trailer' },
-    { icon: 'ruler', label: 'Length', value: '25 ft' },
-    { icon: 'bed', label: 'Sleeps', value: '4' },
-    { icon: 'slide_out', label: 'Slides', value: '1' },
-    { icon: 'weight', label: 'Weight', value: '5,600 lbs' },
-    { icon: 'water', label: 'Fresh Water', value: '39 gal' },
-    { icon: 'fuel', label: 'Fuel', value: 'N/A' },
-    { icon: 'condition', label: 'Condition', value: 'Used' },
+    { icon: 'rv_type', label: 'RV type', value: 'Travel trailer' },
+    { icon: 'condition', label: 'Condition', value: 'New' },
+    { icon: 'width', label: 'Length', value: '25 ft.' },
+    { icon: 'weight', label: 'GVWR', value: '3,500 lbs.' },
+    { icon: 'bed', label: 'Sleeping capacity', value: '4' },
+    { icon: 'snowflake', label: 'Air conditioners', value: '2' },
   ],
   vin: '1STHKBM24RJ123456',
   daysOnSite: 45,

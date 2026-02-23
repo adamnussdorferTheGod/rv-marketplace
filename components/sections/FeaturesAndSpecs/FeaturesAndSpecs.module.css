@@ -1,18 +1,23 @@
 .section {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
   margin-bottom: var(--space-32);
 }
 
 .heading {
   font: var(--font-headline-2);
   color: var(--rv-on-surface);
-  margin: 0 0 var(--space-16) 0;
+  margin: 0;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: var(--space-16);
+  width: 100%;
 }
 
 .card {
@@ -26,7 +31,7 @@
 }
 
 .cardIcon {
-  color: var(--rv-on-surface-variant);
+  color: var(--rv-on-surface);
   display: flex;
   align-items: center;
 }
@@ -38,18 +43,5 @@
 
 .cardLabel {
   font: var(--font-label-2);
-  color: var(--rv-on-surface-variant);
-}
-
-.additionalInfo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-  margin-top: var(--space-16);
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-}
-
-.infoDot {
   color: var(--rv-on-surface-variant);
 }

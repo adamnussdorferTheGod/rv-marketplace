@@ -62,26 +62,27 @@ export default function VehicleDetailPage() {
                 dealRating={sampleListing.dealRating}
               />
               <AISummary aiSummary={sampleListing.aiSummary} />
-              <VehicleHistoryReport vhrAvailable={sampleListing.vhrAvailable} />
-              <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
-              <FeaturesAndSpecs
-                specs={sampleListing.specs}
-                vin={sampleListing.vin}
-                stockNumber={sampleListing.stockNumber}
-                daysOnSite={sampleListing.daysOnSite}
+              <VehicleHistoryReport
+                vhrAvailable={sampleListing.vhrAvailable}
               />
+              <FeaturesAndSpecs specs={sampleListing.specs} />
+              <Divider />
+              <Description description={sampleListing.description} />
+              <Divider />
               <PriceAnalysis
                 currentPrice={sampleListing.currentPrice}
                 dealRating={sampleListing.dealRating}
                 priceAnalysis={sampleListing.priceAnalysis}
               />
-              <Description description={sampleListing.description} />
               <Divider />
               <LoanCalculator
-                loanMonthlyPayment={sampleListing.loanMonthlyPayment}
+                currentPrice={sampleListing.currentPrice}
                 dealerName={sampleListing.dealer.name}
                 dealerPhone={sampleListing.dealer.phone}
               />
+              <div style={{ marginTop: 'var(--space-32)' }}>
+                <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
+              </div>
               <Divider />
               <AboutDealership dealer={sampleListing.dealer} />
               <Divider />

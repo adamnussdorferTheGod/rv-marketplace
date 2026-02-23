@@ -1,27 +1,39 @@
+/* ==========================================================================
+   Vehicle History Report — Promotional CTA card
+   Figma: VHR instance (32:6867) — 633 × 224px
+   ========================================================================== */
+
 .card {
   width: 100%;
-  min-height: 224px;
   border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
-  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
   display: flex;
   flex-direction: column;
+  gap: var(--space-16);
   background: var(--rv-surface);
-  margin-bottom: var(--space-32);
+  margin-bottom: var(--space-16);
 }
+
+/* --- Header: shield badge + title --- */
 
 .headerRow {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4);
 }
 
-.iconWrapper {
+.shieldBadge {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--rv-primary);
   flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.shieldBadge svg {
+  color: var(--rv-primary);
 }
 
 .heading {
@@ -30,28 +42,55 @@
   margin: 0;
 }
 
-.subtext {
+/* --- Description text --- */
+
+.description {
   font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin: var(--space-12) 0 0 0;
-  flex: 1;
+  color: var(--rv-on-surface);
+  margin: 0;
 }
 
-.unavailableText {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin: var(--space-12) 0 0 0;
+.description strong {
+  font-weight: 700;
 }
 
-.cta {
-  display: inline-flex;
+/* --- Bottom row: grid + CTA button --- */
+
+.bottomRow {
+  display: flex;
   align-items: center;
-  font: var(--font-link-2);
-  color: var(--rv-primary);
-  text-decoration: none;
-  margin-top: var(--space-16);
+  gap: var(--space-32);
 }
 
-.cta:hover {
-  text-decoration: underline;
+.grid {
+  display: flex;
+  flex: 1;
+  gap: var(--space-16);
+  min-width: 0;
+}
+
+.gridColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  flex: 1;
+  min-width: 0;
+}
+
+.gridItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+}
+
+.gridItem svg {
+  flex-shrink: 0;
+}
+
+/* --- CTA button cell --- */
+
+.ctaCell {
+  flex-shrink: 0;
 }

@@ -1,25 +1,27 @@
 .card {
   width: 100%;
-  min-height: 119px;
   border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-lg);
   display: flex;
-  overflow: hidden;
+  align-items: center;
+  gap: var(--space-32);
+  padding: var(--space-32);
   background: var(--rv-surface);
   margin-bottom: var(--space-32);
-}
-
-.accentBar {
-  width: var(--space-4);
-  background: var(--rv-primary);
-  flex-shrink: 0;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  padding: var(--space-24);
+  gap: var(--space-8);
   flex: 1;
+  min-width: 0;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .heading {
@@ -30,6 +32,10 @@
 
 .subtext {
   font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin: var(--space-12) 0 0 0;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.offerButton {
+  flex-shrink: 0;
 }

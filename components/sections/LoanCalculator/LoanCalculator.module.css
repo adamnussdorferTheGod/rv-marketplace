@@ -1,49 +1,81 @@
 .section {
   width: 100%;
-  margin-bottom: var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
 }
 
 .heading {
   font: var(--font-headline-2);
   color: var(--rv-on-surface);
-  margin: 0 0 var(--space-12) 0;
+  margin: 0;
 }
 
 .subtitle {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin: 0 0 var(--space-24) 0;
-}
-
-.paymentDisplay {
-  text-align: center;
-  padding: var(--space-24) 0;
-  margin-bottom: var(--space-24);
-  background: var(--rv-surface);
-  border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-base);
-}
-
-.paymentAmount {
-  font: var(--font-headline-1);
+  font: var(--font-body-1);
   color: var(--rv-on-surface);
   margin: 0;
 }
 
-.paymentLabel {
-  font: var(--font-body-2);
+/* Payment card — wraps both payment display and contact prompt */
+.paymentCard {
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.paymentDisplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-16) var(--space-32);
+  background: rgba(224, 237, 231, 0.5);
+}
+
+.paymentAmount {
+  margin: 0;
+}
+
+.paymentValue {
+  font: var(--font-title-1);
+  color: var(--rv-primary);
+}
+
+.paymentPeriod {
+  font: var(--font-body-1);
   color: var(--rv-on-surface-variant);
-  margin: var(--space-4) 0 0 0;
 }
 
+.paymentLabel {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* Contact prompt — darker green band */
 .contactPrompt {
-  margin-bottom: var(--space-24);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-surface-accent);
 }
 
-.contactText {
+.contactTextGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactHeading {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.contactSubtext {
   font: var(--font-body-2);
   color: var(--rv-on-surface);
-  margin: 0 0 var(--space-8) 0;
+  margin: 0;
 }
 
 .ctaButton {
@@ -51,36 +83,94 @@
   align-items: center;
   justify-content: center;
   padding: var(--space-16) var(--space-32);
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
+  background: var(--rv-surface);
+  color: var(--rv-secondary);
   border: none;
   border-radius: var(--radius-base);
   font: var(--font-button-1);
   cursor: pointer;
   white-space: nowrap;
-  margin-top: var(--space-16);
+  text-decoration: none;
 }
 
 .ctaButton:hover {
   opacity: 0.9;
 }
 
-.phoneLink {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4);
-  font: var(--font-link-2);
-  color: var(--rv-primary);
-  text-decoration: none;
+/* Input rows */
+.inputRow {
+  display: flex;
+  gap: var(--space-16);
 }
 
-.phoneLink:hover {
-  text-decoration: underline;
+.inputField {
+  flex: 1;
+}
+
+.inputWrapper,
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 58px;
+  padding: var(--space-8) var(--space-16);
+  background: var(--rv-surface);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-base);
+  position: relative;
+}
+
+.inputLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.inputInner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.inputPrefix {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+}
+
+.input {
+  flex: 1;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  min-width: 0;
+}
+
+.select {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0;
+  appearance: none;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.selectIcon {
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--rv-on-surface);
+  pointer-events: none;
 }
 
 .disclaimer {
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
   margin: 0;
-  line-height: 1.5;
 }

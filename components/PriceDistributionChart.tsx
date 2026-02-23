@@ -12,37 +12,33 @@ interface PriceDistributionChartProps {
   dealRating: 'great' | 'good' | 'fair' | 'high';
   rangeMin: number;
   rangeMax: number;
-  explanation: string;
+  averagePrice: number;
   priceHistory: PriceHistoryEntry[];
 }
 
-const RATING_LABELS: Record<string, string> = {
-  great: 'great deal',
-  good: 'good deal',
-  fair: 'fair deal',
-  high: 'high price',
-};
-
-const RATING_STYLES: Record<string, string> = {
-  great: styles.ratingGreat,
-  good: styles.ratingGood,
-  fair: styles.ratingFair,
-  high: styles.ratingHigh,
-};
-
-const MARKER_STYLES: Record<string, string> = {
-  great: styles.markerGreat,
-  good: styles.markerGood,
-  fair: styles.markerFair,
-  high: styles.markerHigh,
+const DEAL_COLORS: Record<string, string> = {
+  great: '#61c487',
+  good: '#61c487',
+  fair: '#d1de56',
+  high: '#fa8131',
 };
 
 function formatPrice(value: number): string {
   return '$' + value.toLocaleString('en-US');
 }
 
-function InfoIcon() {
-  return <span className={styles.infoIcon}>i</span>;
+function formatPriceShort(value: number): string {
+  const k = Math.round(value / 1000);
+  return '$' + k + 'k';
+}
+
+function TrendingDownIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 7L8.5 13.5L12.5 9.5L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M16 17H22V11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 function ChartIcon() {
@@ -70,98 +66,127 @@ function TagIcon() {
   );
 }
 
+function CheckIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor" />
+    </svg>
+  );
+}
+
+function TrackPriceBanner() {
+  const [tracking, setTracking] = useState(false);
+
+  return (
+    <div className={styles.trackPrice}>
+      <div className={styles.trackIconWrapper}>
+        <TrendingDownIcon />
+      </div>
+      <div className={styles.trackContent}>
+        <span className={styles.trackTitle}>Track the price</span>
+        <span className={styles.trackDescription}>
+          Get notified the moment this listing&apos;s price drops
+        </span>
+      </div>
+      <button
+        className={`${styles.toggle} ${tracking ? styles.toggleOn : ''}`}
+        onClick={() => setTracking((prev) => !prev)}
+        role="switch"
+        aria-checked={tracking}
+        aria-label="Track the price"
+      >
+        <span className={styles.toggleThumb}>
+          <span className={styles.toggleCheck}><CheckIcon /></span>
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export default function PriceDistributionChart({
   listPrice,
   dealRating,
   rangeMin,
   rangeMax,
-  explanation,
+  averagePrice,
   priceHistory,
 }: PriceDistributionChartProps) {
   const [historyOpen, setHistoryOpen] = useState(true);
+  const dealColor = DEAL_COLORS[dealRating] || DEAL_COLORS.good;
 
-  // Calculate gauge proportions
-  // Scale extends 15% beyond range on each side for visual context
+  // Three equal visual sections: Low | Average | Above average
+  // rangeMin..rangeMax defines "Average" zone
   const rangeSpan = rangeMax - rangeMin;
-  const padding = rangeSpan * 0.3;
-  const scaleMin = rangeMin - padding;
-  const scaleMax = rangeMax + padding;
+  const scaleMin = rangeMin - rangeSpan;
+  const scaleMax = rangeMax + rangeSpan;
   const totalSpan = scaleMax - scaleMin;
 
-  // Segment boundaries as percentages of total scale
-  const greatEnd = ((rangeMin - scaleMin) / totalSpan) * 100;    // purple: below rangeMin
-  const goodEnd = ((rangeMax - scaleMin) / totalSpan) * 100;     // green: rangeMin to rangeMax
-  const fairEnd = goodEnd + (100 - goodEnd) * 0.5;               // orange: half of above-range
-  // red: remainder
+  // Deal card position (clamped to keep card visible)
+  const rawCardPos = ((listPrice - scaleMin) / totalSpan) * 100;
+  const cardPos = Math.min(88, Math.max(12, rawCardPos));
 
-  const goodWidth = goodEnd - greatEnd;
-  const fairWidth = fairEnd - goodEnd;
-  const highWidth = 100 - fairEnd;
+  // Average price line position
+  const avgPos = ((averagePrice - scaleMin) / totalSpan) * 100;
 
-  // Marker position (clamped to 2%–98% for visual)
-  const rawMarkerPos = ((listPrice - scaleMin) / totalSpan) * 100;
-  const markerPos = Math.min(98, Math.max(2, rawMarkerPos));
+  // Hide avg line when it overlaps the deal card
+  const showAvgLine = Math.abs(cardPos - avgPos) > 12;
 
   return (
-    <div className={styles.card}>
-      {/* ── Deal Verdict ── */}
-      <div className={styles.verdictSection}>
-        <div className={styles.verdictHeader}>
-          <div className={styles.verdictLeft}>
-            <h3 className={styles.verdictTitle}>
-              This vehicle is a{' '}
-              <span className={`${styles.ratingWord} ${RATING_STYLES[dealRating]}`}>
-                {RATING_LABELS[dealRating]}
-              </span>
-            </h3>
-            <div className={styles.explanationRow}>
-              <span className={styles.explanation}>{explanation}</span>
-              <InfoIcon />
+    <div className={styles.container}>
+      {/* ── Gauge Visualization ── */}
+      <div className={styles.gaugeArea}>
+        {showAvgLine && (
+          <div className={styles.avgLabelRow}>
+            <span className={styles.avgLabel} style={{ left: `${avgPos}%` }}>
+              Avg. list price
+            </span>
+          </div>
+        )}
+
+        <div className={styles.barArea}>
+          <div
+            className={styles.dealCardPositioner}
+            style={{ left: `${cardPos}%` }}
+          >
+            <div className={styles.dealCard} style={{ borderColor: dealColor }}>
+              <span className={styles.dealCardLabel}>List price</span>
+              <span className={styles.dealCardPrice}>{formatPrice(listPrice)}</span>
             </div>
+            <div
+              className={styles.dealCardPointer}
+              style={{ borderTopColor: dealColor }}
+            />
           </div>
-          <div className={styles.priceCallout}>
-            <div className={styles.priceCalloutBubble}>{formatPrice(listPrice)}</div>
-            <div className={styles.priceCalloutPointer} />
-          </div>
+
+          {showAvgLine && (
+            <div className={styles.avgLine} style={{ left: `${avgPos}%` }} />
+          )}
+          <div className={styles.gradientBar} />
         </div>
 
-        {/* ── Gauge Bar ── */}
-        <div className={styles.gaugeContainer}>
-          <div className={styles.gaugeTrack}>
-            <div
-              className={`${styles.gaugeSegment} ${styles.segmentGreat}`}
-              style={{ width: `${greatEnd}%` }}
-            />
-            <div
-              className={`${styles.gaugeSegment} ${styles.segmentGood}`}
-              style={{ width: `${goodWidth}%` }}
-            />
-            <div
-              className={`${styles.gaugeSegment} ${styles.segmentFair}`}
-              style={{ width: `${fairWidth}%` }}
-            />
-            <div
-              className={`${styles.gaugeSegment} ${styles.segmentHigh}`}
-              style={{ width: `${highWidth}%` }}
-            />
-            <div
-              className={`${styles.gaugeMarker} ${MARKER_STYLES[dealRating]}`}
-              style={{ left: `${markerPos}%` }}
-            />
-          </div>
-          <div className={styles.gaugeLabels}>
-            <span className={styles.gaugeLabel} style={{ left: `${greatEnd}%` }}>
-              {formatPrice(rangeMin)}
+        <div className={styles.sectionLabels}>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionLabelTitle}>Low</span>
+            <span className={styles.sectionLabelRange}>
+              Below {formatPriceShort(rangeMin)}
             </span>
-            <span className={styles.gaugeLabel} style={{ left: `${goodEnd}%` }}>
-              {formatPrice(rangeMax)}
+          </div>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionLabelTitle}>Average</span>
+            <span className={styles.sectionLabelRange}>
+              {formatPriceShort(rangeMin)}-{formatPriceShort(rangeMax)}
+            </span>
+          </div>
+          <div className={styles.sectionLabel}>
+            <span className={styles.sectionLabelTitle}>Above average</span>
+            <span className={styles.sectionLabelRange}>
+              Above {formatPriceShort(rangeMax)}
             </span>
           </div>
         </div>
       </div>
 
       {/* ── Price History ── */}
-      <div className={styles.divider} />
       <div className={styles.historySection}>
         <button
           className={styles.historyToggle}
@@ -210,6 +235,9 @@ export default function PriceDistributionChart({
           </div>
         )}
       </div>
+
+      {/* ── Track the Price ── */}
+      <TrackPriceBanner />
     </div>
   );
 }
