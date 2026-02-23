@@ -1,18 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
 import Icon from '@components/ui/Icon/Icon';
+import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import rvTraderLogo from '../../../app/src/assets/rv-trader-logo.svg';
 import styles from './Header.module.css';
 
 const NAV_LINKS = ['Shop', 'Sell', 'RV values', 'Cash offers', 'Research'];
 
 const RESEARCH_ITEMS = [
-  { label: 'Option 1', href: '#option-1' },
-  { label: 'Option 2', href: '#option-2' },
+  { label: 'Option 1', variant: 'option-1' as const },
+  { label: 'Option 2', variant: 'option-2' as const },
 ];
 
 export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
+  const { variant, setVariant } = useVdpVariant();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -53,14 +55,17 @@ export default function Header() {
                     {dropdownOpen && (
                       <div className={styles.dropdown}>
                         {RESEARCH_ITEMS.map((item) => (
-                          <a
-                            key={item.href}
-                            href={item.href}
-                            className={styles.dropdownItem}
-                            onClick={() => setDropdownOpen(false)}
+                          <button
+                            key={item.variant}
+                            type="button"
+                            className={`${styles.dropdownItem} ${variant === item.variant ? styles.dropdownItemActive : ''}`}
+                            onClick={() => {
+                              setVariant(item.variant);
+                              setDropdownOpen(false);
+                            }}
                           >
                             {item.label}
-                          </a>
+                          </button>
                         ))}
                       </div>
                     )}

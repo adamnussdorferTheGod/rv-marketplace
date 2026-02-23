@@ -1,0 +1,166 @@
+@property --shimmer-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--space-32);
+  overflow: hidden;
+}
+
+/* Subtle background glow */
+.glow {
+  position: absolute;
+  top: -20px;
+  left: -30px;
+  width: 420px;
+  height: 300px;
+  pointer-events: none;
+  filter: blur(50px);
+  background:
+    radial-gradient(ellipse at 40% 60%, rgba(178, 164, 63, 0.15) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 50%, rgba(0, 94, 74, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse at 45% 55%, rgba(247, 248, 237, 0.5) 0%, transparent 70%);
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16) 0;
+  z-index: 1;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.sparkleIcon {
+  color: var(--rv-on-surface);
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  max-width: 600px;
+}
+
+/* Prompt suggestion cards */
+.prompts {
+  display: flex;
+  gap: var(--space-16);
+}
+
+.promptCard {
+  width: 288px;
+  flex-shrink: 0;
+  padding: var(--space-16);
+  background: var(--rv-surface);
+  border: none;
+  border-radius: var(--radius-base);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 200ms, background-color 200ms;
+  line-height: 1.4;
+}
+
+.promptCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: var(--rv-surface-variant);
+}
+
+/* Shimmer button — matches AISummary */
+.searchPrompt {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  align-self: flex-start;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-surface);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font: var(--font-button-1);
+  color: var(--rv-primary);
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.searchPrompt::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--border-heavy);
+  background: conic-gradient(
+    from var(--shimmer-angle),
+    var(--rv-primary) 0%,
+    var(--rv-brand-accent) 20%,
+    var(--rv-primary) 38%,
+    #fff 42%,
+    #fff 58%,
+    var(--rv-primary) 62%,
+    var(--rv-brand-accent) 80%,
+    var(--rv-primary) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+  animation: border-shimmer 3s linear infinite;
+}
+
+.searchPrompt:hover {
+  background: var(--rv-surface-accent);
+}
+
+@keyframes border-shimmer {
+  0% { --shimmer-angle: 0deg; }
+  100% { --shimmer-angle: 360deg; }
+}
+
+/* Mobile: horizontal scroll for prompt cards */
+@media (max-width: 767px) {
+  .prompts {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-right: -20px;
+    padding-right: 20px;
+  }
+
+  .prompts::-webkit-scrollbar {
+    display: none;
+  }
+
+  .promptCard {
+    min-width: 256px;
+    width: 256px;
+  }
+
+  .searchPrompt {
+    width: 100%;
+    justify-content: center;
+  }
+}

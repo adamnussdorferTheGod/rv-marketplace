@@ -8,6 +8,7 @@ import TitleSection from '@components/sections/TitleSection/TitleSection';
 import PhotoGallery from '@components/sections/PhotoGallery/PhotoGallery';
 import PricePayment from '@components/sections/PricePayment/PricePayment';
 import AISummary from '@components/sections/AISummary/AISummary';
+import FitCheck from '@components/sections/FitCheck/FitCheck';
 import VehicleHistoryReport from '@components/sections/VehicleHistoryReport/VehicleHistoryReport';
 import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingToNegotiate';
 import FeaturesAndSpecs from '@components/sections/FeaturesAndSpecs/FeaturesAndSpecs';
@@ -26,11 +27,13 @@ import InsuranceAccessories from '@components/sections/InsuranceAccessories/Insu
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
+import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
+  const { variant } = useVdpVariant();
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -74,7 +77,11 @@ function VehicleDetailPageContent() {
                   monthlyPayment={sampleListing.monthlyPayment}
                   dealRating={sampleListing.dealRating}
                 />
-                <AISummary aiSummary={sampleListing.aiSummary} />
+                {variant === 'option-1' ? (
+                  <AISummary aiSummary={sampleListing.aiSummary} />
+                ) : (
+                  <FitCheck />
+                )}
                 <VehicleHistoryReport
                   vhrAvailable={sampleListing.vhrAvailable}
                 />
@@ -144,8 +151,10 @@ function VehicleDetailPageContent() {
 
 export default function VehicleDetailPage() {
   return (
-    <AiModeProvider listing={sampleListing}>
-      <VehicleDetailPageContent />
-    </AiModeProvider>
+    <VdpVariantProvider>
+      <AiModeProvider listing={sampleListing}>
+        <VehicleDetailPageContent />
+      </AiModeProvider>
+    </VdpVariantProvider>
   );
 }
