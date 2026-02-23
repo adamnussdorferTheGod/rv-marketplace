@@ -20,6 +20,25 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText }: Photo
         <div className={styles.tagsBadge}>
           <span className={styles.tagText}>{tagText}</span>
         </div>
+        {/* Mobile overlay: share + favorite buttons */}
+        <div className={styles.mobileActions}>
+          <button type="button" className={styles.actionButton} aria-label="Share">
+            <Icon name="share" size={20} />
+          </button>
+          <button type="button" className={styles.actionButton} aria-label="Favorite">
+            <Icon name="favorite" size={20} />
+          </button>
+        </div>
+        {/* Mobile: pagination dots */}
+        <div className={styles.paginationDots}>
+          {images.slice(0, 5).map((_, i) => (
+            <span key={i} className={`${styles.dot} ${i === 0 ? styles.dotActive : ''}`} />
+          ))}
+        </div>
+        {/* Mobile: photo counter */}
+        <div className={styles.photoCounter}>
+          1 / {totalPhotoCount}
+        </div>
       </div>
       <div className={styles.thumbnailWrapper}>
         <div className={styles.thumbnailGrid}>

@@ -64,6 +64,13 @@
   text-decoration: none;
 }
 
+/* SM: 768–991px — hide share/fav buttons (moved to gallery overlay) */
+@media (max-width: 991px) {
+  .actions {
+    display: none;
+  }
+}
+
 /* XS: <=767px */
 @media (max-width: 767px) {
   .titleRow {
@@ -78,9 +85,5 @@
 
   .subtitleRow {
     flex-wrap: wrap;
-  }
-
-  .actions {
-    display: none;
   }
 }

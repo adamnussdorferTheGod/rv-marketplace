@@ -372,6 +372,21 @@ const ICONS: Record<string, IconDefinition> = {
       'M3 18h.01',
     ],
   },
+
+  search: {
+    paths: [
+      'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z',
+      'M21 21l-4.35-4.35',
+    ],
+  },
+
+  menu: {
+    paths: [
+      'M3 6h18',
+      'M3 12h18',
+      'M3 18h18',
+    ],
+  },
 };
 
 export { ICONS };

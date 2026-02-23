@@ -23,7 +23,20 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-        <button className={styles.accountButton}>
+        {/* Mobile-only controls */}
+        <div className={styles.mobileActions}>
+          <a href="#" className={styles.sellLink}>Sell</a>
+          <button type="button" className={styles.iconButtonRound} aria-label="Search">
+            <Icon name="search" size={24} />
+          </button>
+          <button className={styles.accountButton}>
+            <Icon name="person" size={24} />
+            <span className={styles.loginText}>Log in</span>
+            <span className={styles.menuIcon}><Icon name="menu" size={24} /></span>
+          </button>
+        </div>
+        {/* Desktop-only account button */}
+        <button className={styles.accountButtonDesktop}>
           <Icon name="person" size={24} />
           <span>Log in</span>
         </button>

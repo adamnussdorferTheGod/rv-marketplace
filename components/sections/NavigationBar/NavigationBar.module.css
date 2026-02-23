@@ -34,13 +34,21 @@
   text-decoration: none;
 }
 
+/* SM: 768–991px */
+@media (max-width: 991px) {
+  .resultText {
+    display: none;
+  }
+}
+
 /* XS: <=767px */
 @media (max-width: 767px) {
-  .pagination {
-    gap: var(--space-4);
+  .navigationBar {
+    height: auto;
+    padding: var(--space-8) 0;
   }
 
-  .resultText {
-    font: var(--font-label-3);
+  .pagination {
+    gap: var(--space-4);
   }
 }

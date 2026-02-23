@@ -35,6 +35,23 @@
   margin-bottom: var(--space-32);
 }
 
+.aboveFold {
+  display: flex;
+  flex-direction: column;
+}
+
+.navSection {
+  order: 1;
+}
+
+.titleSectionWrapper {
+  order: 2;
+}
+
+.gallerySection {
+  order: 3;
+}
+
 /* MD: 992–1231px */
 @media (max-width: 1231px) {
   .content {
@@ -51,6 +68,21 @@
   .leaderboard,
   .bottomLeaderboard {
     display: none;
+  }
+}
+
+/* SM: <=991px — reorder: nav, gallery, then title */
+@media (max-width: 991px) {
+  .navSection {
+    order: 1;
+  }
+
+  .gallerySection {
+    order: 2;
+  }
+
+  .titleSectionWrapper {
+    order: 3;
   }
 }
 

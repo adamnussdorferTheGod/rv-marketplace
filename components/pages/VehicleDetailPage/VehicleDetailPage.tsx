@@ -36,19 +36,21 @@ export default function VehicleDetailPage() {
         <AdSlot width={728} height={90} />
       </div>
       <main className={styles.content}>
-        {/* Full-width sections above two-column area */}
-        <div className={styles.sectionSpacing}>
-          <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
-        </div>
-        <div className={styles.sectionSpacing}>
-          <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
-        </div>
-        <div className={styles.sectionSpacing}>
-          <PhotoGallery
-            images={sampleListing.images}
-            totalPhotoCount={sampleListing.totalPhotoCount}
-            tagText={sampleListing.tagText}
-          />
+        {/* Full-width sections above two-column area — reordered on mobile */}
+        <div className={styles.aboveFold}>
+          <div className={`${styles.sectionSpacing} ${styles.navSection}`}>
+            <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
+          </div>
+          <div className={`${styles.sectionSpacing} ${styles.gallerySection}`}>
+            <PhotoGallery
+              images={sampleListing.images}
+              totalPhotoCount={sampleListing.totalPhotoCount}
+              tagText={sampleListing.tagText}
+            />
+          </div>
+          <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
+            <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
+          </div>
         </div>
 
         {/* Two-column area */}

@@ -41,7 +41,8 @@
   gap: var(--space-4);
 }
 
-.accountButton {
+/* Desktop-only account button (no hamburger) */
+.accountButtonDesktop {
   margin-left: auto;
   display: flex;
   align-items: center;
@@ -53,6 +54,51 @@
   cursor: pointer;
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
+}
+
+/* Mobile actions — hidden on desktop */
+.mobileActions {
+  display: none;
+}
+
+.sellLink {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+}
+
+.iconButtonRound {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--rv-on-surface);
+}
+
+/* Mobile account button (avatar + hamburger) */
+.accountButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  border-radius: 100px;
+  border: 1px solid var(--rv-border);
+  background: transparent;
+  cursor: pointer;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.loginText {
+  display: inline;
+}
+
+.menuIcon {
+  display: none;
 }
 
 /* MD: 992–1231px */
@@ -70,6 +116,26 @@
 
   .nav {
     display: none;
+  }
+
+  .accountButtonDesktop {
+    display: none;
+  }
+
+  .mobileActions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-left: auto;
+  }
+
+  .loginText {
+    display: none;
+  }
+
+  .menuIcon {
+    display: flex;
+    align-items: center;
   }
 }
 
