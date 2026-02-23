@@ -6,11 +6,12 @@
   display: flex;
   gap: var(--space-32);
   margin-bottom: var(--space-16);
+  flex-wrap: wrap;
 }
 
 .card {
-  width: 544px;
-  height: 497px;
+  flex: 1;
+  min-width: 280px;
   border: 1px solid var(--rv-border-low);
   border-radius: var(--radius-base);
   background: var(--rv-surface);
@@ -37,4 +38,15 @@
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
   margin: 0;
+}
+
+/* SM: 768–991px — stack cards */
+@media (max-width: 991px) {
+  .cardsRow {
+    flex-direction: column;
+  }
+
+  .card {
+    min-width: 0;
+  }
 }

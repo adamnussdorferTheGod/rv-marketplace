@@ -195,3 +195,11 @@
 .websiteCardLink:hover {
   color: var(--rv-primary);
 }
+
+/* XS: <=767px — Figma keeps dealer info horizontal (logo 88px + details) */
+@media (max-width: 767px) {
+  .websiteLinksCard {
+    flex-direction: column;
+    padding: var(--space-16);
+  }
+}

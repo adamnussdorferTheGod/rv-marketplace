@@ -70,3 +70,23 @@
   color: var(--rv-on-primary);
   flex-shrink: 0;
 }
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .priceRow {
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .currentPrice {
+    font: var(--font-headline-1);
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .paymentLink {
+    width: 100%;
+  }
+}

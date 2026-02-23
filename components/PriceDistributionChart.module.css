@@ -295,3 +295,23 @@
   color: var(--rv-on-surface-variant);
   font-style: italic;
 }
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .barArea {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sectionLabels {
+    gap: var(--space-4);
+  }
+
+  .sectionLabelRange {
+    font-size: 10px;
+  }
+
+  .trackPrice {
+    flex-wrap: wrap;
+  }
+}

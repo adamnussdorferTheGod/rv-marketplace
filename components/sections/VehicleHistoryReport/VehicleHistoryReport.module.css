@@ -94,3 +94,15 @@
 .ctaCell {
   flex-shrink: 0;
 }
+
+/* XS: <=767px — grid stays 2-col, CTA stacks below */
+@media (max-width: 767px) {
+  .bottomRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaCell {
+    width: 100%;
+  }
+}

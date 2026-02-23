@@ -63,3 +63,24 @@
   color: var(--rv-on-surface);
   text-decoration: none;
 }
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .titleRow {
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .title {
+    font: var(--font-title-1);
+    width: 100%;
+  }
+
+  .subtitleRow {
+    flex-wrap: wrap;
+  }
+
+  .actions {
+    display: none;
+  }
+}

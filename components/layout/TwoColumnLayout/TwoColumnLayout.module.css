@@ -1,6 +1,6 @@
 .grid {
   display: grid;
-  grid-template-columns: 633px 455px;
+  grid-template-columns: 1fr 455px;
   gap: var(--space-32);
 }
 
@@ -10,4 +10,18 @@
 
 .right {
   min-width: 0;
+}
+
+/* SM: stack to single column */
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* XS: reduce gap */
+@media (max-width: 767px) {
+  .grid {
+    gap: var(--space-16);
+  }
 }

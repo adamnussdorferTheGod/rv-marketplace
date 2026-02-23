@@ -1,18 +1,17 @@
 /* PhotoGallery — hero image + 2x2 thumbnail grid with overlay badges */
 
-/* Gallery container: 557px hero + 8px gap + 555px thumbnails = 1120px */
+/* Gallery container: fluid two-column layout */
 .gallery {
   display: grid;
-  grid-template-columns: 557px 555px;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-8);
-  height: 456px;
 }
 
 /* Hero image area */
 .heroWrapper {
   position: relative;
-  width: 557px;
-  height: 456px;
+  width: 100%;
+  aspect-ratio: 557 / 456;
   overflow: hidden;
   border-radius: var(--radius-base);
 }
@@ -46,8 +45,8 @@
 /* Thumbnail area */
 .thumbnailWrapper {
   position: relative;
-  width: 555px;
-  height: 456px;
+  width: 100%;
+  aspect-ratio: 555 / 456;
 }
 
 .thumbnailGrid {
@@ -87,4 +86,49 @@
 
 .seeAllButton:hover {
   background: var(--rv-surface);
+}
+
+/* SM: 768–991px — single column, hero full-width, thumbnails as horizontal row */
+@media (max-width: 991px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .heroWrapper {
+    aspect-ratio: 16 / 9;
+  }
+
+  .thumbnailWrapper {
+    aspect-ratio: auto;
+    height: auto;
+  }
+
+  .thumbnailGrid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    height: auto;
+    aspect-ratio: 4 / 1;
+  }
+}
+
+/* XS: <=767px — full-bleed hero, hide thumbnails */
+@media (max-width: 767px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+
+  .heroWrapper {
+    aspect-ratio: 390 / 293;
+    border-radius: 0;
+  }
+
+  .thumbnailWrapper {
+    display: none;
+  }
+
+  .seeAllButton {
+    display: none;
+  }
 }

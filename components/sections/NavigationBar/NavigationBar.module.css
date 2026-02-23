@@ -33,3 +33,14 @@
   color: var(--rv-on-surface);
   text-decoration: none;
 }
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .pagination {
+    gap: var(--space-4);
+  }
+
+  .resultText {
+    font: var(--font-label-3);
+  }
+}

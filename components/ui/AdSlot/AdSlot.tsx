@@ -14,7 +14,7 @@ export default function AdSlot({ width, height, label, className }: AdSlotProps)
   return (
     <div
       className={`${styles.slot} ${className || ''}`.trim()}
-      style={{ width, height }}
+      style={{ width, height, maxWidth: '100%' }}
       role="img"
       aria-label={ariaLabel}
     >

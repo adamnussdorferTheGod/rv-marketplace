@@ -24,10 +24,31 @@
   color: var(--rv-on-surface-variant);
   text-decoration: none;
   border-bottom: 2px solid transparent;
+  white-space: nowrap;
 }
 
 .active {
   font: var(--font-label-2);
   color: var(--rv-on-surface);
   border-bottom-color: var(--rv-border-high);
+}
+
+/* MD: 992–1231px */
+@media (max-width: 1231px) {
+  .bar {
+    padding: 0 var(--space-32);
+  }
+}
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .bar {
+    padding: 0 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabs {
+    min-width: max-content;
+  }
 }

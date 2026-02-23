@@ -45,3 +45,18 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface-variant);
 }
+
+/* SM: 768–991px */
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* XS: <=767px — Figma shows 2-column grid at 390px */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+}

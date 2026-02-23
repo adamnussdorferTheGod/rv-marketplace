@@ -54,3 +54,37 @@
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
 }
+
+/* MD: 992–1231px */
+@media (max-width: 1231px) {
+  .header {
+    padding: var(--space-16) var(--space-32);
+  }
+}
+
+/* SM: 768–991px */
+@media (max-width: 991px) {
+  .header {
+    padding: var(--space-16) var(--space-32);
+  }
+
+  .nav {
+    display: none;
+  }
+}
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .header {
+    padding: var(--space-16);
+  }
+
+  .logo {
+    width: 126px;
+    height: 32px;
+  }
+
+  .inner {
+    gap: var(--space-4);
+  }
+}

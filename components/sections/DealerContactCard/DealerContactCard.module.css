@@ -135,3 +135,18 @@
   font-weight: 700;
   color: var(--rv-on-surface);
 }
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .callSection {
+    flex-direction: column;
+  }
+
+  .qrCode {
+    display: none;
+  }
+
+  .engagementRow {
+    flex-wrap: wrap;
+  }
+}

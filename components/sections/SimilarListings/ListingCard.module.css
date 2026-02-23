@@ -66,3 +66,26 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface);
 }
+
+/* XS: <=767px — show ~2 cards visible in viewport */
+@media (max-width: 767px) {
+  .card {
+    width: 170px;
+  }
+
+  .photoSection {
+    height: 130px;
+  }
+
+  .title {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .content {
+    padding: var(--space-8);
+    gap: var(--space-4);
+  }
+}

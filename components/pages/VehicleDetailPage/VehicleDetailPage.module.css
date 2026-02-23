@@ -1,5 +1,6 @@
 .page {
-  width: 1790px;
+  width: 100%;
+  max-width: 1920px;
   margin: 0 auto;
   background: var(--rv-surface);
 }
@@ -23,7 +24,7 @@
 .content {
   max-width: 1120px;
   margin: 0 auto;
-  padding: var(--space-32) 0;
+  padding: var(--space-32) var(--space-64);
 }
 
 .sectionSpacing {
@@ -32,4 +33,30 @@
 
 .sidebarAd {
   margin-bottom: var(--space-32);
+}
+
+/* MD: 992–1231px */
+@media (max-width: 1231px) {
+  .content {
+    padding: var(--space-32);
+  }
+}
+
+/* SM: 768–991px */
+@media (max-width: 991px) {
+  .content {
+    padding: var(--space-32);
+  }
+
+  .leaderboard,
+  .bottomLeaderboard {
+    display: none;
+  }
+}
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .content {
+    padding: var(--space-16) 20px;
+  }
 }
