@@ -1,0 +1,58 @@
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-4) 0;
+}
+
+.sparkleIcon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--rv-surface-accent);
+  color: var(--rv-primary);
+  margin-top: 2px;
+}
+
+.bubble {
+  padding: var(--space-16) var(--space-24);
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--rv-on-surface-variant);
+  animation: pulse 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

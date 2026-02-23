@@ -1,0 +1,50 @@
+.thread {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-16) var(--space-16);
+  scroll-behavior: smooth;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-32) var(--space-16);
+  gap: var(--space-8);
+}
+
+.welcomeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--rv-surface-accent);
+  color: var(--rv-primary);
+  margin-bottom: var(--space-8);
+}
+
+.welcomeTitle {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.welcomeBody {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-16) 0;
+  max-width: 320px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.followUps {
+  padding-top: var(--space-12);
+}

@@ -3,6 +3,11 @@
   max-width: 1920px;
   margin: 0 auto;
   background: var(--rv-surface);
+  transition: margin-right 400ms ease-in-out;
+}
+
+.pageShifted {
+  margin-right: clamp(420px, 40vw, 520px);
 }
 
 .leaderboard {
@@ -90,5 +95,12 @@
 @media (max-width: 767px) {
   .content {
     padding: var(--space-16) 20px;
+  }
+}
+
+/* Mobile: no page push when AI panel is open (full overlay instead) */
+@media (max-width: 1023px) {
+  .pageShifted {
+    margin-right: 0;
   }
 }

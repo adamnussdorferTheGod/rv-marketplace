@@ -1,0 +1,91 @@
+.userRow {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--space-4) 0;
+}
+
+.userBubble {
+  max-width: 85%;
+  padding: var(--space-12) var(--space-16);
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
+  font: var(--font-body-2);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.assistantRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-4) 0;
+}
+
+.sparkleIcon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--rv-surface-accent);
+  color: var(--rv-primary);
+  margin-top: 2px;
+}
+
+.assistantBubble {
+  max-width: 90%;
+  padding: var(--space-12) var(--space-16);
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) var(--radius-sm);
+  font: var(--font-body-2);
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.assistantBubble p {
+  margin: 0 0 var(--space-8) 0;
+}
+
+.assistantBubble p:last-child {
+  margin-bottom: 0;
+}
+
+.assistantBubble strong {
+  font-weight: 600;
+}
+
+.assistantBubble ul {
+  margin: var(--space-4) 0 var(--space-8) 0;
+  padding-left: var(--space-16);
+}
+
+.assistantBubble li {
+  margin-bottom: var(--space-4);
+}
+
+.assistantBubble li:last-child {
+  margin-bottom: 0;
+}
+
+.assistantBubble table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-8) 0;
+  font: var(--font-body-2);
+}
+
+.assistantBubble th,
+.assistantBubble td {
+  text-align: left;
+  padding: var(--space-4) var(--space-8);
+  border-bottom: 1px solid var(--rv-border-low);
+}
+
+.assistantBubble th {
+  font-weight: 600;
+  color: var(--rv-on-surface);
+}

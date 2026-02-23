@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.horizontal {
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-16);
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-full);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background-color 200ms, border-color 200ms;
+  text-align: left;
+  white-space: normal;
+  animation: fadeIn 300ms ease-out both;
+}
+
+.chip:hover {
+  background: var(--rv-surface-variant);
+  border-color: var(--rv-border);
+}
+
+.chip:active {
+  background: var(--rv-surface-accent);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

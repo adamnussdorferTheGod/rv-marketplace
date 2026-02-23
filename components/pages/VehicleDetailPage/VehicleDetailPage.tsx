@@ -24,104 +24,128 @@ import SimilarListings from '@components/sections/SimilarListings/SimilarListing
 import RelatedCategories from '@components/sections/RelatedCategories/RelatedCategories';
 import InsuranceAccessories from '@components/sections/InsuranceAccessories/InsuranceAccessories';
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
+import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
+import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import styles from './VehicleDetailPage.module.css';
 
+function VehicleDetailPageContent() {
+  const { isOpen } = useAiMode();
+
+  const formattedPrice = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(sampleListing.currentPrice);
+
+  return (
+    <>
+      <div className={`${styles.page} ${isOpen ? styles.pageShifted : ''}`}>
+        <CrossPromotionsBar />
+        <Header />
+        <div className={styles.leaderboard}>
+          <AdSlot width={728} height={90} />
+        </div>
+        <main className={styles.content}>
+          {/* Full-width sections above two-column area — reordered on mobile */}
+          <div className={styles.aboveFold}>
+            <div className={`${styles.sectionSpacing} ${styles.navSection}`}>
+              <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
+            </div>
+            <div className={`${styles.sectionSpacing} ${styles.gallerySection}`}>
+              <PhotoGallery
+                images={sampleListing.images}
+                totalPhotoCount={sampleListing.totalPhotoCount}
+                tagText={sampleListing.tagText}
+              />
+            </div>
+            <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
+              <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
+            </div>
+          </div>
+
+          {/* Two-column area */}
+          <TwoColumnLayout
+            left={
+              <>
+                <PricePayment
+                  currentPrice={sampleListing.currentPrice}
+                  originalPrice={sampleListing.originalPrice}
+                  monthlyPayment={sampleListing.monthlyPayment}
+                  dealRating={sampleListing.dealRating}
+                />
+                <AISummary aiSummary={sampleListing.aiSummary} />
+                <VehicleHistoryReport
+                  vhrAvailable={sampleListing.vhrAvailable}
+                />
+                <FeaturesAndSpecs specs={sampleListing.specs} />
+                <Divider />
+                <Description description={sampleListing.description} />
+                <Divider />
+                <PriceAnalysis
+                  currentPrice={sampleListing.currentPrice}
+                  dealRating={sampleListing.dealRating}
+                  priceAnalysis={sampleListing.priceAnalysis}
+                />
+                <Divider />
+                <LoanCalculator
+                  currentPrice={sampleListing.currentPrice}
+                  dealerName={sampleListing.dealer.name}
+                  dealerPhone={sampleListing.dealer.phone}
+                />
+                <div style={{ marginTop: 'var(--space-32)' }}>
+                  <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
+                </div>
+                <Divider />
+                <AboutDealership dealer={sampleListing.dealer} />
+                <Divider />
+                <Resources />
+                <Divider />
+                <ReportListing />
+                <Disclaimer />
+              </>
+            }
+            right={
+              <>
+                <DealerContactCard dealer={sampleListing.dealer} engagement={sampleListing.engagement} />
+                <div className={styles.sidebarAd}>
+                  <AdSlot width={300} height={250} />
+                </div>
+                <div className={styles.sidebarAd}>
+                  <AdSlot width={300} height={600} />
+                </div>
+                <div className={styles.sidebarAd}>
+                  <AdSlot width={300} height={250} />
+                </div>
+              </>
+            }
+          />
+
+          {/* Full-width sections below two-column area */}
+          <Divider />
+          <SimilarListings listings={sampleListing.similarListings} />
+          <Divider />
+          <RelatedCategories categories={sampleListing.categories} />
+          <InsuranceAccessories />
+          <AdSenseSection />
+        </main>
+        <div className={styles.bottomLeaderboard}>
+          <AdSlot width={728} height={90} />
+        </div>
+        <Footer />
+      </div>
+      <AiModePanel
+        listingTitle={sampleListing.title}
+        listingPrice={formattedPrice}
+      />
+    </>
+  );
+}
+
 export default function VehicleDetailPage() {
   return (
-    <div className={styles.page}>
-      <CrossPromotionsBar />
-      <Header />
-      <div className={styles.leaderboard}>
-        <AdSlot width={728} height={90} />
-      </div>
-      <main className={styles.content}>
-        {/* Full-width sections above two-column area — reordered on mobile */}
-        <div className={styles.aboveFold}>
-          <div className={`${styles.sectionSpacing} ${styles.navSection}`}>
-            <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
-          </div>
-          <div className={`${styles.sectionSpacing} ${styles.gallerySection}`}>
-            <PhotoGallery
-              images={sampleListing.images}
-              totalPhotoCount={sampleListing.totalPhotoCount}
-              tagText={sampleListing.tagText}
-            />
-          </div>
-          <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
-            <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
-          </div>
-        </div>
-
-        {/* Two-column area */}
-        <TwoColumnLayout
-          left={
-            <>
-              <PricePayment
-                currentPrice={sampleListing.currentPrice}
-                originalPrice={sampleListing.originalPrice}
-                monthlyPayment={sampleListing.monthlyPayment}
-                dealRating={sampleListing.dealRating}
-              />
-              <AISummary aiSummary={sampleListing.aiSummary} />
-              <VehicleHistoryReport
-                vhrAvailable={sampleListing.vhrAvailable}
-              />
-              <FeaturesAndSpecs specs={sampleListing.specs} />
-              <Divider />
-              <Description description={sampleListing.description} />
-              <Divider />
-              <PriceAnalysis
-                currentPrice={sampleListing.currentPrice}
-                dealRating={sampleListing.dealRating}
-                priceAnalysis={sampleListing.priceAnalysis}
-              />
-              <Divider />
-              <LoanCalculator
-                currentPrice={sampleListing.currentPrice}
-                dealerName={sampleListing.dealer.name}
-                dealerPhone={sampleListing.dealer.phone}
-              />
-              <div style={{ marginTop: 'var(--space-32)' }}>
-                <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
-              </div>
-              <Divider />
-              <AboutDealership dealer={sampleListing.dealer} />
-              <Divider />
-              <Resources />
-              <Divider />
-              <ReportListing />
-              <Disclaimer />
-            </>
-          }
-          right={
-            <>
-              <DealerContactCard dealer={sampleListing.dealer} engagement={sampleListing.engagement} />
-              <div className={styles.sidebarAd}>
-                <AdSlot width={300} height={250} />
-              </div>
-              <div className={styles.sidebarAd}>
-                <AdSlot width={300} height={600} />
-              </div>
-              <div className={styles.sidebarAd}>
-                <AdSlot width={300} height={250} />
-              </div>
-            </>
-          }
-        />
-
-        {/* Full-width sections below two-column area */}
-        <Divider />
-        <SimilarListings listings={sampleListing.similarListings} />
-        <Divider />
-        <RelatedCategories categories={sampleListing.categories} />
-        <InsuranceAccessories />
-        <AdSenseSection />
-      </main>
-      <div className={styles.bottomLeaderboard}>
-        <AdSlot width={728} height={90} />
-      </div>
-      <Footer />
-    </div>
+    <AiModeProvider listing={sampleListing}>
+      <VehicleDetailPageContent />
+    </AiModeProvider>
   );
 }

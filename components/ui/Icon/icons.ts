@@ -387,6 +387,30 @@ const ICONS: Record<string, IconDefinition> = {
       'M3 18h18',
     ],
   },
+
+  // X / close icon
+  x_close: {
+    paths: [
+      'M18 6L6 18',
+      'M6 6L18 18',
+    ],
+  },
+
+  // Lock icon (auth gate)
+  lock: {
+    paths: [
+      'M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z',
+      'M7 11V7a5 5 0 0 1 10 0v4',
+    ],
+  },
+
+  // Send / arrow-up-right icon (chat input)
+  send: {
+    paths: [
+      'M22 2L11 13',
+      'M22 2L15 22L11 13L2 9L22 2Z',
+    ],
+  },
 };
 
 export { ICONS };
