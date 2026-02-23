@@ -411,6 +411,14 @@ const ICONS: Record<string, IconDefinition> = {
       'M22 2L15 22L11 13L2 9L22 2Z',
     ],
   },
+
+  // Arrow forward / right arrow
+  arrow_forward: {
+    paths: [
+      'M5 12H19',
+      'M12 5L19 12L12 19',
+    ],
+  },
 };
 
 export { ICONS };

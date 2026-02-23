@@ -1,42 +1,85 @@
-.container {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--space-8);
+.wrapper {
   padding: var(--space-12) var(--space-16);
   border-top: 1px solid var(--rv-border-low);
   background: var(--rv-surface);
   flex-shrink: 0;
 }
 
-.container.disabled {
+.wrapper.disabled {
   opacity: var(--rv-disabled-opacity);
   pointer-events: none;
 }
 
-.textarea {
-  flex: 1;
-  min-height: 40px;
-  max-height: 120px;
-  padding: var(--space-8) var(--space-12);
-  border: 1px solid var(--rv-border-input);
-  border-radius: var(--radius-lg);
+/* TIDE 2.0 text field container */
+.field {
+  display: flex;
+  align-items: center;
+  height: 58px;
+  padding: var(--space-16);
+  padding-right: var(--space-8);
   background: var(--rv-surface);
-  font: var(--font-body-2);
-  color: var(--rv-on-surface);
-  resize: none;
-  outline: none;
-  transition: border-color 200ms;
-  line-height: 1.5;
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-base);
+  cursor: text;
+  transition: border-color 150ms, border-width 150ms;
 }
 
-.textarea:focus {
-  border-color: var(--rv-primary);
+/* Active / focused: 2px dark border */
+.field.focused {
+  border: var(--border-heavy) solid var(--rv-border-high);
+  /* Compensate for thicker border to prevent layout shift */
+  padding: calc(var(--space-16) - 1px);
+  padding-right: calc(var(--space-8) - 1px);
 }
 
-.textarea::placeholder {
+/* Label + input stacked */
+.labelAndInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Floating label — resting state (centered, 16px) */
+.label {
+  font: var(--font-label-1);
   color: var(--rv-on-surface-variant);
+  transition: font 150ms;
+  pointer-events: none;
+  line-height: 1.4;
 }
 
+/* Floating label — floated state (top, 12px) */
+.floated .label {
+  font: var(--font-label-3);
+}
+
+/* Textarea — hidden in resting state, visible when floated */
+.input {
+  width: 100%;
+  height: 0;
+  border: none;
+  background: transparent;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  outline: none;
+  resize: none;
+  padding: 0;
+  margin: 0;
+  line-height: 1.4;
+  overflow: hidden;
+  opacity: 0;
+  transition: height 150ms, opacity 150ms;
+}
+
+.floated .input {
+  height: 22px;
+  opacity: 1;
+}
+
+/* Send button — green circle with arrow_forward icon */
 .sendButton {
   display: flex;
   align-items: center;
@@ -48,8 +91,9 @@
   background: var(--rv-primary);
   color: var(--rv-on-primary);
   cursor: pointer;
-  transition: opacity 200ms;
+  transition: opacity 150ms;
   flex-shrink: 0;
+  padding: var(--space-8);
 }
 
 .sendButton:hover:not(:disabled) {
@@ -57,7 +101,6 @@
 }
 
 .sendButton:disabled {
-  background: var(--rv-border-low);
-  color: var(--rv-on-surface-variant);
+  opacity: 0.5;
   cursor: default;
 }
