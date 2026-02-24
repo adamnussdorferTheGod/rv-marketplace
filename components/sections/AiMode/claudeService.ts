@@ -1,8 +1,6 @@
 import type { ListingData } from '../../../app/src/data/types';
 import type { ConversationMessage } from './types';
 
-const API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY as string | undefined;
-
 function fmt(price: number): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -95,7 +93,7 @@ RESPONSE GUIDELINES:
 }
 
 export function isClaudeAvailable(): boolean {
-  return Boolean(API_KEY);
+  return true; // Server-side function handles the API key
 }
 
 export async function generateClaudeResponse(
@@ -103,10 +101,6 @@ export async function generateClaudeResponse(
   message: string,
   history: ConversationMessage[],
 ): Promise<string> {
-  if (!API_KEY) {
-    throw new Error('No API key configured');
-  }
-
   const messages = history.map((msg) => ({
     role: msg.role as 'user' | 'assistant',
     content: msg.content,
@@ -117,13 +111,10 @@ export async function generateClaudeResponse(
     messages.push({ role: 'user', content: message });
   }
 
-  const res = await fetch('/api/anthropic/v1/messages', {
+  const res = await fetch('/api/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
     },
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
