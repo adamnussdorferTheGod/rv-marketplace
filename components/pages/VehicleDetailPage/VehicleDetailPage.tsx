@@ -27,8 +27,10 @@ import InsuranceAccessories from '@components/sections/InsuranceAccessories/Insu
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
+import { NarrationProvider } from '@components/sections/PhotoNarration/NarrationContext';
 import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
 import { sampleListing } from '../../../app/src/data/sampleListing';
+import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
 import styles from './VehicleDetailPage.module.css';
 
 function VehicleDetailPageContent() {
@@ -60,6 +62,7 @@ function VehicleDetailPageContent() {
                 images={sampleListing.images}
                 totalPhotoCount={sampleListing.totalPhotoCount}
                 tagText={sampleListing.tagText}
+                listingTitle={sampleListing.title}
               />
             </div>
             <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
@@ -153,7 +156,9 @@ export default function VehicleDetailPage() {
   return (
     <VdpVariantProvider>
       <AiModeProvider listing={sampleListing}>
-        <VehicleDetailPageContent />
+        <NarrationProvider narrations={sampleNarrations}>
+          <VehicleDetailPageContent />
+        </NarrationProvider>
       </AiModeProvider>
     </VdpVariantProvider>
   );

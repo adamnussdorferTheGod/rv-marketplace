@@ -29,6 +29,50 @@ export interface DealerInfo {
   yearsOnRvTrader: number;
 }
 
+// Photo Narration types
+export type PhotoClassification =
+  | 'exterior_front'
+  | 'exterior_side_driver'
+  | 'exterior_side_passenger'
+  | 'exterior_rear'
+  | 'interior_living'
+  | 'interior_kitchen'
+  | 'interior_bedroom'
+  | 'interior_bathroom'
+  | 'interior_detail'
+  | 'campsite_setup'
+  | 'lifestyle'
+  | 'other';
+
+export interface NarrationData {
+  area_label: string;
+  description: string;
+  notable_features?: string[];
+  worth_checking?: string[];
+  comparison_note?: string | null;
+}
+
+export interface PhotoNarration {
+  photo_id: string;
+  photo_url: string;
+  sort_order: number;
+  classification: PhotoClassification;
+  narration: NarrationData;
+}
+
+export interface GapAnalysis {
+  coverage_score: number;
+  missing_categories: string[];
+  recommendation: string;
+}
+
+export interface ListingNarrations {
+  listing_id: string;
+  narration_version: string;
+  photos: PhotoNarration[];
+  gap_analysis: GapAnalysis;
+}
+
 export interface ListingEngagement {
   isNewlyListed: boolean;
   listedDate: string;

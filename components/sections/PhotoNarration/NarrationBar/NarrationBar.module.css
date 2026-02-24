@@ -1,0 +1,62 @@
+/* NarrationBar — compact bar below inline gallery hero */
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background: var(--rv-surface-variant);
+  border-radius: 0 0 var(--radius-base) var(--radius-base);
+  margin-top: -1px;
+}
+
+.content {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  min-width: 0;
+  flex: 1;
+}
+
+.icon {
+  color: var(--rv-primary);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.label {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.link {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .description {
+    display: none;
+  }
+}

@@ -1,0 +1,215 @@
+/* GalleryLightbox — full-screen overlay gallery */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  background: var(--rv-on-surface);
+}
+
+/* Header bar */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--space-16);
+  background: var(--rv-on-surface);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.headerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.headerButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.headerCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.photoCount {
+  font: var(--font-label-2-semibold);
+  color: #fff;
+}
+
+.listingTitle {
+  font: var(--font-label-3);
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+/* Body — photo + optional panel */
+.body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+  transition: all 350ms ease-in-out;
+}
+
+.photoArea {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  transition: flex 350ms ease-in-out;
+}
+
+.mainPhoto {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: opacity 200ms ease;
+}
+
+.gapCardWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-32);
+}
+
+/* Nav arrows */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.navButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.navPrev {
+  left: var(--space-16);
+}
+
+.navNext {
+  right: var(--space-16);
+}
+
+/* Thumbnail strip */
+.thumbnailStrip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 80px;
+  padding: var(--space-8) var(--space-16);
+  background: var(--rv-on-surface);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.thumbButton {
+  flex-shrink: 0;
+  width: 64px;
+  height: 48px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0;
+  cursor: pointer;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  transition: border-color 150ms;
+}
+
+.thumbButton:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.thumbActive {
+  border-color: #fff;
+}
+
+.thumbImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbGap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Panel appears — photo area shrinks on desktop */
+@media (min-width: 768px) {
+  .bodyWithPanel .photoArea {
+    flex: 0 0 65%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .header {
+    height: 48px;
+    padding: 0 var(--space-8);
+  }
+
+  .listingTitle {
+    display: none;
+  }
+
+  .navButton {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navPrev {
+    left: var(--space-8);
+  }
+
+  .navNext {
+    right: var(--space-8);
+  }
+
+  .thumbnailStrip {
+    height: 60px;
+  }
+
+  .thumbButton {
+    width: 48px;
+    height: 36px;
+  }
+}

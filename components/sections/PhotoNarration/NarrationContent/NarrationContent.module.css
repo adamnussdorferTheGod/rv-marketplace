@@ -1,0 +1,118 @@
+/* NarrationContent — renders narration data */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+/* Area Label */
+.areaLabel {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  padding-bottom: var(--space-8);
+  border-bottom: 2px solid var(--rv-primary);
+}
+
+/* Description */
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Callout sections */
+.calloutSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.calloutHeading {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.calloutList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.calloutItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-base);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.featureItem {
+  background: var(--color-green-100);
+}
+
+.featureIcon {
+  color: var(--color-green-200);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.warningItem {
+  background: var(--color-orange-100);
+}
+
+.warningIcon {
+  color: var(--color-orange-200);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Comparison Note */
+.comparisonNote {
+  font: var(--font-body-2);
+  font-style: italic;
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+  padding: var(--space-8) var(--space-16);
+  border-left: 3px solid var(--rv-border-low);
+}
+
+/* Disclaimer */
+.disclaimer {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* Compact variant */
+.compact {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.compactLabel {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.compactDescription {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}

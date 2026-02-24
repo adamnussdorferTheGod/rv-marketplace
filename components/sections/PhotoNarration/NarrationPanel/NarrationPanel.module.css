@@ -1,0 +1,49 @@
+/* NarrationPanel — right-side panel in lightbox (desktop) */
+
+.panel {
+  width: 35%;
+  min-width: 300px;
+  max-width: 400px;
+  background: var(--rv-surface);
+  border-left: 1px solid var(--rv-border-low);
+  display: flex;
+  flex-direction: column;
+  animation: panelSlideIn 350ms ease-in-out;
+}
+
+@keyframes panelSlideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 35%;
+    opacity: 1;
+  }
+}
+
+.scrollArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-24);
+}
+
+.scrollArea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background: var(--rv-border-low);
+  border-radius: 2px;
+}
+
+/* Hide panel on mobile — use NarrationSheet instead */
+@media (max-width: 767px) {
+  .panel {
+    display: none;
+  }
+}

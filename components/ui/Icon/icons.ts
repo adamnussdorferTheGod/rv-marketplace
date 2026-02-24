@@ -412,6 +412,41 @@ const ICONS: Record<string, IconDefinition> = {
     ],
   },
 
+  // Filled checkmark (Notable Features)
+  check_filled: {
+    paths: [
+      'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Filled flag (Worth Checking)
+  flag_filled: {
+    paths: [
+      'M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Camera icon (Photo Gap Card)
+  camera: {
+    paths: [
+      'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z',
+      'M12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+    ],
+  },
+
+  // Lightbulb / tip icon (Photo Gap Card)
+  lightbulb: {
+    paths: [
+      'M9 21h6',
+      'M9 18h6',
+      'M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z',
+    ],
+  },
+
   // Arrow forward / right arrow
   arrow_forward: {
     paths: [
