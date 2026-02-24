@@ -23,17 +23,31 @@
   line-height: 1.5;
 }
 
-/* Callout sections */
+/* Callout card sections */
 .calloutSection {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: 0;
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  padding: var(--space-16) var(--space-20);
 }
 
 .calloutHeading {
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
-  margin: 0;
+  margin: 0 0 var(--space-12) 0;
+}
+
+/* Notable Features — green card */
+.featureSection {
+  background: var(--rv-surface-accent);
+  border-top: 2px solid var(--rv-primary);
+}
+
+/* Worth Checking — orange card */
+.warningSection {
+  background: #fff2e9;
+  border-top: 2px solid #ff7900;
 }
 
 .calloutList {
@@ -49,30 +63,20 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-8);
-  padding: var(--space-8) var(--space-12);
-  border-radius: var(--radius-base);
   font: var(--font-body-2);
   color: var(--rv-on-surface);
 }
 
-.featureItem {
-  background: var(--color-green-100);
-}
-
 .featureIcon {
-  color: var(--color-green-200);
+  color: var(--rv-primary);
   flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.warningItem {
-  background: var(--color-orange-100);
+  margin-top: 2px;
 }
 
 .warningIcon {
-  color: var(--color-orange-200);
+  color: #ff7900;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 /* Comparison Note */

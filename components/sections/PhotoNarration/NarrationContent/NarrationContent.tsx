@@ -32,11 +32,11 @@ export default function NarrationContent({
 
       {/* Notable Features */}
       {narration.notable_features && narration.notable_features.length > 0 && (
-        <div className={styles.calloutSection}>
+        <div className={`${styles.calloutSection} ${styles.featureSection}`}>
           <h4 className={styles.calloutHeading}>Notable Features</h4>
           <ul className={styles.calloutList}>
             {narration.notable_features.map((feature, i) => (
-              <li key={i} className={`${styles.calloutItem} ${styles.featureItem}`}>
+              <li key={i} className={styles.calloutItem}>
                 <Icon name="check_filled" size={16} className={styles.featureIcon} />
                 <span>{feature}</span>
               </li>
@@ -47,11 +47,11 @@ export default function NarrationContent({
 
       {/* Worth Checking */}
       {narration.worth_checking && narration.worth_checking.length > 0 && (
-        <div className={styles.calloutSection}>
+        <div className={`${styles.calloutSection} ${styles.warningSection}`}>
           <h4 className={styles.calloutHeading}>Worth Checking</h4>
           <ul className={styles.calloutList}>
             {narration.worth_checking.map((item, i) => (
-              <li key={i} className={`${styles.calloutItem} ${styles.warningItem}`}>
+              <li key={i} className={styles.calloutItem}>
                 <Icon name="flag_filled" size={16} className={styles.warningIcon} />
                 <span>{item}</span>
               </li>
