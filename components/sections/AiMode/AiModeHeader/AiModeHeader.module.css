@@ -23,6 +23,11 @@
   color: var(--rv-on-surface);
 }
 
+.titleLarge {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+}
+
 .listingInfo {
   display: flex;
   flex-direction: column;
@@ -62,5 +67,26 @@
 }
 
 .closeButton:hover {
+  background: var(--rv-surface-variant);
+}
+
+/* Fitcheck variant: 40px close button with 8px padding */
+.closeButtonLarge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-8);
+  border: none;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background-color 200ms;
+  flex-shrink: 0;
+}
+
+.closeButtonLarge:hover {
   background: var(--rv-surface-variant);
 }

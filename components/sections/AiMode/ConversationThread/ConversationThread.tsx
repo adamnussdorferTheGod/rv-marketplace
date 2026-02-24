@@ -1,13 +1,23 @@
 import { useEffect, useRef } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useAiMode } from '../AiModeContext';
+import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import MessageBubble from '../MessageBubble/MessageBubble';
 import SuggestedPrompts from '../SuggestedPrompts/SuggestedPrompts';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 import AuthGateInline from '../AuthGateInline/AuthGateInline';
 import styles from './ConversationThread.module.css';
 
-export default function ConversationThread() {
+const FITCHECK_PROMPTS = [
+  'Off-roading RV that fits a family of four and a dog',
+  "I'm looking for an RV to take off-roading that will fit a family of four.",
+];
+
+interface ConversationThreadProps {
+  listingTitle?: string;
+}
+
+export default function ConversationThread({ listingTitle }: ConversationThreadProps) {
   const {
     messages,
     isLoading,
@@ -16,6 +26,7 @@ export default function ConversationThread() {
     isAuthenticated,
     sendMessage,
   } = useAiMode();
+  const { variant } = useVdpVariant();
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -28,10 +39,11 @@ export default function ConversationThread() {
 
   const showAuthGate = exchangeCount >= 2 && !isAuthenticated;
   const hasMessages = messages.length > 0;
+  const isFitcheck = variant === 'option-2';
 
   return (
     <div className={styles.thread} ref={scrollRef}>
-      {!hasMessages && (
+      {!hasMessages && !isFitcheck && (
         <div className={styles.welcome}>
           <div className={styles.welcomeIcon}>
             <Icon name="sparkles" size={32} />
@@ -46,6 +58,35 @@ export default function ConversationThread() {
             onSelect={sendMessage}
             variant="vertical"
           />
+        </div>
+      )}
+
+      {!hasMessages && isFitcheck && (
+        <div className={styles.fitcheckWelcome}>
+          <div className={styles.fitcheckGlow} />
+          <div className={styles.fitcheckCenter}>
+            <div className={styles.fitcheckContent}>
+              <Icon name="sparkles" size={24} className={styles.fitcheckSparkle} />
+              <p className={styles.fitcheckHeading}>
+                What kind of RV are you looking for?
+              </p>
+              <p className={styles.fitcheckSub}>
+                Let&apos;s see if this {listingTitle || 'RV'} is a good fit.
+              </p>
+            </div>
+          </div>
+          <div className={styles.fitcheckPrompts}>
+            {FITCHECK_PROMPTS.map((prompt) => (
+              <button
+                key={prompt}
+                type="button"
+                className={styles.fitcheckCard}
+                onClick={() => sendMessage(prompt)}
+              >
+                {prompt}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 

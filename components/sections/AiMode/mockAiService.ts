@@ -1,7 +1,7 @@
 import type { ListingData } from '../../../app/src/data/types';
 import type { ConversationMessage } from './types';
 
-type Category = 'price' | 'specs' | 'comparison' | 'ownership' | 'towing' | 'general';
+type Category = 'price' | 'specs' | 'comparison' | 'ownership' | 'towing' | 'fitcheck' | 'general';
 
 const KEYWORD_MAP: Record<string, Category> = {
   price: 'price',
@@ -63,6 +63,31 @@ const KEYWORD_MAP: Record<string, Category> = {
   tongue: 'towing',
   sway: 'towing',
   brake: 'towing',
+
+  fit: 'fitcheck',
+  family: 'fitcheck',
+  'off-road': 'fitcheck',
+  offroad: 'fitcheck',
+  dog: 'fitcheck',
+  pet: 'fitcheck',
+  kid: 'fitcheck',
+  child: 'fitcheck',
+  children: 'fitcheck',
+  camping: 'fitcheck',
+  boondock: 'fitcheck',
+  'full-time': 'fitcheck',
+  fulltim: 'fitcheck',
+  couple: 'fitcheck',
+  retire: 'fitcheck',
+  weekend: 'fitcheck',
+  'road trip': 'fitcheck',
+  looking: 'fitcheck',
+  dream: 'fitcheck',
+  need: 'fitcheck',
+  suitable: 'fitcheck',
+  right: 'fitcheck',
+  good: 'fitcheck',
+  work: 'fitcheck',
 };
 
 function classifyMessage(message: string): Category {
@@ -73,6 +98,7 @@ function classifyMessage(message: string): Category {
     comparison: 0,
     ownership: 0,
     towing: 0,
+    fitcheck: 0,
     general: 0,
   };
 
@@ -187,6 +213,45 @@ The aluminum aerodynamic shell is one of the Flying Cloud's biggest towing advan
 - Always stay within 80% of your vehicle's maximum tow rating
 - Consider a sway control system for added stability
 - Practice backing up in an empty parking lot before hitting the road`,
+    ],
+    fitcheck: [
+      `Great question — let's see how this ${listing.year} ${listing.make} ${listing.model} stacks up for what you're looking for.
+
+**What fits**
+- **Sleeping capacity:** ${listing.specs.find((s) => s.label === 'Sleeping capacity')?.value || '4-6'} — comfortable for a family of four with room for guests
+- **Full rear bathroom** with separate shower — a must for families
+- **Kitchen & dinette** — full-size appliances and a convertible dinette for meals on the road
+- **Aluminum construction** — lightweight and durable, holds up well on rougher roads
+
+**What to double-check**
+- **Ground clearance:** The Flying Cloud is a travel trailer, not purpose-built for off-road. Check clearance at the campgrounds you're targeting — improved gravel roads are fine, but rocky trails may be risky
+- **Pet space:** No dedicated pet area, but the dinette/living area gives a dog room to hang out. Consider a crate that fits the ${listing.specs.find((s) => s.label === 'Length')?.value || '25 ft'} floor plan
+- **Tow vehicle:** You'll need a half-ton truck (F-150, Ram 1500, etc.) with at least 5,000 lb towing capacity
+
+**What doesn't fit**
+- If you need true off-grid boondocking for extended periods, the tank capacities may limit you to 3-4 days between fill-ups
+- Not ideal for narrow backcountry roads — at ${listing.specs.find((s) => s.label === 'Length')?.value || '25 ft'}, tight turns can be challenging
+
+**Overall:** This is a solid choice for a family that wants to explore campgrounds and improved roads. For hardcore off-roading, you'd want to look at smaller, purpose-built trailers. But for 90% of family camping? **This fits well.**`,
+
+      `I analyzed the specs and photos for this ${listing.year} ${listing.model} ${listing.trim} against your requirements. Here's the breakdown:
+
+**Fits your needs**
+- **Family of four:** ${listing.specs.find((s) => s.label === 'Sleeping capacity')?.value || '4-6'} sleeping capacity with a queen bed and convertible dinette
+- **Build quality:** Airstream's aluminum shell is one of the most durable on the market — great for families who want something that lasts
+- **Rear bathroom:** Private, full-size bathroom means no campground shower lines with kids
+- **Price:** At ${formatPrice(listing.currentPrice)}, it's a "${listing.dealRating}" deal compared to the ${formatPrice(listing.priceAnalysis.averagePrice)} market average
+
+**Worth investigating**
+- **Dog-friendliness:** The interior has hard-surface flooring (easy to clean), but measure the living space to make sure your dog has room. The dinette area is roughly 6' x 4'
+- **Off-road capability:** Airstreams handle well-maintained forest roads and gravel, but the standard axle isn't built for rock crawling. Ask ${listing.dealer.name} about upgraded suspension options
+- **Storage:** Check if the exterior storage compartments fit your family's gear — bikes, camping equipment, dog supplies add up fast
+
+**Potential gaps**
+- If "off-roading" means unimproved trails, this trailer is too long and low. Consider the Airstream Basecamp for that use case
+- Four people + a large dog in ${listing.specs.find((s) => s.label === 'Length')?.value || '25 ft'} is cozy on rainy days — not a dealbreaker but set expectations
+
+**Bottom line:** For a family that camps at established campgrounds with occasional forest road access, this is an **excellent fit**. The ${listing.model} punches above its weight in durability and resale value. Want me to dig into any of these areas?`,
     ],
     general: [
       `The ${listing.year} ${listing.make} ${listing.model} ${listing.trim} is a **premium travel trailer** listed at ${formatPrice(listing.currentPrice)} in ${listing.location}.

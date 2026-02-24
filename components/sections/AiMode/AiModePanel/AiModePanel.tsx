@@ -69,7 +69,7 @@ export default function AiModePanel({ listingTitle, listingPrice }: AiModePanelP
           listingTitle={listingTitle}
           listingPrice={listingPrice}
         />
-        <ConversationThread />
+        <ConversationThread listingTitle={listingTitle} />
         <ChatInput
           onSend={sendMessage}
           onClose={closePanel}

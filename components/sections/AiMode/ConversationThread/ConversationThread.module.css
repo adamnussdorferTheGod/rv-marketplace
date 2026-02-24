@@ -48,3 +48,107 @@
 .followUps {
   padding-top: var(--space-12);
 }
+
+/* ── Fitcheck welcome variant ── */
+
+.fitcheckWelcome {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+  padding: var(--space-16) 4px;
+}
+
+.fitcheckGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 391px;
+  height: 226px;
+  pointer-events: none;
+  filter: blur(54px);
+  background:
+    radial-gradient(ellipse 127px 228px at 13% 50%, rgba(178, 164, 63, 0.40) 0%, transparent 100%),
+    radial-gradient(ellipse 175px 230px at 84% 50%, rgba(0, 94, 74, 0.16) 0%, transparent 100%),
+    radial-gradient(ellipse 279px 455px at 43% 60%, rgba(247, 248, 237, 1) 0%, transparent 100%);
+  z-index: 0;
+}
+
+.fitcheckCenter {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.fitcheckContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 350px;
+  text-align: center;
+}
+
+.fitcheckSparkle {
+  color: var(--rv-on-surface);
+}
+
+.fitcheckHeading {
+  font: var(--font-label-2);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.fitcheckSub {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.fitcheckPrompts {
+  display: flex;
+  gap: var(--space-16);
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.fitcheckPrompts::-webkit-scrollbar {
+  display: none;
+}
+
+.fitcheckCard {
+  width: 288px;
+  flex-shrink: 0;
+  padding: var(--space-16);
+  background: var(--rv-surface);
+  border: none;
+  border-radius: var(--radius-base);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 200ms, background-color 200ms;
+  line-height: 1.4;
+}
+
+.fitcheckCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: var(--rv-surface-variant);
+}
+
+/* Mobile: smaller cards */
+@media (max-width: 767px) {
+  .fitcheckCard {
+    min-width: 256px;
+    width: 256px;
+  }
+}

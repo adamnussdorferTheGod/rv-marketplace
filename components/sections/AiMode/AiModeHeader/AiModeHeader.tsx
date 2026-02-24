@@ -1,5 +1,6 @@
 import Icon from '@components/ui/Icon/Icon';
 import { useAiMode } from '../AiModeContext';
+import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import styles from './AiModeHeader.module.css';
 
 interface AiModeHeaderProps {
@@ -14,14 +15,18 @@ export default function AiModeHeader({
   isMobile,
 }: AiModeHeaderProps) {
   const { closePanel } = useAiMode();
+  const { variant } = useVdpVariant();
+  const isFitcheck = variant === 'option-2';
 
   return (
     <div className={styles.header}>
       <div className={styles.left}>
-        <Icon name="sparkles" size={20} className={styles.sparkles} />
-        <span className={styles.title}>AI Mode</span>
+        {!isFitcheck && <Icon name="sparkles" size={20} className={styles.sparkles} />}
+        <span className={isFitcheck ? styles.titleLarge : styles.title}>
+          {isFitcheck ? 'Fitcheck' : 'AI Mode'}
+        </span>
       </div>
-      {isMobile && listingTitle && (
+      {!isFitcheck && isMobile && listingTitle && (
         <div className={styles.listingInfo}>
           <span className={styles.listingTitle}>{listingTitle}</span>
           {listingPrice && (
@@ -31,11 +36,11 @@ export default function AiModeHeader({
       )}
       <button
         type="button"
-        className={styles.closeButton}
+        className={isFitcheck ? styles.closeButtonLarge : styles.closeButton}
         onClick={closePanel}
-        aria-label="Close AI Mode"
+        aria-label={isFitcheck ? 'Close Fitcheck' : 'Close AI Mode'}
       >
-        <Icon name="x_close" size={20} />
+        <Icon name="x_close" size={24} />
       </button>
     </div>
   );

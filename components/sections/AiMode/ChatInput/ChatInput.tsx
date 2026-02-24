@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, type KeyboardEvent } from 'react';
 import Icon from '@components/ui/Icon/Icon';
+import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import styles from './ChatInput.module.css';
 
 interface ChatInputProps {
@@ -9,6 +10,7 @@ interface ChatInputProps {
 }
 
 export default function ChatInput({ onSend, onClose, disabled }: ChatInputProps) {
+  const { variant } = useVdpVariant();
   const [value, setValue] = useState('');
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -36,7 +38,8 @@ export default function ChatInput({ onSend, onClose, disabled }: ChatInputProps)
     [handleSend, onClose],
   );
 
-  const labelText = disabled ? 'Sign in to continue...' : 'Ask about this listing...';
+  const defaultLabel = variant === 'option-2' ? 'Describe your dream RV' : 'Ask about this listing...';
+  const labelText = disabled ? 'Sign in to continue...' : defaultLabel;
 
   return (
     <div className={`${styles.wrapper} ${disabled ? styles.disabled : ''}`}>
