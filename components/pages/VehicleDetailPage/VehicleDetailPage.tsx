@@ -85,12 +85,12 @@ function VehicleDetailPageContent() {
                 ) : (
                   <FitCheck />
                 )}
-                <VehicleHistoryReport
-                  vhrAvailable={sampleListing.vhrAvailable}
-                />
                 <FeaturesAndSpecs specs={sampleListing.specs} />
                 <Divider />
                 <Description description={sampleListing.description} />
+                <VehicleHistoryReport
+                  vhrAvailable={sampleListing.vhrAvailable}
+                />
                 <Divider />
                 <PriceAnalysis
                   currentPrice={sampleListing.currentPrice}
