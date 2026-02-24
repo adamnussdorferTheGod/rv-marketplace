@@ -9,6 +9,7 @@ import {
 import type { ListingData } from '../../../app/src/data/types';
 import type { ConversationMessage, AiModeContextValue } from './types';
 import { generateAiResponse } from './mockAiService';
+import { isClaudeAvailable, generateClaudeResponse } from './claudeService';
 import { generateInitialPrompts, generateFollowUpPrompts } from './generatePrompts';
 
 const AiModeContext = createContext<AiModeContextValue | null>(null);
@@ -54,10 +55,20 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
       setIsLoading(true);
 
       try {
-        const response = await generateAiResponse(listing, content, [
-          ...messages,
-          userMsg,
-        ]);
+        const history = [...messages, userMsg];
+        let response: string;
+        if (isClaudeAvailable()) {
+          try {
+            response = await generateClaudeResponse(listing, content, history);
+            console.log('[AiMode] Claude response received');
+          } catch (err) {
+            console.warn('[AiMode] Claude failed, falling back to mock:', err);
+            response = await generateAiResponse(listing, content, history);
+          }
+        } else {
+          console.log('[AiMode] No API key, using mock service');
+          response = await generateAiResponse(listing, content, history);
+        }
 
         const assistantMsg: ConversationMessage = {
           id: nextId(),

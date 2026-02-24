@@ -11,4 +11,13 @@ export default defineConfig({
     },
     dedupe: ['react', 'react-dom'],
   },
+  server: {
+    proxy: {
+      '/api/anthropic': {
+        target: 'https://api.anthropic.com',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/api\/anthropic/, ''),
+      },
+    },
+  },
 })
