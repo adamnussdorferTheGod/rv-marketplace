@@ -41,6 +41,75 @@
   border-radius: 2px;
 }
 
+/* Message box pinned to bottom */
+.messageBox {
+  flex-shrink: 0;
+  padding: var(--space-12) var(--space-16);
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: var(--rv-surface-variant);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-full);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-16);
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  outline: none;
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: var(--rv-primary);
+  color: #fff;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 150ms;
+}
+
+.sendButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.sendButton:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.sentConfirmation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  height: 40px;
+  font: var(--font-label-2);
+  color: var(--color-green-200);
+}
+
+.sentIcon {
+  color: var(--color-green-200);
+}
+
 /* Hide panel on mobile — use NarrationSheet instead */
 @media (max-width: 767px) {
   .panel {
