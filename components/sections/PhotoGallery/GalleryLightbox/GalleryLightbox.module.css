@@ -81,19 +81,10 @@
 }
 
 .mainPhoto {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  transition: opacity 200ms ease;
-}
-
-.gapCardWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  padding: var(--space-32);
+  object-fit: cover;
+  transition: opacity 200ms ease;
 }
 
 /* Nav arrows */
@@ -130,6 +121,7 @@
 .thumbnailStrip {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-8);
   height: 80px;
   padding: var(--space-8) var(--space-16);
@@ -166,19 +158,7 @@
   object-fit: cover;
 }
 
-.thumbGap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-/* Panel appears — photo area shrinks on desktop */
-@media (min-width: 768px) {
-  .bodyWithPanel .photoArea {
-    flex: 0 0 65%;
-  }
-}
+/* Panel appears — photo area fills remaining space on desktop */
 
 /* Mobile */
 @media (max-width: 767px) {

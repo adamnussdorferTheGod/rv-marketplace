@@ -5,7 +5,6 @@ import { useNarration } from '@components/sections/PhotoNarration/NarrationConte
 import NarrationToggle from '@components/sections/PhotoNarration/NarrationToggle/NarrationToggle';
 import NarrationPanel from '@components/sections/PhotoNarration/NarrationPanel/NarrationPanel';
 import NarrationSheet from '@components/sections/PhotoNarration/NarrationSheet/NarrationSheet';
-import PhotoGapCard from '@components/sections/PhotoNarration/PhotoGapCard/PhotoGapCard';
 import styles from './GalleryLightbox.module.css';
 
 interface GalleryLightboxProps {
@@ -23,10 +22,6 @@ export default function GalleryLightbox({
 }: GalleryLightboxProps) {
   const { isEnabled, currentPhotoIndex, setCurrentPhoto } = useNarration();
 
-  // Total slides includes gap card when narration is enabled
-  const totalSlides = isEnabled ? images.length + 1 : images.length;
-  const isGapCard = isEnabled && currentPhotoIndex === images.length;
-
   // Set initial photo on mount
   useEffect(() => {
     setCurrentPhoto(startIndex);
@@ -42,8 +37,8 @@ export default function GalleryLightbox({
   }, []);
 
   const goNext = useCallback(() => {
-    setCurrentPhoto(currentPhotoIndex < totalSlides - 1 ? currentPhotoIndex + 1 : currentPhotoIndex);
-  }, [currentPhotoIndex, totalSlides, setCurrentPhoto]);
+    setCurrentPhoto(currentPhotoIndex < images.length - 1 ? currentPhotoIndex + 1 : currentPhotoIndex);
+  }, [currentPhotoIndex, images.length, setCurrentPhoto]);
 
   const goPrev = useCallback(() => {
     setCurrentPhoto(currentPhotoIndex > 0 ? currentPhotoIndex - 1 : 0);
@@ -69,7 +64,7 @@ export default function GalleryLightbox({
         </button>
         <div className={styles.headerCenter}>
           <span className={styles.photoCount}>
-            {isGapCard ? 'Coverage Report' : `Photo ${currentPhotoIndex + 1} of ${images.length}`}
+            Photo {currentPhotoIndex + 1} of {images.length}
           </span>
           <span className={styles.listingTitle}>{listingTitle}</span>
         </div>
@@ -85,17 +80,11 @@ export default function GalleryLightbox({
       <div className={`${styles.body} ${isEnabled ? styles.bodyWithPanel : ''}`}>
         {/* Photo area */}
         <div className={styles.photoArea}>
-          {isGapCard ? (
-            <div className={styles.gapCardWrapper}>
-              <PhotoGapCard />
-            </div>
-          ) : (
-            <img
-              src={images[currentPhotoIndex]?.url}
-              alt={images[currentPhotoIndex]?.alt}
-              className={styles.mainPhoto}
-            />
-          )}
+          <img
+            src={images[currentPhotoIndex]?.url}
+            alt={images[currentPhotoIndex]?.alt}
+            className={styles.mainPhoto}
+          />
 
           {/* Nav arrows */}
           {currentPhotoIndex > 0 && (
@@ -103,7 +92,7 @@ export default function GalleryLightbox({
               <Icon name="chevron_left" size={24} />
             </button>
           )}
-          {currentPhotoIndex < totalSlides - 1 && (
+          {currentPhotoIndex < images.length - 1 && (
             <button className={`${styles.navButton} ${styles.navNext}`} onClick={goNext} aria-label="Next photo">
               <Icon name="chevron_right" size={24} />
             </button>
@@ -126,19 +115,10 @@ export default function GalleryLightbox({
             <img src={img.url} alt={img.alt} className={styles.thumbImage} />
           </button>
         ))}
-        {isEnabled && (
-          <button
-            className={`${styles.thumbButton} ${styles.thumbGap} ${currentPhotoIndex === images.length ? styles.thumbActive : ''}`}
-            onClick={() => setCurrentPhoto(images.length)}
-            aria-label="View coverage report"
-          >
-            <Icon name="camera" size={16} />
-          </button>
-        )}
       </div>
 
       {/* Mobile narration sheet */}
-      {isEnabled && !isGapCard && <NarrationSheet />}
+      {isEnabled && <NarrationSheet />}
     </div>
   );
 }

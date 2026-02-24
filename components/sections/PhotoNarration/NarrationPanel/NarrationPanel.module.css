@@ -4,6 +4,7 @@
   width: 35%;
   min-width: 300px;
   max-width: 400px;
+  flex-shrink: 0;
   background: var(--rv-surface);
   border-left: 1px solid var(--rv-border-low);
   display: flex;
