@@ -23,54 +23,61 @@
   line-height: 1.5;
 }
 
-/* Callout card sections */
-.calloutSection {
+/* Callout group — heading + card */
+.calloutGroup {
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-base) var(--radius-base) 0 0;
-  padding: var(--space-16) var(--space-32);
+  gap: var(--space-8);
 }
 
-/* Notable Features — green card */
-.featureSection {
-  background: var(--rv-surface-accent);
-  border-top: 2px solid var(--rv-primary);
-}
-
-/* Worth Checking — orange card */
-.warningSection {
-  background: #fff2e9;
-  border-top: 2px solid #ff7900;
-}
-
-.calloutList {
-  list-style: none;
+.calloutHeading {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-12);
 }
 
+/* Callout card — colored container */
+.calloutCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  border-left: 2px solid;
+}
+
+/* Notable Features — green */
+.featureCard {
+  background: var(--rv-surface-accent);
+  border-left-color: var(--rv-primary);
+}
+
+/* Worth Checking — orange */
+.warningCard {
+  background: #fff2e9;
+  border-left-color: #ff7900;
+}
+
+/* Item row — icon + text */
 .calloutItem {
   display: flex;
   align-items: flex-start;
   gap: var(--space-8);
-  font: var(--font-body-1);
+  font: var(--font-body-2);
   color: var(--rv-on-surface);
-  line-height: 24px;
+  line-height: 1.4;
 }
 
 .featureIcon {
   color: var(--rv-primary);
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .warningIcon {
   color: #ff7900;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* Comparison Note */

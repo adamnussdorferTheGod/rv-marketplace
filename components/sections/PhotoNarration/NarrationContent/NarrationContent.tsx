@@ -32,29 +32,31 @@ export default function NarrationContent({
 
       {/* Notable Features */}
       {narration.notable_features && narration.notable_features.length > 0 && (
-        <div className={`${styles.calloutSection} ${styles.featureSection}`}>
-          <ul className={styles.calloutList}>
+        <div className={styles.calloutGroup}>
+          <h4 className={styles.calloutHeading}>Notable Features</h4>
+          <div className={`${styles.calloutCard} ${styles.featureCard}`}>
             {narration.notable_features.map((feature, i) => (
-              <li key={i} className={styles.calloutItem}>
+              <div key={i} className={styles.calloutItem}>
                 <Icon name="check_filled" size={20} className={styles.featureIcon} />
                 <span>{feature}</span>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
       {/* Worth Checking */}
       {narration.worth_checking && narration.worth_checking.length > 0 && (
-        <div className={`${styles.calloutSection} ${styles.warningSection}`}>
-          <ul className={styles.calloutList}>
+        <div className={styles.calloutGroup}>
+          <h4 className={styles.calloutHeading}>Worth Checking</h4>
+          <div className={`${styles.calloutCard} ${styles.warningCard}`}>
             {narration.worth_checking.map((item, i) => (
-              <li key={i} className={styles.calloutItem}>
+              <div key={i} className={styles.calloutItem}>
                 <Icon name="flag_filled" size={20} className={styles.warningIcon} />
                 <span>{item}</span>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 
