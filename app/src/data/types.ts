@@ -73,6 +73,30 @@ export interface ListingNarrations {
   gap_analysis: GapAnalysis;
 }
 
+export interface ReviewCategoryRating {
+  icon: string;
+  label: string;
+  score: number;
+}
+
+export interface Review {
+  id: string;
+  title: string;
+  modelYear: string;
+  rating: number;
+  body: string;
+  author: string;
+  photoCount: number;
+}
+
+export interface ReviewsData {
+  overallRating: number;
+  totalReviews: number;
+  distribution: number[];
+  categories: ReviewCategoryRating[];
+  reviews: Review[];
+}
+
 export interface ListingEngagement {
   isNewlyListed: boolean;
   listedDate: string;
@@ -161,6 +185,9 @@ export interface ListingData {
 
   // Related categories
   categories: string[];
+
+  // Reviews
+  reviews: ReviewsData;
 
   // Engagement
   viewerCount: number;

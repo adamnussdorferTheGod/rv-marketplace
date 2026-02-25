@@ -14,6 +14,7 @@ import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingT
 import FeaturesAndSpecs from '@components/sections/FeaturesAndSpecs/FeaturesAndSpecs';
 import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
 import Description from '@components/sections/Description/Description';
+import Reviews from '@components/sections/Reviews/Reviews';
 import Divider from '@components/ui/Divider/Divider';
 import LoanCalculator from '@components/sections/LoanCalculator/LoanCalculator';
 import AboutDealership from '@components/sections/AboutDealership/AboutDealership';
@@ -94,6 +95,8 @@ function VehicleDetailPageContent() {
                 <FeaturesAndSpecs specs={sampleListing.specs} />
                 <Divider />
                 <Description description={sampleListing.description} />
+                <Divider />
+                <Reviews reviews={sampleListing.reviews} modelName={`${sampleListing.make} ${sampleListing.model} ${sampleListing.trim}`} />
                 <Divider />
                 <PriceAnalysis
                   currentPrice={sampleListing.currentPrice}

@@ -200,6 +200,45 @@ const ICONS: Record<string, IconDefinition> = {
     strokeWidth: 0,
   },
 
+  // --- Review section icons ---
+
+  // Simple filled star (for ratings)
+  star_filled: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Outline star (empty) — filled with explicit light color
+  star_outline: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Shield with checkmark (Quality & reliability)
+  shield_check: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+      'M9 12l2 2 4-4',
+    ],
+  },
+
+  // Grid view (Floorplan & storage)
+  grid_view: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
+    ],
+  },
+
   // --- Legacy spec icons (stroke-based, kept for compatibility) ---
 
   // Measurement ruler

@@ -181,6 +181,40 @@ export const sampleListing: ListingData = {
     'Lightweight trailers',
   ],
 
+  // Reviews
+  reviews: {
+    overallRating: 4.5,
+    totalReviews: 132,
+    distribution: [85, 35, 10, 5, 5],
+    categories: [
+      { icon: 'shield_check', label: 'Quality & reliability', score: 5 },
+      { icon: 'tag', label: 'Cost of ownership', score: 4 },
+      { icon: 'rv_type', label: 'Driving/Towing', score: 4.5 },
+      { icon: 'grid_view', label: 'Floorplan & storage', score: 4 },
+      { icon: 'bed', label: 'Comfort & liveability', score: 5 },
+    ],
+    reviews: [
+      {
+        id: 'rev-001',
+        title: 'Great RV for family and fun!',
+        modelYear: '2025 Airstream Flying Cloud 25RB',
+        rating: 4.7,
+        body: 'We purchased our Flying Cloud last spring and have already taken it on four trips across the Southeast. The build quality is outstanding — everything feels solid and well-crafted. The rear bath layout gives you real privacy, and the kitchen has more counter space than you\'d expect. Our only minor gripe is the storage under the bed could be more accessible.',
+        author: 'Dave Reynolds',
+        photoCount: 5,
+      },
+      {
+        id: 'rev-002',
+        title: 'Comfortable and spacious',
+        modelYear: '2025 Airstream Flying Cloud 25RB',
+        rating: 4.7,
+        body: 'After years of tent camping, we upgraded to the Flying Cloud and haven\'t looked back. The panoramic windows make the interior feel much larger than it is, and the dinette converts to a surprisingly comfortable sleeping area for the kids. Towing with our F-150 has been smooth — the aerodynamic shape really does make a difference on fuel economy.',
+        author: 'Janice Smith',
+        photoCount: 5,
+      },
+    ],
+  },
+
   // Engagement
   viewerCount: 23,
   engagement: {
