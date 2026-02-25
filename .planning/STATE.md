@@ -2,102 +2,46 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-21)
+See: .planning/PROJECT.md (updated 2026-02-24)
 
-**Core value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
-**Current focus:** Phase 9: Integration
+**Core value:** Auto-generated narrated video tours from existing listing photos, transforming static galleries into guided cinematic experiences
+**Current focus:** Phase 10 — Foundation and Gallery Entry Point
 
 ## Current Position
 
-Phase: 9 of 9 (Integration)
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Complete
-Last activity: 2026-02-22 -- Completed 09-02-PLAN.md (Integration verification and production build)
+Phase: 10 of 14 (Foundation and Gallery Entry Point)
+Plan: 1 of 3 in current phase
+Status: Executing
+Last activity: 2026-02-25 — Completed 10-01 (video walkthrough types and sample data)
 
-Progress: [██████████] 100%
+Progress: [==================>------------] 59% (v2.0: 1/15 plans complete)
 
 ## Performance Metrics
 
-**Velocity:**
+**Velocity (v1.0):**
 - Total plans completed: 17
 - Average duration: 4.4min
 - Total execution time: 1.25 hours
 
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 01-foundation | 2 | 8min | 4min |
-| 02-shared-ui-primitives | 2 | 6min | 3min |
-| 03-page-layout | 2 | 12min | 6min |
-| 04-above-the-fold | 2 | 6min | 3min |
-| 05-left-column-upper | 2 | 6min | 3min |
-| 06-left-column-lower | 2 | 11min | 5.5min |
-| 07-sidebar | 1 | 4min | 4min |
-| 08-full-width-bottom | 2 | 14min | 7min |
-| 09-integration-polish | 2 | 8min | 4min |
-
-**Recent Trend:**
-- Last 5 plans: 08-01 (6min), 08-02 (8min), 09-01 (3min), 09-02 (5min)
-- Trend: Stable
-
-*Updated after each plan completion*
+**v2.0:**
+- Total plans completed: 1
+- Estimated plans: 15 (across 5 phases)
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
-
-- [Roadmap]: 9 phases derived from 8 requirement categories plus integration pass
-- [Roadmap]: Phases 7 and 8 depend only on Phase 3, but execute after 5-6 for engagement priority ordering
-- [01-01]: Three-layer CSS cascade order: tokens.css (primitives) -> theme-rv.css (semantic) -> global.css (resets/base)
-- [01-01]: Font family token uses sans-serif fallback matching DESIGN_SYSTEM.md spec
-- [01-01]: App.css #root max-width removed to avoid conflict with 1790px VDP page layout
-- [01-02]: 16 icons registered upfront covering all VDP sections rather than incrementally per phase
-- [01-02]: Icon component uses stroke-based SVG paths with currentColor for parent color inheritance
-- [01-02]: PriceDistributionChart inline icons left unchanged, deferred to Phase 9 integration pass
-- [02-01]: ActionChip uses button element (not div/span) for native keyboard accessibility
-- [02-01]: AdSlot uses role=img with aria-label for accessibility on placeholder boxes
-- [02-01]: No icon included in ActionChip by default; consumers can wrap or extend if needed
-- [02-02]: ExpandableText uses inline style for WebkitLineClamp to support per-instance line counts
-- [02-02]: SegmentedButtons uses transparent 2px border on unselected segments to prevent layout shift
-- [03-01]: CrossPromotionsBar uses template literal className composition for active tab styling
-- [03-01]: Header logo is a styled span placeholder (158x40px) pending real SVG/image asset
-- [03-01]: TwoColumnLayout uses CSS Grid with explicit px column widths (633+32gap+455=1120)
-- [03-02]: Footer CTA buttons use anchor tags (not button elements) since they represent navigation links
-- [03-02]: VehicleDetailPage placeholder sections use dashed borders for visual distinction from real content
-- [03-02]: PriceDistributionChart files preserved in components/ for Phase 9 integration reuse
-- [04-01]: Section components live under components/sections/ separate from layout/ and ui/
-- [04-01]: sectionSpacing wrapper divs used for consistent vertical spacing between real components
-- [04-01]: Icon buttons use 40x40px clickable area with hover state for accessibility
-- [04-02]: Gallery uses CSS Grid with literal 8px gap (not var) to ensure pixel-exact 557+8+555=1120 total
-- [04-02]: Tags badge and See All button built inline in PhotoGallery rather than extracted as separate components
-- [04-02]: thumbnailWrapper provides position:relative context for See All button overlay positioning
-- [05-01]: Added check_circle and sparkle icons beyond 8 spec icons for VHR header and AI search prompt
-- [05-01]: WillingToNegotiate uses green left accent bar (--rv-primary) for visual distinction
-- [05-01]: VehicleHistoryReport uses check_circle icon in header for VHR-available state
-- [05-02]: PriceAnalysis gauge built inline with CSS flexbox segments, no PriceDistributionChart import (Phase 9)
-- [05-02]: Deal indicator positioned via percentage-based left offset mapped to dealRating enum
-- [05-02]: All 7 left column section components get margin-bottom: var(--space-32) for consistent spacing
-- [06-01]: LoanCalculator is static display only ($241/mo) with no interactive inputs, deferred to v2 (INT-02)
-- [06-01]: Resources insurance card uses shield icon with flex layout for card interior
-- [06-01]: ReportListing is single-line flex with flag icon and link, no wrapping container
-- [06-02]: AboutDealership uses conditional rendering for Top 50 badge based on dealer.isTop50
-- [06-02]: Dividers placed before each Phase 6 section except Disclaimer (no Divider between ReportListing and Disclaimer)
-- [06-02]: Left column fully complete with 12 real sections replacing all left column placeholders
-- [07-01]: AdSlot wrapped in .sidebarAd div for margin-bottom since AdSlot has no built-in bottom margin
-- [07-01]: Three AdSlot instances (300x250, 300x600, 300x250) matching Figma reference sidebar layout
-- [08-01]: ListingCard uses 260px fixed width for ~4 visible cards with peek at 5th in 1120px container
-- [08-01]: CSS scroll-snap (no JS library) for carousel horizontal scrolling
-- [08-02]: InsuranceAccessories uses static content (no props) since cards are promotional cross-sell, not data-driven
-- [08-02]: All four placeholder divs replaced in single task to keep VehicleDetailPage in consistent state
-- [09-01]: Used --rv-border-floating token for gauge marker shadow ring instead of non-existent --rv-overlay token
-- [09-01]: Removed 20+ orphan CSS classes from PriceAnalysis.module.css when replacing inline gauge with chart component
-- [09-02]: Changed build script from tsc -b to tsc --noEmit for monorepo-style component layout
-- [09-02]: Added resolve.dedupe for react/react-dom in Vite config for Rollup module resolution
-- [09-02]: Added @components path alias to tsconfig.app.json for TypeScript path resolution
+- [v1.0]: 9 phases, 44 requirements, all complete
+- [v1.0]: CSS Modules + design tokens pattern works well
+- [v1.0]: Three-layer CSS cascade: tokens.css -> theme-rv.css -> global.css
+- [v2.0]: Frontend-only video components (actual rendering is backend)
+- [v2.0]: Simulated video content with sample MP4/poster/MP3
+- [v2.0]: Single timeline source drives all visual state (no parallel timers)
+- [v2.0]: Only current photo gets GPU promotion (will-change: transform)
+- [v2.0]: VideoSource interface includes HLS stub for future compatibility
+- [10-01]: TextOverlay uses 7-variant discriminated union on type field for extensibility
+- [10-01]: AudioTimingSegment extracted as separate named interface for clarity and reuse
+- [10-01]: Sample data (65s, 10 segments) imports sampleListing URLs directly to stay DRY
 
 ### Pending Todos
 
@@ -105,10 +49,12 @@ None yet.
 
 ### Blockers/Concerns
 
-None yet.
+- Ken Burns GPU memory on mobile Safari needs validation during Phase 11
+- Crossfade overlay fade-in approach needs Safari 17+ testing during Phase 11
+- Audio cleanup pattern (pause + removeAttribute src + load) critical in Phase 12
 
 ## Session Continuity
 
-Last session: 2026-02-22
-Stopped at: Completed 09-02-PLAN.md (All phases complete)
+Last session: 2026-02-25
+Stopped at: Completed 10-01-PLAN.md
 Resume file: None

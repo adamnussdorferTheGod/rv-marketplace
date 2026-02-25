@@ -1,117 +1,143 @@
-# Requirements: RV Marketplace VDP
+# Requirements: AI Video Walkthrough (v2.0)
 
-**Defined:** 2026-02-21
-**Core Value:** A pixel-accurate VDP that faithfully implements the Figma reference design using TIDE 2.0 / RV Trader theme
+**Defined:** 2026-02-24
+**Core Value:** Auto-generated narrated video tours from existing listing photos, transforming static galleries into guided cinematic experiences that help buyers research RVs in the format they prefer
 
-## v1 Requirements
+## v2.0 Requirements
 
-Requirements for initial release. Each maps to roadmap phases.
+Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases.
 
 ### Foundation
 
-- [x] **FOUND-01**: Design token CSS files establish all TIDE 2.0 + RV Trader theme custom properties (colors, typography, spacing, borders, shadows)
-- [x] **FOUND-02**: Global CSS resets and Montserrat font loaded across all components
-- [x] **FOUND-03**: TypeScript data interfaces define the complete listing data shape (vehicle, dealer, pricing, specs, photos)
-- [x] **FOUND-04**: Static sample data file provides hardcoded Airstream Flying Cloud 25RB listing data
-- [x] **FOUND-05**: Shared Icon component renders inline SVG icons used across VDP sections
+- [x] **VID-01**: TypeScript interfaces define the complete video walkthrough data shape (segments, acts, motion presets, text overlays, audio timing)
+- [x] **VID-02**: Sample video walkthrough data file provides a fully populated 5-act tour for the Airstream Flying Cloud 25RB listing with 8-12 photo segments
+- [ ] **VID-03**: VideoWalkthroughContext provider manages all video playback state via useReducer state machine (idle/loading/playing/paused/seeking/ended/error)
+- [ ] **VID-04**: useVideoWalkthrough hook exposes video state and dispatch actions to any consuming component
+- [x] **VID-05**: Video source interface supports both MP4 and HLS fields from day one, even though only MP4 is used in v2.0
 
-### Shared UI Primitives
+### Gallery Integration
 
-- [x] **PRIM-01**: Divider component renders horizontal rule with design system border tokens
-- [x] **PRIM-02**: AdSlot component renders placeholder boxes at specified dimensions (728x90, 300x250, 300x600) with "Ad" label
-- [x] **PRIM-03**: ExpandableText component truncates text with "Read more" toggle and chevron animation
-- [x] **PRIM-04**: SegmentedButtons component renders togglable button group with active state styling (Email/Call/Chat)
-- [x] **PRIM-05**: Action chip component renders pill-shaped category tags
+- [ ] **GAL-01**: Video thumbnail appears as the first item in the photo gallery carousel with a play button overlay (64px white circle, centered)
+- [ ] **GAL-02**: Video thumbnail displays duration badge (bottom-right corner, "1:12" format) showing total video length
+- [ ] **GAL-03**: Video thumbnail displays "AI Video Tour" label (top-left corner) with sparkle icon prefix
+- [ ] **GAL-04**: Video thumbnail uses the best exterior photo as the poster/background image
+- [ ] **GAL-05**: Clicking the video thumbnail opens the video in a lightbox player overlay
+- [ ] **GAL-06**: "Watch AI Video Tour" text link appears below the photo gallery as a secondary entry point
+- [ ] **GAL-07**: Video thumbnail hover state scales play button (1.0→1.1) with slight brightness increase
 
-### Page Layout
+### Video Composition Engine
 
-- [x] **LAYOUT-01**: CrossPromotionsBar renders full-width 1790x40px bar with realm tabs (RVs active)
-- [x] **LAYOUT-02**: Header renders logo (158x40), nav links (Shop, Sell, RV values, Cash offers, Research), and account button at 1789x72px
-- [x] **LAYOUT-03**: Footer renders 4 nav columns, SEO copy ("Find RVs for sale on RV Trader"), copyright row, and scroll-to-top button at 1790x679px
-- [x] **LAYOUT-04**: VehicleDetailPage orchestrator composes all sections within 1120px centered content area
-- [x] **LAYOUT-05**: TwoColumnLayout renders 633px left column + 455px right column with 32px gap using CSS Grid
+- [ ] **COMP-01**: Ken Burns motion applies to each photo segment with slow zoom-in, zoom-out, or horizontal pan (alternating directions between consecutive photos)
+- [ ] **COMP-02**: Crossfade transitions (500ms) between photo segments with no hard cuts
+- [ ] **COMP-03**: Only the currently-visible photo has GPU-promoted CSS transform animation; all other photos have no will-change or running animation
+- [ ] **COMP-04**: Video follows 5-act narrative structure: Hook (0-8s) → Exterior Tour (8-25s) → Interior Tour (25-55s) → Specs & Value (55-65s) → CTA (65-75s)
+- [ ] **COMP-05**: Exterior wide shots use zoom-out motion; interior detail shots use zoom-in motion
+- [ ] **COMP-06**: Photo sequencing follows logical tour order: exterior front/side → kitchen → living → bedroom → bathroom → utility
+- [ ] **COMP-07**: All visual state (current photo, animation, overlays) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel timers
 
-### Above-the-Fold Sections
+### Text Overlays
 
-- [x] **ATF-01**: NavigationBar renders "< Search results" back link and "Result 8 of 8,223" with Previous/Next at 1120x20px
-- [x] **ATF-02**: TitleSection renders "2024 Airstream Flying Cloud 25RB" heading with share and favorite icon buttons at 1120x74px
-- [x] **ATF-03**: TitleSection subtitle shows stock/location text, divider, and "Dealer's website" link with icon
-- [x] **ATF-04**: PhotoGallery renders hero image (557x456px) alongside 2x2 thumbnail grid (555x456px) with 8px gaps
-- [x] **ATF-05**: PhotoGallery shows "See all 28 photos" overlay button (182x36px) at bottom-right
-- [x] **ATF-06**: PhotoGallery shows tags badge (139x28px) overlaid at top-left
+- [ ] **OVRL-01**: Listing title text overlay appears in Act 1 (top-left, large white text with drop shadow)
+- [ ] **OVRL-02**: Price and location text overlay appears in Act 1 below the title
+- [ ] **OVRL-03**: Deal Score badge overlay appears in Act 1 (top-right, colored pill per deal score)
+- [ ] **OVRL-04**: Section labels appear at each act transition (fade-in/fade-out, uppercase)
+- [ ] **OVRL-05**: Spec callouts appear during relevant segments (bottom-left, semi-transparent background bar)
+- [ ] **OVRL-06**: Notable feature callouts appear during interior sections (green checkmark + white text on dark bar)
+- [ ] **OVRL-07**: CTA overlay with RV Trader branding appears in final act
+- [ ] **OVRL-08**: Text overlays fade in (200ms) and remain visible for at least 3 seconds
+- [ ] **OVRL-09**: Maximum 2 lines of text overlay on screen at any time
+- [ ] **OVRL-10**: All text overlays use text shadow or semi-transparent background bar for legibility over photos
 
-### Left Column Content
+### Video Player
 
-- [x] **LEFT-01**: PricePayment section renders "$96,000" with strikethrough "$98,000", divider, "Est. monthly payment" text, and price guidance badge (107x28px)
-- [x] **LEFT-02**: AISummary card renders "AI summary" heading with "NEW" badge (56x22px), long-form AI text, and AI search prompt button
-- [x] **LEFT-03**: VehicleHistoryReport card renders VHR component instance at 633x224px
-- [x] **LEFT-04**: WillingToNegotiate indicator renders at 633x119px
-- [x] **LEFT-05**: FeaturesAndSpecs section renders spec grid with key-value pairs and icons at 633x341px
-- [x] **LEFT-06**: PriceAnalysis section renders price heading, comparison text, "Learn more" link, visual price bar with deal card, Low/Fair/High/Overpriced labels, and price history graph area at 633x452px
-- [x] **LEFT-07**: Description section renders heading, expandable description text with "Read more" chevron toggle at 633x188px
-- [x] **LEFT-08**: LoanCalculator section renders heading, subtitle, payment display "$241/mo", contact prompt with CTA button, and financing disclaimer at 633x457px
-- [x] **LEFT-09**: AboutDealership section renders dealer logo, name, location, phone, hours, Top 50 badge, dealer bio with "Read more", "View dealer inventory" CTA, and dealer website links at 633x789px
-- [x] **LEFT-10**: Resources section renders "Resources" heading with Foremost insurance card at 633x204px
-- [x] **LEFT-11**: ReportListing renders flag icon + "Report listing" text at 633x24px
-- [x] **LEFT-12**: Disclaimer renders RV Trader and AI-enhanced photos disclaimer text at 633x115px
+- [ ] **PLAY-01**: Lightbox opens as full-screen fixed overlay with near-black backdrop (rgba(0,0,0,0.92))
+- [ ] **PLAY-02**: Player container has max-width 900px, centered, with border-radius 8px overflow hidden
+- [ ] **PLAY-03**: Standard video controls: play/pause button, seek/scrub bar, elapsed/total time display, volume slider, mute toggle, fullscreen button
+- [ ] **PLAY-04**: Video starts muted on open with a visible "Tap to unmute" prompt (respects browser autoplay policies)
+- [ ] **PLAY-05**: Loading state shows poster image as placeholder with spinner overlay during buffering
+- [ ] **PLAY-06**: Close button (X, top-right) returns to VDP; Escape key also closes
+- [ ] **PLAY-07**: Listing context bar below the player shows: vehicle title, price, location
+- [ ] **PLAY-08**: CTA buttons below the player: "Contact Seller" and "Get Deal Kit"
+- [ ] **PLAY-09**: Controls auto-hide after 3 seconds of inactivity; reappear on mouse move or touch
 
-### Sidebar (Right Column)
+### Chapter Navigation
 
-- [x] **SIDE-01**: DealerContactCard renders Email/Call/Chat segmented tabs, multi-line message textarea, submit CTA button, and dealer contact info (name, address, phone, hours) at 455x463px
-- [x] **SIDE-02**: PopularityStats renders "X people viewing" engagement indicator at 455x20px
-- [x] **SIDE-03**: Sidebar ad slots render 300x250 and 300x600 ad placeholders
+- [ ] **CHAP-01**: Act progress indicator displays as a segmented bar (5 segments) above or below the video, with the active segment highlighted
+- [ ] **CHAP-02**: Clicking an act segment jumps playback to that act's start time
+- [ ] **CHAP-03**: Act labels are visible on the progress indicator (Hook, Exterior, Interior, Specs, CTA or similar)
+- [ ] **CHAP-04**: Chapter markers appear as dots/ticks on the seek bar at each act boundary
 
-### Full-Width Bottom Sections
+### Keyboard & Accessibility
 
-- [x] **FULL-01**: SimilarListings renders horizontal carousel of listing cards at 1120x485px with scroll behavior
-- [x] **FULL-02**: RelatedCategories renders "Related categories" heading with 7 action chip tags in 2 rows at 1120x164px
-- [x] **FULL-03**: InsuranceAccessories renders two side-by-side cards (RV accessories + RV insurance) at 544px each with insurance disclaimer
-- [x] **FULL-04**: AdSense section renders two ad placeholder instances at 1120x424px each with 16px gap
-- [x] **FULL-05**: Leaderboard ad slot renders centered 728x90 ad placeholder at 1790x122px
+- [ ] **A11Y-01**: Space bar toggles play/pause
+- [ ] **A11Y-02**: Left/right arrow keys seek backward/forward 5 seconds
+- [ ] **A11Y-03**: M key toggles mute
+- [ ] **A11Y-04**: F key toggles fullscreen
+- [ ] **A11Y-05**: Escape key closes the lightbox player
+- [ ] **A11Y-06**: Lightbox implements ARIA dialog pattern with focus trap (Tab key cannot escape to elements behind overlay)
+- [ ] **A11Y-07**: Focus restores to the video thumbnail when lightbox closes
 
-### Integration
+### Audio & Narration
 
-- [x] **INTG-01**: All components use CSS Modules with design token custom properties (no hardcoded colors)
-- [x] **INTG-02**: PriceAnalysis section wraps existing PriceDistributionChart component with appropriate props
-- [x] **INTG-03**: Page renders complete VDP at 1790px width matching reference layout positions
+- [ ] **AUD-01**: Audio track plays synchronized to photo segments via the single timeline source
+- [ ] **AUD-02**: Natural pauses (300-500ms) between narration segments
+- [ ] **AUD-03**: Sample pre-recorded narration audio file (MP3) included for the Airstream listing
+- [ ] **AUD-04**: Closed captions/subtitles toggle available in the player controls
+- [ ] **AUD-05**: Caption text displays the narration transcript synchronized to audio timing
+- [ ] **AUD-06**: Audio element cleanup on unmount (pause + removeAttribute src + load) prevents memory leaks
 
-## v2 Requirements
+### Mobile Experience
 
-Deferred to future release. Tracked but not in current roadmap.
+- [ ] **MOB-01**: Video element uses playsInline attribute for iOS inline playback (no fullscreen takeover)
+- [ ] **MOB-02**: Tap on video area toggles play/pause
+- [ ] **MOB-03**: Swipe down gesture dismisses the lightbox player
+- [ ] **MOB-04**: Player fills viewport on mobile with responsive sizing
+- [ ] **MOB-05**: Touch-friendly control targets (minimum 44px tap areas)
 
-### Interactivity
+## Future Requirements
 
-- **INT-01**: Full-screen photo gallery lightbox modal with keyboard navigation
-- **INT-02**: Interactive loan calculator with adjustable down payment, term, and rate
-- **INT-03**: Working dealer contact form submission with validation and success/error states
-- **INT-04**: Sticky sidebar behavior for dealer contact card on scroll
+Deferred to future milestones. Tracked but not in current roadmap.
 
-### Responsive
+### Sharing & Social (v2.1)
 
-- **RESP-01**: Mobile layout (XS breakpoint, <=767px) -- single column
-- **RESP-02**: Tablet layout (SM/MD breakpoints) -- adjusted columns
-- **RESP-03**: Large desktop layout (XL breakpoint, >=1920px) -- standard grid
+- **SHARE-01**: Share overlay with platform buttons (copy link, Facebook, Instagram, TikTok, email)
+- **SHARE-02**: Web Share API integration on mobile (native share sheet)
+- **SHARE-03**: Post-play share overlay appears after video completes
+- **SHARE-04**: Open Graph video tags for rich social previews (requires SSR/edge function)
 
-### Data Integration
+### Analytics (v2.1)
 
-- **DATA-01**: Dynamic listing data from API endpoint
-- **DATA-02**: URL-based routing with listing ID parameter
-- **DATA-03**: Real ad SDK integration for ad slots
+- **ANLYT-01**: video_tour.play_started event fires on play with listing_id and source
+- **ANLYT-02**: video_tour.play_progress events fire at 25%, 50%, 75%, 100% marks
+- **ANLYT-03**: video_tour.shared event fires with platform identifier
+- **ANLYT-04**: video_tour.cta_clicked event fires with CTA type
+
+### Social Format Variants (v3+)
+
+- **FMT-01**: 9:16 portrait format variant for Instagram Reels / TikTok / YouTube Shorts
+- **FMT-02**: 1:1 square format variant for Facebook / Instagram feed
+- **FMT-03**: 15-second story format variant
+
+### SEO (v3+)
+
+- **SEO-01**: VideoObject JSON-LD structured data on VDP pages with video
+- **SEO-02**: Video sitemap for Google Search Console submission
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Factory specs section | Hidden in Figma reference (32:6878) |
-| Geico insurance card | Hidden in reference, only Foremost visible |
-| Affiliate logos in footer | Hidden in reference (32:11602) |
-| Mobile/responsive layout | Desktop-first, separate milestone |
-| Real ad rendering | Static placeholders preserve layout without ad SDK complexity |
-| Server-side rendering | SPA only, no SSR needed for static mockup |
-| User authentication | No login flows, out of scope |
-| Search results page | VDP page only |
-| Dynamic routing | Single static page |
-| Form submission backend | No API backend exists |
+| Real video rendering pipeline (FFmpeg/Shotstack) | Backend infrastructure concern, not frontend milestone |
+| TTS service integration (ElevenLabs/Polly) | Backend service, mocked with sample audio in v2.0 |
+| CDN storage & delivery infrastructure | Backend/DevOps concern |
+| Background music / licensed audio | Licensing complexity, questionable value over narration alone |
+| Dealer customization dashboard | Separate user surface, separate milestone |
+| Multilingual narration | Requires full TTS pipeline + translation |
+| Interactive 3D/360 tours (Matterport-style) | Requires specialized 3D capture hardware, 10-100x complexity |
+| Real-time browser video generation (Canvas/WebGL) | CPU-intensive, unreliable across devices, no competitor does this |
+| Picture-in-picture while scrolling VDP | Overengineered for 60-90 second tours |
+| Video comments / reactions | Social platform feature, not marketplace listing feature |
+| Inline autoplay in search results feed | Bandwidth-heavy, battery-draining, VDP-only experience |
 
 ## Traceability
 
@@ -119,56 +145,72 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | Complete |
-| FOUND-02 | Phase 1 | Complete |
-| FOUND-03 | Phase 1 | Complete |
-| FOUND-04 | Phase 1 | Complete |
-| FOUND-05 | Phase 1 | Complete |
-| PRIM-01 | Phase 2 | Complete |
-| PRIM-02 | Phase 2 | Complete |
-| PRIM-03 | Phase 2 | Complete |
-| PRIM-04 | Phase 2 | Complete |
-| PRIM-05 | Phase 2 | Complete |
-| LAYOUT-01 | Phase 3 | Complete |
-| LAYOUT-02 | Phase 3 | Complete |
-| LAYOUT-03 | Phase 3 | Complete |
-| LAYOUT-04 | Phase 3 | Complete |
-| LAYOUT-05 | Phase 3 | Complete |
-| ATF-01 | Phase 4 | Complete |
-| ATF-02 | Phase 4 | Complete |
-| ATF-03 | Phase 4 | Complete |
-| ATF-04 | Phase 4 | Complete |
-| ATF-05 | Phase 4 | Complete |
-| ATF-06 | Phase 4 | Complete |
-| LEFT-01 | Phase 5 | Complete |
-| LEFT-02 | Phase 5 | Complete |
-| LEFT-03 | Phase 5 | Complete |
-| LEFT-04 | Phase 5 | Complete |
-| LEFT-05 | Phase 5 | Complete |
-| LEFT-06 | Phase 5 | Complete |
-| LEFT-07 | Phase 5 | Complete |
-| LEFT-08 | Phase 6 | Complete |
-| LEFT-09 | Phase 6 | Complete |
-| LEFT-10 | Phase 6 | Complete |
-| LEFT-11 | Phase 6 | Complete |
-| LEFT-12 | Phase 6 | Complete |
-| SIDE-01 | Phase 7 | Complete |
-| SIDE-02 | Phase 7 | Complete |
-| SIDE-03 | Phase 7 | Complete |
-| FULL-01 | Phase 8 | Complete |
-| FULL-02 | Phase 8 | Complete |
-| FULL-03 | Phase 8 | Complete |
-| FULL-04 | Phase 8 | Complete |
-| FULL-05 | Phase 8 | Complete |
-| INTG-01 | Phase 9 | Complete |
-| INTG-02 | Phase 9 | Complete |
-| INTG-03 | Phase 9 | Complete |
+| VID-01 | Phase 10 | Complete |
+| VID-02 | Phase 10 | Complete |
+| VID-03 | Phase 10 | Pending |
+| VID-04 | Phase 10 | Pending |
+| VID-05 | Phase 10 | Complete |
+| GAL-01 | Phase 10 | Pending |
+| GAL-02 | Phase 10 | Pending |
+| GAL-03 | Phase 10 | Pending |
+| GAL-04 | Phase 10 | Pending |
+| GAL-05 | Phase 10 | Pending |
+| GAL-06 | Phase 10 | Pending |
+| GAL-07 | Phase 10 | Pending |
+| COMP-01 | Phase 11 | Pending |
+| COMP-02 | Phase 11 | Pending |
+| COMP-03 | Phase 11 | Pending |
+| COMP-04 | Phase 11 | Pending |
+| COMP-05 | Phase 11 | Pending |
+| COMP-06 | Phase 11 | Pending |
+| COMP-07 | Phase 11 | Pending |
+| PLAY-01 | Phase 11 | Pending |
+| PLAY-02 | Phase 11 | Pending |
+| PLAY-05 | Phase 11 | Pending |
+| PLAY-06 | Phase 11 | Pending |
+| OVRL-01 | Phase 12 | Pending |
+| OVRL-02 | Phase 12 | Pending |
+| OVRL-03 | Phase 12 | Pending |
+| OVRL-04 | Phase 12 | Pending |
+| OVRL-05 | Phase 12 | Pending |
+| OVRL-06 | Phase 12 | Pending |
+| OVRL-07 | Phase 12 | Pending |
+| OVRL-08 | Phase 12 | Pending |
+| OVRL-09 | Phase 12 | Pending |
+| OVRL-10 | Phase 12 | Pending |
+| AUD-01 | Phase 12 | Pending |
+| AUD-02 | Phase 12 | Pending |
+| AUD-03 | Phase 12 | Pending |
+| AUD-04 | Phase 12 | Pending |
+| AUD-05 | Phase 12 | Pending |
+| AUD-06 | Phase 12 | Pending |
+| PLAY-03 | Phase 13 | Pending |
+| PLAY-04 | Phase 13 | Pending |
+| PLAY-07 | Phase 13 | Pending |
+| PLAY-08 | Phase 13 | Pending |
+| PLAY-09 | Phase 13 | Pending |
+| CHAP-01 | Phase 13 | Pending |
+| CHAP-02 | Phase 13 | Pending |
+| CHAP-03 | Phase 13 | Pending |
+| CHAP-04 | Phase 13 | Pending |
+| A11Y-01 | Phase 14 | Pending |
+| A11Y-02 | Phase 14 | Pending |
+| A11Y-03 | Phase 14 | Pending |
+| A11Y-04 | Phase 14 | Pending |
+| A11Y-05 | Phase 14 | Pending |
+| A11Y-06 | Phase 14 | Pending |
+| A11Y-07 | Phase 14 | Pending |
+| MOB-01 | Phase 14 | Pending |
+| MOB-02 | Phase 14 | Pending |
+| MOB-03 | Phase 14 | Pending |
+| MOB-04 | Phase 14 | Pending |
+| MOB-05 | Phase 14 | Pending |
 
 **Coverage:**
-- v1 requirements: 44 total
-- Mapped to phases: 44
+- v2.0 requirements: 60 total
+- Mapped to phases: 60
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-21*
-*Last updated: 2026-02-21 after roadmap creation*
+*Requirements defined: 2026-02-24*
+*Last updated: 2026-02-24 after roadmap creation for v2.0*

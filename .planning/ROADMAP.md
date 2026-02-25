@@ -1,179 +1,215 @@
 # Roadmap: RV Marketplace VDP
 
-## Overview
+## Milestones
 
-Build a pixel-accurate Vehicle Detail Page for RV Trader by layering from design tokens through shared primitives, page skeleton, and section-by-section implementation. The page renders a 2024 Airstream Flying Cloud 25RB listing across ~25 section components within a 1790px desktop layout using TIDE 2.0 / RV Trader theme tokens and CSS Modules. Phases follow strict dependency order: tokens and data contracts first, shared primitives second, page chrome and layout third, then sections by engagement priority (above-the-fold, left column upper, left column lower, sidebar, full-width bottom), ending with a full-page integration pass.
+- [x] **v1.0 MVP** - Phases 1-9 (shipped 2026-02-22)
+- [ ] **v2.0 AI Video Walkthrough** - Phases 10-14 (in progress)
 
 ## Phases
 
+<details>
+<summary>v1.0 MVP (Phases 1-9) - SHIPPED 2026-02-22</summary>
+
+- [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system
+- [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections
+- [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton
+- [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display
+- [x] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content)
+- [x] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content)
+- [x] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots
+- [x] **Phase 8: Full-Width Bottom Sections** - Similar listings, related categories, insurance/accessories, and ad slots
+- [x] **Phase 9: Integration and Polish** - Token compliance audit, PriceDistributionChart integration, and full-page assembly verification
+
+### Phase 1: Foundation
+**Goal**: Every component can reference design tokens and typed data from day one
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 01-01: Design tokens CSS (TIDE 2.0 + RV Trader), Montserrat font loading, global resets
+- [x] 01-02: TypeScript data interfaces, sample listing data, shared Icon component
+
+### Phase 2: Shared UI Primitives
+**Goal**: Reusable UI primitives available so section components never duplicate common patterns
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 02-01: Stateless primitives: Divider, AdSlot, and ActionChip components
+- [x] 02-02: Interactive primitives: ExpandableText and SegmentedButtons components
+
+### Phase 3: Page Layout
+**Goal**: Complete page chrome and two-column layout skeleton
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 03-01: Icons, CrossPromotionsBar, Header, and TwoColumnLayout components
+- [x] 03-02: Footer component, VehicleDetailPage orchestrator, and App.tsx wiring
+
+### Phase 4: Above-the-Fold Sections
+**Goal**: Navigation, title, and photo gallery render with full visual fidelity
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 04-01: NavigationBar and TitleSection components
+- [x] 04-02: PhotoGallery component with hero image, thumbnail grid, and overlay elements
+
+### Phase 5: Left Column Upper Content
+**Goal**: Primary content sections from price through description
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 05-01: PricePayment, AISummary, VehicleHistoryReport, WillingToNegotiate sections
+- [x] 05-02: FeaturesAndSpecs, PriceAnalysis, Description sections
+
+### Phase 6: Left Column Lower Content
+**Goal**: Remaining left column sections from loan calculator through disclaimer
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 06-01: LoanCalculator, Resources, ReportListing, Disclaimer sections
+- [x] 06-02: AboutDealership section + VehicleDetailPage wiring
+
+### Phase 7: Sidebar
+**Goal**: Dealer contact card, popularity stats, and ad placements
+**Plans**: 1/1 complete
+
+Plans:
+- [x] 07-01: DealerContactCard, PopularityStats components + sidebar wiring
+
+### Phase 8: Full-Width Bottom Sections
+**Goal**: Below-the-fold discovery, cross-sell, and ad content
+**Plans**: 2/2 complete
+
+Plans:
+- [x] 08-01: SimilarListings carousel with ListingCard and RelatedCategories chip grid
+- [x] 08-02: InsuranceAccessories, AdSenseSection, and VehicleDetailPage wiring
+
+### Phase 9: Integration and Polish
+**Goal**: Complete VDP at 1790px matching reference layout
+**Plans**: 1/1 complete
+
+Plans:
+- [x] 09-01: CSS token compliance, PriceDistributionChart integration, and full-page verification
+
+</details>
+
+## v2.0 AI Video Walkthrough
+
+**Milestone Goal:** Auto-generate narrated video tours from existing listing photos -- the video equivalent of Smart Photo Narration, delivering guided walkthrough experiences from static assets using CSS composition, Ken Burns motion, text overlays, and synchronized audio narration.
+
 **Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+- Integer phases (10, 11, 12, ...): Planned milestone work
+- Decimal phases (10.1, 10.2): Urgent insertions (marked with INSERTED)
 
-Decimal phases appear between their surrounding integers in numeric order.
-
-- [x] **Phase 1: Foundation** - Design tokens, TypeScript data contracts, sample data, and icon system (completed 2026-02-22)
-- [x] **Phase 2: Shared UI Primitives** - Reusable primitive components used across multiple VDP sections (completed 2026-02-22)
-- [x] **Phase 3: Page Layout** - Page chrome (header, footer, cross-promotions) and two-column layout skeleton (completed 2026-02-22)
-- [x] **Phase 4: Above-the-Fold Sections** - Navigation, title, photo gallery, and price display (completed 2026-02-22)
-- [x] **Phase 5: Left Column Upper Content** - AI summary through description (7 sections, highest engagement content) (completed 2026-02-22)
-- [x] **Phase 6: Left Column Lower Content** - Loan calculator through disclaimer (5 sections, supporting content) (completed 2026-02-22)
-- [x] **Phase 7: Sidebar** - Dealer contact card, popularity stats, and sidebar ad slots (completed 2026-02-22)
-- [x] **Phase 8: Full-Width Bottom Sections** - Similar listings, related categories, insurance/accessories, and ad slots (completed 2026-02-22)
-- [ ] **Phase 9: Integration and Polish** - Token compliance audit, PriceDistributionChart integration, and full-page assembly verification
+- [ ] **Phase 10: Foundation and Gallery Entry Point** - Data types, sample walkthrough data, video state machine, and gallery thumbnail integration
+- [ ] **Phase 11: Ken Burns Engine and Composition Canvas** - Photo motion presets, crossfade transitions, 5-act narrative structure, player shell, and single-timeline architecture
+- [ ] **Phase 12: Text Overlays and Audio Narration** - Timed visual overlays for listing info/specs/features/CTA, synchronized audio narration, and closed captions
+- [ ] **Phase 13: Player Controls and Chapter Navigation** - Interactive playback controls, act progress indicator, chapter markers, listing context bar, and CTA buttons
+- [ ] **Phase 14: Accessibility and Mobile Experience** - Keyboard shortcuts, ARIA dialog pattern, focus management, touch gestures, and responsive player sizing
 
 ## Phase Details
 
-### Phase 1: Foundation
-**Goal**: Every component can reference design tokens and typed data from day one, eliminating hardcoded values and ad-hoc data shapes
-**Depends on**: Nothing (first phase)
-**Requirements**: FOUND-01, FOUND-02, FOUND-03, FOUND-04, FOUND-05
+### Phase 10: Foundation and Gallery Entry Point
+**Goal**: Users discover the AI Video Tour feature through the gallery and the entire video state machine is established for all downstream phases to consume
+**Depends on**: Phase 9 (v1.0 gallery exists)
+**Requirements**: VID-01, VID-02, VID-03, VID-04, VID-05, GAL-01, GAL-02, GAL-03, GAL-04, GAL-05, GAL-06, GAL-07
 **Success Criteria** (what must be TRUE):
-  1. CSS custom properties for all TIDE 2.0 primitive tokens (colors, typography scales, spacing, borders, shadows) and RV Trader semantic tokens (--rv-primary #006836, surface/border tokens) are available in any component via var() references
-  2. Montserrat font renders at weights 400-700 across the application with correct fallback chain
-  3. A TypeScript ListingData interface defines the complete shape for vehicle, dealer, pricing, specs, and photos, and a sample data file exports a fully populated Airstream Flying Cloud 25RB listing matching the reference
-  4. An Icon component renders inline SVG icons by name prop, with at least the icons needed for the title section (share, favorite) available
-**Plans**: 2 plans
+  1. A video thumbnail with play button, "AI Video Tour" label, and duration badge appears as the first item in the photo gallery carousel
+  2. Hovering the video thumbnail scales the play button and brightens the image, and clicking it opens a lightbox overlay (even if the overlay is initially empty)
+  3. A "Watch AI Video Tour" text link below the photo gallery provides a secondary way to open the video
+  4. The VideoWalkthroughContext provider exposes video state (idle/loading/playing/paused/seeking/ended/error) and dispatch actions to any consuming component via useVideoWalkthrough hook
+  5. TypeScript types fully define the video walkthrough data shape (segments, acts, motion presets, overlays, audio timing) and a populated sample data file drives the Airstream listing tour
+**Plans**: 3 plans
 
 Plans:
-- [x] 01-01-PLAN.md — Design tokens CSS (TIDE 2.0 + RV Trader), Montserrat font loading, global resets
-- [x] 01-02-PLAN.md — TypeScript data interfaces, sample listing data, shared Icon component
+- [ ] 10-01-PLAN.md — TypeScript type definitions and sample 5-act walkthrough data
+- [ ] 10-02-PLAN.md — VideoWalkthroughContext provider with useReducer state machine and hook
+- [ ] 10-03-PLAN.md — VideoThumbnail component, PhotoGallery integration, and lightbox shell
 
-### Phase 2: Shared UI Primitives
-**Goal**: Reusable UI primitives are available so section components never duplicate expand/collapse, ad placeholders, dividers, segmented buttons, or chip tag patterns
-**Depends on**: Phase 1
-**Requirements**: PRIM-01, PRIM-02, PRIM-03, PRIM-04, PRIM-05
+### Phase 11: Ken Burns Engine and Composition Canvas
+**Goal**: The video plays a cinematic photo tour with smooth motion and crossfade transitions inside a properly framed lightbox player
+**Depends on**: Phase 10
+**Requirements**: COMP-01, COMP-02, COMP-03, COMP-04, COMP-05, COMP-06, COMP-07, PLAY-01, PLAY-02, PLAY-05, PLAY-06
 **Success Criteria** (what must be TRUE):
-  1. Divider component renders a horizontal rule styled with design system border tokens and is usable between any two sections
-  2. AdSlot component renders a labeled placeholder box at any specified dimension (728x90, 300x250, 300x600) without layout collapse
-  3. ExpandableText component truncates long text to a configurable line count and reveals full text on "Read more" click with chevron animation
-  4. SegmentedButtons component renders a togglable button group (e.g., Email/Call/Chat) with active state styling using design tokens
-  5. ActionChip component renders a pill-shaped category tag matching the design system chip spec
-**Plans**: 2 plans
+  1. Photos animate with Ken Burns motion (zoom-in, zoom-out, or pan) that alternates direction between consecutive segments, with only the current photo GPU-promoted
+  2. Crossfade transitions (500ms) between photo segments produce smooth visual flow with no hard cuts or dark flash artifacts
+  3. The video follows a 5-act narrative structure (Hook / Exterior Tour / Interior Tour / Specs & Value / CTA) with logical photo sequencing from exterior to interior
+  4. The player opens as a full-screen lightbox overlay (near-black backdrop, 900px max-width container) with close button, Escape to close, and a loading/poster state during buffering
+  5. All visual state (current photo, animation, timing) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel independent timers
+**Plans**: TBD
 
 Plans:
-- [x] 02-01-PLAN.md — Stateless primitives: Divider, AdSlot, and ActionChip components
-- [x] 02-02-PLAN.md — Interactive primitives: ExpandableText and SegmentedButtons components
+- [ ] 11-01: KenBurnsLayer with CSS motion presets and GPU memory management
+- [ ] 11-02: Crossfade transitions, 5-act segment sequencing, and single-timeline architecture
+- [ ] 11-03: VideoPlayerOverlay shell (lightbox, container, loading state, close behavior)
 
-### Phase 3: Page Layout
-**Goal**: The complete page chrome and two-column layout skeleton are rendered so sections can be dropped into their correct positions
-**Depends on**: Phase 2
-**Requirements**: LAYOUT-01, LAYOUT-02, LAYOUT-03, LAYOUT-04, LAYOUT-05
+### Phase 12: Text Overlays and Audio Narration
+**Goal**: Users see contextual listing information overlaid on the video and hear synchronized narration that guides them through the tour
+**Depends on**: Phase 11
+**Requirements**: OVRL-01, OVRL-02, OVRL-03, OVRL-04, OVRL-05, OVRL-06, OVRL-07, OVRL-08, OVRL-09, OVRL-10, AUD-01, AUD-02, AUD-03, AUD-04, AUD-05, AUD-06
 **Success Criteria** (what must be TRUE):
-  1. CrossPromotionsBar renders a full-width 1790x40px bar with realm tabs at the top of the page, with "RVs" shown as the active tab
-  2. Header renders the RV Trader logo (158x40), five nav links (Shop, Sell, RV values, Cash offers, Research), and an account button in a 1789x72px bar
-  3. Footer renders 4 navigation columns, SEO copy block, copyright row, and scroll-to-top button in a 1790x679px section at page bottom
-  4. VehicleDetailPage orchestrator renders a vertically stacked page with placeholder text in each section slot, centered in a 1120px content area within the 1790px page
-  5. TwoColumnLayout renders a 633px left / 455px right CSS Grid with 32px gap, and placeholder content in each column shows correct widths
-**Plans**: 2 plans
+  1. Act 1 displays title, price/location, and Deal Score badge overlays; subsequent acts show section labels, spec callouts, notable feature callouts, and a branded CTA overlay in the final act
+  2. All text overlays fade in smoothly, remain visible for at least 3 seconds, use text shadow or semi-transparent background bars for legibility, and never exceed 2 lines on screen simultaneously
+  3. Audio narration plays synchronized to photo segments with natural pauses between narration segments, driven by the single timeline source
+  4. A closed captions toggle in the player controls shows synchronized narration transcript text on screen
+  5. Audio elements are properly cleaned up on unmount (pause + removeAttribute src + load) to prevent memory leaks
+**Plans**: TBD
 
 Plans:
-- [ ] 03-01-PLAN.md — Icons, CrossPromotionsBar, Header, and TwoColumnLayout components
-- [ ] 03-02-PLAN.md — Footer component, VehicleDetailPage orchestrator, and App.tsx wiring
+- [ ] 12-01: TextOverlayLayer with timed overlays for all 5 acts (title, price, deal score, section labels, specs, features, CTA)
+- [ ] 12-02: Overlay timing, fade animations, legibility treatment, and max-lines constraint
+- [ ] 12-03: Audio synchronization, narration pauses, sample MP3, captions toggle, and audio cleanup
 
-### Phase 4: Above-the-Fold Sections
-**Goal**: The top of the page -- navigation, title, and photo gallery -- renders with full visual fidelity, giving the page its identity
-**Depends on**: Phase 3
-**Requirements**: ATF-01, ATF-02, ATF-03, ATF-04, ATF-05, ATF-06
+### Phase 13: Player Controls and Chapter Navigation
+**Goal**: Users can interactively control playback and navigate directly to any act in the video tour
+**Depends on**: Phase 12
+**Requirements**: PLAY-03, PLAY-04, PLAY-07, PLAY-08, PLAY-09, CHAP-01, CHAP-02, CHAP-03, CHAP-04
 **Success Criteria** (what must be TRUE):
-  1. NavigationBar shows a "< Search results" back link on the left and "Result 8 of 8,223" with Previous/Next links on the right
-  2. TitleSection shows "2024 Airstream Flying Cloud 25RB" as the heading with share and favorite icon buttons, and a subtitle row with stock/location, divider, and "Dealer's website" link
-  3. PhotoGallery renders a hero image (557x456px) next to a 2x2 thumbnail grid (555x456px total) with 8px gaps between thumbnails
-  4. PhotoGallery shows a "See all 28 photos" overlay button at bottom-right and a tags badge at top-left of the hero image
-**Plans**: 2 plans
+  1. Standard video controls are present: play/pause button, seek/scrub bar, elapsed/total time display, volume slider, mute toggle, and fullscreen button
+  2. The video starts muted on open with a visible "Tap to unmute" prompt, respecting browser autoplay policies
+  3. An act progress indicator with 5 labeled segments shows the current act, and clicking any segment jumps playback to that act's start time
+  4. Chapter markers appear as dots on the seek bar at each act boundary
+  5. A listing context bar below the player shows the vehicle title, price, and location, with "Contact Seller" and "Get Deal Kit" CTA buttons
+**Plans**: TBD
 
 Plans:
-- [x] 04-01-PLAN.md — NavigationBar and TitleSection components with VehicleDetailPage wiring
-- [x] 04-02-PLAN.md — PhotoGallery component with hero image, thumbnail grid, and overlay elements
+- [ ] 13-01: VideoControls component (play/pause, seek bar, time display, volume, mute, fullscreen, auto-hide)
+- [ ] 13-02: Chapter/act progress indicator, act labels, chapter markers on seek bar, and seek-to-act behavior
+- [ ] 13-03: Muted autoplay with unmute prompt, listing context bar, and CTA buttons
 
-### Phase 5: Left Column Upper Content
-**Goal**: The primary content sections from price through description are rendered in the left column, delivering the core listing information a buyer needs
-**Depends on**: Phase 4
-**Requirements**: LEFT-01, LEFT-02, LEFT-03, LEFT-04, LEFT-05, LEFT-06, LEFT-07
+### Phase 14: Accessibility and Mobile Experience
+**Goal**: The video player is fully keyboard-navigable, screen-reader accessible, and optimized for touch interaction on mobile devices
+**Depends on**: Phase 13
+**Requirements**: A11Y-01, A11Y-02, A11Y-03, A11Y-04, A11Y-05, A11Y-06, A11Y-07, MOB-01, MOB-02, MOB-03, MOB-04, MOB-05
 **Success Criteria** (what must be TRUE):
-  1. PricePayment section shows "$96,000" with a strikethrough "$98,000", an estimated monthly payment line, and a price guidance badge
-  2. AISummary card shows an "AI summary" heading with a "NEW" badge, AI-generated descriptive text, and an AI search prompt button
-  3. VehicleHistoryReport card and WillingToNegotiate indicator each render as styled cards at their specified dimensions
-  4. FeaturesAndSpecs section renders a grid of key-value specification pairs with icons
-  5. PriceAnalysis section renders price heading, comparison text, visual price bar with deal indicator, Low/Fair/High/Overpriced labels, and a price history graph area
-  6. Description section renders listing description text with a "Read more" toggle that expands to show full content
-**Plans**: 2 plans
+  1. Keyboard shortcuts work: Space toggles play/pause, Left/Right arrows seek 5 seconds, M toggles mute, F toggles fullscreen, Escape closes the lightbox
+  2. The lightbox implements the ARIA dialog pattern with a focus trap (Tab cannot escape to elements behind the overlay) and focus restores to the video thumbnail when the lightbox closes
+  3. On mobile, the video plays inline (no iOS fullscreen takeover), tapping the video area toggles play/pause, and swiping down dismisses the lightbox
+  4. The player fills the viewport on mobile with responsive sizing and all control targets meet the 44px minimum tap area
+**Plans**: TBD
 
 Plans:
-- [x] 05-01-PLAN.md — PricePayment, AISummary, VehicleHistoryReport, WillingToNegotiate sections + spec icon registration
-- [x] 05-02-PLAN.md — FeaturesAndSpecs, PriceAnalysis, Description sections + VehicleDetailPage wiring
-
-### Phase 6: Left Column Lower Content
-**Goal**: The remaining left column sections -- loan calculator through disclaimer -- complete the full listing detail below the fold
-**Depends on**: Phase 5
-**Requirements**: LEFT-08, LEFT-09, LEFT-10, LEFT-11, LEFT-12
-**Success Criteria** (what must be TRUE):
-  1. LoanCalculator section renders a "$241/mo" payment display with heading, subtitle, contact prompt CTA button, and financing disclaimer
-  2. AboutDealership section renders dealer logo, name, location, phone, hours, Top 50 badge, expandable bio with "Read more", and "View dealer inventory" CTA
-  3. Resources section renders a "Resources" heading with a Foremost insurance card
-  4. ReportListing shows a flag icon with "Report listing" text, and Disclaimer renders the RV Trader and AI-enhanced photos disclaimer text below it
-**Plans**: 2 plans
-
-Plans:
-- [x] 06-01-PLAN.md — LoanCalculator, Resources, ReportListing, Disclaimer sections + icon registration
-- [ ] 06-02-PLAN.md — AboutDealership section + VehicleDetailPage wiring with Dividers
-
-### Phase 7: Sidebar
-**Goal**: The right column renders the dealer contact card (the primary conversion element), popularity indicator, and ad placements
-**Depends on**: Phase 3
-**Requirements**: SIDE-01, SIDE-02, SIDE-03
-**Success Criteria** (what must be TRUE):
-  1. DealerContactCard renders Email/Call/Chat segmented tabs (using SegmentedButtons), a multi-line message textarea, a submit CTA button, and dealer contact info (name, address, phone, hours)
-  2. PopularityStats renders an "X people viewing" engagement indicator above or near the contact card
-  3. Sidebar ad slots render 300x250 and 300x600 ad placeholders using the AdSlot component
-**Plans**: 1 plan
-
-Plans:
-- [ ] 07-01-PLAN.md — DealerContactCard, PopularityStats components + sidebar wiring with AdSlots
-
-### Phase 8: Full-Width Bottom Sections
-**Goal**: The below-the-fold full-width sections complete the page with discovery, cross-sell, and ad content
-**Depends on**: Phase 3
-**Requirements**: FULL-01, FULL-02, FULL-03, FULL-04, FULL-05
-**Success Criteria** (what must be TRUE):
-  1. SimilarListings renders a horizontal carousel of listing cards with CSS scroll-snap behavior at 1120px width
-  2. RelatedCategories renders a "Related categories" heading with 7 action chip tags arranged in 2 rows
-  3. InsuranceAccessories renders two side-by-side cards (RV accessories + RV insurance) at 544px each with an insurance disclaimer
-  4. AdSense section renders two ad placeholders at 1120x424px each with 16px gap, and Leaderboard ad slot renders a centered 728x90 placeholder
-**Plans**: 2 plans
-
-Plans:
-- [x] 08-01-PLAN.md — SimilarListings carousel with ListingCard and RelatedCategories chip grid
-- [x] 08-02-PLAN.md — InsuranceAccessories, AdSenseSection, and VehicleDetailPage wiring
-
-### Phase 9: Integration and Polish
-**Goal**: The complete VDP page renders at 1790px width matching the reference layout, with consistent token usage and the existing PriceDistributionChart properly integrated
-**Depends on**: Phase 5, Phase 6, Phase 7, Phase 8
-**Requirements**: INTG-01, INTG-02, INTG-03
-**Success Criteria** (what must be TRUE):
-  1. Every component uses CSS Modules with design token custom properties -- no hardcoded color hex values exist in any .module.css file outside of token definition files
-  2. PriceAnalysis section wraps the existing PriceDistributionChart component with correct props and the chart renders within the price analysis layout
-  3. The full VDP page renders at 1790px width with all sections visible and positioned matching the reference layout (1120px content area centered, 633/455 column split, correct vertical section order)
-**Plans**: 2 plans
-
-Plans:
-- [ ] 09-01-PLAN.md — CSS token compliance cleanup and PriceDistributionChart integration into PriceAnalysis
-- [ ] 09-02-PLAN.md — Full build verification, CSS audit, and visual layout checkpoint
+- [ ] 14-01: Keyboard shortcuts for playback control
+- [ ] 14-02: ARIA dialog pattern, focus trap, and focus restoration
+- [ ] 14-03: Mobile inline playback, touch gestures (tap play/pause, swipe dismiss), responsive sizing, and touch-friendly controls
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9
-Note: Phases 7 and 8 depend only on Phase 3, so they could execute after Phase 3. However, Phases 5-6 are higher engagement priority, so the recommended order is sequential 1-9.
+Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 2/2 | Complete    | 2026-02-22 |
-| 2. Shared UI Primitives | 2/2 | Complete    | 2026-02-22 |
-| 3. Page Layout | 0/2 | Complete    | 2026-02-22 |
-| 4. Above-the-Fold Sections | 2/2 | Complete    | 2026-02-22 |
-| 5. Left Column Upper Content | 2/2 | Complete    | 2026-02-22 |
-| 6. Left Column Lower Content | 1/2 | Complete    | 2026-02-22 |
-| 7. Sidebar | 0/1 | Complete    | 2026-02-22 |
-| 8. Full-Width Bottom Sections | 2/2 | Complete    | 2026-02-22 |
-| 9. Integration and Polish | 0/1 | Not started | - |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 2. Shared UI Primitives | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 3. Page Layout | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 4. Above-the-Fold Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 5. Left Column Upper Content | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 6. Left Column Lower Content | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 7. Sidebar | v1.0 | 1/1 | Complete | 2026-02-22 |
+| 8. Full-Width Bottom Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
+| 9. Integration and Polish | v1.0 | 1/1 | Complete | 2026-02-22 |
+| 10. Foundation and Gallery Entry Point | 1/3 | In Progress|  | - |
+| 11. Ken Burns Engine and Composition Canvas | v2.0 | 0/3 | Not started | - |
+| 12. Text Overlays and Audio Narration | v2.0 | 0/3 | Not started | - |
+| 13. Player Controls and Chapter Navigation | v2.0 | 0/3 | Not started | - |
+| 14. Accessibility and Mobile Experience | v2.0 | 0/3 | Not started | - |
