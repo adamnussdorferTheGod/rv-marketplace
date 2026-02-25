@@ -27,13 +27,13 @@ Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases
 
 ### Video Composition Engine
 
-- [ ] **COMP-01**: Ken Burns motion applies to each photo segment with slow zoom-in, zoom-out, or horizontal pan (alternating directions between consecutive photos)
+- [x] **COMP-01**: Ken Burns motion applies to each photo segment with slow zoom-in, zoom-out, or horizontal pan (alternating directions between consecutive photos)
 - [ ] **COMP-02**: Crossfade transitions (500ms) between photo segments with no hard cuts
-- [ ] **COMP-03**: Only the currently-visible photo has GPU-promoted CSS transform animation; all other photos have no will-change or running animation
+- [x] **COMP-03**: Only the currently-visible photo has GPU-promoted CSS transform animation; all other photos have no will-change or running animation
 - [ ] **COMP-04**: Video follows 5-act narrative structure: Hook (0-8s) → Exterior Tour (8-25s) → Interior Tour (25-55s) → Specs & Value (55-65s) → CTA (65-75s)
-- [ ] **COMP-05**: Exterior wide shots use zoom-out motion; interior detail shots use zoom-in motion
+- [x] **COMP-05**: Exterior wide shots use zoom-out motion; interior detail shots use zoom-in motion
 - [ ] **COMP-06**: Photo sequencing follows logical tour order: exterior front/side → kitchen → living → bedroom → bathroom → utility
-- [ ] **COMP-07**: All visual state (current photo, animation, overlays) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel timers
+- [x] **COMP-07**: All visual state (current photo, animation, overlays) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel timers
 
 ### Text Overlays
 
@@ -157,13 +157,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GAL-05 | Phase 10 | Complete |
 | GAL-06 | Phase 10 | Complete |
 | GAL-07 | Phase 10 | Complete |
-| COMP-01 | Phase 11 | Pending |
+| COMP-01 | Phase 11 | Complete |
 | COMP-02 | Phase 11 | Pending |
-| COMP-03 | Phase 11 | Pending |
+| COMP-03 | Phase 11 | Complete |
 | COMP-04 | Phase 11 | Pending |
-| COMP-05 | Phase 11 | Pending |
+| COMP-05 | Phase 11 | Complete |
 | COMP-06 | Phase 11 | Pending |
-| COMP-07 | Phase 11 | Pending |
+| COMP-07 | Phase 11 | Complete |
 | PLAY-01 | Phase 11 | Pending |
 | PLAY-02 | Phase 11 | Pending |
 | PLAY-05 | Phase 11 | Pending |

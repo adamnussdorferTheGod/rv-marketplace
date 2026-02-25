@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** Auto-generated narrated video tours from existing listing photos, transforming static galleries into guided cinematic experiences
-**Current focus:** Phase 10 — Foundation and Gallery Entry Point
+**Current focus:** Phase 11 — Ken Burns Engine and Composition Canvas
 
 ## Current Position
 
-Phase: 10 of 14 (Foundation and Gallery Entry Point) -- COMPLETE
-Plan: 3 of 3 in current phase
-Status: Phase Complete
-Last activity: 2026-02-25 — Completed 10-03 (gallery entry point and video lightbox)
+Phase: 11 of 14 (Ken Burns Engine and Composition Canvas)
+Plan: 1 of 2 in current phase
+Status: Executing
+Last activity: 2026-02-25 — Completed 11-01 (Ken Burns engine foundation)
 
-Progress: [=======================>-------] 73% (v2.0: 3/15 plans complete)
+Progress: [=========================>-----] 80% (v2.0: 4/15 plans complete)
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Progress: [=======================>-------] 73% (v2.0: 3/15 plans complete)
 - Total execution time: 1.25 hours
 
 **v2.0:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Estimated plans: 15 (across 5 phases)
 
 ## Accumulated Context
@@ -50,6 +50,12 @@ Progress: [=======================>-------] 73% (v2.0: 3/15 plans complete)
 - [10-03]: Play icon uses CSS border-width triangle trick for zero-dependency rendering
 - [10-03]: VideoPlayerShell is minimal placeholder shell, replaced by Ken Burns in Phase 11
 - [10-03]: useVideoWalkthrough always called in PhotoGallery, provider wraps at VDP level
+- [11-01]: Named callbacks (loaded, tick, advanceSegment, end) over raw dispatch — matches DealKit/Narration pattern
+- [11-01]: Delta capping at 100ms prevents tab-switch drift in rAF timeline
+- [11-01]: Tick throttling at 100ms intervals balances overlay timing vs re-render frequency
+- [11-01]: will-change: transform via inline style only on active layer — prevents permanent GPU allocation
+- [11-01]: Linear animation-timing for documentary feel; forwards fill-mode holds final frame
+- [11-01]: Subtle scale values (1.0-1.15 zoom, 1.1 base + 3% translate for pan)
 
 ### Pending Todos
 
@@ -64,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 10-03-PLAN.md (Phase 10 complete)
+Stopped at: Completed 11-01-PLAN.md
 Resume file: None
