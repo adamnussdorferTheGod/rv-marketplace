@@ -12,7 +12,7 @@ interface VideoPlayerShellProps {
 }
 
 export default function VideoPlayerShell({ onClose }: VideoPlayerShellProps) {
-  const { state, data, loaded } = useVideoWalkthrough();
+  const { state, data, loaded, play } = useVideoWalkthrough();
 
   // Sync audio to timeline (no-op when audioUrl is undefined)
   useAudioSync();
@@ -67,7 +67,20 @@ export default function VideoPlayerShell({ onClose }: VideoPlayerShellProps) {
                 <div className={styles.spinner} />
               </div>
             ) : (
-              <CompositionCanvas />
+              <>
+                <CompositionCanvas />
+                {(state.status === 'paused' || state.status === 'ended') && (
+                  <button
+                    className={styles.playOverlay}
+                    onClick={play}
+                    aria-label="Play video"
+                  >
+                    <div className={styles.playCircle}>
+                      <Icon name={state.status === 'ended' ? 'replay' : 'play_arrow'} size={40} />
+                    </div>
+                  </button>
+                )}
+              </>
             )}
           </div>
           <VideoControls />

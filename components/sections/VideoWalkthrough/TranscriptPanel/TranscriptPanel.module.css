@@ -3,7 +3,7 @@
 .panel {
   width: 320px;
   flex-shrink: 0;
-  background: var(--rv-surface);
+  background: #252526;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -14,14 +14,14 @@
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--rv-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font: var(--font-heading-6);
-  color: var(--rv-on-surface);
+  color: #e0e0e0;
   flex-shrink: 0;
 }
 
 .headerIcon {
-  opacity: 0.6;
+  color: #808080;
 }
 
 .segmentList {
@@ -39,14 +39,13 @@
 }
 
 .segmentActive {
-  background: var(--rv-surface-accent, rgba(0, 0, 0, 0.04));
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .timestamp {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-  font-family: monospace;
-  color: var(--rv-on-surface-secondary, #666);
+  color: #808080;
   white-space: nowrap;
   flex-shrink: 0;
   padding-top: 2px;
@@ -55,7 +54,27 @@
 .transcriptText {
   font-size: 13px;
   line-height: 1.5;
-  color: var(--rv-on-surface);
+  color: #cccccc;
+}
+
+/* Word-level karaoke highlighting */
+.wordSpoken {
+  color: #cccccc;
+  transition: color 150ms;
+}
+
+.wordActive {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  padding: 1px 2px;
+  margin: -1px -2px;
+  transition: color 150ms, background 150ms;
+}
+
+.wordUpcoming {
+  color: #555555;
+  transition: color 150ms;
 }
 
 @media (max-width: 767px) {

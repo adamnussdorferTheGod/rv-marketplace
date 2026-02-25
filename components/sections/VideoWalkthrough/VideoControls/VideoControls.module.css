@@ -32,7 +32,6 @@
 .time {
   font-size: 13px;
   font-variant-numeric: tabular-nums;
-  font-family: monospace;
   white-space: nowrap;
   flex-shrink: 0;
   opacity: 0.9;

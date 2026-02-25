@@ -10,20 +10,27 @@ export default function TranscriptPanel() {
 
   const segments = data?.audio.segments ?? [];
 
-  // Map flat segment index to audio segment index for active highlight
-  const flatSegmentIds = useMemo(() => {
+  // Compute global elapsed time from segment index + local elapsed
+  const flatDurations = useMemo(() => {
     if (!data) return [];
-    return data.acts.flatMap((act) => act.segments.map((s) => s.id));
+    return data.acts.flatMap((act) => act.segments.map((s) => s.durationMs));
   }, [data]);
 
-  const activeSegmentId = flatSegmentIds[state.currentSegmentIndex] ?? null;
+  const globalElapsedMs = useMemo(() => {
+    let elapsed = 0;
+    for (let i = 0; i < state.currentSegmentIndex; i++) {
+      elapsed += flatDurations[i] ?? 0;
+    }
+    return elapsed + state.elapsedMs;
+  }, [state.currentSegmentIndex, state.elapsedMs, flatDurations]);
 
-  // Auto-scroll to active segment
+  // Auto-scroll to the most recent visible segment
   useEffect(() => {
     activeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, [activeSegmentId]);
+  }, [state.currentSegmentIndex]);
 
-  if (segments.length === 0) return null;
+  // Don't render until the user has clicked play
+  if (!state.hasPlayed || segments.length === 0) return null;
 
   return (
     <div className={styles.panel}>
@@ -35,7 +42,12 @@ export default function TranscriptPanel() {
       </div>
       <div className={styles.segmentList}>
         {segments.map((seg) => {
-          const isActive = seg.segmentId === activeSegmentId;
+          // Progressive reveal: only show segments we've reached
+          if (globalElapsedMs < seg.startMs) return null;
+
+          const isActive = globalElapsedMs >= seg.startMs && globalElapsedMs < seg.endMs;
+          const isPast = globalElapsedMs >= seg.endMs;
+
           return (
             <div
               key={seg.segmentId}
@@ -45,11 +57,62 @@ export default function TranscriptPanel() {
               <span className={styles.timestamp}>
                 {formatDuration(seg.startMs)}
               </span>
-              <span className={styles.transcriptText}>{seg.transcript}</span>
+              <span className={styles.transcriptText}>
+                {isActive ? (
+                  <KaraokeText
+                    text={seg.transcript}
+                    segStartMs={seg.startMs}
+                    segEndMs={seg.endMs}
+                    currentMs={globalElapsedMs}
+                  />
+                ) : isPast ? (
+                  <span className={styles.wordSpoken}>{seg.transcript}</span>
+                ) : (
+                  seg.transcript
+                )}
+              </span>
             </div>
           );
         })}
       </div>
     </div>
+  );
+}
+
+/** Renders transcript text with per-word karaoke highlighting */
+function KaraokeText({
+  text,
+  segStartMs,
+  segEndMs,
+  currentMs,
+}: {
+  text: string;
+  segStartMs: number;
+  segEndMs: number;
+  currentMs: number;
+}) {
+  const words = text.split(/\s+/);
+  const segDuration = segEndMs - segStartMs;
+  const timePerWord = segDuration / words.length;
+  const timeInSegment = currentMs - segStartMs;
+  const activeWordIndex = Math.min(
+    Math.floor(timeInSegment / timePerWord),
+    words.length - 1,
+  );
+
+  return (
+    <>
+      {words.map((word, i) => {
+        let cls = styles.wordUpcoming;
+        if (i < activeWordIndex) cls = styles.wordSpoken;
+        else if (i === activeWordIndex) cls = styles.wordActive;
+
+        return (
+          <span key={i} className={cls}>
+            {word}{i < words.length - 1 ? ' ' : ''}
+          </span>
+        );
+      })}
+    </>
   );
 }

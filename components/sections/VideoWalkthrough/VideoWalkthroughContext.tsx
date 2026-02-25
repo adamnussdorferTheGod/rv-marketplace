@@ -28,6 +28,7 @@ export interface VideoState {
   volume: number;
   error: string | null;
   isLightboxOpen: boolean;
+  hasPlayed: boolean;
 }
 
 // 3. VideoAction discriminated union
@@ -57,6 +58,7 @@ const initialState: VideoState = {
   volume: 1,
   error: null,
   isLightboxOpen: false,
+  hasPlayed: false,
 };
 
 // 5. Reducer with guarded transitions
@@ -73,14 +75,14 @@ function videoReducer(state: VideoState, action: VideoAction): VideoState {
 
     case 'LOADED':
       if (state.status !== 'loading') return state;
-      return { ...state, status: 'playing' };
+      return { ...state, status: 'paused' };
 
     case 'PLAY':
       if (state.status === 'ended') {
-        return { ...state, status: 'playing', currentSegmentIndex: 0, currentActIndex: 0, elapsedMs: 0 };
+        return { ...state, status: 'playing', currentSegmentIndex: 0, currentActIndex: 0, elapsedMs: 0, hasPlayed: true };
       }
       if (state.status !== 'paused' && state.status !== 'idle') return state;
-      return { ...state, status: 'playing' };
+      return { ...state, status: 'playing', hasPlayed: true };
 
     case 'PAUSE':
       if (state.status !== 'playing') return state;

@@ -208,6 +208,43 @@
   to { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
+/* Play button overlay for paused/ended video */
+.videoPlayOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  transition: background 200ms;
+}
+
+.videoPlayOverlay:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.videoPlayOverlay:hover .videoPlayCircle {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.videoPlayCircle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+  transition: transform 200ms, background 200ms;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
 /* Video thumbnail in strip */
 .thumbVideoWrapper {
   position: relative;

@@ -39,6 +39,7 @@ export default function GalleryLightbox({
   const {
     state: videoState,
     data: videoData,
+    play: videoPlay,
     startLoading,
     loaded: videoLoaded,
     closeLightbox: resetVideo,
@@ -164,7 +165,20 @@ export default function GalleryLightbox({
             <div className={styles.videoContainer}>
               <div className={styles.videoCanvas}>
                 {videoState.status === 'playing' || videoState.status === 'paused' || videoState.status === 'seeking' || videoState.status === 'ended' ? (
-                  <CompositionCanvas />
+                  <>
+                    <CompositionCanvas />
+                    {(videoState.status === 'paused' || videoState.status === 'ended') && (
+                      <button
+                        className={styles.videoPlayOverlay}
+                        onClick={videoPlay}
+                        aria-label="Play video"
+                      >
+                        <div className={styles.videoPlayCircle}>
+                          <Icon name={videoState.status === 'ended' ? 'replay' : 'play_arrow'} size={40} />
+                        </div>
+                      </button>
+                    )}
+                  </>
                 ) : (
                   <div className={styles.videoLoading}>
                     <img
