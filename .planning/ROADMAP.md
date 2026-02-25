@@ -135,11 +135,12 @@ Plans:
   3. The video follows a 5-act narrative structure (Hook / Exterior Tour / Interior Tour / Specs & Value / CTA) with logical photo sequencing from exterior to interior
   4. The player opens as a full-screen lightbox overlay (near-black backdrop, 900px max-width container) with close button, Escape to close, and a loading/poster state during buffering
   5. All visual state (current photo, animation, timing) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel independent timers
-**Plans**: 2 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 11-01-PLAN.md — Context extension, useTimeline hook, and KenBurnsLayer with CSS motion presets
-- [ ] 11-02-PLAN.md — CompositionCanvas crossfade orchestration and VideoPlayerShell integration with loading state
+- [x] 11-01-PLAN.md — Context extension, useTimeline hook, and KenBurnsLayer with CSS motion presets
+- [x] 11-02-PLAN.md — CompositionCanvas crossfade orchestration and VideoPlayerShell integration with loading state
+- [ ] 11-03-PLAN.md — Gap closure: fix photo-to-act assignments and motion presets in sample data (COMP-05, COMP-06)
 
 ### Phase 12: Text Overlays and Audio Narration
 **Goal**: Users see contextual listing information overlaid on the video and hear synchronized narration that guides them through the tour
@@ -208,7 +209,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14
 | 8. Full-Width Bottom Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
 | 9. Integration and Polish | v1.0 | 1/1 | Complete | 2026-02-22 |
 | 10. Foundation and Gallery Entry Point | 3/3 | Complete    | 2026-02-25 | - |
-| 11. Ken Burns Engine and Composition Canvas | 2/2 | Complete   | 2026-02-25 | - |
+| 11. Ken Burns Engine and Composition Canvas | 3/3 | Complete   | 2026-02-25 | - |
 | 12. Text Overlays and Audio Narration | v2.0 | 0/3 | Not started | - |
 | 13. Player Controls and Chapter Navigation | v2.0 | 0/3 | Not started | - |
 | 14. Accessibility and Mobile Experience | v2.0 | 0/3 | Not started | - |

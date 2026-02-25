@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useEffect } from 'react';
+import { useMemo, useCallback, useEffect, useRef } from 'react';
 import type {
   VideoSegment,
   VideoAct,
@@ -38,11 +38,19 @@ function flattenSegments(acts: VideoAct[]): FlatSegment[] {
  * All data comes from VideoWalkthroughContext — no props needed.
  */
 export default function CompositionCanvas() {
-  const { state, data, tick, advanceSegment, end } = useVideoWalkthrough();
+  const { state, data, tick, advanceSegment, end, seekComplete } = useVideoWalkthrough();
+  const seekOffsetRef = useRef(0);
 
   const flatSegments = useMemo(
     () => (data ? flattenSegments(data.acts) : []),
     [data],
+  );
+
+  // Memoize the segments array to prevent new reference on every render,
+  // which would cause useTimeline's tick callback to recreate and restart the rAF loop
+  const timelineSegments = useMemo(
+    () => flatSegments.map((f) => f.segment),
+    [flatSegments],
   );
 
   const getActIndex = useCallback(
@@ -53,13 +61,22 @@ export default function CompositionCanvas() {
   // Wire the rAF-driven timeline loop
   useTimeline({
     isPlaying: state.status === 'playing',
-    segments: flatSegments.map((f) => f.segment),
+    segments: timelineSegments,
     currentSegmentIndex: state.currentSegmentIndex,
     onTick: tick,
     onSegmentAdvance: advanceSegment,
     onEnd: end,
     getActIndex,
+    seekOffsetRef,
   });
+
+  // Handle seek: set offset ref and transition back to playing
+  useEffect(() => {
+    if (state.status === 'seeking') {
+      seekOffsetRef.current = state.elapsedMs;
+      seekComplete();
+    }
+  }, [state.status, state.elapsedMs, seekComplete]);
 
   // Preload 2 images ahead of the current segment
   useEffect(() => {

@@ -219,6 +219,67 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
   ],
   audio: {
     audioUrl: undefined,
-    segments: [],
+    segments: [
+      {
+        segmentId: 'seg-01',
+        startMs: 0,
+        endMs: 5000,
+        transcript: 'Welcome to this stunning 2024 Airstream International — a true icon of the open road, now available at an exceptional value.',
+      },
+      {
+        segmentId: 'seg-02',
+        startMs: 5000,
+        endMs: 8000,
+        transcript: 'From every angle, the signature aluminum silhouette commands attention wherever you roam.',
+      },
+      {
+        segmentId: 'seg-03',
+        startMs: 8000,
+        endMs: 14000,
+        transcript: 'Let\'s take a closer look at the exterior. The aerodynamic profile and iconic rivet pattern showcase decades of refined craftsmanship.',
+      },
+      {
+        segmentId: 'seg-04',
+        startMs: 14000,
+        endMs: 20000,
+        transcript: 'Premium exterior features include an awning, stabilizer jacks, and a fully equipped outdoor kitchen area.',
+      },
+      {
+        segmentId: 'seg-05',
+        startMs: 20000,
+        endMs: 28000,
+        transcript: 'Step inside the interior and you\'re greeted by panoramic windows flooding the space with natural light — the hallmark of every Airstream.',
+      },
+      {
+        segmentId: 'seg-06',
+        startMs: 28000,
+        endMs: 35000,
+        transcript: 'The living area comfortably sleeps four and features convertible seating, perfect for both relaxation and entertaining guests.',
+      },
+      {
+        segmentId: 'seg-07',
+        startMs: 35000,
+        endMs: 42000,
+        transcript: 'A fully appointed galley kitchen with premium appliances makes cooking on the road a genuine pleasure.',
+      },
+      {
+        segmentId: 'seg-08',
+        startMs: 42000,
+        endMs: 50000,
+        transcript: 'Now for the specs. At 25 feet, this International is the perfect balance of spacious living and easy towing.',
+      },
+      {
+        segmentId: 'seg-09',
+        startMs: 50000,
+        endMs: 57000,
+        transcript: 'Weighing in at just 3,500 pounds, it\'s towable by most mid-size SUVs — opening up adventure for everyone.',
+      },
+      {
+        segmentId: 'seg-10',
+        startMs: 57000,
+        endMs: 65000,
+        transcript: 'Ready to make this Airstream yours? Contact the dealer today and start your next chapter on the open road.',
+      },
+    ],
   },
 };

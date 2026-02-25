@@ -6,7 +6,7 @@ import {
   useMemo,
   type ReactNode,
 } from 'react';
-import type { VideoWalkthroughData } from '../../../app/src/data/videoWalkthroughTypes';
+import type { VideoWalkthroughData, VideoAct } from '../../../app/src/data/videoWalkthroughTypes';
 
 // 1. VideoPlaybackStatus type
 export type VideoPlaybackStatus =
@@ -76,6 +76,9 @@ function videoReducer(state: VideoState, action: VideoAction): VideoState {
       return { ...state, status: 'playing' };
 
     case 'PLAY':
+      if (state.status === 'ended') {
+        return { ...state, status: 'playing', currentSegmentIndex: 0, currentActIndex: 0, elapsedMs: 0 };
+      }
       if (state.status !== 'paused' && state.status !== 'idle') return state;
       return { ...state, status: 'playing' };
 
@@ -135,8 +138,11 @@ interface VideoWalkthroughContextValue {
   play: () => void;
   pause: () => void;
   seekToSegment: (segmentIndex: number) => void;
+  seekToMs: (globalMs: number) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
+  seekComplete: () => void;
+  startLoading: () => void;
   loaded: () => void;
   tick: (elapsedMs: number) => void;
   advanceSegment: (segmentIndex: number, actIndex: number) => void;
@@ -178,6 +184,49 @@ export function VideoWalkthroughProvider({
     dispatch({ type: 'SEEK', segmentIndex, elapsedMs: 0 });
   }, []);
 
+  const seekToMs = useCallback(
+    (globalMs: number) => {
+      if (!data) return;
+      // Walk flattened segments to find target segment + local offset
+      let cumulative = 0;
+      const flat: { durationMs: number; actIndex: number }[] = [];
+      data.acts.forEach((act: VideoAct, actIdx: number) => {
+        act.segments.forEach((seg) => {
+          flat.push({ durationMs: seg.durationMs, actIndex: actIdx });
+        });
+      });
+      for (let i = 0; i < flat.length; i++) {
+        if (cumulative + flat[i].durationMs > globalMs) {
+          dispatch({
+            type: 'SEEK',
+            segmentIndex: i,
+            elapsedMs: globalMs - cumulative,
+          });
+          return;
+        }
+        cumulative += flat[i].durationMs;
+      }
+      // Past end — seek to last segment end
+      if (flat.length > 0) {
+        const lastIdx = flat.length - 1;
+        dispatch({
+          type: 'SEEK',
+          segmentIndex: lastIdx,
+          elapsedMs: flat[lastIdx].durationMs,
+        });
+      }
+    },
+    [data],
+  );
+
+  const seekComplete = useCallback(() => {
+    dispatch({ type: 'SEEK_COMPLETE' });
+  }, []);
+
+  const startLoading = useCallback(() => {
+    dispatch({ type: 'START_LOADING' });
+  }, []);
+
   const toggleMute = useCallback(() => {
     dispatch({ type: 'TOGGLE_MUTE' });
   }, []);
@@ -214,6 +263,9 @@ export function VideoWalkthroughProvider({
       play,
       pause,
       seekToSegment,
+      seekToMs,
+      seekComplete,
+      startLoading,
       toggleMute,
       setVolume,
       loaded,
@@ -229,6 +281,9 @@ export function VideoWalkthroughProvider({
       play,
       pause,
       seekToSegment,
+      seekToMs,
+      seekComplete,
+      startLoading,
       toggleMute,
       setVolume,
       loaded,

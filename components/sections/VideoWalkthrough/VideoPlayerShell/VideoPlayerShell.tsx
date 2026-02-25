@@ -2,6 +2,9 @@ import { useEffect } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useVideoWalkthrough } from '../VideoWalkthroughContext';
 import CompositionCanvas from '../CompositionCanvas/CompositionCanvas';
+import VideoControls from '../VideoControls/VideoControls';
+import TranscriptPanel from '../TranscriptPanel/TranscriptPanel';
+import { useAudioSync } from '../hooks/useAudioSync';
 import styles from './VideoPlayerShell.module.css';
 
 interface VideoPlayerShellProps {
@@ -10,6 +13,9 @@ interface VideoPlayerShellProps {
 
 export default function VideoPlayerShell({ onClose }: VideoPlayerShellProps) {
   const { state, data, loaded } = useVideoWalkthrough();
+
+  // Sync audio to timeline (no-op when audioUrl is undefined)
+  useAudioSync();
 
   // Body scroll lock
   useEffect(() => {
@@ -34,7 +40,7 @@ export default function VideoPlayerShell({ onClose }: VideoPlayerShellProps) {
     if (state.status === 'loading' && data) {
       const img = new Image();
       img.onload = () => loaded();
-      img.onerror = () => loaded(); // Degrade gracefully — show canvas even if first image fails
+      img.onerror = () => loaded();
       img.src = data.acts[0].segments[0].photoUrl;
     }
   }, [state.status, data, loaded]);
@@ -48,19 +54,25 @@ export default function VideoPlayerShell({ onClose }: VideoPlayerShellProps) {
       >
         <Icon name="x_close" size={24} />
       </button>
-      <div className={styles.container}>
-        {state.status === 'loading' ? (
-          <div className={styles.loadingState}>
-            <img
-              src={data?.source.posterUrl}
-              alt="Loading video tour"
-              className={styles.poster}
-            />
-            <div className={styles.spinner} />
+      <div className={styles.lightboxLayout}>
+        <div className={styles.videoColumn}>
+          <div className={styles.container}>
+            {state.status === 'loading' ? (
+              <div className={styles.loadingState}>
+                <img
+                  src={data?.source.posterUrl}
+                  alt="Loading video tour"
+                  className={styles.poster}
+                />
+                <div className={styles.spinner} />
+              </div>
+            ) : (
+              <CompositionCanvas />
+            )}
           </div>
-        ) : (
-          <CompositionCanvas />
-        )}
+          <VideoControls />
+        </div>
+        <TranscriptPanel />
       </div>
     </div>
   );

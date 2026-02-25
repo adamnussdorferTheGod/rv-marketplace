@@ -2,7 +2,6 @@ import { useState } from 'react';
 import type { ListingImage } from '../../../app/src/data/types';
 import type { VideoWalkthroughData } from '../../../app/src/data/videoWalkthroughTypes';
 import Icon from '@components/ui/Icon/Icon';
-import { useVideoWalkthrough } from '@components/sections/VideoWalkthrough/VideoWalkthroughContext';
 import VideoThumbnail from './VideoThumbnail/VideoThumbnail';
 import GalleryLightbox from './GalleryLightbox/GalleryLightbox';
 import styles from './PhotoGallery.module.css';
@@ -17,10 +16,12 @@ interface PhotoGalleryProps {
 
 export default function PhotoGallery({ images, totalPhotoCount, tagText, listingTitle, videoWalkthrough }: PhotoGalleryProps) {
   const heroImage = images[0];
-  const thumbnails = images.slice(1, 5);
+  const thumbnailsBefore = videoWalkthrough ? images.slice(1, 3) : images.slice(1, 5);
+  const thumbnailsAfter = videoWalkthrough ? images.slice(3, 4) : [];
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
-  const { openLightbox: openVideoLightbox } = useVideoWalkthrough();
+  // Video slide position in unified gallery slides array
+  const videoSlideIndex = 3;
 
   const openLightbox = (startIndex = 0) => {
     setLightboxStartIndex(startIndex);
@@ -31,21 +32,13 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
     <>
       <div className={styles.gallery}>
         <div className={styles.heroWrapper}>
-          {videoWalkthrough ? (
-            <VideoThumbnail
-              posterUrl={videoWalkthrough.source.posterUrl}
-              duration={videoWalkthrough.totalDurationMs}
-              onPlay={openVideoLightbox}
-            />
-          ) : (
-            <img
-              src={heroImage.url}
-              alt={heroImage.alt}
-              className={styles.heroImage}
-              onClick={() => openLightbox(0)}
-              style={{ cursor: 'pointer' }}
-            />
-          )}
+          <img
+            src={heroImage.url}
+            alt={heroImage.alt}
+            className={styles.heroImage}
+            onClick={() => openLightbox(0)}
+            style={{ cursor: 'pointer' }}
+          />
           {/* ATF-06: Tags badge overlay */}
           <div className={styles.tagsBadge}>
             <span className={styles.tagText}>{tagText}</span>
@@ -72,13 +65,30 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
         </div>
         <div className={styles.thumbnailWrapper}>
           <div className={styles.thumbnailGrid}>
-            {thumbnails.map((img, i) => (
+            {thumbnailsBefore.map((img, i) => (
               <img
                 key={i}
                 src={img.url}
                 alt={img.alt}
                 className={styles.thumbnail}
                 onClick={() => openLightbox(i + 1)}
+                style={{ cursor: 'pointer' }}
+              />
+            ))}
+            {videoWalkthrough && (
+              <VideoThumbnail
+                posterUrl={videoWalkthrough.source.posterUrl}
+                duration={videoWalkthrough.totalDurationMs}
+                onPlay={() => openLightbox(videoSlideIndex)}
+              />
+            )}
+            {thumbnailsAfter.map((img, i) => (
+              <img
+                key={`after-${i}`}
+                src={img.url}
+                alt={img.alt}
+                className={styles.thumbnail}
+                onClick={() => openLightbox(thumbnailsBefore.length + 1 + i + 1)}
                 style={{ cursor: 'pointer' }}
               />
             ))}
@@ -90,13 +100,6 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
           </button>
         </div>
       </div>
-      {/* GAL-06: Watch AI Video Tour secondary link */}
-      {videoWalkthrough && (
-        <button className={styles.watchVideoLink} onClick={openVideoLightbox}>
-          <Icon name="sparkles" size={16} />
-          Watch AI Video Tour
-        </button>
-      )}
       {/* Gallery lightbox */}
       {isLightboxOpen && (
         <GalleryLightbox
@@ -104,6 +107,7 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
           listingTitle={listingTitle}
           startIndex={lightboxStartIndex}
           onClose={() => setIsLightboxOpen(false)}
+          videoWalkthrough={videoWalkthrough}
         />
       )}
     </>

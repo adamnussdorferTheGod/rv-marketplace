@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, type RefObject } from 'react';
 
 interface UseTimelineOptions {
   isPlaying: boolean;
@@ -8,14 +8,15 @@ interface UseTimelineOptions {
   onSegmentAdvance: (segmentIndex: number, actIndex: number) => void;
   onEnd: () => void;
   getActIndex: (segmentIndex: number) => number;
+  seekOffsetRef?: RefObject<number>;
 }
 
 /**
  * requestAnimationFrame-based timeline driver for the Ken Burns composition engine.
  *
- * All timing state is stored in useRef to avoid triggering re-renders at 60fps.
- * Only dispatches to the reducer via callbacks at throttled intervals or on
- * segment boundaries.
+ * All timing state AND callback references are stored in useRef so the rAF loop
+ * never needs to be torn down and restarted on re-renders. The effect only
+ * fires when isPlaying changes (play/pause/stop).
  *
  * Key behaviors:
  * - Delta capping: if delta > 100ms, treat as 0 (handles tab-switch drift)
@@ -30,16 +31,39 @@ export function useTimeline({
   onSegmentAdvance,
   onEnd,
   getActIndex,
+  seekOffsetRef,
 }: UseTimelineOptions): void {
   const rafIdRef = useRef<number>(0);
   const previousTimeRef = useRef<number | null>(null);
   const segmentElapsedRef = useRef<number>(0);
   const lastTickRef = useRef<number>(0);
 
-  const tick = useCallback(
-    (timestamp: number) => {
+  // Store latest values in refs so the rAF callback always reads current values
+  // without needing to be recreated (which would restart the loop and waste frames)
+  const segmentsRef = useRef(segments);
+  const indexRef = useRef(currentSegmentIndex);
+  const onTickRef = useRef(onTick);
+  const onSegmentAdvanceRef = useRef(onSegmentAdvance);
+  const onEndRef = useRef(onEnd);
+  const getActIndexRef = useRef(getActIndex);
+
+  // Sync refs on every render — cheap assignments, no effect overhead
+  segmentsRef.current = segments;
+  indexRef.current = currentSegmentIndex;
+  onTickRef.current = onTick;
+  onSegmentAdvanceRef.current = onSegmentAdvance;
+  onEndRef.current = onEnd;
+  getActIndexRef.current = getActIndex;
+
+  // Single rAF loop — only starts/stops when isPlaying changes
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    previousTimeRef.current = null;
+    lastTickRef.current = 0;
+
+    function frame(timestamp: number) {
       if (previousTimeRef.current === null) {
-        // First frame after play start — compute zero delta
         previousTimeRef.current = timestamp;
       }
 
@@ -51,56 +75,44 @@ export function useTimeline({
         segmentElapsedRef.current += delta;
       }
 
-      const currentDuration =
-        segments[currentSegmentIndex]?.durationMs ?? 0;
+      const idx = indexRef.current;
+      const currentDuration = segmentsRef.current[idx]?.durationMs ?? 0;
 
       if (segmentElapsedRef.current >= currentDuration) {
         // Segment complete — advance or end
-        const nextIndex = currentSegmentIndex + 1;
-        if (nextIndex >= segments.length) {
-          onEnd();
-          return; // Stop the loop — self-terminating
+        const nextIndex = idx + 1;
+        if (nextIndex >= segmentsRef.current.length) {
+          onEndRef.current();
+          return; // Self-terminating
         }
         segmentElapsedRef.current = 0;
-        onSegmentAdvance(nextIndex, getActIndex(nextIndex));
+        lastTickRef.current = 0;
+        onSegmentAdvanceRef.current(
+          nextIndex,
+          getActIndexRef.current(nextIndex),
+        );
       } else {
         // Throttle onTick dispatches: only call if >= 100ms since last tick
-        if (
-          segmentElapsedRef.current - lastTickRef.current >= 100 ||
-          lastTickRef.current === 0
-        ) {
+        if (segmentElapsedRef.current - lastTickRef.current >= 100) {
           lastTickRef.current = segmentElapsedRef.current;
-          onTick(segmentElapsedRef.current);
+          onTickRef.current(segmentElapsedRef.current);
         }
       }
 
-      rafIdRef.current = requestAnimationFrame(tick);
-    },
-    [
-      segments,
-      currentSegmentIndex,
-      onTick,
-      onSegmentAdvance,
-      onEnd,
-      getActIndex,
-    ],
-  );
-
-  // Start/stop the rAF loop based on isPlaying
-  useEffect(() => {
-    if (isPlaying) {
-      previousTimeRef.current = null; // Reset delta tracking
-      lastTickRef.current = 0; // Reset tick throttle
-      rafIdRef.current = requestAnimationFrame(tick);
+      rafIdRef.current = requestAnimationFrame(frame);
     }
-    return () => {
-      cancelAnimationFrame(rafIdRef.current);
-    };
-  }, [isPlaying, tick]);
 
-  // Reset segment elapsed when segment changes externally (e.g., seek)
+    rafIdRef.current = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(rafIdRef.current);
+  }, [isPlaying]);
+
+  // Reset segment elapsed when segment changes (from advancement or seek)
   useEffect(() => {
-    segmentElapsedRef.current = 0;
-    lastTickRef.current = 0;
-  }, [currentSegmentIndex]);
+    const offset = seekOffsetRef?.current ?? 0;
+    segmentElapsedRef.current = offset;
+    lastTickRef.current = offset;
+    if (seekOffsetRef && seekOffsetRef.current !== 0) {
+      (seekOffsetRef as { current: number }).current = 0;
+    }
+  }, [currentSegmentIndex, seekOffsetRef]);
 }

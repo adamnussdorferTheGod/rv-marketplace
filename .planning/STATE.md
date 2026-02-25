@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-24)
 
 **Core value:** Auto-generated narrated video tours from existing listing photos, transforming static galleries into guided cinematic experiences
-**Current focus:** Phase 11 — Ken Burns Engine and Composition Canvas
+**Current focus:** Phase 11 — Ken Burns Engine and Composition Canvas (gap closure complete)
 
 ## Current Position
 
 Phase: 11 of 14 (Ken Burns Engine and Composition Canvas) -- COMPLETE
-Plan: 2 of 2 in current phase -- PHASE DONE
-Status: Phase Complete
-Last activity: 2026-02-25 — Completed 11-02 (Composition canvas and VideoPlayerShell integration)
+Plan: 3 of 3 in current phase -- PHASE DONE
+Status: Phase Complete (including gap closure)
+Last activity: 2026-02-25 — Completed 11-03 (Gap closure: COMP-05 and COMP-06 data fixes)
 
-Progress: [===========================>---] 87% (v2.0: 5/15 plans complete)
+Progress: [=============================>-] 93% (v2.0: 6/15 plans complete)
 
 ## Performance Metrics
 
@@ -24,8 +24,12 @@ Progress: [===========================>---] 87% (v2.0: 5/15 plans complete)
 - Total execution time: 1.25 hours
 
 **v2.0:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Estimated plans: 15 (across 5 phases)
+
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 11    | 03   | 1min     | 1     | 1     |
 
 ## Accumulated Context
 
@@ -60,6 +64,9 @@ Progress: [===========================>---] 87% (v2.0: 5/15 plans complete)
 - [11-02]: Preload 2 images ahead for seamless transitions without visible loading
 - [11-02]: First-image preload triggers loaded() on both onload and onerror for graceful degradation
 - [11-02]: FlatSegment preserves act metadata (actIndex, actType) for Phase 13 chapter navigation
+- [11-03]: Data-only fix: no code changes required, only sample data reassignment
+- [11-03]: Exterior act uses zoom-out for both segments per COMP-05 wide shot prescription
+- [11-03]: Interior tour follows kitchen -> living -> bedroom order per COMP-06 logical progression
 
 ### Pending Todos
 
@@ -74,5 +81,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 11-02-PLAN.md (Phase 11 complete)
+Stopped at: Completed 11-03-PLAN.md (Phase 11 gap closure complete)
 Resume file: None
