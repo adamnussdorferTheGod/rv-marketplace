@@ -121,8 +121,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01-PLAN.md — TypeScript type definitions and sample 5-act walkthrough data
-- [ ] 10-02-PLAN.md — VideoWalkthroughContext provider with useReducer state machine and hook
+- [x] 10-01-PLAN.md — TypeScript type definitions and sample 5-act walkthrough data
+- [x] 10-02-PLAN.md — VideoWalkthroughContext provider with useReducer state machine and hook
 - [ ] 10-03-PLAN.md — VideoThumbnail component, PhotoGallery integration, and lightbox shell
 
 ### Phase 11: Ken Burns Engine and Composition Canvas
@@ -208,7 +208,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14
 | 7. Sidebar | v1.0 | 1/1 | Complete | 2026-02-22 |
 | 8. Full-Width Bottom Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
 | 9. Integration and Polish | v1.0 | 1/1 | Complete | 2026-02-22 |
-| 10. Foundation and Gallery Entry Point | 1/3 | In Progress|  | - |
+| 10. Foundation and Gallery Entry Point | v2.0 | 2/3 | In Progress | - |
 | 11. Ken Burns Engine and Composition Canvas | v2.0 | 0/3 | Not started | - |
 | 12. Text Overlays and Audio Narration | v2.0 | 0/3 | Not started | - |
 | 13. Player Controls and Chapter Navigation | v2.0 | 0/3 | Not started | - |

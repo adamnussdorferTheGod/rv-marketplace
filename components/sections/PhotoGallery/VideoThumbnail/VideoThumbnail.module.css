@@ -1,0 +1,82 @@
+/* VideoThumbnail — clickable poster with play button, AI label, duration badge */
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: var(--radius-base);
+}
+
+.posterImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 300ms ease;
+}
+
+/* GAL-07: Hover brightens image */
+.container:hover .posterImage {
+  filter: brightness(1.1);
+}
+
+/* GAL-01: Play button — 64px white circle with CSS triangle */
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 300ms ease;
+}
+
+/* GAL-07: Hover scales play button */
+.container:hover .playButton {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* CSS triangle play icon */
+.playIcon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent var(--rv-on-surface);
+  margin-left: 4px;
+}
+
+/* GAL-03: AI Video Tour label — top-left */
+.aiLabel {
+  position: absolute;
+  top: var(--space-16);
+  left: var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-8);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-sm);
+  font: var(--font-label-3);
+  color: #fff;
+}
+
+/* GAL-02: Duration badge — bottom-right */
+.durationBadge {
+  position: absolute;
+  bottom: var(--space-8);
+  right: var(--space-8);
+  padding: var(--space-4) var(--space-8);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: var(--radius-sm);
+  font: var(--font-label-3);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}

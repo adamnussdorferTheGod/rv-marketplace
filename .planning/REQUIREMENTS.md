@@ -11,8 +11,8 @@ Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases
 
 - [x] **VID-01**: TypeScript interfaces define the complete video walkthrough data shape (segments, acts, motion presets, text overlays, audio timing)
 - [x] **VID-02**: Sample video walkthrough data file provides a fully populated 5-act tour for the Airstream Flying Cloud 25RB listing with 8-12 photo segments
-- [ ] **VID-03**: VideoWalkthroughContext provider manages all video playback state via useReducer state machine (idle/loading/playing/paused/seeking/ended/error)
-- [ ] **VID-04**: useVideoWalkthrough hook exposes video state and dispatch actions to any consuming component
+- [x] **VID-03**: VideoWalkthroughContext provider manages all video playback state via useReducer state machine (idle/loading/playing/paused/seeking/ended/error)
+- [x] **VID-04**: useVideoWalkthrough hook exposes video state and dispatch actions to any consuming component
 - [x] **VID-05**: Video source interface supports both MP4 and HLS fields from day one, even though only MP4 is used in v2.0
 
 ### Gallery Integration
@@ -147,8 +147,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | VID-01 | Phase 10 | Complete |
 | VID-02 | Phase 10 | Complete |
-| VID-03 | Phase 10 | Pending |
-| VID-04 | Phase 10 | Pending |
+| VID-03 | Phase 10 | Complete |
+| VID-04 | Phase 10 | Complete |
 | VID-05 | Phase 10 | Complete |
 | GAL-01 | Phase 10 | Pending |
 | GAL-02 | Phase 10 | Pending |

@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 ## Current Position
 
 Phase: 10 of 14 (Foundation and Gallery Entry Point)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: Executing
-Last activity: 2026-02-25 — Completed 10-01 (video walkthrough types and sample data)
+Last activity: 2026-02-25 — Completed 10-02 (video walkthrough context state machine)
 
-Progress: [==================>------------] 59% (v2.0: 1/15 plans complete)
+Progress: [===================>-----------] 63% (v2.0: 2/15 plans complete)
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Progress: [==================>------------] 59% (v2.0: 1/15 plans complete)
 - Total execution time: 1.25 hours
 
 **v2.0:**
-- Total plans completed: 1
+- Total plans completed: 2
 - Estimated plans: 15 (across 5 phases)
 
 ## Accumulated Context
@@ -42,6 +42,10 @@ Progress: [==================>------------] 59% (v2.0: 1/15 plans complete)
 - [10-01]: TextOverlay uses 7-variant discriminated union on type field for extensibility
 - [10-01]: AudioTimingSegment extracted as separate named interface for clarity and reuse
 - [10-01]: Sample data (65s, 10 segments) imports sampleListing URLs directly to stay DRY
+- [10-02]: useReducer over useState for predictable state machine transitions
+- [10-02]: Guarded transitions return unchanged state for invalid actions (no-op safety)
+- [10-02]: CLOSE_LIGHTBOX resets to initialState for clean re-open cycles
+- [10-02]: isMuted defaults to true respecting browser autoplay policies
 
 ### Pending Todos
 
@@ -56,5 +60,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 10-01-PLAN.md
+Stopped at: Completed 10-02-PLAN.md
 Resume file: None
