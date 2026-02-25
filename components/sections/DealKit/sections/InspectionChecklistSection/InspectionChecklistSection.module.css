@@ -1,0 +1,147 @@
+.section {
+  scroll-margin-top: 80px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.counter {
+  font: var(--font-label-2);
+  color: var(--rv-primary);
+}
+
+.progressTrack {
+  height: 4px;
+  background: var(--rv-border-low);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--space-16);
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--rv-primary);
+  border-radius: 2px;
+  transition: width 300ms ease;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.group {
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.groupHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-12) var(--space-16);
+  background: var(--rv-surface);
+  border: none;
+  cursor: pointer;
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  transition: background 150ms;
+}
+
+.groupHeader:hover {
+  background: var(--rv-surface-accent, #f0f7ff);
+}
+
+.groupLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.groupCount {
+  font: var(--font-label-2);
+  opacity: 0.5;
+}
+
+.itemList {
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.item:hover {
+  background: var(--rv-surface-accent, #f8fafc);
+}
+
+.item + .item {
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.checkbox {
+  margin-top: 2px;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--rv-primary);
+  cursor: pointer;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.itemLabel {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  transition: opacity 200ms;
+}
+
+.itemLabel.checked {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.badge {
+  display: inline-block;
+  font: var(--font-label-2);
+  font-size: 11px;
+  background: var(--rv-primary);
+  color: #fff;
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.itemDetail {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  opacity: 0.6;
+  line-height: 1.5;
+}

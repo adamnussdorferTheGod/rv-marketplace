@@ -454,6 +454,24 @@ const ICONS: Record<string, IconDefinition> = {
       'M12 5L19 12L12 19',
     ],
   },
+
+  // Download icon (Deal Kit PDF)
+  download: {
+    paths: [
+      'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4',
+      'M7 10l5 5 5-5',
+      'M12 15V3',
+    ],
+  },
+
+  // Gauge / speedometer icon (Deal Score)
+  gauge: {
+    paths: [
+      'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z',
+      'M12 6v6',
+      'M16 10l-4 2',
+    ],
+  },
 };
 
 export { ICONS };

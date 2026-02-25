@@ -28,6 +28,9 @@ import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import { NarrationProvider } from '@components/sections/PhotoNarration/NarrationContext';
+import { DealKitProvider } from '@components/sections/DealKit/DealKitContext';
+import DealKitCard from '@components/sections/DealKit/DealKitCard/DealKitCard';
+import DealKitOverlay from '@components/sections/DealKit/DealKitOverlay/DealKitOverlay';
 import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
@@ -85,12 +88,12 @@ function VehicleDetailPageContent() {
                 ) : (
                   <FitCheck />
                 )}
-                <FeaturesAndSpecs specs={sampleListing.specs} />
-                <Divider />
-                <Description description={sampleListing.description} />
                 <VehicleHistoryReport
                   vhrAvailable={sampleListing.vhrAvailable}
                 />
+                <FeaturesAndSpecs specs={sampleListing.specs} />
+                <Divider />
+                <Description description={sampleListing.description} />
                 <Divider />
                 <PriceAnalysis
                   currentPrice={sampleListing.currentPrice}
@@ -105,6 +108,7 @@ function VehicleDetailPageContent() {
                 />
                 <div style={{ marginTop: 'var(--space-32)' }}>
                   <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
+                  <DealKitCard />
                 </div>
                 <Divider />
                 <AboutDealership dealer={sampleListing.dealer} />
@@ -148,6 +152,7 @@ function VehicleDetailPageContent() {
         listingTitle={sampleListing.title}
         listingPrice={formattedPrice}
       />
+      <DealKitOverlay />
     </>
   );
 }
@@ -157,7 +162,9 @@ export default function VehicleDetailPage() {
     <VdpVariantProvider>
       <AiModeProvider listing={sampleListing}>
         <NarrationProvider narrations={sampleNarrations}>
-          <VehicleDetailPageContent />
+          <DealKitProvider>
+            <VehicleDetailPageContent />
+          </DealKitProvider>
         </NarrationProvider>
       </AiModeProvider>
     </VdpVariantProvider>

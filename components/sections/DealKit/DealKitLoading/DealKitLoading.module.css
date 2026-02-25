@@ -1,0 +1,107 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-32);
+}
+
+.content {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.iconWrap {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--rv-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-24);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-32);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  text-align: left;
+  margin-bottom: var(--space-24);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  opacity: 0.3;
+  transition: opacity 300ms ease;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step.done {
+  opacity: 0.6;
+}
+
+.stepDot {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--rv-primary);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--rv-border);
+}
+
+.step.active .dot {
+  background: var(--rv-primary);
+  animation: dotPulse 800ms ease-in-out infinite;
+}
+
+.stepLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.progressTrack {
+  height: 4px;
+  background: var(--rv-border-low);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--rv-primary);
+  border-radius: 2px;
+  transition: width 400ms ease;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

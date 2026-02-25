@@ -1,0 +1,56 @@
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-32);
+  gap: var(--space-32);
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+  align-self: flex-start;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.vehicleTitle {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+}
+
+/* Tablet: sidebar becomes horizontal tabs at top */
+@media (max-width: 991px) {
+  .layout {
+    flex-direction: column;
+    padding: var(--space-24);
+  }
+
+  .sidebar {
+    width: 100%;
+    position: sticky;
+    top: 56px;
+    z-index: 5;
+    background: var(--rv-surface);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--rv-border-low);
+    max-height: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .layout {
+    padding: var(--space-16);
+    gap: var(--space-24);
+  }
+}

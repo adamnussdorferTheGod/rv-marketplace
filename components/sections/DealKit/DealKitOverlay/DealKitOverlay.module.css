@@ -1,0 +1,26 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  background: var(--rv-surface);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 350ms ease-out;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

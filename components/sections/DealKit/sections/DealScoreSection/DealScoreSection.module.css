@@ -1,0 +1,78 @@
+.section {
+  scroll-margin-top: 80px;
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16);
+}
+
+.card {
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  background: var(--rv-surface);
+}
+
+.gaugeWrap {
+  max-width: 240px;
+  margin: 0 auto var(--space-24);
+}
+
+.gauge {
+  width: 100%;
+  height: auto;
+}
+
+.scoreText {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.summary {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-24);
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  border-top: 1px solid var(--rv-border-low);
+  padding-top: var(--space-16);
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.gridLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  opacity: 0.6;
+}
+
+.gridValue {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+}
+
+@media (max-width: 767px) {
+  .card {
+    padding: var(--space-24);
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
