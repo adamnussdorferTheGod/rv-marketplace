@@ -137,6 +137,10 @@ interface VideoWalkthroughContextValue {
   seekToSegment: (segmentIndex: number) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
+  loaded: () => void;
+  tick: (elapsedMs: number) => void;
+  advanceSegment: (segmentIndex: number, actIndex: number) => void;
+  end: () => void;
 }
 
 // 7. Context and provider
@@ -182,6 +186,25 @@ export function VideoWalkthroughProvider({
     dispatch({ type: 'SET_VOLUME', volume });
   }, []);
 
+  const loaded = useCallback(() => {
+    dispatch({ type: 'LOADED' });
+  }, []);
+
+  const tick = useCallback((elapsedMs: number) => {
+    dispatch({ type: 'TICK', elapsedMs });
+  }, []);
+
+  const advanceSegment = useCallback(
+    (segmentIndex: number, actIndex: number) => {
+      dispatch({ type: 'SEGMENT_ADVANCE', segmentIndex, actIndex });
+    },
+    [],
+  );
+
+  const end = useCallback(() => {
+    dispatch({ type: 'END' });
+  }, []);
+
   const value = useMemo<VideoWalkthroughContextValue>(
     () => ({
       state,
@@ -193,6 +216,10 @@ export function VideoWalkthroughProvider({
       seekToSegment,
       toggleMute,
       setVolume,
+      loaded,
+      tick,
+      advanceSegment,
+      end,
     }),
     [
       state,
@@ -204,6 +231,10 @@ export function VideoWalkthroughProvider({
       seekToSegment,
       toggleMute,
       setVolume,
+      loaded,
+      tick,
+      advanceSegment,
+      end,
     ],
   );
 
