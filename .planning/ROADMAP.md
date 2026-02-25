@@ -100,7 +100,7 @@ Plans:
 - Integer phases (10, 11, 12, ...): Planned milestone work
 - Decimal phases (10.1, 10.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 10: Foundation and Gallery Entry Point** - Data types, sample walkthrough data, video state machine, and gallery thumbnail integration
+- [x] **Phase 10: Foundation and Gallery Entry Point** - Data types, sample walkthrough data, video state machine, and gallery thumbnail integration (completed 2026-02-25)
 - [ ] **Phase 11: Ken Burns Engine and Composition Canvas** - Photo motion presets, crossfade transitions, 5-act narrative structure, player shell, and single-timeline architecture
 - [ ] **Phase 12: Text Overlays and Audio Narration** - Timed visual overlays for listing info/specs/features/CTA, synchronized audio narration, and closed captions
 - [ ] **Phase 13: Player Controls and Chapter Navigation** - Interactive playback controls, act progress indicator, chapter markers, listing context bar, and CTA buttons
@@ -135,12 +135,11 @@ Plans:
   3. The video follows a 5-act narrative structure (Hook / Exterior Tour / Interior Tour / Specs & Value / CTA) with logical photo sequencing from exterior to interior
   4. The player opens as a full-screen lightbox overlay (near-black backdrop, 900px max-width container) with close button, Escape to close, and a loading/poster state during buffering
   5. All visual state (current photo, animation, timing) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel independent timers
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 11-01: KenBurnsLayer with CSS motion presets and GPU memory management
-- [ ] 11-02: Crossfade transitions, 5-act segment sequencing, and single-timeline architecture
-- [ ] 11-03: VideoPlayerOverlay shell (lightbox, container, loading state, close behavior)
+- [ ] 11-01-PLAN.md — Context extension, useTimeline hook, and KenBurnsLayer with CSS motion presets
+- [ ] 11-02-PLAN.md — CompositionCanvas crossfade orchestration and VideoPlayerShell integration with loading state
 
 ### Phase 12: Text Overlays and Audio Narration
 **Goal**: Users see contextual listing information overlaid on the video and hear synchronized narration that guides them through the tour
@@ -208,7 +207,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14
 | 7. Sidebar | v1.0 | 1/1 | Complete | 2026-02-22 |
 | 8. Full-Width Bottom Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
 | 9. Integration and Polish | v1.0 | 1/1 | Complete | 2026-02-22 |
-| 10. Foundation and Gallery Entry Point | v2.0 | 2/3 | In Progress | - |
+| 10. Foundation and Gallery Entry Point | 3/3 | Complete    | 2026-02-25 | - |
 | 11. Ken Burns Engine and Composition Canvas | v2.0 | 0/3 | Not started | - |
 | 12. Text Overlays and Audio Narration | v2.0 | 0/3 | Not started | - |
 | 13. Player Controls and Chapter Navigation | v2.0 | 0/3 | Not started | - |

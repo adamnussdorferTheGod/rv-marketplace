@@ -17,13 +17,13 @@ Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases
 
 ### Gallery Integration
 
-- [ ] **GAL-01**: Video thumbnail appears as the first item in the photo gallery carousel with a play button overlay (64px white circle, centered)
-- [ ] **GAL-02**: Video thumbnail displays duration badge (bottom-right corner, "1:12" format) showing total video length
-- [ ] **GAL-03**: Video thumbnail displays "AI Video Tour" label (top-left corner) with sparkle icon prefix
-- [ ] **GAL-04**: Video thumbnail uses the best exterior photo as the poster/background image
-- [ ] **GAL-05**: Clicking the video thumbnail opens the video in a lightbox player overlay
-- [ ] **GAL-06**: "Watch AI Video Tour" text link appears below the photo gallery as a secondary entry point
-- [ ] **GAL-07**: Video thumbnail hover state scales play button (1.0→1.1) with slight brightness increase
+- [x] **GAL-01**: Video thumbnail appears as the first item in the photo gallery carousel with a play button overlay (64px white circle, centered)
+- [x] **GAL-02**: Video thumbnail displays duration badge (bottom-right corner, "1:12" format) showing total video length
+- [x] **GAL-03**: Video thumbnail displays "AI Video Tour" label (top-left corner) with sparkle icon prefix
+- [x] **GAL-04**: Video thumbnail uses the best exterior photo as the poster/background image
+- [x] **GAL-05**: Clicking the video thumbnail opens the video in a lightbox player overlay
+- [x] **GAL-06**: "Watch AI Video Tour" text link appears below the photo gallery as a secondary entry point
+- [x] **GAL-07**: Video thumbnail hover state scales play button (1.0→1.1) with slight brightness increase
 
 ### Video Composition Engine
 
@@ -150,13 +150,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VID-03 | Phase 10 | Complete |
 | VID-04 | Phase 10 | Complete |
 | VID-05 | Phase 10 | Complete |
-| GAL-01 | Phase 10 | Pending |
-| GAL-02 | Phase 10 | Pending |
-| GAL-03 | Phase 10 | Pending |
-| GAL-04 | Phase 10 | Pending |
-| GAL-05 | Phase 10 | Pending |
-| GAL-06 | Phase 10 | Pending |
-| GAL-07 | Phase 10 | Pending |
+| GAL-01 | Phase 10 | Complete |
+| GAL-02 | Phase 10 | Complete |
+| GAL-03 | Phase 10 | Complete |
+| GAL-04 | Phase 10 | Complete |
+| GAL-05 | Phase 10 | Complete |
+| GAL-06 | Phase 10 | Complete |
+| GAL-07 | Phase 10 | Complete |
 | COMP-01 | Phase 11 | Pending |
 | COMP-02 | Phase 11 | Pending |
 | COMP-03 | Phase 11 | Pending |

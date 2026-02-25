@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 10 of 14 (Foundation and Gallery Entry Point)
-Plan: 2 of 3 in current phase
-Status: Executing
-Last activity: 2026-02-25 — Completed 10-02 (video walkthrough context state machine)
+Phase: 10 of 14 (Foundation and Gallery Entry Point) -- COMPLETE
+Plan: 3 of 3 in current phase
+Status: Phase Complete
+Last activity: 2026-02-25 — Completed 10-03 (gallery entry point and video lightbox)
 
-Progress: [===================>-----------] 63% (v2.0: 2/15 plans complete)
+Progress: [=======================>-------] 73% (v2.0: 3/15 plans complete)
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Progress: [===================>-----------] 63% (v2.0: 2/15 plans complete)
 - Total execution time: 1.25 hours
 
 **v2.0:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Estimated plans: 15 (across 5 phases)
 
 ## Accumulated Context
@@ -46,6 +46,10 @@ Progress: [===================>-----------] 63% (v2.0: 2/15 plans complete)
 - [10-02]: Guarded transitions return unchanged state for invalid actions (no-op safety)
 - [10-02]: CLOSE_LIGHTBOX resets to initialState for clean re-open cycles
 - [10-02]: isMuted defaults to true respecting browser autoplay policies
+- [10-03]: VideoThumbnail replaces hero image entirely when video data exists (not overlay)
+- [10-03]: Play icon uses CSS border-width triangle trick for zero-dependency rendering
+- [10-03]: VideoPlayerShell is minimal placeholder shell, replaced by Ken Burns in Phase 11
+- [10-03]: useVideoWalkthrough always called in PhotoGallery, provider wraps at VDP level
 
 ### Pending Todos
 
@@ -60,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 10-02-PLAN.md
+Stopped at: Completed 10-03-PLAN.md (Phase 10 complete)
 Resume file: None
