@@ -12,7 +12,7 @@
   color: var(--rv-on-surface);
   margin: 0;
   padding-bottom: var(--space-8);
-  border-bottom: 2px solid var(--rv-primary);
+  border-bottom: 1px solid var(--rv-border-low);
 }
 
 /* Description */

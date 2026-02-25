@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import PriceAlertSheet from './sections/PriceAlert/PriceAlertSheet';
+import PriceAlertToast from './sections/PriceAlert/PriceAlertToast';
 import styles from './PriceDistributionChart.module.css';
 
 interface PriceHistoryEntry {
@@ -14,6 +16,7 @@ interface PriceDistributionChartProps {
   rangeMax: number;
   averagePrice: number;
   priceHistory: PriceHistoryEntry[];
+  listingTitle: string;
 }
 
 const DEAL_COLORS: Record<string, string> = {
@@ -74,32 +77,75 @@ function CheckIcon() {
   );
 }
 
-function TrackPriceBanner() {
+function TrackPriceBanner({ listingTitle, formattedPrice }: { listingTitle: string; formattedPrice: string }) {
   const [tracking, setTracking] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  const handleToggle = () => {
+    if (!tracking) {
+      setSheetOpen(true);
+    }
+    setTracking((prev) => !prev);
+  };
+
+  const handleClose = () => {
+    setSheetOpen(false);
+    setTracking(false);
+  };
+
+  const handleCreate = (email: string, shareWithSeller: boolean) => {
+    console.log('Price alert created:', { email, shareWithSeller, listingTitle });
+    setSheetOpen(false);
+    setShowToast(true);
+  };
+
+  const dismissToast = useCallback(() => {
+    setShowToast(false);
+  }, []);
+
+  useEffect(() => {
+    if (!showToast) return;
+    const timer = setTimeout(dismissToast, 4000);
+    return () => clearTimeout(timer);
+  }, [showToast, dismissToast]);
 
   return (
-    <div className={styles.trackPrice}>
-      <div className={styles.trackIconWrapper}>
-        <TrendingDownIcon />
+    <>
+      <div className={styles.trackPrice}>
+        <div className={styles.trackIconWrapper}>
+          <TrendingDownIcon />
+        </div>
+        <div className={styles.trackContent}>
+          <span className={styles.trackTitle}>Track the price</span>
+          <span className={styles.trackDescription}>
+            Get notified the moment this listing&apos;s price drops
+          </span>
+        </div>
+        <button
+          className={`${styles.toggle} ${tracking ? styles.toggleOn : ''}`}
+          onClick={handleToggle}
+          role="switch"
+          aria-checked={tracking}
+          aria-label="Track the price"
+        >
+          <span className={styles.toggleThumb}>
+            <span className={styles.toggleCheck}><CheckIcon /></span>
+          </span>
+        </button>
       </div>
-      <div className={styles.trackContent}>
-        <span className={styles.trackTitle}>Track the price</span>
-        <span className={styles.trackDescription}>
-          Get notified the moment this listing&apos;s price drops
-        </span>
-      </div>
-      <button
-        className={`${styles.toggle} ${tracking ? styles.toggleOn : ''}`}
-        onClick={() => setTracking((prev) => !prev)}
-        role="switch"
-        aria-checked={tracking}
-        aria-label="Track the price"
-      >
-        <span className={styles.toggleThumb}>
-          <span className={styles.toggleCheck}><CheckIcon /></span>
-        </span>
-      </button>
-    </div>
+
+      {sheetOpen && (
+        <PriceAlertSheet
+          listingTitle={listingTitle}
+          formattedPrice={formattedPrice}
+          onClose={handleClose}
+          onCreate={handleCreate}
+        />
+      )}
+
+      {showToast && <PriceAlertToast onDismiss={dismissToast} />}
+    </>
   );
 }
 
@@ -110,6 +156,7 @@ export default function PriceDistributionChart({
   rangeMax,
   averagePrice,
   priceHistory,
+  listingTitle,
 }: PriceDistributionChartProps) {
   const [historyOpen, setHistoryOpen] = useState(true);
   const dealColor = DEAL_COLORS[dealRating] || DEAL_COLORS.good;
@@ -130,6 +177,8 @@ export default function PriceDistributionChart({
 
   // Hide avg line when it overlaps the deal card
   const showAvgLine = Math.abs(cardPos - avgPos) > 12;
+
+  const formattedPrice = formatPrice(listPrice);
 
   return (
     <div className={styles.container}>
@@ -237,7 +286,7 @@ export default function PriceDistributionChart({
       </div>
 
       {/* ── Track the Price ── */}
-      <TrackPriceBanner />
+      <TrackPriceBanner listingTitle={listingTitle} formattedPrice={formattedPrice} />
     </div>
   );
 }

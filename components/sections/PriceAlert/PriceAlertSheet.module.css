@@ -1,0 +1,208 @@
+/* PriceAlertSheet — modal (desktop) / bottom sheet (mobile) */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+  animation: fadeIn 200ms ease-out;
+}
+
+/* Handle bar — hidden on desktop */
+.handle {
+  display: none;
+}
+
+.handleBar {
+  width: 40px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--rv-border-low);
+}
+
+/* Sheet — desktop modal style */
+.sheet {
+  background: var(--rv-surface);
+  border-radius: var(--radius-lg);
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  animation: scaleIn 250ms ease-out;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: var(--space-16) 20px;
+  border-bottom: 1px solid var(--rv-border-low);
+}
+
+.title {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  flex: 1;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-8);
+  color: var(--rv-on-surface);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  background: var(--rv-surface-variant);
+}
+
+/* Body */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-32) 20px;
+}
+
+.listingInfo {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* Email input */
+.inputWrap {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  height: 58px;
+  padding: var(--space-16);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-base);
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  background: var(--rv-surface);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.input::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.input:focus {
+  border-color: var(--rv-primary);
+}
+
+/* Checkbox */
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  cursor: pointer;
+}
+
+.checkboxInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkboxBox {
+  width: 24px;
+  height: 24px;
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 150ms, border-color 150ms;
+  color: var(--rv-on-primary);
+}
+
+.checkboxChecked {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+}
+
+.checkboxLabel {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  line-height: 1.4;
+}
+
+/* CTA button — full corner radius per user request */
+.cta {
+  width: 100%;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  font: var(--font-button-1);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: opacity 150ms;
+}
+
+.cta:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.cta:disabled {
+  opacity: var(--rv-disabled-opacity);
+  cursor: not-allowed;
+}
+
+/* --- Mobile: bottom sheet --- */
+@media (max-width: 767px) {
+  .backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .sheet {
+    max-width: none;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    animation: slideUp 300ms ease-out;
+    box-shadow: var(--rv-shadow-top);
+  }
+
+  .handle {
+    display: flex;
+    justify-content: center;
+    padding: var(--space-8) 0 0;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}

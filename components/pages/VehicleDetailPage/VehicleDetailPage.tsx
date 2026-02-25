@@ -105,6 +105,7 @@ function VehicleDetailPageContent() {
                   currentPrice={sampleListing.currentPrice}
                   dealRating={sampleListing.dealRating}
                   priceAnalysis={sampleListing.priceAnalysis}
+                  listingTitle={sampleListing.title}
                 />
                 <Divider />
                 <LoanCalculator

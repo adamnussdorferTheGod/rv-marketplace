@@ -1,0 +1,75 @@
+/* PriceAlertToast — dark toast notification */
+
+.container {
+  position: fixed;
+  bottom: var(--space-24);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1003;
+  animation: slideUp 300ms ease-out;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--rv-secondary);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  box-shadow: var(--rv-shadow-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 320px;
+  max-width: 420px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.heading {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-secondary);
+  margin: 0;
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-secondary);
+  margin: 0;
+}
+
+/* Mobile: full width with margin */
+@media (max-width: 767px) {
+  .container {
+    left: var(--space-16);
+    right: var(--space-16);
+    transform: none;
+  }
+
+  .toast {
+    min-width: 0;
+    max-width: none;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
