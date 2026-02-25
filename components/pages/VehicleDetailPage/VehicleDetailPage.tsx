@@ -106,12 +106,12 @@ function VehicleDetailPageContent() {
                   dealerName={sampleListing.dealer.name}
                   dealerPhone={sampleListing.dealer.phone}
                 />
-                <div style={{ marginTop: 'var(--space-32)' }}>
-                  <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
-                  <DealKitCard />
-                </div>
+                <Divider />
+                <DealKitCard />
                 <Divider />
                 <AboutDealership dealer={sampleListing.dealer} />
+                <Divider />
+                <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
                 <Divider />
                 <Resources />
                 <Divider />

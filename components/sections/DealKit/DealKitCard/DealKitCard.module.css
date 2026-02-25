@@ -3,60 +3,101 @@
   border: 1px solid var(--rv-border-low);
   border-radius: var(--radius-lg);
   display: flex;
-  align-items: center;
-  gap: var(--space-24);
-  padding: var(--space-32);
-  background: linear-gradient(135deg, var(--rv-surface) 0%, var(--rv-surface-accent, #f0f7ff) 100%);
+  overflow: hidden;
+  background: var(--rv-surface);
   margin-top: var(--space-16);
 }
 
-.iconWrap {
+/* ── Left illustration ── */
+
+.imageArea {
+  position: relative;
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-base);
-  background: var(--rv-primary);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 260px;
+  background: #ebf1fd;
+  overflow: hidden;
 }
+
+.cover {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 240px;
+  height: auto;
+}
+
+/* ── Right content ── */
 
 .content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding: var(--space-24);
 }
 
-.heading {
+.title {
   font: var(--font-headline-3);
   color: var(--rv-on-surface);
   margin: 0;
 }
 
-.subtext {
+.description {
   font: var(--font-body-2);
-  color: var(--rv-on-surface);
-  opacity: 0.7;
+  color: var(--rv-on-surface-variant);
   margin: 0;
 }
 
-.cta {
-  flex-shrink: 0;
-  white-space: nowrap;
+.features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8) var(--space-12);
 }
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.feature svg {
+  flex-shrink: 0;
+}
+
+.cta {
+  align-self: flex-start;
+  margin-top: var(--space-12);
+}
+
+/* ── Responsive ── */
 
 @media (max-width: 767px) {
   .card {
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-16);
-    padding: var(--space-24);
+  }
+
+  .imageArea {
+    width: 100%;
+    height: 180px;
+  }
+
+  .cover {
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
   }
 
   .cta {
     width: 100%;
+    align-self: stretch;
   }
 }

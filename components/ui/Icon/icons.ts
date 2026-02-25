@@ -241,6 +241,13 @@ const ICONS: Record<string, IconDefinition> = {
   },
 
   // Checkmark circle (for VHR)
+  check: {
+    paths: [
+      'M5 13l4 4L19 7',
+    ],
+    strokeWidth: 2.5,
+  },
+
   check_circle: {
     paths: [
       'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z',
