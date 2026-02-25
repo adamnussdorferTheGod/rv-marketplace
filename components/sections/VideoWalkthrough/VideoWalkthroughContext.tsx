@@ -54,7 +54,7 @@ const initialState: VideoState = {
   currentSegmentIndex: 0,
   currentActIndex: 0,
   elapsedMs: 0,
-  isMuted: true,
+  isMuted: false,
   volume: 1,
   error: null,
   isLightboxOpen: false,

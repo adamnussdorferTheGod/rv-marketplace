@@ -218,7 +218,7 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
     },
   ],
   audio: {
-    audioUrl: undefined,
+    audioUrl: '/assets/airstream-tour-narration.mp3',
     segments: [
       {
         segmentId: 'seg-01',
