@@ -1,0 +1,70 @@
+/* Ken Burns motion animations — GPU-accelerated via scale3d/translate3d */
+
+@keyframes zoomIn {
+  from {
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale3d(1.15, 1.15, 1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale3d(1.15, 1.15, 1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes panLeft {
+  from {
+    transform: scale3d(1.1, 1.1, 1) translate3d(3%, 0, 0);
+  }
+  to {
+    transform: scale3d(1.1, 1.1, 1) translate3d(-3%, 0, 0);
+  }
+}
+
+@keyframes panRight {
+  from {
+    transform: scale3d(1.1, 1.1, 1) translate3d(-3%, 0, 0);
+  }
+  to {
+    transform: scale3d(1.1, 1.1, 1) translate3d(3%, 0, 0);
+  }
+}
+
+/* Container — overflow hidden to crop scaled/panned image */
+.layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Photo element — linear timing for documentary feel, forwards fill to hold final frame */
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Motion classes mapped to MotionPreset values */
+.motionZoomIn {
+  animation-name: zoomIn;
+}
+
+.motionZoomOut {
+  animation-name: zoomOut;
+}
+
+.motionPanLeft {
+  animation-name: panLeft;
+}
+
+.motionPanRight {
+  animation-name: panRight;
+}
