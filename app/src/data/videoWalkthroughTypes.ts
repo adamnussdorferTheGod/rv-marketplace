@@ -35,12 +35,20 @@ export interface VideoSource {
   posterUrl: string;
 }
 
+// Word-level timing for karaoke highlighting
+export interface AudioWord {
+  text: string;
+  startMs: number;
+  endMs: number;
+}
+
 // Audio timing per segment
 export interface AudioTimingSegment {
   segmentId: string;
   startMs: number;
   endMs: number;
   transcript: string;
+  words?: AudioWord[];
 }
 
 // Audio timing container

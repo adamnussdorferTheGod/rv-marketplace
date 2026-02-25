@@ -2,6 +2,7 @@ import { useRef, useEffect, useMemo } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useVideoWalkthrough } from '../VideoWalkthroughContext';
 import { formatDuration } from '../../../../app/src/data/videoWalkthroughTypes';
+import type { AudioWord } from '../../../../app/src/data/videoWalkthroughTypes';
 import styles from './TranscriptPanel.module.css';
 
 export default function TranscriptPanel() {
@@ -60,6 +61,7 @@ export default function TranscriptPanel() {
               <span className={styles.transcriptText}>
                 {isActive ? (
                   <KaraokeText
+                    words={seg.words}
                     text={seg.transcript}
                     segStartMs={seg.startMs}
                     segEndMs={seg.endMs}
@@ -81,35 +83,57 @@ export default function TranscriptPanel() {
 
 /** Renders transcript text with per-word karaoke highlighting */
 function KaraokeText({
+  words,
   text,
   segStartMs,
   segEndMs,
   currentMs,
 }: {
+  words?: AudioWord[];
   text: string;
   segStartMs: number;
   segEndMs: number;
   currentMs: number;
 }) {
-  const words = text.split(/\s+/);
+  // Use real word timestamps when available
+  if (words && words.length > 0) {
+    return (
+      <>
+        {words.map((w, i) => {
+          let cls = styles.wordUpcoming;
+          if (currentMs >= w.endMs) cls = styles.wordSpoken;
+          else if (currentMs >= w.startMs) cls = styles.wordActive;
+
+          return (
+            <span key={i} className={cls}>
+              {w.text}{i < words.length - 1 ? ' ' : ''}
+            </span>
+          );
+        })}
+      </>
+    );
+  }
+
+  // Fallback: even distribution estimate
+  const splitWords = text.split(/\s+/);
   const segDuration = segEndMs - segStartMs;
-  const timePerWord = segDuration / words.length;
+  const timePerWord = segDuration / splitWords.length;
   const timeInSegment = currentMs - segStartMs;
   const activeWordIndex = Math.min(
     Math.floor(timeInSegment / timePerWord),
-    words.length - 1,
+    splitWords.length - 1,
   );
 
   return (
     <>
-      {words.map((word, i) => {
+      {splitWords.map((word, i) => {
         let cls = styles.wordUpcoming;
         if (i < activeWordIndex) cls = styles.wordSpoken;
         else if (i === activeWordIndex) cls = styles.wordActive;
 
         return (
           <span key={i} className={cls}>
-            {word}{i < words.length - 1 ? ' ' : ''}
+            {word}{i < splitWords.length - 1 ? ' ' : ''}
           </span>
         );
       })}
