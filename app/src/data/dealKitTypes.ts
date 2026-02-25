@@ -69,6 +69,8 @@ export interface RedFlagCard {
 
 export interface DealKitData {
   vehicleTitle: string;
+  vehicleImage: string;
+  listPrice: number;
   generatedAt: string;
   dealScore: DealScoreData;
   offerRange: OfferRangeData;
@@ -86,7 +88,7 @@ export interface DealKitSection {
 }
 
 export const DEAL_KIT_SECTIONS: DealKitSection[] = [
-  { id: 'deal-score', label: 'Deal Score', icon: 'gauge' },
+  { id: 'deal-score', label: 'Overview', icon: 'gauge' },
   { id: 'offer-range', label: 'Offer Range', icon: 'tag' },
   { id: 'inspection', label: 'Inspection', icon: 'clipboard' },
   { id: 'questions', label: 'Questions', icon: 'help_outline' },

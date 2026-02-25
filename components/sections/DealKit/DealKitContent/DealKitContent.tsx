@@ -20,7 +20,6 @@ export default function DealKitContent() {
         <DealKitNav />
       </aside>
       <div className={styles.main}>
-        <div className={styles.vehicleTitle}>{data.vehicleTitle}</div>
         <DealScoreSection data={data.dealScore} />
         <OfferRangeSection data={data.offerRange} />
         <InspectionChecklistSection items={data.inspectionChecklist} />

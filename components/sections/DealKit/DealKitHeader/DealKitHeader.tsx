@@ -7,6 +7,10 @@ interface DealKitHeaderProps {
   onDownloadPdf: () => void;
 }
 
+function formatPrice(n: number) {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+}
+
 export default function DealKitHeader({ onDownloadPdf }: DealKitHeaderProps) {
   const { closeDealKit, data } = useDealKit();
 
@@ -16,10 +20,19 @@ export default function DealKitHeader({ onDownloadPdf }: DealKitHeaderProps) {
         <Icon name="arrow_back" size={20} />
         <span>Back to Listing</span>
       </button>
-      <div className={styles.titleGroup}>
-        <Icon name="sparkles" size={20} />
-        <h1 className={styles.title}>Walk-In Deal Kit</h1>
-      </div>
+      {data && (
+        <div className={styles.titleGroup}>
+          <img
+            src={data.vehicleImage}
+            alt={data.vehicleTitle}
+            className={styles.vehicleThumb}
+          />
+          <div className={styles.vehicleInfo}>
+            <span className={styles.vehicleName}>{data.vehicleTitle}</span>
+            <span className={styles.vehiclePrice}>{formatPrice(data.listPrice)}</span>
+          </div>
+        </div>
+      )}
       <div className={styles.actions}>
         {data && (
           <span className={styles.date}>Generated {data.generatedAt}</span>

@@ -98,7 +98,7 @@ function ScoreGauge({ score, label }: { score: number; label: string }) {
 export default function DealScoreSection({ data }: DealScoreSectionProps) {
   return (
     <section id="deal-score" className={styles.section}>
-      <h2 className={styles.heading}>Deal Score</h2>
+      <h2 className={styles.heading}>Walk-In Deal Kit</h2>
       <div className={styles.card}>
         <div className={styles.gaugeWrap}>
           <ScoreGauge score={data.score} label={data.label} />

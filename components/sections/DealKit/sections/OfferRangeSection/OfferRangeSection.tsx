@@ -6,91 +6,61 @@ interface OfferRangeSectionProps {
   data: OfferRangeData;
 }
 
-function AnimatedAmount({ amount }: { amount: number }) {
-  const [displayed, setDisplayed] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
+function formatK(n: number) {
+  return n >= 1000 ? `$${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}k` : `$${n.toLocaleString()}`;
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const start = amount - 5000;
-          let current = start;
-          const step = 5000 / 30;
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= amount) {
-              setDisplayed(amount);
-              clearInterval(timer);
-            } else {
-              setDisplayed(Math.round(current));
-            }
-          }, 30);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 },
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [amount]);
-
-  const formatted = new Intl.NumberFormat('en-US', {
+function formatFull(n: number) {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 0,
-  }).format(displayed);
-
-  return <span ref={ref} className={styles.amount}>{formatted}</span>;
+  }).format(n);
 }
 
 export default function OfferRangeSection({ data }: OfferRangeSectionProps) {
-  const tiers = [
-    { ...data.opening, tier: 'opening' as const },
-    { ...data.target, tier: 'target' as const },
-    { ...data.walkAway, tier: 'walkaway' as const },
-  ];
+  const { opening, target, walkAway, listPrice } = data;
 
-  const min = data.opening.amount;
-  const max = data.listPrice;
+  // The bar spans from opening.amount to listPrice
+  const min = opening.amount;
+  const max = listPrice;
   const range = max - min;
+
+  const targetPct = ((target.amount - min) / range) * 100;
+  const walkAwayPct = ((walkAway.amount - min) / range) * 100;
 
   return (
     <section id="offer-range" className={styles.section}>
       <h2 className={styles.heading}>Offer Range</h2>
       <div className={styles.card}>
-        {/* Visual range bar */}
-        <div className={styles.rangeBar}>
-          <div className={styles.rangeTrack}>
-            {tiers.map((t) => {
-              const pct = ((t.amount - min) / range) * 100;
-              return (
-                <div
-                  key={t.tier}
-                  className={`${styles.rangeMarker} ${styles[t.tier]}`}
-                  style={{ left: `${pct}%` }}
-                >
-                  <div className={styles.markerDot} />
-                </div>
-              );
-            })}
-            <div className={styles.rangeFill} style={{ width: `${((data.walkAway.amount - min) / range) * 100}%` }} />
-          </div>
-          <div className={styles.rangeLabels}>
-            <span>${(min / 1000).toFixed(0)}K</span>
-            <span>${(max / 1000).toFixed(0)}K List</span>
-          </div>
-        </div>
-
-        {/* Tier cards */}
-        <div className={styles.tiers}>
-          {tiers.map((t) => (
-            <div key={t.tier} className={`${styles.tierCard} ${styles[t.tier]}`}>
-              <span className={styles.tierLabel}>{t.label}</span>
-              <AnimatedAmount amount={t.amount} />
-              <p className={styles.tierDesc}>{t.description}</p>
+        <div className={styles.barContainer}>
+          {/* Callout bubble for target price */}
+          <div className={styles.callout} style={{ left: `${targetPct}%` }}>
+            <div className={styles.calloutBubble}>
+              <span className={styles.calloutLabel}>Target price</span>
+              <span className={styles.calloutAmount}>{formatFull(target.amount)}</span>
             </div>
-          ))}
+            <div className={styles.calloutArrow} />
+          </div>
+
+          {/* Gradient bar */}
+          <div className={styles.gradientBar} />
+
+          {/* Zone labels below */}
+          <div className={styles.zones}>
+            <div className={styles.zone}>
+              <span className={styles.zoneName}>Opening</span>
+              <span className={styles.zoneRange}>Below {formatK(target.amount)}</span>
+            </div>
+            <div className={styles.zone}>
+              <span className={styles.zoneName}>Target</span>
+              <span className={styles.zoneRange}>{formatK(target.amount)}&ndash;{formatK(walkAway.amount)}</span>
+            </div>
+            <div className={styles.zone}>
+              <span className={styles.zoneName}>Walk-Away</span>
+              <span className={styles.zoneRange}>Above {formatK(walkAway.amount)}</span>
+            </div>
+          </div>
         </div>
 
         <p className={styles.rationale}>{data.rationale}</p>

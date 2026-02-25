@@ -24,10 +24,6 @@
   gap: var(--space-32);
 }
 
-.vehicleTitle {
-  font: var(--font-headline-2);
-  color: var(--rv-on-surface);
-}
 
 /* Tablet: sidebar becomes horizontal tabs at top */
 @media (max-width: 991px) {

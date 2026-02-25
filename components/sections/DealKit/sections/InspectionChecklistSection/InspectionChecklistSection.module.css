@@ -132,8 +132,8 @@
   display: inline-block;
   font: var(--font-label-2);
   font-size: 11px;
-  background: var(--rv-primary);
-  color: #fff;
+  background: var(--rv-surface-accent);
+  color: var(--rv-primary);
   padding: 1px 8px;
   border-radius: var(--radius-full);
   white-space: nowrap;

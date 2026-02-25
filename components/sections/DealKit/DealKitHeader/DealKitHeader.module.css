@@ -33,19 +33,37 @@
 .titleGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-12);
   flex: 1;
   min-width: 0;
-  color: var(--rv-primary);
 }
 
-.title {
-  font: var(--font-headline-3);
+.vehicleThumb {
+  width: 48px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  background: var(--rv-surface-variant);
+}
+
+.vehicleInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vehicleName {
+  font: var(--font-label-2);
   color: var(--rv-on-surface);
-  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.vehiclePrice {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
 }
 
 .actions {

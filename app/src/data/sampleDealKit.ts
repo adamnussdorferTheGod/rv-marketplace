@@ -2,6 +2,8 @@ import type { DealKitData } from './dealKitTypes';
 
 export const sampleDealKit: DealKitData = {
   vehicleTitle: '2024 Airstream Flying Cloud 25RB',
+  vehicleImage: 'https://images.unsplash.com/photo-1619317190381-643a6b28d6e6?w=800&h=600&fit=crop&q=80',
+  listPrice: 88000,
   generatedAt: new Date().toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
