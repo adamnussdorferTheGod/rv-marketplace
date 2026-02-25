@@ -101,7 +101,7 @@ Plans:
 - Decimal phases (10.1, 10.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 10: Foundation and Gallery Entry Point** - Data types, sample walkthrough data, video state machine, and gallery thumbnail integration (completed 2026-02-25)
-- [ ] **Phase 11: Ken Burns Engine and Composition Canvas** - Photo motion presets, crossfade transitions, 5-act narrative structure, player shell, and single-timeline architecture
+- [x] **Phase 11: Ken Burns Engine and Composition Canvas** - Photo motion presets, crossfade transitions, 5-act narrative structure, player shell, and single-timeline architecture (completed 2026-02-25)
 - [ ] **Phase 12: Text Overlays and Audio Narration** - Timed visual overlays for listing info/specs/features/CTA, synchronized audio narration, and closed captions
 - [ ] **Phase 13: Player Controls and Chapter Navigation** - Interactive playback controls, act progress indicator, chapter markers, listing context bar, and CTA buttons
 - [ ] **Phase 14: Accessibility and Mobile Experience** - Keyboard shortcuts, ARIA dialog pattern, focus management, touch gestures, and responsive player sizing
@@ -208,7 +208,7 @@ Phases execute in numeric order: 10 -> 11 -> 12 -> 13 -> 14
 | 8. Full-Width Bottom Sections | v1.0 | 2/2 | Complete | 2026-02-22 |
 | 9. Integration and Polish | v1.0 | 1/1 | Complete | 2026-02-22 |
 | 10. Foundation and Gallery Entry Point | 3/3 | Complete    | 2026-02-25 | - |
-| 11. Ken Burns Engine and Composition Canvas | 1/2 | In Progress|  | - |
+| 11. Ken Burns Engine and Composition Canvas | 2/2 | Complete   | 2026-02-25 | - |
 | 12. Text Overlays and Audio Narration | v2.0 | 0/3 | Not started | - |
 | 13. Player Controls and Chapter Navigation | v2.0 | 0/3 | Not started | - |
 | 14. Accessibility and Mobile Experience | v2.0 | 0/3 | Not started | - |

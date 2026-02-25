@@ -28,11 +28,11 @@ Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases
 ### Video Composition Engine
 
 - [x] **COMP-01**: Ken Burns motion applies to each photo segment with slow zoom-in, zoom-out, or horizontal pan (alternating directions between consecutive photos)
-- [ ] **COMP-02**: Crossfade transitions (500ms) between photo segments with no hard cuts
+- [x] **COMP-02**: Crossfade transitions (500ms) between photo segments with no hard cuts
 - [x] **COMP-03**: Only the currently-visible photo has GPU-promoted CSS transform animation; all other photos have no will-change or running animation
-- [ ] **COMP-04**: Video follows 5-act narrative structure: Hook (0-8s) → Exterior Tour (8-25s) → Interior Tour (25-55s) → Specs & Value (55-65s) → CTA (65-75s)
+- [x] **COMP-04**: Video follows 5-act narrative structure: Hook (0-8s) → Exterior Tour (8-25s) → Interior Tour (25-55s) → Specs & Value (55-65s) → CTA (65-75s)
 - [x] **COMP-05**: Exterior wide shots use zoom-out motion; interior detail shots use zoom-in motion
-- [ ] **COMP-06**: Photo sequencing follows logical tour order: exterior front/side → kitchen → living → bedroom → bathroom → utility
+- [x] **COMP-06**: Photo sequencing follows logical tour order: exterior front/side → kitchen → living → bedroom → bathroom → utility
 - [x] **COMP-07**: All visual state (current photo, animation, overlays) derives from a single timeline source (currentSegmentIndex + elapsed time), not parallel timers
 
 ### Text Overlays
@@ -50,12 +50,12 @@ Requirements for the AI Video Walkthrough milestone. Each maps to roadmap phases
 
 ### Video Player
 
-- [ ] **PLAY-01**: Lightbox opens as full-screen fixed overlay with near-black backdrop (rgba(0,0,0,0.92))
-- [ ] **PLAY-02**: Player container has max-width 900px, centered, with border-radius 8px overflow hidden
+- [x] **PLAY-01**: Lightbox opens as full-screen fixed overlay with near-black backdrop (rgba(0,0,0,0.92))
+- [x] **PLAY-02**: Player container has max-width 900px, centered, with border-radius 8px overflow hidden
 - [ ] **PLAY-03**: Standard video controls: play/pause button, seek/scrub bar, elapsed/total time display, volume slider, mute toggle, fullscreen button
 - [ ] **PLAY-04**: Video starts muted on open with a visible "Tap to unmute" prompt (respects browser autoplay policies)
-- [ ] **PLAY-05**: Loading state shows poster image as placeholder with spinner overlay during buffering
-- [ ] **PLAY-06**: Close button (X, top-right) returns to VDP; Escape key also closes
+- [x] **PLAY-05**: Loading state shows poster image as placeholder with spinner overlay during buffering
+- [x] **PLAY-06**: Close button (X, top-right) returns to VDP; Escape key also closes
 - [ ] **PLAY-07**: Listing context bar below the player shows: vehicle title, price, location
 - [ ] **PLAY-08**: CTA buttons below the player: "Contact Seller" and "Get Deal Kit"
 - [ ] **PLAY-09**: Controls auto-hide after 3 seconds of inactivity; reappear on mouse move or touch
@@ -158,16 +158,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | GAL-06 | Phase 10 | Complete |
 | GAL-07 | Phase 10 | Complete |
 | COMP-01 | Phase 11 | Complete |
-| COMP-02 | Phase 11 | Pending |
+| COMP-02 | Phase 11 | Complete |
 | COMP-03 | Phase 11 | Complete |
-| COMP-04 | Phase 11 | Pending |
+| COMP-04 | Phase 11 | Complete |
 | COMP-05 | Phase 11 | Complete |
-| COMP-06 | Phase 11 | Pending |
+| COMP-06 | Phase 11 | Complete |
 | COMP-07 | Phase 11 | Complete |
-| PLAY-01 | Phase 11 | Pending |
-| PLAY-02 | Phase 11 | Pending |
-| PLAY-05 | Phase 11 | Pending |
-| PLAY-06 | Phase 11 | Pending |
+| PLAY-01 | Phase 11 | Complete |
+| PLAY-02 | Phase 11 | Complete |
+| PLAY-05 | Phase 11 | Complete |
+| PLAY-06 | Phase 11 | Complete |
 | OVRL-01 | Phase 12 | Pending |
 | OVRL-02 | Phase 12 | Pending |
 | OVRL-03 | Phase 12 | Pending |

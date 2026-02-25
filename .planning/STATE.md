@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-24)
 
 ## Current Position
 
-Phase: 11 of 14 (Ken Burns Engine and Composition Canvas)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-02-25 — Completed 11-01 (Ken Burns engine foundation)
+Phase: 11 of 14 (Ken Burns Engine and Composition Canvas) -- COMPLETE
+Plan: 2 of 2 in current phase -- PHASE DONE
+Status: Phase Complete
+Last activity: 2026-02-25 — Completed 11-02 (Composition canvas and VideoPlayerShell integration)
 
-Progress: [=========================>-----] 80% (v2.0: 4/15 plans complete)
+Progress: [===========================>---] 87% (v2.0: 5/15 plans complete)
 
 ## Performance Metrics
 
@@ -24,7 +24,7 @@ Progress: [=========================>-----] 80% (v2.0: 4/15 plans complete)
 - Total execution time: 1.25 hours
 
 **v2.0:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Estimated plans: 15 (across 5 phases)
 
 ## Accumulated Context
@@ -56,6 +56,10 @@ Progress: [=========================>-----] 80% (v2.0: 4/15 plans complete)
 - [11-01]: will-change: transform via inline style only on active layer — prevents permanent GPU allocation
 - [11-01]: Linear animation-timing for documentary feel; forwards fill-mode holds final frame
 - [11-01]: Subtle scale values (1.0-1.15 zoom, 1.1 base + 3% translate for pan)
+- [11-02]: A/B layer swap pattern (currentIndex % 2) ensures only 2 images in DOM during crossfade
+- [11-02]: Preload 2 images ahead for seamless transitions without visible loading
+- [11-02]: First-image preload triggers loaded() on both onload and onerror for graceful degradation
+- [11-02]: FlatSegment preserves act metadata (actIndex, actType) for Phase 13 chapter navigation
 
 ### Pending Todos
 
@@ -70,5 +74,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 11-01-PLAN.md
+Stopped at: Completed 11-02-PLAN.md (Phase 11 complete)
 Resume file: None

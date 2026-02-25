@@ -70,10 +70,10 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
       segments: [
         {
           id: 'seg-03',
-          photoUrl: img[2].url,
-          photoAlt: img[2].alt,
+          photoUrl: img[5].url,
+          photoAlt: img[5].alt,
           durationMs: 6000,
-          motionPreset: 'zoom-in',
+          motionPreset: 'zoom-out',
           overlays: [
             {
               overlay: { type: 'section-label', label: 'Exterior Tour' },
@@ -85,10 +85,10 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
         },
         {
           id: 'seg-04',
-          photoUrl: img[3].url,
-          photoAlt: img[3].alt,
+          photoUrl: img[9].url,
+          photoAlt: img[9].alt,
           durationMs: 6000,
-          motionPreset: 'pan-left',
+          motionPreset: 'zoom-out',
           overlays: [],
         },
       ],
@@ -101,8 +101,8 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
       segments: [
         {
           id: 'seg-05',
-          photoUrl: img[4].url,
-          photoAlt: img[4].alt,
+          photoUrl: img[3].url,
+          photoAlt: img[3].alt,
           durationMs: 8000,
           motionPreset: 'zoom-in',
           overlays: [
@@ -122,8 +122,8 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
         },
         {
           id: 'seg-06',
-          photoUrl: img[5].url,
-          photoAlt: img[5].alt,
+          photoUrl: img[2].url,
+          photoAlt: img[2].alt,
           durationMs: 7000,
           motionPreset: 'pan-right',
           overlays: [
@@ -137,10 +137,10 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
         },
         {
           id: 'seg-07',
-          photoUrl: img[6].url,
-          photoAlt: img[6].alt,
+          photoUrl: img[4].url,
+          photoAlt: img[4].alt,
           durationMs: 7000,
-          motionPreset: 'zoom-out',
+          motionPreset: 'zoom-in',
           overlays: [],
         },
       ],
@@ -153,8 +153,8 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
       segments: [
         {
           id: 'seg-08',
-          photoUrl: img[7].url,
-          photoAlt: img[7].alt,
+          photoUrl: img[6].url,
+          photoAlt: img[6].alt,
           durationMs: 8000,
           motionPreset: 'zoom-in',
           overlays: [
@@ -174,8 +174,8 @@ export const sampleVideoWalkthrough: VideoWalkthroughData = {
         },
         {
           id: 'seg-09',
-          photoUrl: img[8].url,
-          photoAlt: img[8].alt,
+          photoUrl: img[7].url,
+          photoAlt: img[7].alt,
           durationMs: 7000,
           motionPreset: 'pan-left',
           overlays: [
