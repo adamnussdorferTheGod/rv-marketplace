@@ -128,6 +128,25 @@
   background: var(--rv-surface);
 }
 
+/* GAL-06: Watch AI Video Tour — secondary text link below gallery */
+.watchVideoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+  padding: 0;
+  border: none;
+  background: none;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface-brand);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.watchVideoLink:hover {
+  text-decoration: underline;
+}
+
 /* SM: 768–991px — single column, hero full-width, thumbnails as horizontal row */
 @media (max-width: 991px) {
   .gallery {

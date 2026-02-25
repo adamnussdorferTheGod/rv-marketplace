@@ -32,14 +32,18 @@ import { NarrationProvider } from '@components/sections/PhotoNarration/Narration
 import { DealKitProvider } from '@components/sections/DealKit/DealKitContext';
 import DealKitCard from '@components/sections/DealKit/DealKitCard/DealKitCard';
 import DealKitOverlay from '@components/sections/DealKit/DealKitOverlay/DealKitOverlay';
+import { VideoWalkthroughProvider, useVideoWalkthrough } from '@components/sections/VideoWalkthrough/VideoWalkthroughContext';
+import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerShell/VideoPlayerShell';
 import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
+import { sampleVideoWalkthrough } from '../../../app/src/data/sampleVideoWalkthrough';
 import styles from './VehicleDetailPage.module.css';
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { variant } = useVdpVariant();
+  const { state: videoState, closeLightbox } = useVideoWalkthrough();
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -67,6 +71,7 @@ function VehicleDetailPageContent() {
                 totalPhotoCount={sampleListing.totalPhotoCount}
                 tagText={sampleListing.tagText}
                 listingTitle={sampleListing.title}
+                videoWalkthrough={sampleVideoWalkthrough}
               />
             </div>
             <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
@@ -96,8 +101,6 @@ function VehicleDetailPageContent() {
                 <Divider />
                 <Description description={sampleListing.description} />
                 <Divider />
-                <Reviews reviews={sampleListing.reviews} modelName={`${sampleListing.make} ${sampleListing.model} ${sampleListing.trim}`} />
-                <Divider />
                 <PriceAnalysis
                   currentPrice={sampleListing.currentPrice}
                   dealRating={sampleListing.dealRating}
@@ -111,6 +114,8 @@ function VehicleDetailPageContent() {
                 />
                 <Divider />
                 <DealKitCard />
+                <Divider />
+                <Reviews reviews={sampleListing.reviews} modelName={`${sampleListing.make} ${sampleListing.model} ${sampleListing.trim}`} />
                 <Divider />
                 <AboutDealership dealer={sampleListing.dealer} />
                 <Divider />
@@ -156,6 +161,7 @@ function VehicleDetailPageContent() {
         listingPrice={formattedPrice}
       />
       <DealKitOverlay />
+      {videoState.isLightboxOpen && <VideoPlayerShell onClose={closeLightbox} />}
     </>
   );
 }
@@ -166,7 +172,9 @@ export default function VehicleDetailPage() {
       <AiModeProvider listing={sampleListing}>
         <NarrationProvider narrations={sampleNarrations}>
           <DealKitProvider>
-            <VehicleDetailPageContent />
+            <VideoWalkthroughProvider data={sampleVideoWalkthrough}>
+              <VehicleDetailPageContent />
+            </VideoWalkthroughProvider>
           </DealKitProvider>
         </NarrationProvider>
       </AiModeProvider>

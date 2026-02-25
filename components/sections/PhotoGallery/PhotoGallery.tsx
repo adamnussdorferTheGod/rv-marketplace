@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import type { ListingImage } from '../../../app/src/data/types';
+import type { VideoWalkthroughData } from '../../../app/src/data/videoWalkthroughTypes';
 import Icon from '@components/ui/Icon/Icon';
+import { useVideoWalkthrough } from '@components/sections/VideoWalkthrough/VideoWalkthroughContext';
+import VideoThumbnail from './VideoThumbnail/VideoThumbnail';
 import GalleryLightbox from './GalleryLightbox/GalleryLightbox';
 import styles from './PhotoGallery.module.css';
 
@@ -9,13 +12,15 @@ interface PhotoGalleryProps {
   totalPhotoCount: number;
   tagText: string;
   listingTitle: string;
+  videoWalkthrough?: VideoWalkthroughData;
 }
 
-export default function PhotoGallery({ images, totalPhotoCount, tagText, listingTitle }: PhotoGalleryProps) {
+export default function PhotoGallery({ images, totalPhotoCount, tagText, listingTitle, videoWalkthrough }: PhotoGalleryProps) {
   const heroImage = images[0];
   const thumbnails = images.slice(1, 5);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
+  const { openLightbox: openVideoLightbox } = useVideoWalkthrough();
 
   const openLightbox = (startIndex = 0) => {
     setLightboxStartIndex(startIndex);
@@ -26,13 +31,21 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
     <>
       <div className={styles.gallery}>
         <div className={styles.heroWrapper}>
-          <img
-            src={heroImage.url}
-            alt={heroImage.alt}
-            className={styles.heroImage}
-            onClick={() => openLightbox(0)}
-            style={{ cursor: 'pointer' }}
-          />
+          {videoWalkthrough ? (
+            <VideoThumbnail
+              posterUrl={videoWalkthrough.source.posterUrl}
+              duration={videoWalkthrough.totalDurationMs}
+              onPlay={openVideoLightbox}
+            />
+          ) : (
+            <img
+              src={heroImage.url}
+              alt={heroImage.alt}
+              className={styles.heroImage}
+              onClick={() => openLightbox(0)}
+              style={{ cursor: 'pointer' }}
+            />
+          )}
           {/* ATF-06: Tags badge overlay */}
           <div className={styles.tagsBadge}>
             <span className={styles.tagText}>{tagText}</span>
@@ -77,6 +90,13 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
           </button>
         </div>
       </div>
+      {/* GAL-06: Watch AI Video Tour secondary link */}
+      {videoWalkthrough && (
+        <button className={styles.watchVideoLink} onClick={openVideoLightbox}>
+          <Icon name="sparkles" size={16} />
+          Watch AI Video Tour
+        </button>
+      )}
       {/* Gallery lightbox */}
       {isLightboxOpen && (
         <GalleryLightbox
