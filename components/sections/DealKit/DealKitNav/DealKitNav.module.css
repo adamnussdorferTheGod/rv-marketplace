@@ -16,7 +16,7 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface);
   opacity: 0.6;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   text-align: left;
   white-space: nowrap;
   transition: all 150ms;
@@ -58,4 +58,5 @@
     flex-shrink: 0;
     padding: var(--space-8) var(--space-12);
   }
+
 }

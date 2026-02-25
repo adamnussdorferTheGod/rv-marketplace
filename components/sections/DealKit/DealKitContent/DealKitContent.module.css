@@ -24,6 +24,16 @@
   gap: var(--space-32);
 }
 
+.disclaimer {
+  font: var(--font-label-3);
+  font-weight: 400;
+  color: #6E7072;
+  line-height: 1.5;
+  text-align: center;
+  padding: var(--space-16) var(--space-32);
+  margin: 0;
+}
+
 
 /* Tablet: sidebar becomes horizontal tabs at top */
 @media (max-width: 991px) {

@@ -119,6 +119,13 @@
   50% { transform: scale(1.05); }
 }
 
+.disclaimer {
+  font: var(--font-label-3);
+  font-weight: 400;
+  color: #6E7072;
+  margin: var(--space-24) 0 0;
+}
+
 @keyframes dotPulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }

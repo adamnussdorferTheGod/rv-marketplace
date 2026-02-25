@@ -43,6 +43,9 @@ export default function DealKitLoading() {
             }}
           />
         </div>
+        <p className={styles.disclaimer}>
+          AI-generated estimates — not professional advice.
+        </p>
       </div>
     </div>
   );

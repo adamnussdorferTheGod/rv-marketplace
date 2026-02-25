@@ -77,7 +77,7 @@ export default function Reviews({ reviews, modelName }: ReviewsProps) {
               <div className={styles.categoryRow}>
                 <div className={styles.categoryInfo}>
                   <span className={styles.categoryIcon}>
-                    <Icon name={category.icon} size={24} />
+                    <Icon name={category.icon} size={20} />
                   </span>
                   <span className={styles.categoryLabel}>{category.label}</span>
                 </div>

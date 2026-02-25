@@ -27,6 +27,9 @@ export default function DealKitContent() {
         <NegotiationPointsSection points={data.negotiationPoints} />
         <CostOfOwnershipSection data={data.costOfOwnership} />
         <RedFlagsSection flags={data.redFlags} />
+        <p className={styles.disclaimer}>
+          AI-generated estimates based on public data. Not a substitute for professional inspection or appraisal. Always verify details independently before making purchase decisions.
+        </p>
       </div>
     </div>
   );
