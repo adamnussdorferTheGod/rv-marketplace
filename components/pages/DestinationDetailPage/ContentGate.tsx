@@ -17,9 +17,11 @@ interface ContentGateProps {
   gated: boolean;
   onAuthenticate: () => void;
   children: ReactNode;
+  heading?: string;
+  subtext?: string;
 }
 
-export default function ContentGate({ gated, onAuthenticate, children }: ContentGateProps) {
+export default function ContentGate({ gated, onAuthenticate, children, heading, subtext }: ContentGateProps) {
   useEffect(() => {
     if (gated) {
       document.documentElement.setAttribute('data-content-gated', '');
@@ -40,9 +42,9 @@ export default function ContentGate({ gated, onAuthenticate, children }: Content
         <div className={styles.gradient} />
       </div>
       <div className={styles.card}>
-        <h2 className={styles.heading}>Create a free account, or log in.</h2>
+        <h2 className={styles.heading}>{heading ?? 'Create a free account, or log in.'}</h2>
         <p className={styles.subtext}>
-          Gain access to full destination details, reviews, and personalized trip planning features.
+          {subtext ?? 'Gain access to full destination details, reviews, and personalized trip planning features.'}
         </p>
         <div className={styles.actions}>
           <button className={styles.authButton} onClick={onAuthenticate}>
