@@ -1,7 +1,7 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-32);
 }
 
 .heading {
@@ -10,73 +10,102 @@
   margin: 0;
 }
 
-.overview {
+.summaryGrid {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-32);
 }
 
-.score {
+.ratingRow {
+  display: flex;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+.ratingBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  background:
+    radial-gradient(ellipse at 100% 103%, rgba(242, 178, 3, 0.15) 0%, rgba(242, 178, 3, 0) 100%),
+    radial-gradient(ellipse at 20% -4%, rgba(152, 207, 182, 0.42) 28%, rgba(152, 207, 182, 0) 100%),
+    radial-gradient(ellipse at -2% 104%, rgba(0, 104, 54, 0.36) 0%, rgba(0, 104, 54, 0) 100%);
+}
+
+.ratingBadgeScore {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-4);
 }
 
-.starIcon {
-  color: #FACA33;
-}
-
-.number {
-  font-size: 36px;
-  font-weight: 700;
+.ratingBadgeStar {
   color: var(--rv-on-surface);
-  line-height: 1;
 }
 
-.count {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
+.ratingNumber {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
 }
 
-.bars {
+.ratingMeta {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-4);
 }
 
-.barRow {
+.ratingLabel {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.ratingCount {
+  font: var(--font-link-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.ratingCountLink {
+  text-decoration: underline;
+}
+
+/* Distribution bars */
+.distribution {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+}
+
+.distributionRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-16);
 }
 
-.starLabel {
-  width: 12px;
-  font: var(--font-label-2);
-  color: var(--rv-on-surface-variant);
-  text-align: right;
-  flex-shrink: 0;
+.distributionLabel {
+  font: 600 14px/19.6px var(--font-family);
+  color: var(--rv-on-surface);
+  width: 10px;
+  text-align: center;
 }
 
-.barTrack {
+.distributionBar {
   flex: 1;
-  height: 8px;
-  background: var(--rv-surface-variant);
-  border-radius: 4px;
-  overflow: hidden;
+  height: 10px;
+  border-radius: 100px;
+  background: var(--rv-border-low);
 }
 
-.barFill {
+.distributionFill {
   height: 100%;
-  background: #FACA33;
-  border-radius: 4px;
-  transition: width 0.3s ease;
-}
-
-.pct {
-  width: 36px;
-  font: var(--font-label-3);
-  color: var(--rv-on-surface-variant);
-  text-align: right;
-  flex-shrink: 0;
+  border-radius: 100px;
+  background: var(--rv-primary);
 }

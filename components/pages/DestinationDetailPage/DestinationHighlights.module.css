@@ -1,7 +1,7 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-16);
 }
 
 .heading {
@@ -13,26 +13,33 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+  gap: var(--space-16);
 }
 
 .item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 0;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
 }
 
 .iconWrap {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
   background: var(--rv-surface-variant);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--rv-on-surface-variant);
+  color: var(--rv-primary);
+}
+
+.materialIcon {
+  font-size: 22px;
 }
 
 .label {

@@ -1,6 +1,14 @@
-import Icon from '@components/ui/Icon/Icon';
 import type { DestinationHighlight } from '../../../app/src/data/lifestyleTypes';
 import styles from './DestinationHighlights.module.css';
+
+const ICON_MAP: Record<string, string> = {
+  beach: 'beach_access',
+  hiking: 'hiking',
+  fishing: 'phishing',
+  swimming: 'pool',
+  binoculars: 'visibility',
+  kayak: 'kayaking',
+};
 
 interface DestinationHighlightsProps {
   highlights: DestinationHighlight[];
@@ -14,7 +22,9 @@ export default function DestinationHighlights({ highlights }: DestinationHighlig
         {highlights.map(h => (
           <div key={h.label} className={styles.item}>
             <div className={styles.iconWrap}>
-              <Icon name={h.icon} size={24} />
+              <span className={`material-symbols-rounded ${styles.materialIcon}`}>
+                {ICON_MAP[h.icon] ?? h.icon}
+              </span>
             </div>
             <span className={styles.label}>{h.label}</span>
           </div>
