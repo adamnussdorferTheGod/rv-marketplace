@@ -48,7 +48,7 @@
   padding: 8px 10px;
   background: var(--rv-surface);
   border-top: 1px solid var(--rv-border-low);
-  font: var(--font-caption);
+  font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
 }
 

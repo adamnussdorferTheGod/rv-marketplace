@@ -4,26 +4,23 @@
   border-radius: var(--radius-lg);
   display: flex;
   overflow: hidden;
-  background: var(--rv-surface);
+  background: #f0f0f0;
   margin-top: var(--space-16);
 }
 
 /* ── Left illustration ── */
 
 .imageArea {
-  position: relative;
   flex-shrink: 0;
-  width: 260px;
-  background: #ebf1fd;
-  overflow: hidden;
+  width: 250px;
+  align-self: center;
+  padding: 12px;
+  padding-top: 32px;
 }
 
 .cover {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 240px;
+  display: block;
+  width: 100%;
   height: auto;
 }
 
@@ -36,6 +33,7 @@
   flex-direction: column;
   gap: var(--space-12);
   padding: var(--space-24);
+  background: var(--rv-surface);
 }
 
 .title {
@@ -82,14 +80,12 @@
 
   .imageArea {
     width: 100%;
-    height: 180px;
+    padding: 24px;
   }
 
   .cover {
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
+    width: 60%;
+    margin: 0 auto;
   }
 
   .features {
