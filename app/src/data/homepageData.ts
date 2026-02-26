@@ -66,3 +66,91 @@ export const showcaseDealer = {
   phone: '(888) 626-7576',
   logoUrl: 'https://images.unsplash.com/photo-1535913989690-f90e1c2d4cfa?w=120&h=60&fit=crop&q=80',
 };
+
+// ─── Ownership Cards ────────────────────────────────────────────────────
+
+export interface OwnershipCard {
+  id: string;
+  title: string;
+  description: string;
+  ctaText: string;
+  icon: string;
+}
+
+export const ownershipCards: OwnershipCard[] = [
+  {
+    id: 'accessories',
+    title: 'RV Accessories',
+    description:
+      'Shop parts, upgrades, and gear to customize your RV for any adventure.',
+    ctaText: 'Learn more',
+    icon: 'wrench',
+  },
+  {
+    id: 'insurance',
+    title: 'Insurance Services',
+    description:
+      'Protect your investment with coverage tailored to RV owners.',
+    ctaText: 'Learn more',
+    icon: 'shield',
+  },
+  {
+    id: 'closing',
+    title: 'Closing Services',
+    description:
+      'Streamline your purchase with title, registration, and delivery support.',
+    ctaText: 'Learn more',
+    icon: 'document',
+  },
+  {
+    id: 'reviews',
+    title: 'Owner Reviews',
+    description:
+      'See what real RV owners say about their rigs before you buy.',
+    ctaText: 'Learn more',
+    icon: 'star_filled',
+  },
+];
+
+// ─── Selling section panels ────────────────────────────────────────────
+
+export type SellingPanelId = 'consignment' | 'sell-privately' | 'cash-offers';
+
+export interface SellingPanel {
+  id: SellingPanelId;
+  tabLabel: string;
+  title: string;
+  description: string;
+  ctaText: string;
+  image: string;
+}
+
+export const sellingPanels: SellingPanel[] = [
+  {
+    id: 'consignment',
+    tabLabel: 'Consignment',
+    title: 'Let pros handle the sale',
+    description:
+      'Partner with a trusted dealership to sell your RV on consignment. They handle the marketing, showings, and paperwork while you sit back and wait for the best offer.',
+    ctaText: 'Learn more',
+    image: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=600&h=400&fit=crop&q=80',
+  },
+  {
+    id: 'sell-privately',
+    tabLabel: 'Sell privately',
+    title: 'Get the best price',
+    description:
+      'List your RV directly on our marketplace and connect with serious buyers. Set your own price, manage inquiries, and negotiate on your terms for the highest return.',
+    ctaText: 'Learn more',
+    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop&q=80',
+  },
+  {
+    id: 'cash-offers',
+    tabLabel: 'Cash offers',
+    title: 'Sell fast, stress free',
+    description:
+      'Get an instant cash offer for your RV and close in as little as a few days. No haggling, no waiting, no hassle -- just a fair price and a quick sale.',
+    ctaText: 'Get your offer',
+    image: 'https://images.unsplash.com/photo-1554672408-730436b60dde?w=600&h=400&fit=crop&q=80',
+  },
+];
