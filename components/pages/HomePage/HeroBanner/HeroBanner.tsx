@@ -100,7 +100,7 @@ export default function HeroBanner() {
         <div className={styles.searchRow}>
           <div className={searchBarClass}>
             <span className={styles.sparkleIcon}>
-              <Icon name="sparkles" size={22} />
+              <Icon name="ai_search" size={22} />
             </span>
 
             <div className={styles.inputArea}>
