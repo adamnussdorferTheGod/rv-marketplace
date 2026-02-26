@@ -12,6 +12,7 @@ import FitCheck from '@components/sections/FitCheck/FitCheck';
 import VehicleHistoryReport from '@components/sections/VehicleHistoryReport/VehicleHistoryReport';
 import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingToNegotiate';
 import FeaturesAndSpecs from '@components/sections/FeaturesAndSpecs/FeaturesAndSpecs';
+import LifestyleContext from '@components/sections/LifestyleContext/LifestyleContext';
 import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
 import Description from '@components/sections/Description/Description';
 import Reviews from '@components/sections/Reviews/Reviews';
@@ -97,6 +98,7 @@ function VehicleDetailPageContent() {
                 <VehicleHistoryReport
                   vhrAvailable={sampleListing.vhrAvailable}
                 />
+                <Divider />
                 <FeaturesAndSpecs specs={sampleListing.specs} />
                 <Divider />
                 <Description description={sampleListing.description} />
@@ -113,6 +115,8 @@ function VehicleDetailPageContent() {
                   dealerName={sampleListing.dealer.name}
                   dealerPhone={sampleListing.dealer.phone}
                 />
+                <Divider />
+                <LifestyleContext />
                 <Divider />
                 <DealKitCard />
                 <Divider />

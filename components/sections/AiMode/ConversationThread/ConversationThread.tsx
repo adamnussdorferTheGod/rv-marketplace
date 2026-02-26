@@ -13,6 +13,13 @@ const FITCHECK_PROMPTS = [
   "I'm looking for an RV to take off-roading that will fit a family of four.",
 ];
 
+const PLAN_PROMPTS = [
+  'Beach camping near me this weekend',
+  'Plan a 3-day mountain getaway',
+  'Best pet-friendly campgrounds nearby',
+  'Weekend trip for two under $50/night',
+];
+
 interface ConversationThreadProps {
   listingTitle?: string;
 }
@@ -28,6 +35,7 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
   } = useAiMode();
   const { variant } = useVdpVariant();
 
+  const { panelMode } = useAiMode();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -39,7 +47,8 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
 
   const showAuthGate = exchangeCount >= 2 && !isAuthenticated;
   const hasMessages = messages.length > 0;
-  const isFitcheck = variant === 'option-2';
+  const isFitcheck = variant === 'option-2' && panelMode !== 'plan';
+  const isPlan = panelMode === 'plan';
 
   return (
     <div className={styles.thread} ref={scrollRef}>
@@ -87,6 +96,24 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
               </button>
             ))}
           </div>
+        </div>
+      )}
+
+      {!hasMessages && isPlan && (
+        <div className={styles.welcome}>
+          <div className={styles.welcomeIcon}>
+            <Icon name="sparkles" size={32} />
+          </div>
+          <h3 className={styles.welcomeTitle}>Plan your next adventure</h3>
+          <p className={styles.welcomeBody}>
+            Tell me where you want to go or what kind of trip you&apos;re looking for.
+            I&apos;ll help you find campgrounds, plan routes, and estimate costs.
+          </p>
+          <SuggestedPrompts
+            prompts={PLAN_PROMPTS}
+            onSelect={sendMessage}
+            variant="vertical"
+          />
         </div>
       )}
 

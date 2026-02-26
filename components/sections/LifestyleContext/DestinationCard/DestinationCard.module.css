@@ -1,0 +1,128 @@
+/* DestinationCard — 180×240 frosted glass photo card */
+
+.cardWrap {
+  flex: 0 0 180px;
+  width: 180px;
+  padding-bottom: 4px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.cardWrap:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.12));
+}
+
+.card {
+  width: 180px;
+  height: 240px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--rv-primary);
+  outline-offset: 2px;
+}
+
+/* Full-bleed photo background */
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Heart / favorite button — top right */
+.heartButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 0;
+  z-index: 2;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4));
+}
+
+.heartButton:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Frosted glass info overlay at bottom */
+.infoOverlay {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  width: 164px;
+  padding: 12px 11px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.16);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name {
+  font: var(--font-label-3);
+  color: #000;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.locationRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pinIcon {
+  flex-shrink: 0;
+  color: var(--rv-on-surface-variant);
+}
+
+.locationText {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16.8px;
+  color: var(--rv-on-surface-variant);
+}
+
+.price {
+  font: var(--font-label-3);
+  color: var(--rv-secondary);
+  margin: 0;
+}
+
+/* ──────────── Mobile (< 768px) ──────────── */
+@media (max-width: 767px) {
+  .cardWrap {
+    flex: 0 0 160px;
+    width: 160px;
+  }
+
+  .card {
+    width: 160px;
+    height: 210px;
+  }
+
+  .infoOverlay {
+    width: 144px;
+    padding: 10px 9px;
+  }
+}

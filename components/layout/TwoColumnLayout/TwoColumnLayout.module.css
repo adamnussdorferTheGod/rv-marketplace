@@ -10,6 +10,9 @@
 
 .right {
   min-width: 0;
+  position: sticky;
+  top: var(--space-16);
+  align-self: start;
 }
 
 /* SM: stack to single column */

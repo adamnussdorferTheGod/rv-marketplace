@@ -14,19 +14,24 @@ export default function AiModeHeader({
   listingPrice,
   isMobile,
 }: AiModeHeaderProps) {
-  const { closePanel } = useAiMode();
+  const { closePanel, panelMode } = useAiMode();
   const { variant } = useVdpVariant();
-  const isFitcheck = variant === 'option-2';
+  const isFitcheck = variant === 'option-2' && panelMode !== 'plan';
+  const isPlan = panelMode === 'plan';
+
+  const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'AI Mode';
+  const showSparkles = !isFitcheck;
+  const useLargeStyle = isFitcheck;
 
   return (
     <div className={styles.header}>
       <div className={styles.left}>
-        {!isFitcheck && <Icon name="sparkles" size={20} className={styles.sparkles} />}
-        <span className={isFitcheck ? styles.titleLarge : styles.title}>
-          {isFitcheck ? 'Fitcheck' : 'AI Mode'}
+        {showSparkles && <Icon name="sparkles" size={20} className={styles.sparkles} />}
+        <span className={useLargeStyle ? styles.titleLarge : styles.title}>
+          {title}
         </span>
       </div>
-      {!isFitcheck && isMobile && listingTitle && (
+      {!isFitcheck && !isPlan && isMobile && listingTitle && (
         <div className={styles.listingInfo}>
           <span className={styles.listingTitle}>{listingTitle}</span>
           {listingPrice && (
@@ -36,9 +41,9 @@ export default function AiModeHeader({
       )}
       <button
         type="button"
-        className={isFitcheck ? styles.closeButtonLarge : styles.closeButton}
+        className={useLargeStyle ? styles.closeButtonLarge : styles.closeButton}
         onClick={closePanel}
-        aria-label={isFitcheck ? 'Close Fitcheck' : 'Close AI Mode'}
+        aria-label={`Close ${title}`}
       >
         <Icon name="x_close" size={24} />
       </button>

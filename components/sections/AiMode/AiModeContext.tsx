@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from 'react';
 import type { ListingData } from '../../../app/src/data/types';
-import type { ConversationMessage, AiModeContextValue } from './types';
+import type { ConversationMessage, AiModeContextValue, PanelMode } from './types';
 import { generateAiResponse } from './mockAiService';
 import { isClaudeAvailable, generateClaudeResponse } from './claudeService';
 import { generateInitialPrompts, generateFollowUpPrompts } from './generatePrompts';
@@ -26,6 +26,7 @@ function nextId(): string {
 
 export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [panelMode, setPanelMode] = useState<PanelMode>('default');
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [exchangeCount, setExchangeCount] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,7 +35,10 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
     generateInitialPrompts(listing),
   );
 
-  const openPanel = useCallback(() => setIsOpen(true), []);
+  const openPanel = useCallback((mode?: PanelMode) => {
+    if (mode) setPanelMode(mode);
+    setIsOpen(true);
+  }, []);
   const closePanel = useCallback(() => setIsOpen(false), []);
   const authenticate = useCallback(() => setIsAuthenticated(true), []);
 
@@ -90,6 +94,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const value = useMemo<AiModeContextValue>(
     () => ({
       isOpen,
+      panelMode,
       messages,
       exchangeCount,
       isAuthenticated,
@@ -102,6 +107,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
     }),
     [
       isOpen,
+      panelMode,
       messages,
       exchangeCount,
       isAuthenticated,

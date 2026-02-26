@@ -5,8 +5,11 @@ export interface ConversationMessage {
   timestamp: number;
 }
 
+export type PanelMode = 'default' | 'fitcheck' | 'plan';
+
 export interface AiModeState {
   isOpen: boolean;
+  panelMode: PanelMode;
   messages: ConversationMessage[];
   exchangeCount: number;
   isAuthenticated: boolean;
@@ -15,7 +18,7 @@ export interface AiModeState {
 }
 
 export interface AiModeActions {
-  openPanel: () => void;
+  openPanel: (mode?: PanelMode) => void;
   closePanel: () => void;
   sendMessage: (content: string) => void;
   authenticate: () => void;
