@@ -47,3 +47,12 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/* Content gate: hide everything after main and match page background */
+html[data-content-gated] main ~ * {
+  display: none !important;
+}
+
+html[data-content-gated] body {
+  background-color: var(--rv-surface);
+}

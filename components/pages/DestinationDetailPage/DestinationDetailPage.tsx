@@ -10,6 +10,7 @@ import DestinationHighlights from './DestinationHighlights';
 import DestinationReviewCard from './DestinationReviewCard';
 import DestinationRating from './DestinationRating';
 import DestinationMap from './DestinationMap';
+import ContentGate from './ContentGate';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import styles from './DestinationDetailPage.module.css';
 
@@ -21,6 +22,7 @@ interface DestinationDetailPageProps {
 
 export default function DestinationDetailPage({ destination }: DestinationDetailPageProps) {
   const [visibleReviews, setVisibleReviews] = useState(INITIAL_REVIEWS);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const photos = destination.photos?.length ? destination.photos : [destination.photoUrl];
   const highlights = destination.highlights ?? [];
@@ -35,47 +37,68 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
         <DestinationGallery photos={photos} name={destination.name} />
         <DestinationTabs />
 
-        <div className={styles.twoColumn}>
-          <div className={styles.leftCol}>
+        {isAuthenticated ? (
+          <div className={styles.twoColumn}>
+            <div className={styles.leftCol}>
+              <div id="dest-overview">
+                <DestinationAbout description={destination.description} />
+              </div>
+              <DestinationStats destination={destination} />
+              {highlights.length > 0 && (
+                <div id="dest-highlights">
+                  <DestinationHighlights highlights={highlights} />
+                </div>
+              )}
+              {reviews.length > 0 && breakdown && (
+                <div id="dest-reviews">
+                  <DestinationRating
+                    rating={destination.rating}
+                    reviewCount={destination.reviewCount}
+                    breakdown={breakdown}
+                  />
+                  <div className={styles.reviewList}>
+                    {reviews.slice(0, visibleReviews).map(review => (
+                      <DestinationReviewCard key={review.id} review={review} />
+                    ))}
+                  </div>
+                  {hasMoreReviews && (
+                    <Button
+                      variant="secondary"
+                      size="lg"
+                      className={styles.loadMore}
+                      onClick={() => setVisibleReviews(v => v + INITIAL_REVIEWS)}
+                    >
+                      Load more reviews
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className={styles.rightCol}>
+              <DestinationMap name={destination.name} region={destination.region} lat={destination.lat} lng={destination.lng} />
+              <AdSlot width={300} height={250} />
+            </div>
+          </div>
+        ) : (
+          <>
             <div id="dest-overview">
               <DestinationAbout description={destination.description} />
             </div>
-            <DestinationStats destination={destination} />
-            {highlights.length > 0 && (
-              <div id="dest-highlights">
-                <DestinationHighlights highlights={highlights} />
-              </div>
-            )}
-            {reviews.length > 0 && breakdown && (
-              <div id="dest-reviews">
-                <DestinationRating
-                  rating={destination.rating}
-                  reviewCount={destination.reviewCount}
-                  breakdown={breakdown}
-                />
-                <div className={styles.reviewList}>
-                  {reviews.slice(0, visibleReviews).map(review => (
-                    <DestinationReviewCard key={review.id} review={review} />
-                  ))}
+            <ContentGate gated onAuthenticate={() => setIsAuthenticated(true)}>
+              <div className={styles.twoColumn}>
+                <div className={styles.leftCol}>
+                  <DestinationStats destination={destination} />
+                  {highlights.length > 0 && (
+                    <DestinationHighlights highlights={highlights} />
+                  )}
                 </div>
-                {hasMoreReviews && (
-                  <Button
-                    variant="secondary"
-                    size="lg"
-                    className={styles.loadMore}
-                    onClick={() => setVisibleReviews(v => v + INITIAL_REVIEWS)}
-                  >
-                    Load more reviews
-                  </Button>
-                )}
+                <div className={styles.rightCol}>
+                  <DestinationMap name={destination.name} region={destination.region} lat={destination.lat} lng={destination.lng} />
+                </div>
               </div>
-            )}
-          </div>
-          <div className={styles.rightCol}>
-            <DestinationMap name={destination.name} region={destination.region} lat={destination.lat} lng={destination.lng} />
-            <AdSlot width={300} height={250} />
-          </div>
-        </div>
+            </ContentGate>
+          </>
+        )}
       </div>
     </div>
   );
