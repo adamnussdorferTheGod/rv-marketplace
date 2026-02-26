@@ -40,6 +40,12 @@ export interface Destination {
   description: string;
   amenities: string[];
   reservationUrl: string;
+  lat?: number;
+  lng?: number;
+  photos?: string[];
+  highlights?: DestinationHighlight[];
+  reviews?: DestinationReview[];
+  ratingBreakdown?: Record<1 | 2 | 3 | 4 | 5, number>;
 }
 
 // A stop along a route
@@ -61,6 +67,22 @@ export interface Route {
   suitabilityNote: string;
   photoUrl: string;
   description: string;
+}
+
+// Destination review from an RV owner
+export interface DestinationReview {
+  id: string;
+  title: string;
+  vehicleInfo: string;
+  rating: number;
+  body: string;
+  author: string;
+}
+
+// Destination highlight activity
+export interface DestinationHighlight {
+  icon: string;
+  label: string;
 }
 
 // Top-level lifestyle data response shape

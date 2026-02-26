@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 
 ## Current Position
 
-Phase: 24 of 29 (Data Layer & Filter Engine)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-02-26 -- Completed 24-01 (SRP types and sample data)
+Phase: 24 of 29 (Data Layer & Filter Engine) -- COMPLETE
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-02-26 -- Completed 24-02 (filter engine & URL sync)
 
 Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0/v5.0 starting)
 
@@ -33,8 +33,9 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v4.0:**
 - Total plans estimated: 12 (across 6 phases)
-- Completed: 1
+- Completed: 2
 - Phase 24 Plan 01: 5min (2 tasks, 2 files)
+- Phase 24 Plan 02: 2min (2 tasks, 2 files)
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
@@ -55,6 +56,8 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: react-router-dom with / (homepage), /search (SRP), /listing/:id (VDP)
 - [v4.0]: SRPListing is standalone interface (not extending ListingData -- too heavy for SRP cards)
 - [v4.0]: Builder pattern with lookup tables generates sample data from compact definitions
+- [v4.0]: Native history API (replaceState) for URL sync instead of react-router dependency
+- [v4.0]: Pure filter/sort functions in data layer, React hook as thin state wrapper
 - [v5.0]: Reuse existing components: Header, Footer, CrossPromotionsBar, ListingCard, etc.
 
 ### Pending Todos
@@ -68,5 +71,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 24-01-PLAN.md -- ready for 24-02 (filter engine)
+Stopped at: Completed 24-02-PLAN.md -- Phase 24 complete, ready for next phase
 Resume file: None

@@ -370,7 +370,7 @@ Plans:
 
 **Dependency:** Phase 19 (react-router-dom routing with `/search` route must exist)
 
-- [ ] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL query sync, active filter chips
+- [x] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL query sync, active filter chips (completed 2026-02-26)
 - [ ] **Phase 25: Listing Cards** - Standard card, featured compact card, sponsored showcase, PAA card, dealer ad card with all visual treatments
 - [ ] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay
 - [ ] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination
@@ -505,7 +505,7 @@ Plans:
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
-| 24. Data Layer & Filter Engine | 1/2 | In Progress|  | - |
+| 24. Data Layer & Filter Engine | 2/2 | Complete   | 2026-02-26 | - |
 | 25. Listing Cards | v4.0 | 0/2 | Not started | - |
 | 26. Filter Sidebar | v4.0 | 0/3 | Not started | - |
 | 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |

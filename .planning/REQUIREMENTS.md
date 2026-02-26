@@ -14,10 +14,10 @@
 
 - [x] **DATA-05**: TypeScript interfaces for SRP listing data (extends existing ListingData with SRP-specific fields: photo array, tag badges, featured flag, sponsored flag)
 - [x] **DATA-06**: ~80 sample RV listings with realistic variety across types (Class A/B/C, travel trailer, fifth wheel, toy hauler, pop-up), makes, price ranges ($15K-$500K), years (2015-2026), and locations
-- [ ] **DATA-07**: Client-side filter engine filters listings by type, make/model, price range, year range, condition (new/used), location/radius, length, floor plan, sleeping capacity, fuel type, and keyword search
-- [ ] **DATA-08**: Client-side sort engine sorts results by default relevance, price low-to-high, price high-to-low, newest, and distance
-- [ ] **DATA-09**: Filter state syncs to URL query parameters so filtered views are shareable/bookmarkable
-- [ ] **DATA-10**: Active filters display as removable chips with individual clear and "Clear all" reset
+- [x] **DATA-07**: Client-side filter engine filters listings by type, make/model, price range, year range, condition (new/used), location/radius, length, floor plan, sleeping capacity, fuel type, and keyword search
+- [x] **DATA-08**: Client-side sort engine sorts results by default relevance, price low-to-high, price high-to-low, newest, and distance
+- [x] **DATA-09**: Filter state syncs to URL query parameters so filtered views are shareable/bookmarkable
+- [x] **DATA-10**: Active filters display as removable chips with individual clear and "Clear all" reset
 
 ### Filter Sidebar
 
@@ -170,10 +170,10 @@ Deferred to subsequent milestones.
 |-------------|-------|--------|
 | DATA-05 | Phase 24 | Complete |
 | DATA-06 | Phase 24 | Complete |
-| DATA-07 | Phase 24 | Pending |
-| DATA-08 | Phase 24 | Pending |
-| DATA-09 | Phase 24 | Pending |
-| DATA-10 | Phase 24 | Pending |
+| DATA-07 | Phase 24 | Complete |
+| DATA-08 | Phase 24 | Complete |
+| DATA-09 | Phase 24 | Complete |
+| DATA-10 | Phase 24 | Complete |
 | FILT-01 | Phase 26 | Pending |
 | FILT-02 | Phase 26 | Pending |
 | FILT-03 | Phase 26 | Pending |
