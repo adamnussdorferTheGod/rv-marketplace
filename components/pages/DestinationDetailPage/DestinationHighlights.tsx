@@ -20,7 +20,7 @@ export default function DestinationHighlights({ highlights }: DestinationHighlig
       <h2 className={styles.heading}>Highlights</h2>
       <div className={styles.grid}>
         {highlights.map(h => (
-          <div key={h.label} className={styles.item}>
+          <div key={h.label} className={styles.card}>
             <div className={styles.iconWrap}>
               <span className={`material-symbols-rounded ${styles.materialIcon}`}>
                 {ICON_MAP[h.icon] ?? h.icon}
