@@ -1,0 +1,35 @@
+.section {
+  margin-bottom: var(--space-32);
+}
+
+.heading {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16) 0;
+}
+
+.chipRow {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-16);
+}
+
+.activeChip {
+  background: var(--rv-primary);
+  color: white;
+  border-color: var(--rv-primary);
+}
+
+.activeChip:hover {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+}
+
+.emptyMessage {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-align: center;
+  padding: var(--space-32) 0;
+  margin: 0;
+}
