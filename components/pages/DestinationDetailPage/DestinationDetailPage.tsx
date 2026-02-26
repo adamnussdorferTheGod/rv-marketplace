@@ -10,6 +10,7 @@ import DestinationHighlights from './DestinationHighlights';
 import DestinationReviewCard from './DestinationReviewCard';
 import DestinationRating from './DestinationRating';
 import DestinationMap from './DestinationMap';
+import AdSlot from '@components/ui/AdSlot/AdSlot';
 import styles from './DestinationDetailPage.module.css';
 
 const INITIAL_REVIEWS = 2;
@@ -72,6 +73,7 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
           </div>
           <div className={styles.rightCol}>
             <DestinationMap name={destination.name} region={destination.region} lat={destination.lat} lng={destination.lng} />
+            <AdSlot width={300} height={250} />
           </div>
         </div>
       </div>

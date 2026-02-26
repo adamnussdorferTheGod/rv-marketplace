@@ -27,6 +27,12 @@
 }
 
 .rightCol {
+  position: sticky;
+  top: var(--space-16);
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   min-width: 0;
 }
 

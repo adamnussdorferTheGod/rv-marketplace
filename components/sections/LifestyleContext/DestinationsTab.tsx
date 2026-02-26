@@ -31,9 +31,9 @@ const CHIP_TO_CATEGORY: Record<string, string> = {
 };
 
 const AI_PROMPTS = [
-  'Beach camping near me',
-  'Getaway for 2',
-  'Mountain hiking adventure',
+  'Plan a 3-day trip itinerary',
+  'Best campgrounds with full hookups',
+  'Pet-friendly parks near the coast',
 ];
 
 export default function DestinationsTab({ destinations, rvLengthFt }: DestinationsTabProps) {
