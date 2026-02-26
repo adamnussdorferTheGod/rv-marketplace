@@ -88,13 +88,9 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
   }, [step, loadingStep]);
 
   const openDealKit = useCallback(() => {
-    if (isAuthenticated) {
-      setLoadingStep(0);
-      setStep('loading');
-    } else {
-      setStep('auth-gate');
-    }
-  }, [isAuthenticated]);
+    setLoadingStep(0);
+    setStep('loading');
+  }, []);
 
   const authenticate = useCallback(() => {
     setIsAuthenticated(true);
