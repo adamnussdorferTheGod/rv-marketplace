@@ -71,7 +71,7 @@
   align-items: center;
   align-self: stretch;
   gap: var(--space-8);
-  padding: var(--space-16) var(--space-32);
+  padding: 14px 30px;
   background: var(--rv-surface);
   border: 2px solid var(--rv-primary);
   border-radius: var(--radius-full);
@@ -82,16 +82,11 @@
   line-height: 1.4;
   cursor: pointer;
   box-sizing: border-box;
-  transition: background 150ms, color 150ms;
+  transition: background 150ms, color 150ms, border-color 150ms;
 }
 
 .authButton:hover {
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
-}
-
-.authButton:hover svg path {
-  fill: var(--rv-on-primary);
+  background: var(--rv-surface-variant);
 }
 
 .authButton:active {
