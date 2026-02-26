@@ -1,0 +1,69 @@
+.carousel {
+  position: relative;
+  padding: 0 24px;
+}
+
+/* ─── Scrollable track ─── */
+
+.track {
+  display: flex;
+  gap: var(--space-16);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: var(--space-8);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track > * {
+  scroll-snap-align: start;
+}
+
+/* ─── Arrow buttons ─── */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--rv-shadow-bottom);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  color: var(--rv-on-surface);
+}
+
+.arrow:hover {
+  background: white;
+}
+
+.arrowLeft {
+  left: -4px;
+}
+
+.arrowRight {
+  right: -4px;
+}
+
+/* Hide arrows on mobile */
+@media (max-width: 767px) {
+  .carousel {
+    padding: 0;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
