@@ -36,7 +36,7 @@ export default function AppPromoBanner() {
                 alt="Scan to download the app"
                 className={styles.qrImage}
               />
-              <span className={styles.qrLabel}>Scan to download the app</span>
+              <span className={styles.qrLabel}>Scan to download</span>
             </div>
             <div className={styles.storeBadges}>
               <a href="#" className={styles.storeBadge}>

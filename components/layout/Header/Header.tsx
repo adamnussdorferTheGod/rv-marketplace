@@ -9,8 +9,8 @@ import styles from './Header.module.css';
 const NAV_LINKS = ['Shop', 'Sell', 'RV values', 'Cash offers', 'Research'];
 
 const RESEARCH_ITEMS = [
-  { label: 'Option 1', variant: 'option-1' as const },
-  { label: 'Option 2', variant: 'option-2' as const },
+  { label: 'VDP with AI Summary', variant: 'option-1' as const },
+  { label: 'VDP with Fit Check', variant: 'option-2' as const },
 ];
 
 export default function Header() {
