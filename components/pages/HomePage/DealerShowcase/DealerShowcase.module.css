@@ -1,0 +1,127 @@
+.showcase {
+  width: 100%;
+  background: var(--rv-surface-variant);
+}
+
+.inner {
+  max-width: 1248px;
+  margin: 0 auto;
+  padding: var(--space-32) var(--space-64);
+}
+
+/* ─── Branding row ─── */
+
+.branding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  margin-bottom: var(--space-24);
+}
+
+.brandLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-base);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.brandInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dealerName {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.tagline {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.brandLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  flex-shrink: 0;
+}
+
+.viewInventory {
+  font: var(--font-link-2);
+  color: var(--rv-primary);
+  text-decoration: none;
+}
+
+.viewInventory:hover {
+  text-decoration: underline;
+}
+
+.phoneLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-link-2);
+  color: var(--rv-on-surface);
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}
+
+/* ─── Responsive ─── */
+
+/* MD: 992-1231px */
+@media (max-width: 1231px) {
+  .inner {
+    padding: var(--space-32);
+  }
+}
+
+/* SM: 768-991px */
+@media (max-width: 991px) {
+  .branding {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .inner {
+    padding: var(--space-32);
+  }
+}
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .inner {
+    padding: var(--space-16) 20px;
+  }
+
+  .branding {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+
+  .brandLeft {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .brandLinks {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-8);
+  }
+}

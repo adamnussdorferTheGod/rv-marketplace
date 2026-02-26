@@ -1,0 +1,76 @@
+.section {
+  width: 100%;
+}
+
+/* ─── Header row ─── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-16);
+}
+
+.title {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.arrows {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--rv-shadow-bottom);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  color: var(--rv-on-surface);
+}
+
+.arrow:hover:not(:disabled) {
+  background: white;
+}
+
+.arrow:disabled {
+  opacity: var(--rv-disabled-opacity);
+  cursor: default;
+}
+
+/* ─── Listing grid ─── */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: var(--space-16);
+}
+
+.grid > * {
+  --homepage-card-width: 100%;
+}
+
+/* ─── Responsive ─── */
+
+/* SM: 768-991px */
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
