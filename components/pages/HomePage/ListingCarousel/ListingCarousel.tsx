@@ -1,41 +1,56 @@
-import { useRef, type ReactNode } from 'react';
+import { useRef, useImperativeHandle, forwardRef, type ReactNode } from 'react';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './ListingCarousel.module.css';
 
 interface ListingCarouselProps {
   children: ReactNode;
+  showArrows?: boolean;
 }
 
-export default function ListingCarousel({ children }: ListingCarouselProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
+export interface ListingCarouselHandle {
+  scrollBy: (offset: number) => void;
+}
 
-  function scrollBy(offset: number) {
-    trackRef.current?.scrollBy({ left: offset, behavior: 'smooth' });
-  }
+const ListingCarousel = forwardRef<ListingCarouselHandle, ListingCarouselProps>(
+  function ListingCarousel({ children, showArrows = true }, ref) {
+    const trackRef = useRef<HTMLDivElement>(null);
 
-  return (
-    <div className={styles.carousel}>
-      <button
-        type="button"
-        className={`${styles.arrow} ${styles.arrowLeft}`}
-        onClick={() => scrollBy(-240)}
-        aria-label="Scroll left"
-      >
-        <Icon name="chevron_left" size={20} />
-      </button>
+    function scroll(offset: number) {
+      trackRef.current?.scrollBy({ left: offset, behavior: 'smooth' });
+    }
 
-      <div ref={trackRef} className={styles.track}>
-        {children}
+    useImperativeHandle(ref, () => ({ scrollBy: scroll }));
+
+    return (
+      <div className={`${styles.carousel} ${showArrows ? styles.withArrows : ''}`}>
+        {showArrows && (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowLeft}`}
+            onClick={() => scroll(-240)}
+            aria-label="Scroll left"
+          >
+            <Icon name="chevron_left" size={20} />
+          </button>
+        )}
+
+        <div ref={trackRef} className={styles.track}>
+          {children}
+        </div>
+
+        {showArrows && (
+          <button
+            type="button"
+            className={`${styles.arrow} ${styles.arrowRight}`}
+            onClick={() => scroll(240)}
+            aria-label="Scroll right"
+          >
+            <Icon name="chevron_right" size={20} />
+          </button>
+        )}
       </div>
+    );
+  },
+);
 
-      <button
-        type="button"
-        className={`${styles.arrow} ${styles.arrowRight}`}
-        onClick={() => scrollBy(240)}
-        aria-label="Scroll right"
-      >
-        <Icon name="chevron_right" size={20} />
-      </button>
-    </div>
-  );
-}
+export default ListingCarousel;

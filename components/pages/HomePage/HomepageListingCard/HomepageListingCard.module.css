@@ -3,18 +3,11 @@
   flex-direction: column;
   width: var(--homepage-card-width, 240px);
   flex: 0 0 auto;
+  min-width: 0;
   border-radius: var(--radius-base);
-  border: 1px solid var(--rv-border-low);
-  background: var(--rv-surface);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.card:hover {
-  box-shadow: var(--rv-shadow-bottom);
-  transform: translateY(-2px);
 }
 
 /* ─── Photo ─── */
@@ -22,8 +15,10 @@
 .photoWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 5 / 4;
   overflow: hidden;
+  border-radius: var(--radius-base);
+  border: 1px solid var(--rv-border-floating);
 }
 
 .photo {
@@ -33,16 +28,23 @@
   display: block;
 }
 
-.conditionBadge {
+.favoriteBtn {
   position: absolute;
-  top: var(--space-8);
-  left: var(--space-8);
-  padding: 2px var(--space-8);
-  border-radius: var(--radius-full);
-  background: var(--rv-surface);
-  font: var(--font-label-3);
-  color: var(--rv-on-surface);
-  line-height: 1.4;
+  top: var(--space-12);
+  right: var(--space-12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.1);
 }
 
 /* ─── Details ─── */
@@ -50,13 +52,12 @@
 .details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: var(--space-12);
+  gap: var(--space-4);
+  padding-top: var(--space-8);
 }
 
 .title {
-  font: var(--font-body-2);
-  font-weight: 600;
+  font: var(--font-label-1-semibold);
   color: var(--rv-on-surface);
   margin: 0;
   display: -webkit-box;
@@ -67,17 +68,11 @@
 }
 
 .location {
-  font: var(--font-label-3);
-  color: var(--rv-on-surface-variant);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
 }
 
 .price {
-  font: var(--font-title-1);
+  font: var(--font-label-1-semibold);
   color: var(--rv-on-surface);
-  margin-top: 4px;
-}
-
-.monthly {
-  font: var(--font-label-3);
-  color: var(--rv-on-surface-variant);
 }

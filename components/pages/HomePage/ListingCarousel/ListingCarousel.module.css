@@ -1,5 +1,8 @@
 .carousel {
   position: relative;
+}
+
+.withArrows {
   padding: 0 24px;
 }
 
@@ -13,7 +16,6 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-bottom: var(--space-8);
 }
 
 .track::-webkit-scrollbar {
@@ -43,6 +45,7 @@
   cursor: pointer;
   transition: background 0.15s ease;
   color: var(--rv-on-surface);
+  padding: 0;
 }
 
 .arrow:hover {
@@ -59,7 +62,7 @@
 
 /* Hide arrows on mobile */
 @media (max-width: 767px) {
-  .carousel {
+  .withArrows {
     padding: 0;
   }
 

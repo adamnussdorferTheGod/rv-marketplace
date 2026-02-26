@@ -1,21 +1,22 @@
 import { useState, useMemo } from 'react';
 import { handPickedListings, type HomepageListingData } from '../../../../app/src/data/homepageData';
-import ActionChip from '../../../ui/ActionChip/ActionChip';
+import Icon from '../../../ui/Icon/Icon';
 import HomepageListingCard from '../HomepageListingCard/HomepageListingCard';
-import ListingCarousel from '../ListingCarousel/ListingCarousel';
 import styles from './HandPickedSection.module.css';
 
-type FilterKey = 'Recommended' | 'Used' | 'New' | 'Nearest' | 'Deals' | 'Travel trailers' | 'Class A';
+type FilterKey = 'Recommended' | 'Used' | 'Nearest' | 'Price drop' | 'Dealer' | 'Private seller' | 'New';
 
 const FILTER_CHIPS: FilterKey[] = [
   'Recommended',
   'Used',
-  'New',
   'Nearest',
-  'Deals',
-  'Travel trailers',
-  'Class A',
+  'Price drop',
+  'Dealer',
+  'Private seller',
+  'New',
 ];
+
+const PAGE_SIZE = 5;
 
 function applyFilter(listings: HomepageListingData[], filter: FilterKey): HomepageListingData[] {
   switch (filter) {
@@ -31,44 +32,81 @@ function applyFilter(listings: HomepageListingData[], filter: FilterKey): Homepa
         const distB = b.dealer.distanceMiles ?? Infinity;
         return distA - distB;
       });
-    case 'Deals':
+    case 'Price drop':
       return listings.filter((l) => l.dealRating === 'great' || l.dealRating === 'good');
-    case 'Travel trailers':
-      return listings.filter((l) => l.rvType === 'travel-trailer');
-    case 'Class A':
-      return listings.filter((l) => l.rvType === 'class-a');
+    case 'Dealer':
+      return listings;
+    case 'Private seller':
+      return listings;
   }
 }
 
 export default function HandPickedSection() {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('Recommended');
+  const [pageIndex, setPageIndex] = useState(0);
 
   const filteredListings = useMemo(
     () => applyFilter(handPickedListings, activeFilter),
     [activeFilter],
   );
 
+  const totalPages = Math.ceil(filteredListings.length / PAGE_SIZE);
+  const safePageIndex = Math.min(pageIndex, totalPages - 1);
+  const start = safePageIndex * PAGE_SIZE;
+  const pageListings = filteredListings.slice(start, start + PAGE_SIZE);
+
+  function handleFilterChange(chip: FilterKey) {
+    setActiveFilter(chip);
+    setPageIndex(0);
+  }
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>RVs hand-picked for you</h2>
+      <div className={styles.headerRow}>
+        <h2 className={styles.heading}>RVs hand-picked for you</h2>
+        {totalPages > 1 && (
+          <div className={styles.navArrows}>
+            <button
+              type="button"
+              className={styles.navArrow}
+              onClick={() => setPageIndex((p) => Math.max(0, p - 1))}
+              disabled={safePageIndex === 0}
+              aria-label="Previous page"
+            >
+              <Icon name="chevron_left" size={24} />
+            </button>
+            <button
+              type="button"
+              className={styles.navArrow}
+              onClick={() => setPageIndex((p) => Math.min(totalPages - 1, p + 1))}
+              disabled={safePageIndex === totalPages - 1}
+              aria-label="Next page"
+            >
+              <Icon name="chevron_right" size={24} />
+            </button>
+          </div>
+        )}
+      </div>
 
       <div className={styles.chipRow}>
         {FILTER_CHIPS.map((chip) => (
-          <ActionChip
+          <button
             key={chip}
-            label={chip}
-            onClick={() => setActiveFilter(chip)}
-            className={activeFilter === chip ? styles.activeChip : undefined}
-          />
+            type="button"
+            className={`${styles.chip} ${activeFilter === chip ? styles.chipActive : ''}`}
+            onClick={() => handleFilterChange(chip)}
+          >
+            {chip}
+          </button>
         ))}
       </div>
 
-      {filteredListings.length > 0 ? (
-        <ListingCarousel>
-          {filteredListings.map((listing) => (
+      {pageListings.length > 0 ? (
+        <div className={styles.grid}>
+          {pageListings.map((listing) => (
             <HomepageListingCard key={listing.id} listing={listing} />
           ))}
-        </ListingCarousel>
+        </div>
       ) : (
         <p className={styles.emptyMessage}>No listings match this filter</p>
       )}

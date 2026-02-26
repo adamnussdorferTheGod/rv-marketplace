@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { listingPath } from '../../../../app/src/routes';
 import type { HomepageListingData } from '../../../../app/src/data/homepageData';
+import Icon from '../../../ui/Icon/Icon';
 import styles from './HomepageListingCard.module.css';
 
 interface HomepageListingCardProps {
@@ -9,7 +10,7 @@ interface HomepageListingCardProps {
 
 export default function HomepageListingCard({ listing }: HomepageListingCardProps) {
   const location = listing.dealer.distanceMiles
-    ? `${listing.dealer.city}, ${listing.dealer.state} \u00b7 ${listing.dealer.distanceMiles} mi`
+    ? `${listing.dealer.city}, ${listing.dealer.state} \u00b7 ${listing.dealer.distanceMiles} miles away`
     : `${listing.dealer.city}, ${listing.dealer.state}`;
 
   return (
@@ -21,18 +22,23 @@ export default function HomepageListingCard({ listing }: HomepageListingCardProp
           className={styles.photo}
           loading="lazy"
         />
-        <span className={styles.conditionBadge}>
-          {listing.condition === 'new' ? 'New' : 'Used'}
-        </span>
+        <button
+          type="button"
+          className={styles.favoriteBtn}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          aria-label="Save to favorites"
+        >
+          <Icon name="favorite" size={24} />
+        </button>
       </div>
 
       <div className={styles.details}>
         <h3 className={styles.title}>{listing.title}</h3>
         <span className={styles.location}>{location}</span>
         <span className={styles.price}>${listing.currentPrice.toLocaleString()}</span>
-        {listing.monthlyPayment > 0 && (
-          <span className={styles.monthly}>${listing.monthlyPayment.toLocaleString()}/mo est.</span>
-        )}
       </div>
     </Link>
   );
