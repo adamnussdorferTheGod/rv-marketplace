@@ -83,12 +83,12 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
 
         setMessages((prev) => [...prev, assistantMsg]);
         setExchangeCount((c) => c + 1);
-        setSuggestedPrompts(generateFollowUpPrompts(response, listing));
+        setSuggestedPrompts(generateFollowUpPrompts(response, listing, panelMode));
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading, exchangeCount, isAuthenticated, listing, messages],
+    [isLoading, exchangeCount, isAuthenticated, listing, messages, panelMode],
   );
 
   const value = useMemo<AiModeContextValue>(
