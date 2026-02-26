@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Icon from '@components/ui/Icon/Icon';
-import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import { ROUTES, listingPath } from '../../../app/src/routes';
 import rvTraderLogo from '../../../app/src/assets/rv-trader-logo.svg';
 import styles from './Header.module.css';
@@ -16,7 +15,6 @@ const RESEARCH_ITEMS = [
 export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
-  const { variant, setVariant } = useVdpVariant();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,11 +59,13 @@ export default function Header() {
                           <button
                             key={item.variant}
                             type="button"
-                            className={`${styles.dropdownItem} ${variant === item.variant ? styles.dropdownItemActive : ''}`}
+                            className={styles.dropdownItem}
                             onClick={() => {
-                              setVariant(item.variant);
                               setDropdownOpen(false);
-                              navigate(listingPath('sample'));
+                              const path = item.variant === 'option-1'
+                                ? listingPath('sample')
+                                : `${listingPath('sample')}?variant=${item.variant}`;
+                              navigate(path);
                             }}
                           >
                             {item.label}
