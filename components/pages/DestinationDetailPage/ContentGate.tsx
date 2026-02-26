@@ -19,9 +19,10 @@ interface ContentGateProps {
   children: ReactNode;
   heading?: string;
   subtext?: string;
+  contained?: boolean;
 }
 
-export default function ContentGate({ gated, onAuthenticate, children, heading, subtext }: ContentGateProps) {
+export default function ContentGate({ gated, onAuthenticate, children, heading, subtext, contained }: ContentGateProps) {
   useEffect(() => {
     if (gated) {
       document.documentElement.setAttribute('data-content-gated', '');
@@ -39,9 +40,9 @@ export default function ContentGate({ gated, onAuthenticate, children, heading, 
         <div className={`${styles.wrapper} ${styles.gated}`}>
           {children}
         </div>
-        <div className={styles.gradient} />
+        <div className={`${styles.gradient} ${contained ? styles.contained : ''}`} />
       </div>
-      <div className={styles.card}>
+      <div className={`${styles.card} ${contained ? styles.contained : ''}`}>
         <h2 className={styles.heading}>{heading ?? 'Create a free account, or log in.'}</h2>
         <p className={styles.subtext}>
           {subtext ?? 'Gain access to full destination details, reviews, and personalized trip planning features.'}

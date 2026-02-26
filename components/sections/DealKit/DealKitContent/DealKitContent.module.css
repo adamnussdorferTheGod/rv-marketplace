@@ -24,6 +24,11 @@
   gap: var(--space-32);
 }
 
+.sidebarSpacer {
+  width: 220px;
+  flex-shrink: 0;
+}
+
 .disclaimer {
   font: var(--font-label-3);
   font-weight: 400;
@@ -51,6 +56,10 @@
     padding-bottom: var(--space-8);
     border-bottom: 1px solid var(--rv-border-low);
     max-height: none;
+  }
+
+  .sidebarSpacer {
+    display: none;
   }
 }
 
