@@ -75,11 +75,11 @@
 
 ### Hero Banner
 
-- [ ] **HERO-01**: Hero section displays full-width background image of RV lifestyle with dark overlay and centered "Shop the largest RV marketplace" heading
-- [ ] **HERO-02**: Search bar with AI sparkle icon, rotating placeholder text ("Try: Family-friendly RVs for 4"), and ZIP code input with location icon
-- [ ] **HERO-03**: Segmented control above search toggles between "Shop RVs" and "Sell my RV"
-- [ ] **HERO-04**: Green "Search" button triggers navigation to SRP
-- [ ] **HERO-05**: Dealer spotlight badge in hero bottom-right shows dealer logo, name ("Uwharrie RV"), and "Shop inventory" link
+- [x] **HERO-01**: Hero section displays full-width background image of RV lifestyle with dark overlay and centered "Shop the largest RV marketplace" heading
+- [x] **HERO-02**: Search bar with AI sparkle icon, rotating placeholder text ("Try: Family-friendly RVs for 4"), and ZIP code input with location icon
+- [x] **HERO-03**: Segmented control above search toggles between "Shop RVs" and "Sell my RV"
+- [x] **HERO-04**: Green "Search" button triggers navigation to SRP
+- [x] **HERO-05**: Dealer spotlight badge in hero bottom-right shows dealer logo, name ("Uwharrie RV"), and "Shop inventory" link
 
 ### Expanded Search Dropdown
 
@@ -213,11 +213,11 @@ Deferred to subsequent milestones.
 | NAV-01 | Phase 19 | Complete |
 | NAV-02 | Phase 19 | Complete |
 | NAV-03 | Phase 21 | Pending |
-| HERO-01 | Phase 20 | Pending |
-| HERO-02 | Phase 20 | Pending |
-| HERO-03 | Phase 20 | Pending |
-| HERO-04 | Phase 20 | Pending |
-| HERO-05 | Phase 20 | Pending |
+| HERO-01 | Phase 20 | Complete |
+| HERO-02 | Phase 20 | Complete |
+| HERO-03 | Phase 20 | Complete |
+| HERO-04 | Phase 20 | Complete |
+| HERO-05 | Phase 20 | Complete |
 | SRCH-01 | Phase 20 | Pending |
 | SRCH-02 | Phase 20 | Pending |
 | SRCH-03 | Phase 20 | Pending |

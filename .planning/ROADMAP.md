@@ -293,7 +293,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 19-01-PLAN.md — Install react-router-dom, create route config, HomePage shell, update Header/App.tsx
+- [x] 19-01-PLAN.md — Install react-router-dom, create route config, HomePage shell, update Header/App.tsx
 
 ### Phase 20: Hero Banner & Search
 **Goal**: Users see the marketplace hero banner and can interact with the search bar, which expands to show RV types, popular searches, and popular makes
@@ -500,8 +500,8 @@ Plans:
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
-| 19. Routing & Homepage Shell | 1/1 | Complete   | 2026-02-26 | - |
-| 20. Hero Banner & Search | v5.0 | 0/2 | Not started | - |
+| 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
+| 20. Hero Banner & Search | 1/2 | In Progress|  | - |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |

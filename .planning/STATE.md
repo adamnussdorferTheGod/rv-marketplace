@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v5.0 routing and homepage -- Phase 19 complete
+**Current focus:** v5.0 hero banner & search -- Phase 20 in progress
 
 ## Current Position
 
-Phase: 19 of 29 (Routing & Homepage Shell) -- COMPLETE
-Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-02-26 -- Completed 19-01 (routing & homepage shell)
+Phase: 20 of 29 (Hero Banner & Search)
+Plan: 1 of 2 in current phase -- COMPLETE
+Status: Plan 20-01 complete, Plan 20-02 remaining
+Last activity: 2026-02-26 -- Completed 20-01 (hero banner)
 
-Progress: [=================...] ~87% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 starting)
+Progress: [=================...] ~88% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
 
 ## Performance Metrics
 
@@ -39,8 +39,9 @@ Progress: [=================...] ~87% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 1
+- Completed: 2
 - Phase 19 Plan 01: 3min (2 tasks, 18 files)
+- Phase 20 Plan 01: 2min (2 tasks, 5 files)
 
 ## Accumulated Context
 
@@ -63,6 +64,9 @@ Progress: [=================...] ~87% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: BrowserRouter (traditional) over createBrowserRouter for simplicity
 - [v5.0]: Layout route pattern with AppLayout rendering shared chrome via Outlet
 - [v5.0]: VdpVariantContext default value allows Header to render safely on non-VDP pages
+- [v5.0]: CSS-only rotating placeholder with staggered animation-delay (no JS timers)
+- [v5.0]: Full-width hero outside .content container pattern
+- [v5.0]: DealerSpotlight hidden on mobile to preserve hero real estate
 
 ### Pending Todos
 
@@ -70,10 +74,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None -- Phase 19 routing shipped, unblocking SRP UI phases (25-29)
+None -- Phase 20 hero banner in progress
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 19-01-PLAN.md (routing & homepage shell)
+Stopped at: Completed 20-01-PLAN.md (hero banner)
 Resume file: None

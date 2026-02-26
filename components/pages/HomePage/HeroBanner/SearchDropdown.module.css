@@ -1,0 +1,160 @@
+/* Search dropdown panel — absolutely positioned below search bar */
+.dropdown {
+  background: var(--color-white);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  box-shadow: var(--rv-shadow-elevated);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  max-height: 70vh;
+  overflow-y: auto;
+  animation: slideDown 150ms ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section heading — uppercase label style */
+.sectionHeading {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 var(--space-12) 0;
+}
+
+/* 5x2 RV type grid */
+.typeGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-12);
+}
+
+/* Individual RV type thumbnail card */
+.typeCard {
+  cursor: pointer;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  background: var(--rv-surface-variant);
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  border: none;
+  padding: 0;
+  text-align: center;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+}
+
+.typeCard:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Thumbnail image area */
+.typeImage {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+  background: var(--rv-surface-variant);
+}
+
+/* Label below image */
+.typeLabel {
+  font: var(--font-label-2);
+  padding: var(--space-8);
+  text-align: center;
+}
+
+/* Chip section wrapper */
+.chipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+/* Dealer chip — styled button with leading colored dot */
+.dealerChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--rv-border);
+  background: var(--rv-surface);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.dealerChip:hover {
+  background: var(--rv-surface-variant);
+  border-color: var(--rv-border-high);
+}
+
+/* Colored dot for dealer branding */
+.dealerDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Mobile close button (visible only on mobile overlay) */
+.mobileClose {
+  display: none;
+}
+
+/* ================= Responsive ================= */
+
+/* Mobile: full-screen overlay */
+@media (max-width: 767px) {
+  .dropdown {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    border-radius: 0;
+    max-height: none;
+    padding: var(--space-16);
+    padding-top: 56px;
+    overflow-y: auto;
+    animation: none;
+  }
+
+  .mobileClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: var(--space-12);
+    right: var(--space-12);
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    border: none;
+    background: var(--rv-surface-variant);
+    cursor: pointer;
+    color: var(--rv-on-surface);
+    font-size: 18px;
+    z-index: 1;
+  }
+
+  .mobileClose:hover {
+    background: var(--rv-border-low);
+  }
+
+  .typeGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
