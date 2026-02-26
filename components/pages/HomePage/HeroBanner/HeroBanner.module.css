@@ -48,6 +48,14 @@
   width: 280px;
 }
 
+/* Search container — positions dropdown relative to search bar */
+.searchContainer {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  z-index: 10;
+}
+
 /* Search bar container */
 .searchBar {
   background: var(--color-white);
@@ -58,6 +66,21 @@
   width: 100%;
   padding: 8px 8px 8px 16px;
   gap: 12px;
+  transition: border-radius 150ms ease;
+}
+
+/* When dropdown is open, flatten bottom corners for seamless connection */
+.searchBarOpen {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* Dropdown positioned directly below search bar */
+.dropdownWrap {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 /* Sparkle icon in gold */
@@ -204,5 +227,14 @@
   .searchBar > button {
     order: 3;
     width: 100%;
+  }
+
+  /* On mobile, dropdown becomes full-screen overlay (handled by SearchDropdown.module.css) */
+  .dropdownWrap {
+    position: static;
+  }
+
+  .searchBarOpen {
+    border-radius: var(--radius-lg);
   }
 }
