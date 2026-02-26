@@ -71,7 +71,7 @@
 
 - [x] **NAV-01**: react-router-dom routes: `/` (HomePage), `/search` (SRP placeholder), `/listing/:id` (VDP)
 - [x] **NAV-02**: Logo in Header always navigates to `/` (homepage)
-- [ ] **NAV-03**: Clicking any listing card on homepage navigates to `/listing/:id` (VDP)
+- [x] **NAV-03**: Clicking any listing card on homepage navigates to `/listing/:id` (VDP)
 
 ### Hero Banner
 
@@ -92,10 +92,10 @@
 
 ### Listing Carousels
 
-- [ ] **CARO-01**: "RVs hand-picked for you" section displays horizontal carousel of 5 listing cards with photo, title, location/distance, and price
-- [ ] **CARO-02**: Filter chips above carousel allow filtering by category (Recommended, Used, New, Nearest, Deals, Travel trailers, Class A)
-- [ ] **CARO-03**: Left/right arrow buttons navigate the carousel
-- [ ] **CARO-04**: Clicking a listing card navigates to VDP (`/listing/:id`)
+- [x] **CARO-01**: "RVs hand-picked for you" section displays horizontal carousel of 5 listing cards with photo, title, location/distance, and price
+- [x] **CARO-02**: Filter chips above carousel allow filtering by category (Recommended, Used, New, Nearest, Deals, Travel trailers, Class A)
+- [x] **CARO-03**: Left/right arrow buttons navigate the carousel
+- [x] **CARO-04**: Clicking a listing card navigates to VDP (`/listing/:id`)
 
 ### Dealer Showcase
 
@@ -212,7 +212,7 @@ Deferred to subsequent milestones.
 |-------------|-------|--------|
 | NAV-01 | Phase 19 | Complete |
 | NAV-02 | Phase 19 | Complete |
-| NAV-03 | Phase 21 | Pending |
+| NAV-03 | Phase 21 | Complete |
 | HERO-01 | Phase 20 | Complete |
 | HERO-02 | Phase 20 | Complete |
 | HERO-03 | Phase 20 | Complete |
@@ -224,10 +224,10 @@ Deferred to subsequent milestones.
 | SRCH-04 | Phase 20 | Complete |
 | SRCH-05 | Phase 20 | Complete |
 | SRCH-06 | Phase 20 | Complete |
-| CARO-01 | Phase 21 | Pending |
-| CARO-02 | Phase 21 | Pending |
-| CARO-03 | Phase 21 | Pending |
-| CARO-04 | Phase 21 | Pending |
+| CARO-01 | Phase 21 | Complete |
+| CARO-02 | Phase 21 | Complete |
+| CARO-03 | Phase 21 | Complete |
+| CARO-04 | Phase 21 | Complete |
 | DEAL-01 | Phase 21 | Pending |
 | DEAL-02 | Phase 21 | Pending |
 | DEAL-03 | Phase 21 | Pending |

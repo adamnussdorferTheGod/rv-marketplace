@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v5.0 hero banner & search -- Phase 20 complete
+**Current focus:** v5.0 listing carousels & dealer showcase -- Phase 21 in progress
 
 ## Current Position
 
-Phase: 20 of 29 (Hero Banner & Search) -- COMPLETE
-Plan: 2 of 2 in current phase -- COMPLETE
-Status: Phase 20 complete, all plans finished
-Last activity: 2026-02-26 -- Completed 20-02 (search dropdown)
+Phase: 21 of 29 (Listing Carousels & Dealer Showcase)
+Plan: 1 of 2 in current phase -- COMPLETE
+Status: Phase 21 Plan 01 complete, Plan 02 remaining
+Last activity: 2026-02-26 -- Completed 21-01 (hand-picked carousel)
 
-Progress: [=================...] ~89% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
+Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
 
 ## Performance Metrics
 
@@ -39,10 +39,11 @@ Progress: [=================...] ~89% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 3
+- Completed: 4
 - Phase 19 Plan 01: 3min (2 tasks, 18 files)
 - Phase 20 Plan 01: 2min (2 tasks, 5 files)
 - Phase 20 Plan 02: 3min (2 tasks, 5 files)
+- Phase 21 Plan 01: 2min (2 tasks, 8 files)
 
 ## Accumulated Context
 
@@ -71,6 +72,9 @@ Progress: [=================...] ~89% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: Click-outside dismiss via mousedown listener + contains() check on container ref
 - [v5.0]: Seamless dropdown connection by flattening parent bottom corners when dropdown open
 - [v5.0]: Data-driven dropdown sections from typed static arrays in separate heroData.ts
+- [v5.0]: HomepageListingData picks minimal fields from SRPListing (single photo, not full array)
+- [v5.0]: Camping World selected as showcase dealer (most city coverage in sample data)
+- [v5.0]: ListingCarousel uses position:relative wrapper with absolute arrow buttons
 
 ### Pending Todos
 
@@ -78,10 +82,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None -- Phase 20 complete
+None -- Phase 21 Plan 01 complete
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 20-02-PLAN.md (search dropdown)
+Stopped at: Completed 21-01-PLAN.md (hand-picked carousel)
 Resume file: None

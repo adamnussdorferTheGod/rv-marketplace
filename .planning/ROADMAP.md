@@ -501,8 +501,8 @@ Plans:
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
 | 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
-| 20. Hero Banner & Search | 2/2 | Complete   | 2026-02-26 | - |
-| 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
+| 20. Hero Banner & Search | 2/2 | Complete    | 2026-02-26 | - |
+| 21. Listing Carousels & Dealer Showcase | 1/2 | In Progress|  | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
