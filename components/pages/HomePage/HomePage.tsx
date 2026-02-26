@@ -2,6 +2,7 @@ import HeroBanner from './HeroBanner/HeroBanner';
 import HandPickedSection from './HandPickedSection/HandPickedSection';
 import DealerShowcase from './DealerShowcase/DealerShowcase';
 import FeaturedListings from './FeaturedListings/FeaturedListings';
+import SellingSection from './SellingSection/SellingSection';
 import OwnershipCards from './OwnershipCards/OwnershipCards';
 import styles from './HomePage.module.css';
 
@@ -15,6 +16,7 @@ export default function HomePage() {
       <DealerShowcase />
       <div className={styles.content}>
         <FeaturedListings />
+        <SellingSection />
         <OwnershipCards />
       </div>
     </div>
