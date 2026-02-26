@@ -83,12 +83,12 @@
 
 ### Expanded Search Dropdown
 
-- [ ] **SRCH-01**: Clicking the search input field opens an expanded dropdown overlay below the hero search
-- [ ] **SRCH-02**: Dropdown shows "RV types" section with 10 RV type thumbnails in a 5x2 grid (Travel Trailer, Class A, Class B, Class C, Fifth Wheel, Toy Hauler, Pop-up Camper, Truck Camper, Park Model, Fish House) using static image assets
-- [ ] **SRCH-03**: Dropdown shows "Popular searches" section with search chip links (e.g., "RVs under $35,000", "Min. 4 sleeping capacity", "Under 50,000 miles")
-- [ ] **SRCH-04**: Dropdown shows "Popular makes" section with make chip links (Forest River, Keystone, Jayco, Grand Design, Coachmen, Thor Motor Coach, Winnebago, Heartland)
-- [ ] **SRCH-05**: Dropdown shows "Featured from dealers near you" with dealer chip links
-- [ ] **SRCH-06**: Clicking an RV type thumbnail or search chip navigates to SRP with appropriate filter context
+- [x] **SRCH-01**: Clicking the search input field opens an expanded dropdown overlay below the hero search
+- [x] **SRCH-02**: Dropdown shows "RV types" section with 10 RV type thumbnails in a 5x2 grid (Travel Trailer, Class A, Class B, Class C, Fifth Wheel, Toy Hauler, Pop-up Camper, Truck Camper, Park Model, Fish House) using static image assets
+- [x] **SRCH-03**: Dropdown shows "Popular searches" section with search chip links (e.g., "RVs under $35,000", "Min. 4 sleeping capacity", "Under 50,000 miles")
+- [x] **SRCH-04**: Dropdown shows "Popular makes" section with make chip links (Forest River, Keystone, Jayco, Grand Design, Coachmen, Thor Motor Coach, Winnebago, Heartland)
+- [x] **SRCH-05**: Dropdown shows "Featured from dealers near you" with dealer chip links
+- [x] **SRCH-06**: Clicking an RV type thumbnail or search chip navigates to SRP with appropriate filter context
 
 ### Listing Carousels
 
@@ -218,12 +218,12 @@ Deferred to subsequent milestones.
 | HERO-03 | Phase 20 | Complete |
 | HERO-04 | Phase 20 | Complete |
 | HERO-05 | Phase 20 | Complete |
-| SRCH-01 | Phase 20 | Pending |
-| SRCH-02 | Phase 20 | Pending |
-| SRCH-03 | Phase 20 | Pending |
-| SRCH-04 | Phase 20 | Pending |
-| SRCH-05 | Phase 20 | Pending |
-| SRCH-06 | Phase 20 | Pending |
+| SRCH-01 | Phase 20 | Complete |
+| SRCH-02 | Phase 20 | Complete |
+| SRCH-03 | Phase 20 | Complete |
+| SRCH-04 | Phase 20 | Complete |
+| SRCH-05 | Phase 20 | Complete |
+| SRCH-06 | Phase 20 | Complete |
 | CARO-01 | Phase 21 | Pending |
 | CARO-02 | Phase 21 | Pending |
 | CARO-03 | Phase 21 | Pending |

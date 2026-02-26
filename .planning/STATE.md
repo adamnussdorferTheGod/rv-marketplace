@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v5.0 hero banner & search -- Phase 20 in progress
+**Current focus:** v5.0 hero banner & search -- Phase 20 complete
 
 ## Current Position
 
-Phase: 20 of 29 (Hero Banner & Search)
-Plan: 1 of 2 in current phase -- COMPLETE
-Status: Plan 20-01 complete, Plan 20-02 remaining
-Last activity: 2026-02-26 -- Completed 20-01 (hero banner)
+Phase: 20 of 29 (Hero Banner & Search) -- COMPLETE
+Plan: 2 of 2 in current phase -- COMPLETE
+Status: Phase 20 complete, all plans finished
+Last activity: 2026-02-26 -- Completed 20-02 (search dropdown)
 
-Progress: [=================...] ~88% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
+Progress: [=================...] ~89% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
 
 ## Performance Metrics
 
@@ -39,9 +39,10 @@ Progress: [=================...] ~88% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 2
+- Completed: 3
 - Phase 19 Plan 01: 3min (2 tasks, 18 files)
 - Phase 20 Plan 01: 2min (2 tasks, 5 files)
+- Phase 20 Plan 02: 3min (2 tasks, 5 files)
 
 ## Accumulated Context
 
@@ -67,6 +68,9 @@ Progress: [=================...] ~88% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: CSS-only rotating placeholder with staggered animation-delay (no JS timers)
 - [v5.0]: Full-width hero outside .content container pattern
 - [v5.0]: DealerSpotlight hidden on mobile to preserve hero real estate
+- [v5.0]: Click-outside dismiss via mousedown listener + contains() check on container ref
+- [v5.0]: Seamless dropdown connection by flattening parent bottom corners when dropdown open
+- [v5.0]: Data-driven dropdown sections from typed static arrays in separate heroData.ts
 
 ### Pending Todos
 
@@ -74,10 +78,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None -- Phase 20 hero banner in progress
+None -- Phase 20 complete
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 20-01-PLAN.md (hero banner)
+Stopped at: Completed 20-02-PLAN.md (search dropdown)
 Resume file: None

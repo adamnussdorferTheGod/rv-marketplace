@@ -275,7 +275,7 @@ Plans:
 **Reused components:** Header, Footer, CrossPromotionsBar, ListingCard, Button, Icon, ActionChip, SegmentedButtons, AdSlot, Divider
 
 - [x] **Phase 19: Routing & Homepage Shell** - react-router-dom setup, route config, HomePage shell, Header logo link, SRP placeholder (completed 2026-02-26)
-- [ ] **Phase 20: Hero Banner & Search** - Hero image, search bar, segmented control, dealer spotlight, expanded search dropdown with RV type grid
+- [x] **Phase 20: Hero Banner & Search** - Hero image, search bar, segmented control, dealer spotlight, expanded search dropdown with RV type grid (completed 2026-02-26)
 - [ ] **Phase 21: Listing Carousels & Dealer Showcase** - Hand-picked carousel with filter chips, dealer showcase section, featured listings 2-row grid
 - [ ] **Phase 22: Selling & Ownership Sections** - 3-panel selling section with tabs, 4 illustrated ownership cards
 - [ ] **Phase 23: Content, SEO & App Sections** - Blog/content section with tabs, popular searches SEO grid, app download + newsletter
@@ -501,7 +501,7 @@ Plans:
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
 | 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
-| 20. Hero Banner & Search | 1/2 | In Progress|  | - |
+| 20. Hero Banner & Search | 2/2 | Complete   | 2026-02-26 | - |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |

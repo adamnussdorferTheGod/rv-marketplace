@@ -40,9 +40,7 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
             {activeTab === 'Overview' && (
               <>
                 <DestinationAbout description={destination.description} />
-                <div className={styles.divider} />
                 <DestinationStats destination={destination} />
-                <div className={styles.divider} />
                 {highlights.length > 0 && (
                   <>
                     <DestinationHighlights highlights={highlights} />
