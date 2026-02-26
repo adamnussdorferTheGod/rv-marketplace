@@ -277,7 +277,7 @@ Plans:
 - [x] **Phase 19: Routing & Homepage Shell** - react-router-dom setup, route config, HomePage shell, Header logo link, SRP placeholder (completed 2026-02-26)
 - [x] **Phase 20: Hero Banner & Search** - Hero image, search bar, segmented control, dealer spotlight, expanded search dropdown with RV type grid (completed 2026-02-26)
 - [x] **Phase 21: Listing Carousels & Dealer Showcase** - Hand-picked carousel with filter chips, dealer showcase section, featured listings 2-row grid (completed 2026-02-26)
-- [ ] **Phase 22: Selling & Ownership Sections** - 3-panel selling section with tabs, 4 illustrated ownership cards
+- [x] **Phase 22: Selling & Ownership Sections** - 3-panel selling section with tabs, 4 illustrated ownership cards (completed 2026-02-26)
 - [ ] **Phase 23: Content, SEO & App Sections** - Blog/content section with tabs, popular searches SEO grid, app download + newsletter
 
 ### Phase 19: Routing & Homepage Shell
@@ -502,8 +502,8 @@ Plans:
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
 | 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
 | 20. Hero Banner & Search | 2/2 | Complete    | 2026-02-26 | - |
-| 21. Listing Carousels & Dealer Showcase | 2/2 | Complete   | 2026-02-26 | - |
-| 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
+| 21. Listing Carousels & Dealer Showcase | 2/2 | Complete    | 2026-02-26 | - |
+| 22. Selling & Ownership Sections | 2/2 | Complete   | 2026-02-26 | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | v4.0 | 0/2 | Not started | - |

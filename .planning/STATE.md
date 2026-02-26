@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v5.0 listing carousels & dealer showcase -- Phase 21 complete
+**Current focus:** Phase 22 Selling & Ownership Sections
 
 ## Current Position
 
-Phase: 21 of 29 (Listing Carousels & Dealer Showcase)
-Plan: 2 of 2 in current phase -- COMPLETE
-Status: Phase 21 complete (all plans done)
-Last activity: 2026-02-26 -- Completed 21-02 (dealer showcase & featured listings)
+Phase: 22 of 29 (Selling & Ownership Sections)
+Plan: 1 of 2 complete
+Status: Executing
+Last activity: 2026-02-26 -- Phase 22 Plan 01 complete (SellingSection)
 
-Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
+Progress: [████████████████████] 37/38 plans (97%)
 
 ## Performance Metrics
 
@@ -39,12 +39,14 @@ Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 5
+- Completed: 7
 - Phase 19 Plan 01: 3min (2 tasks, 18 files)
 - Phase 20 Plan 01: 2min (2 tasks, 5 files)
 - Phase 20 Plan 02: 3min (2 tasks, 5 files)
 - Phase 21 Plan 01: 2min (2 tasks, 8 files)
 - Phase 21 Plan 02: 2min (2 tasks, 5 files)
+- Phase 22 Plan 01: 2min (2 tasks, 4 files)
+- Phase 22 Plan 02: 2min (2 tasks, 4 files)
 
 ## Accumulated Context
 
@@ -79,6 +81,9 @@ Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: DealerShowcase rendered outside .content wrapper as full-width sibling for gray background
 - [v5.0]: FeaturedListings grid cards override card width via --homepage-card-width CSS custom property
 - [v5.0]: Split .content into two blocks around DealerShowcase for correct section ordering
+- [Phase 22]: Used Icon registry icons with circular tinted background as illustration placeholders for ownership cards
+- [Phase 22]: Data-driven tab panels: sellingPanels array drives both SegmentedButtons options and panel content
+- [Phase 22]: Unsplash stock photos for selling panel images matching dealerShowcase pattern
 
 ### Pending Todos
 
@@ -91,5 +96,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 21-02-PLAN.md (dealer showcase & featured listings)
+Stopped at: Completed 22-01-PLAN.md (SellingSection)
 Resume file: None

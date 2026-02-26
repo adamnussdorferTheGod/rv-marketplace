@@ -105,8 +105,8 @@
 
 ### Selling Section
 
-- [ ] **SELL-01**: "Selling made with you in mind" section with segmented tab control (Consignment / Sell privately / Cash offers)
-- [ ] **SELL-02**: Each tab shows a large image panel, title, description text, and CTA button ("Learn more")
+- [x] **SELL-01**: "Selling made with you in mind" section with segmented tab control (Consignment / Sell privately / Cash offers)
+- [x] **SELL-02**: Each tab shows a large image panel, title, description text, and CTA button ("Learn more")
 
 ### Featured Listings
 
@@ -115,8 +115,8 @@
 
 ### Ownership Cards
 
-- [ ] **OWN-01**: "Making RV ownership easy" section with 4 cards in a horizontal row: RV Accessories, Insurance Services, Closing Services, Owner Reviews
-- [ ] **OWN-02**: Each card has an illustration, title, description text, and "Learn more" CTA button
+- [x] **OWN-01**: "Making RV ownership easy" section with 4 cards in a horizontal row: RV Accessories, Insurance Services, Closing Services, Owner Reviews
+- [x] **OWN-02**: Each card has an illustration, title, description text, and "Learn more" CTA button
 
 ### Blog / Content Section
 
@@ -233,10 +233,10 @@ Deferred to subsequent milestones.
 | DEAL-03 | Phase 21 | Complete |
 | FEAT-01 | Phase 21 | Complete |
 | FEAT-02 | Phase 21 | Complete |
-| SELL-01 | Phase 22 | Pending |
-| SELL-02 | Phase 22 | Pending |
-| OWN-01 | Phase 22 | Pending |
-| OWN-02 | Phase 22 | Pending |
+| SELL-01 | Phase 22 | Complete |
+| SELL-02 | Phase 22 | Complete |
+| OWN-01 | Phase 22 | Complete |
+| OWN-02 | Phase 22 | Complete |
 | BLOG-01 | Phase 23 | Pending |
 | BLOG-02 | Phase 23 | Pending |
 | SEO-01 | Phase 23 | Pending |
