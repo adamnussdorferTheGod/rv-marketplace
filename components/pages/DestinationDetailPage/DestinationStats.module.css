@@ -17,10 +17,10 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  color: var(--rv-on-surface);
+  color: #002b11;
 }
 
 .text {
   font: var(--font-label-1);
-  color: var(--rv-on-surface);
+  color: #002b11;
 }

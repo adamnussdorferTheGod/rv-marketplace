@@ -14,10 +14,10 @@ function formatDriveTime(minutes: number): string {
 }
 
 const STATS = [
-  { key: 'price', icon: 'dollar_sign', label: 'Price' },
-  { key: 'distance', icon: 'location_pin', label: 'Distance' },
-  { key: 'driveTime', icon: 'clock', label: 'Drive time' },
-  { key: 'season', icon: 'beach', label: 'Season' },
+  { key: 'price', icon: 'attach_money', label: 'Price' },
+  { key: 'distance', icon: 'globe_location_pin', label: 'Distance' },
+  { key: 'driveTime', icon: 'acute', label: 'Drive time' },
+  { key: 'season', icon: 'umbrella', label: 'Season' },
 ] as const;
 
 export default function DestinationStats({ destination }: DestinationStatsProps) {

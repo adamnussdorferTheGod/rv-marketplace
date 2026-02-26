@@ -577,12 +577,52 @@ const ICONS: Record<string, IconDefinition> = {
     ],
   },
 
-  // Dollar sign (price stat)
+  // Dollar sign (price stat) — stroke
   dollar_sign: {
     paths: [
       'M12 2v20',
       'M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
     ],
+  },
+
+  // Filled dollar sign (attach_money from Material)
+  attach_money: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Globe with location pin (distance stat)
+  globe_location_pin: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Timer / schedule icon (drive time stat)
+  acute: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0 0 13 3.05V1h-2v2.05C6.51 3.54 3 7.36 3 12c0 4.97 4.02 9 9 9a8.997 8.997 0 0 0 7.03-14.61zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Beach umbrella (season stat)
+  umbrella: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 2C6.48 2 2 6.48 2 12h9V2.06c.33-.04.66-.06 1-.06zm1 .06V12h9c0-5.16-3.84-9.42-9-9.94zM12 14v6c0 1.1-.9 2-2 2s-2-.9-2-2h2v-6H2c0 5.52 4.48 10 10 10s10-4.48 10-10H12z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
   },
 
   // Calendar (season stat)
