@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-02-25)
 Phase: 19 of 23 (Routing & Homepage Shell)
 Plan: 0 of 1 in current phase
 Status: Ready to plan
-Last activity: 2026-02-25 — Completed 17-01 RouteCard component
+Last activity: 2026-02-25 — Completed 17-02 RoutesTab layout
 
 Progress: [=================...] ~85% (v1.0 complete; v2.0/v3.0 partial; v5.0 starting)
 
@@ -28,7 +28,7 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0/v3.0 partial; v5.0 st
 - Estimated plans remaining: 9 (Phases 12-14)
 
 **v3.0:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Estimated plans remaining: 1 (Phase 18)
 
 **v5.0:**
@@ -48,6 +48,7 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0/v3.0 partial; v5.0 st
 - [v3.0]: RV fit logic uses 2ft tolerance band: fits (>= length), tight (>= length-2), wont-fit (< length-2)
 - [v3.0]: LifestyleContext section is self-contained (imports own data, no props from VDP)
 - [v3.0]: RouteCard uses CSS-only mini map with pseudo-element route line (no SVG/photo overlay)
+- [v3.0]: RoutesTab simplified vs DestinationsTab -- no filter chips, no detail view, no "See all" (only 4 routes)
 - [v4.0]: Client-side filter engine with ~80 sample listings (no backend)
 - [v4.0]: Figma SRP reference: frame 1:3997 (1762x9280px), 330px sidebar + 1272px content, 3-col card grid
 - [v5.0]: react-router-dom with / (homepage), /search (SRP), /listing/:id (VDP)
@@ -67,5 +68,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-25
-Stopped at: Completed 17-01-PLAN.md (RouteCard component)
+Stopped at: Completed 17-02-PLAN.md (RoutesTab layout)
 Resume file: None

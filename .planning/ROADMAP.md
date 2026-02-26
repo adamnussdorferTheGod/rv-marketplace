@@ -259,10 +259,10 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Destination and route cards render in horizontally scrollable rows on mobile with native swipe gesture support (no custom scroll logic needed -- CSS overflow-x with snap points)
   2. Tab chips scroll horizontally when they overflow the mobile viewport, allowing access to all tabs without wrapping to a second row
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 18-01: Mobile horizontal scroll for cards and tab chips with CSS scroll snap
+- [ ] 18-01-PLAN.md — Mobile horizontal scroll for cards and tab chips with CSS scroll snap
 
 ## v5.0 Homepage
 
@@ -384,7 +384,7 @@ Plans:
 | 14. Accessibility and Mobile Experience | v2.0 | 0/3 | Not started | - |
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 17. Route Cards | 1/2 | In Progress|  | 2026-02-25 |
+| 17. Route Cards | 2/2 | Complete   | 2026-02-26 | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
 | 19. Routing & Homepage Shell | v5.0 | 0/1 | Not started | - |
 | 20. Hero Banner & Search | v5.0 | 0/2 | Not started | - |
