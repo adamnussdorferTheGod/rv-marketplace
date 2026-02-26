@@ -136,7 +136,7 @@
   line-height: 1.4;
 }
 
-/* Placeholder overlay container */
+/* Placeholder overlay — typewriter text */
 .placeholderText {
   position: absolute;
   left: 0;
@@ -144,27 +144,25 @@
   transform: translateY(-50%);
   pointer-events: none;
   font-size: 16px;
+  font-family: var(--font-family);
   white-space: nowrap;
   color: var(--rv-on-surface-variant);
 }
 
-/* Individual rotating phrase */
-.placeholderPhrase {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
-  opacity: 0;
-  animation: rotatePlaceholder 10.5s infinite;
+/* Blinking cursor */
+.cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  background: var(--rv-on-surface-variant);
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  animation: blink 0.8s step-end infinite;
 }
 
-@keyframes rotatePlaceholder {
-  0% { opacity: 0; }
-  3% { opacity: 1; }
-  30% { opacity: 1; }
-  33% { opacity: 0; }
-  100% { opacity: 0; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Vertical divider */

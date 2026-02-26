@@ -20,6 +20,52 @@ const PLACEHOLDER_PHRASES = [
   'Try: Travel trailers near me',
 ];
 
+function useTypewriter(phrases: string[], active: boolean) {
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const phrase = phrases[phraseIndex];
+
+    if (!deleting && charIndex < phrase.length) {
+      // Typing forward
+      const id = setTimeout(() => setCharIndex((c) => c + 1), 70);
+      return () => clearTimeout(id);
+    }
+
+    if (!deleting && charIndex === phrase.length) {
+      // Pause at full text, then start deleting
+      const id = setTimeout(() => setDeleting(true), 2000);
+      return () => clearTimeout(id);
+    }
+
+    if (deleting && charIndex > 0) {
+      // Deleting
+      const id = setTimeout(() => setCharIndex((c) => c - 1), 35);
+      return () => clearTimeout(id);
+    }
+
+    if (deleting && charIndex === 0) {
+      // Move to next phrase
+      setDeleting(false);
+      setPhraseIndex((i) => (i + 1) % phrases.length);
+    }
+  }, [phrases, phraseIndex, charIndex, deleting, active]);
+
+  // Reset when deactivated
+  useEffect(() => {
+    if (!active) {
+      setCharIndex(0);
+      setDeleting(false);
+    }
+  }, [active]);
+
+  return phrases[phraseIndex].slice(0, charIndex);
+}
+
 export default function HeroBanner() {
   const navigate = useNavigate();
   const [segment, setSegment] = useState<HeroSegment>('shop');
@@ -27,6 +73,8 @@ export default function HeroBanner() {
   const [zipCode, setZipCode] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const showPlaceholder = !searchQuery && !isDropdownOpen;
+  const typedText = useTypewriter(PLACEHOLDER_PHRASES, showPlaceholder);
 
   const closeDropdown = useCallback(() => {
     setIsDropdownOpen(false);
@@ -114,17 +162,10 @@ export default function HeroBanner() {
                 aria-label="Search RVs"
                 aria-expanded={isDropdownOpen}
               />
-              {!searchQuery && !isDropdownOpen && (
+              {showPlaceholder && (
                 <span className={styles.placeholderText} aria-hidden="true">
-                  {PLACEHOLDER_PHRASES.map((phrase, i) => (
-                    <span
-                      key={phrase}
-                      className={styles.placeholderPhrase}
-                      style={{ animationDelay: `${i * 3.5}s` }}
-                    >
-                      {phrase}
-                    </span>
-                  ))}
+                  {typedText}
+                  <span className={styles.cursor} />
                 </span>
               )}
             </div>
