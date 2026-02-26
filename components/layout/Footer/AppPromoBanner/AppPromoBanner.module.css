@@ -1,0 +1,188 @@
+.banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: var(--space-64);
+  padding-bottom: 0;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-64);
+  max-width: 1662px;
+  margin: 0 auto;
+}
+
+/* --- Phone mockups --- */
+
+.phones {
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+.phonesImage {
+  display: block;
+  width: 414px;
+  height: auto;
+}
+
+/* --- Text side --- */
+
+.textSide {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  padding-top: var(--space-16);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface, #252526);
+  margin: 0;
+  max-width: 597px;
+}
+
+.subtext {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface, #252526);
+  margin: 0;
+}
+
+/* --- Badges row --- */
+
+.badges {
+  display: flex;
+  gap: var(--space-16);
+  align-items: flex-start;
+}
+
+.qrCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 7px;
+  padding: 0 14px 14px;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.09);
+}
+
+.qrImage {
+  width: 144px;
+  height: 144px;
+  object-fit: contain;
+}
+
+.qrLabel {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--rv-on-surface, #252526);
+  text-align: center;
+}
+
+.storeBadges {
+  display: flex;
+  gap: var(--space-16);
+  align-items: center;
+  padding: 4px 0;
+}
+
+.storeBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  background: black;
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+  height: 39px;
+  box-sizing: border-box;
+}
+
+.storeBadgeText {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family);
+  font-weight: 600;
+  color: white;
+  line-height: normal;
+}
+
+.storeBadgeSmall {
+  font-size: 9px;
+}
+
+.storeBadgeLarge {
+  font-size: 15px;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 1231px) {
+  .banner {
+    padding: var(--space-32);
+  }
+
+  .phonesImage {
+    width: 320px;
+  }
+}
+
+@media (max-width: 991px) {
+  .content {
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+
+  .phonesImage {
+    width: 340px;
+  }
+
+  .heading {
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .banner {
+    padding: var(--space-32) 20px;
+  }
+
+  .phonesImage {
+    width: 280px;
+  }
+
+  .badges {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .storeBadges {
+    flex-direction: column;
+  }
+
+  .textSide {
+    align-items: center;
+    text-align: center;
+  }
+}
