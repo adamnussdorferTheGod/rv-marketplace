@@ -577,6 +577,88 @@ const ICONS: Record<string, IconDefinition> = {
     ],
   },
 
+  // Dollar sign (price stat)
+  dollar_sign: {
+    paths: [
+      'M12 2v20',
+      'M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+    ],
+  },
+
+  // Calendar (season stat)
+  calendar: {
+    paths: [
+      'M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z',
+      'M16 2v4',
+      'M8 2v4',
+      'M3 10h18',
+    ],
+  },
+
+  // Beach umbrella
+  beach: {
+    paths: [
+      'M17.5 12c0-4.97-4.03-9-9-9A9.01 9.01 0 0 0 2 7.5L12 12',
+      'M17.5 12H22',
+      'M12 12v10',
+      'M12 12L2 7.5',
+      'M12 12l3-9.5',
+    ],
+  },
+
+  // Fishing rod
+  fishing: {
+    paths: [
+      'M18 2l-3 7',
+      'M15 9l-6 6',
+      'M9 15a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
+      'M18 2l2 2',
+    ],
+  },
+
+  // Hiking / person walking
+  hiking: {
+    paths: [
+      'M13 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+      'M7 21l3-4',
+      'M16 21l-2-5-5-1',
+      'M6 12l4-2 2 5',
+      'M10 10l4-4 3 3',
+    ],
+    strokeWidth: 1.8,
+  },
+
+  // Kayak
+  kayak: {
+    paths: [
+      'M2 16c2 2 5 2 7 0s5-2 7 0 5 2 7 0',
+      'M12 6v8',
+      'M8 10l4-4 4 4',
+    ],
+  },
+
+  // Binoculars
+  binoculars: {
+    paths: [
+      'M4 18a4 4 0 1 0 8 0V8H4v10z',
+      'M12 18a4 4 0 1 0 8 0V8h-8v10z',
+      'M7 8V4h2v4',
+      'M15 8V4h2v4',
+      'M10 12h4',
+    ],
+    strokeWidth: 1.5,
+  },
+
+  // Swimming
+  swimming: {
+    paths: [
+      'M2 20c2-2 5-2 7 0s5 2 7 0 5-2 7 0',
+      'M16 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+      'M4 16l3-3 4 1 3-3',
+    ],
+    strokeWidth: 1.8,
+  },
+
   // Gauge / speedometer icon (Deal Score)
   gauge: {
     paths: [

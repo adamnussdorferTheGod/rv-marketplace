@@ -1,0 +1,66 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  padding: 4px 0;
+  transition: color 0.15s;
+}
+
+.backLink:hover {
+  color: var(--rv-on-surface);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.title {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  padding: 8px;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.saveButton:hover {
+  color: var(--rv-primary);
+}
+
+@media (max-width: 767px) {
+  .title {
+    font: var(--font-headline-2);
+  }
+}

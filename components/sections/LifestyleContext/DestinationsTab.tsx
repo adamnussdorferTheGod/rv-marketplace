@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react';
 import type { Destination } from '../../../app/src/data/lifestyleTypes';
 import Icon from '../../ui/Icon/Icon';
 import { useAiMode } from '../../sections/AiMode/AiModeContext';
+import { useNavigation } from '../../pages/NavigationContext';
 import DestinationCard from './DestinationCard/DestinationCard';
-import DestinationDetail from './DestinationDetail';
 import styles from './DestinationsTab.module.css';
 
 interface DestinationsTabProps {
@@ -38,8 +38,8 @@ const AI_PROMPTS = [
 
 export default function DestinationsTab({ destinations, rvLengthFt }: DestinationsTabProps) {
   const [activeChip, setActiveChip] = useState('Recommended');
-  const [selectedDestination, setSelectedDestination] = useState<Destination | null>(null);
   const { openPanel, sendMessage } = useAiMode();
+  const { navigateToDestination } = useNavigation();
 
   function handlePromptClick(prompt: string) {
     openPanel('plan');
@@ -92,7 +92,7 @@ export default function DestinationsTab({ destinations, rvLengthFt }: Destinatio
             <DestinationCard
               key={dest.id}
               destination={dest}
-              onClick={() => setSelectedDestination(dest)}
+              onClick={() => navigateToDestination(dest)}
             />
           ))}
         </div>
@@ -120,14 +120,6 @@ export default function DestinationsTab({ destinations, rvLengthFt }: Destinatio
         </div>
       </div>
 
-      {/* Expanded detail overlay */}
-      {selectedDestination && (
-        <DestinationDetail
-          destination={selectedDestination}
-          rvLengthFt={rvLengthFt}
-          onClose={() => setSelectedDestination(null)}
-        />
-      )}
     </div>
     </div>
   );

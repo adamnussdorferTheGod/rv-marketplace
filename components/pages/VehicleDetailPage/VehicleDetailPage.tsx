@@ -36,6 +36,8 @@ import DealKitOverlay from '@components/sections/DealKit/DealKitOverlay/DealKitO
 import { VideoWalkthroughProvider, useVideoWalkthrough } from '@components/sections/VideoWalkthrough/VideoWalkthroughContext';
 import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerShell/VideoPlayerShell';
 import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
+import { NavigationProvider, useNavigation } from '../NavigationContext';
+import DestinationDetailPage from '../DestinationDetailPage/DestinationDetailPage';
 import { sampleListing } from '../../../app/src/data/sampleListing';
 import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
 import { sampleVideoWalkthrough } from '../../../app/src/data/sampleVideoWalkthrough';
@@ -45,12 +47,17 @@ function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { variant } = useVdpVariant();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
+  const { currentPage } = useNavigation();
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 0,
   }).format(sampleListing.currentPrice);
+
+  if (currentPage.type === 'destination-detail') {
+    return <DestinationDetailPage destination={currentPage.destination} />;
+  }
 
   return (
     <>
@@ -173,16 +180,18 @@ function VehicleDetailPageContent() {
 
 export default function VehicleDetailPage() {
   return (
-    <VdpVariantProvider>
-      <AiModeProvider listing={sampleListing}>
-        <NarrationProvider narrations={sampleNarrations}>
-          <DealKitProvider>
-            <VideoWalkthroughProvider data={sampleVideoWalkthrough}>
-              <VehicleDetailPageContent />
-            </VideoWalkthroughProvider>
-          </DealKitProvider>
-        </NarrationProvider>
-      </AiModeProvider>
-    </VdpVariantProvider>
+    <NavigationProvider>
+      <VdpVariantProvider>
+        <AiModeProvider listing={sampleListing}>
+          <NarrationProvider narrations={sampleNarrations}>
+            <DealKitProvider>
+              <VideoWalkthroughProvider data={sampleVideoWalkthrough}>
+                <VehicleDetailPageContent />
+              </VideoWalkthroughProvider>
+            </DealKitProvider>
+          </NarrationProvider>
+        </AiModeProvider>
+      </VdpVariantProvider>
+    </NavigationProvider>
   );
 }

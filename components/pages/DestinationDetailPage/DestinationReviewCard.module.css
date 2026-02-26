@@ -1,0 +1,88 @@
+.card {
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.vehicle {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ratingNum {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+}
+
+.starFilled {
+  color: #FACA33;
+}
+
+.starEmpty {
+  color: var(--rv-border);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.text {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.author {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.footer {
+  border-top: 1px solid var(--rv-border-low);
+  padding-top: 12px;
+}
+
+.viewLink {
+  font: var(--font-label-2);
+  color: var(--rv-primary);
+  cursor: pointer;
+}
+
+.viewLink:hover {
+  text-decoration: underline;
+}

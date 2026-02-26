@@ -151,3 +151,15 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ──────────── Mobile (< 768px) ──────────── */
+@media (max-width: 767px) {
+  .card {
+    flex: 0 0 220px;
+    width: 220px;
+  }
+
+  .mapPlaceholder {
+    height: 100px;
+  }
+}
