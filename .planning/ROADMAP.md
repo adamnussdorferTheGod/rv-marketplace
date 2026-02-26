@@ -5,7 +5,7 @@
 - [x] **v1.0 MVP** - Phases 1-9 (shipped 2026-02-22)
 - [ ] **v2.0 AI Video Walkthrough** - Phases 10-14 (in progress)
 - [ ] **v3.0 Lifestyle Context** - Phases 15-18 (in progress)
-- [ ] **v4.0 Search Results Page** - Phases TBD (in progress, separate track)
+- [ ] **v4.0 Search Results Page** - Phases 24-29 (planned)
 - [ ] **v5.0 Homepage** - Phases 19-23 (planned)
 
 ## Phases
@@ -266,7 +266,7 @@ Plans:
 
 ## v5.0 Homepage
 
-**Milestone Goal:** Build the full homepage as the primary marketplace entry point — hero search, listing carousels, dealer showcase, selling options, ownership resources, blog content, SEO links — with react-router-dom routing across all pages.
+**Milestone Goal:** Build the full homepage as the primary marketplace entry point -- hero search, listing carousels, dealer showcase, selling options, ownership resources, blog content, SEO links -- with react-router-dom routing across all pages.
 
 **Figma reference:**
 - Homepage: frame 1:9679 (1789x6316px)
@@ -302,7 +302,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. A full-width hero banner displays an RV lifestyle background image with dark overlay and centered "Shop the largest RV marketplace" heading in white
   2. The search bar shows an AI sparkle icon, rotating placeholder text, ZIP code input, and green "Search" button, with "Shop RVs / Sell my RV" segmented control above
-  3. Clicking the search input opens an expanded dropdown with 10 RV type thumbnails (5×2 grid using static image assets), popular search chips, popular make chips, and dealer chips
+  3. Clicking the search input opens an expanded dropdown with 10 RV type thumbnails (5x2 grid using static image assets), popular search chips, popular make chips, and dealer chips
   4. Clicking outside the dropdown or pressing Escape closes it
   5. A dealer spotlight badge appears in the hero bottom-right with dealer logo, name, and "Shop inventory" link
 **Plans**: 2 plans
@@ -319,7 +319,7 @@ Plans:
   1. "RVs hand-picked for you" section shows a horizontal row of 5 listing cards with photo, title, location/distance, and price, plus left/right carousel arrows
   2. Filter chips above the carousel (Recommended, Used, New, Nearest, Deals, Travel trailers, Class A) toggle the active chip and filter visible cards
   3. The dealer showcase section shows dealer logo, name, tagline, "View inventory" and phone links, with a horizontal row of 5 dealer listing cards below
-  4. "Featured listings" section shows 2 rows × 5 columns of listing cards with carousel navigation
+  4. "Featured listings" section shows 2 rows x 5 columns of listing cards with carousel navigation
   5. Clicking any listing card navigates to `/listing/:id`
 **Plans**: 2 plans
 
@@ -348,7 +348,7 @@ Plans:
 **Requirements**: BLOG-01, BLOG-02, SEO-01, SEO-02, APP-01, APP-02, APP-03
 **Success Criteria** (what must be TRUE):
   1. "Stay in the know" section has tab navigation (Owner reviews, News, Lifestyle, RV consulting) with a featured article image on left and 3 article title rows on right
-  2. "Popular searches" section has tabbed categories with a 6-column × 3-row grid of search links showing term and result count
+  2. "Popular searches" section has tabbed categories with a 6-column x 3-row grid of search links showing term and result count
   3. App download section shows App Store and Google Play badges, newsletter signup with email input, and a row of 6 social media icons
   4. Ad banners (using AdSlot) appear between sections matching Figma placement
 **Plans**: 2 plans
@@ -357,14 +357,128 @@ Plans:
 - [ ] 23-01-PLAN.md — StayInTheKnow blog section with tabs, featured image, and article list
 - [ ] 23-02-PLAN.md — PopularSearches SEO grid, AppDownload with badges/newsletter/social icons, ad banner placement
 
+## v4.0 Search Results Page
+
+**Milestone Goal:** Build the full SRP with filter sidebar, listing card grid, featured/sponsored carousels, pagination, and responsive breakpoints -- replacing the placeholder at `/search` with a fully functional search and browse experience powered by ~80 client-side sample listings.
+
+**Figma reference:**
+- SRP: frame 1:3997 (1762x9280px) -- "SRP -- Desktop 3"
+
+**Layout:** 1762px full width, 330px filter sidebar + 1272px content area, 64px side margins, 3-column card grid (~403px each, 32px gaps)
+
+**Reused components:** Header, Footer, CrossPromotionsBar, Button, Icon, ActionChip, SegmentedButtons, AdSlot, Divider
+
+**Dependency:** Phase 19 (react-router-dom routing with `/search` route must exist)
+
+- [ ] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL query sync, active filter chips
+- [ ] **Phase 25: Listing Cards** - Standard card, featured compact card, sponsored showcase, PAA card, dealer ad card with all visual treatments
+- [ ] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay
+- [ ] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination
+- [ ] **Phase 28: Page Chrome & Content Sections** - Header/footer reuse, SEO popular searches footer, app CTA banner, disclaimer
+- [ ] **Phase 29: Responsive Breakpoints** - 991px and 767px breakpoint adaptations for grid, sidebar, carousels, and pagination
+
+### Phase 24: Data Layer & Filter Engine
+**Goal**: The entire SRP data pipeline is established -- typed listing data, realistic sample dataset, and a working filter/sort engine that syncs state to URL parameters
+**Depends on**: Phase 19 (routing exists with `/search` route)
+**Requirements**: DATA-05, DATA-06, DATA-07, DATA-08, DATA-09, DATA-10
+**Success Criteria** (what must be TRUE):
+  1. TypeScript interfaces extend existing ListingData with SRP-specific fields (photo array, tag badges, featured flag, sponsored flag) and all ~80 sample listings conform to the type
+  2. The filter engine accepts filter criteria (type, make/model, price range, year range, condition, location/radius, length, floor plan, sleeping capacity, fuel type, keyword) and returns a filtered subset of listings
+  3. The sort engine reorders results by relevance (default), price low-to-high, price high-to-low, newest, or distance
+  4. Navigating to `/search?type=travel-trailer&priceMax=50000` applies those filters on page load, and changing filters updates the URL without full page reload
+  5. Active filters render as removable chips, and clicking a chip's remove button clears that single filter; a "Clear all" action resets all filters and the URL
+**Plans**: 2 plans
+
+Plans:
+- [ ] 24-01-PLAN.md — SRP TypeScript interfaces and ~80 sample listing dataset with realistic variety
+- [ ] 24-02-PLAN.md — Pure filter/sort engine, useSrpFilters hook with URL query sync and active filter chips
+
+### Phase 25: Listing Cards
+**Goal**: All SRP card variants are built as standalone components ready for placement in the grid and carousels
+**Depends on**: Phase 24 (typed listing data exists)
+**Requirements**: CARD-01, CARD-02, CARD-03, CARD-04, CARD-05, CARD-06
+**Success Criteria** (what must be TRUE):
+  1. The standard listing card displays a photo with carousel dots, tag badge (e.g., "Price reduced"), favorite heart toggle, condition label, title, price with optional strikethrough original, and "More info" CTA button
+  2. Below a divider, the card shows dealer name, city/state with distance, and "Trusted partner" badge when applicable
+  3. The featured/compact card variant (242px width) renders in horizontal carousels with photo, title, price, and dealer location
+  4. A sponsored "Native Summit Showcase" section renders a branded dealer header with description and a row of featured card carousels
+  5. PAA (People Also Asked) and dealer ad card variants render as inline content within the grid and sidebar respectively
+**Plans**: TBD
+
+Plans:
+- [ ] 25-01: SRPListingCard with photo carousel dots, tag badge, heart toggle, condition label, price, and dealer info section
+- [ ] 25-02: FeaturedCard compact variant, SponsoredShowcase section, PAACard, and DealerAdCard
+
+### Phase 26: Filter Sidebar
+**Goal**: Users can narrow search results using a full filter sidebar with all filter groups from the Figma design
+**Depends on**: Phase 24 (filter engine exists), Phase 25 (cards exist for result count context)
+**Requirements**: FILT-01, FILT-02, FILT-03, FILT-04, FILT-05, FILT-06, FILT-07, FILT-08, FILT-09, FILT-10
+**Success Criteria** (what must be TRUE):
+  1. The 330px filter sidebar displays a result count header (e.g., "1,234 results") with a "Clear all" link, and active filter chips with individual remove buttons appear at the top
+  2. Keyword search input, location/ZIP with radius dropdown, and New/Used/All segmented toggle are always visible at the top of the sidebar
+  3. RV Type filter shows a checkbox list with thumbnail images for each type; Make & Model shows a hierarchical multi-select with search, expandable make-to-model tree, and "See all options" link
+  4. Price filter includes Cash/Finance tab toggle, min/max inputs (with down payment + monthly payment for finance mode), term slider, and "Estimated buying power" callout
+  5. Additional filters (Length, Year, Bunkhouse, Fuel type, Sleeping capacity, Floor plan, Gross vehicle weight) render as collapsible groups, and on mobile the entire sidebar converts to a full-screen overlay triggered by a filter button
+**Plans**: TBD
+
+Plans:
+- [ ] 26-01: FilterSidebar shell with result count header, active chips, keyword search, location/radius, and condition toggle
+- [ ] 26-02: RV Type checkbox filter with thumbnails, Make & Model hierarchical multi-select with search
+- [ ] 26-03: Price filter with Cash/Finance tabs and buying power callout, collapsible filter groups, and mobile overlay trigger
+
+### Phase 27: SRP Page Assembly
+**Goal**: The complete SRP page renders at `/search` with filter sidebar, listing grid, interleaved content sections, and pagination -- replacing the placeholder component
+**Depends on**: Phase 24, Phase 25, Phase 26
+**Requirements**: LAYO-01, LAYO-02, LAYO-03, LAYO-04, LAYO-05, LAYO-06
+**Success Criteria** (what must be TRUE):
+  1. The page renders a two-column layout with 330px filter sidebar on the left and 1272px content area on the right, with 64px side margins
+  2. The content area header shows breadcrumbs (Home > Browse RVs > [Type]), page title "New and used [Type] RVs for sale", and a descriptive subtitle with "Show more" toggle
+  3. A sort controls row with "Sort by: Default" dropdown and "Save search" heart button aligns to the right above the listing grid
+  4. Listing cards render in a 3-column grid (~403px each, 32px gaps) with featured/sponsored carousels and mid-page ad slots interspersed between card rows
+  5. Pagination at the bottom shows numbered pages, prev/next arrows, ellipsis for large ranges, and "X-Y of Z results" count
+**Plans**: TBD
+
+Plans:
+- [ ] 27-01: SRPLayout two-column container, breadcrumbs, page title with subtitle toggle, sort controls row
+- [ ] 27-02: Listing grid with 3-column layout, interleaved featured carousels and ad slots, pagination component, and SearchResultsPage wiring
+
+### Phase 28: Page Chrome & Content Sections
+**Goal**: The SRP includes all surrounding chrome -- reused header/footer, SEO links, app CTA banner, and disclaimer -- completing the full-page experience
+**Depends on**: Phase 27 (page layout exists)
+**Requirements**: CHRO-01, CHRO-02, CHRO-03, CHRO-04, CHRO-05
+**Success Criteria** (what must be TRUE):
+  1. The SRP reuses the existing Header with CrossPromotionsBar and Footer components from the VDP without duplication
+  2. A "Popular searches" SEO footer section displays categorized link grids below the main results area
+  3. An app download CTA banner with phone mockup, QR code, and App Store/Google Play badges appears between results and footer
+  4. A disclaimer text block at the bottom of the results area notes AI-enhanced photos and third-party data accuracy
+**Plans**: TBD
+
+Plans:
+- [ ] 28-01: SearchResultsPage chrome wiring (Header, Footer, CrossPromotionsBar), SEO popular searches footer, app CTA banner, and disclaimer text
+
+### Phase 29: Responsive Breakpoints
+**Goal**: The SRP adapts gracefully to tablet and mobile viewports using the existing project breakpoints
+**Depends on**: Phase 27 (full page layout exists), Phase 26 (sidebar exists for overlay conversion)
+**Requirements**: RESP-01, RESP-02, RESP-03, RESP-04
+**Success Criteria** (what must be TRUE):
+  1. At the 991px breakpoint, the card grid switches to 2 columns and the filter sidebar collapses into a full-screen overlay accessible via a filter button
+  2. At the 767px breakpoint, the card grid switches to a single column with a fully stacked layout
+  3. Featured carousels adapt to show fewer visible cards at smaller breakpoints (e.g., 3 cards at tablet, 1-2 at mobile)
+  4. Pagination adapts to show fewer visible page numbers on mobile (e.g., current +/- 1 with ellipsis)
+**Plans**: TBD
+
+Plans:
+- [ ] 29-01: 991px breakpoint -- 2-col grid, sidebar overlay with filter button trigger
+- [ ] 29-02: 767px breakpoint -- single-column grid, stacked layout, carousel and pagination mobile adaptations
+
 ## Progress
 
 **Execution Order:**
 - v1.0 (Phases 1-9): Complete
 - v2.0 (Phases 10-14): Phases 10-11 complete, 12-14 remaining
 - v3.0 (Phases 15-18): Phases 15-17 complete, 18 remaining
-- v4.0: SRP phases TBD (in progress, separate track)
-- v5.0 (Phases 19-23): 19 → 20 → 21 → 22/23 (Phases 22 and 23 can run in parallel)
+- v5.0 (Phases 19-23): 19 -> 20 -> 21 -> 22/23 (Phases 22 and 23 can run in parallel)
+- v4.0 (Phases 24-29): 24 -> 25 -> 26 -> 27 -> 28/29 (depends on Phase 19 for routing)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -384,10 +498,16 @@ Plans:
 | 14. Accessibility and Mobile Experience | v2.0 | 0/3 | Not started | - |
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 17. Route Cards | 2/2 | Complete   | 2026-02-26 | 2026-02-25 |
+| 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
 | 19. Routing & Homepage Shell | v5.0 | 0/1 | Not started | - |
 | 20. Hero Banner & Search | v5.0 | 0/2 | Not started | - |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
+| 24. Data Layer & Filter Engine | 1/2 | In Progress|  | - |
+| 25. Listing Cards | v4.0 | 0/2 | Not started | - |
+| 26. Filter Sidebar | v4.0 | 0/3 | Not started | - |
+| 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
+| 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
+| 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |
