@@ -1,10 +1,13 @@
+.mapWrapper {
+  position: sticky;
+  top: 24px;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
 .mapContainer {
   min-height: 320px;
   height: 400px;
-  border-radius: var(--radius-base);
-  overflow: hidden;
-  position: sticky;
-  top: 24px;
 }
 
 .mapPlaceholder {
@@ -43,8 +46,11 @@
 }
 
 @media (max-width: 991px) {
-  .mapContainer {
+  .mapWrapper {
     position: static;
+  }
+
+  .mapContainer {
     min-height: 240px;
     height: 280px;
   }

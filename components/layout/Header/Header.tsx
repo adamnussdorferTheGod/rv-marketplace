@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Icon from '@components/ui/Icon/Icon';
 import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
-import { ROUTES } from '../../../app/src/routes';
+import { ROUTES, listingPath } from '../../../app/src/routes';
 import rvTraderLogo from '../../../app/src/assets/rv-trader-logo.svg';
 import styles from './Header.module.css';
 
@@ -17,6 +17,7 @@ export default function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLLIElement>(null);
   const { variant, setVariant } = useVdpVariant();
+  const navigate = useNavigate();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -64,6 +65,7 @@ export default function Header() {
                             onClick={() => {
                               setVariant(item.variant);
                               setDropdownOpen(false);
+                              navigate(listingPath('sample'));
                             }}
                           >
                             {item.label}
