@@ -1,0 +1,43 @@
+/* RoutesTab — horizontal scroll layout for route cards */
+
+.container {
+  /* No extra spacing needed; parent provides padding */
+}
+
+/* Horizontal scroll track */
+.scrollTrack {
+  display: flex;
+  gap: var(--space-16);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-8);
+}
+
+.scrollTrack::-webkit-scrollbar {
+  height: 6px;
+}
+
+.scrollTrack::-webkit-scrollbar-thumb {
+  background: var(--rv-border);
+  border-radius: var(--radius-full);
+}
+
+.scrollTrack::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollTrack > * {
+  scroll-snap-align: start;
+}
+
+/* Empty state */
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--rv-on-surface-variant);
+  font: var(--font-body-2);
+}
