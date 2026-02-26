@@ -19,7 +19,6 @@ interface DestinationDetailPageProps {
 }
 
 export default function DestinationDetailPage({ destination }: DestinationDetailPageProps) {
-  const [activeTab, setActiveTab] = useState('Overview');
   const [visibleReviews, setVisibleReviews] = useState(INITIAL_REVIEWS);
 
   const photos = destination.photos?.length ? destination.photos : [destination.photoUrl];
@@ -33,48 +32,41 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
       <div className={styles.content}>
         <DestinationHeader name={destination.name} />
         <DestinationGallery photos={photos} name={destination.name} />
-        <DestinationTabs activeTab={activeTab} onTabChange={setActiveTab} />
+        <DestinationTabs />
 
         <div className={styles.twoColumn}>
           <div className={styles.leftCol}>
-            {activeTab === 'Overview' && (
-              <>
-                <DestinationAbout description={destination.description} />
-                <DestinationStats destination={destination} />
-                {highlights.length > 0 && (
-                  <DestinationHighlights highlights={highlights} />
-                )}
-                {reviews.length > 0 && breakdown && (
-                  <>
-                    <DestinationRating
-                      rating={destination.rating}
-                      reviewCount={destination.reviewCount}
-                      breakdown={breakdown}
-                    />
-                    <div className={styles.reviewList}>
-                      {reviews.slice(0, visibleReviews).map(review => (
-                        <DestinationReviewCard key={review.id} review={review} />
-                      ))}
-                    </div>
-                    {hasMoreReviews && (
-                      <Button
-                        variant="secondary"
-                        size="lg"
-                        className={styles.loadMore}
-                        onClick={() => setVisibleReviews(v => v + INITIAL_REVIEWS)}
-                      >
-                        Load more reviews
-                      </Button>
-                    )}
-                  </>
-                )}
-              </>
+            <div id="dest-overview">
+              <DestinationAbout description={destination.description} />
+            </div>
+            <DestinationStats destination={destination} />
+            {highlights.length > 0 && (
+              <div id="dest-highlights">
+                <DestinationHighlights highlights={highlights} />
+              </div>
             )}
-            {activeTab !== 'Overview' && (
-              <div className={styles.placeholder}>
-                <p className={styles.placeholderText}>
-                  {activeTab} content coming soon
-                </p>
+            {reviews.length > 0 && breakdown && (
+              <div id="dest-reviews">
+                <DestinationRating
+                  rating={destination.rating}
+                  reviewCount={destination.reviewCount}
+                  breakdown={breakdown}
+                />
+                <div className={styles.reviewList}>
+                  {reviews.slice(0, visibleReviews).map(review => (
+                    <DestinationReviewCard key={review.id} review={review} />
+                  ))}
+                </div>
+                {hasMoreReviews && (
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className={styles.loadMore}
+                    onClick={() => setVisibleReviews(v => v + INITIAL_REVIEWS)}
+                  >
+                    Load more reviews
+                  </Button>
+                )}
               </div>
             )}
           </div>
