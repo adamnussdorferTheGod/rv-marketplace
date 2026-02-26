@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 24px;
   padding: 24px 0;
-  border-top: 1px solid var(--rv-border-low);
   border-bottom: 1px solid var(--rv-border-low);
 }
 
