@@ -86,7 +86,9 @@ export default function HeroBanner() {
     <section className={styles.hero}>
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>Shop the largest RV marketplace</h1>
+      </div>
 
+      <div className={styles.searchCard} ref={searchContainerRef}>
         <div className={styles.segmentedWrap}>
           <SegmentedButtons
             options={SEGMENT_OPTIONS}
@@ -95,7 +97,7 @@ export default function HeroBanner() {
           />
         </div>
 
-        <div className={styles.searchContainer} ref={searchContainerRef}>
+        <div className={styles.searchRow}>
           <div className={searchBarClass}>
             <span className={styles.sparkleIcon}>
               <Icon name="sparkles" size={22} />
@@ -142,23 +144,22 @@ export default function HeroBanner() {
                 maxLength={5}
               />
             </div>
-
-            <Button
-              variant="primary"
-              size="lg"
-              leadingIcon="search"
-              onClick={handleSearch}
-            >
-              Search
-            </Button>
           </div>
 
-          {isDropdownOpen && (
-            <div className={styles.dropdownWrap}>
-              <SearchDropdown onClose={closeDropdown} />
-            </div>
-          )}
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
         </div>
+
+        {isDropdownOpen && (
+          <div className={styles.dropdownWrap}>
+            <SearchDropdown onClose={closeDropdown} />
+          </div>
+        )}
       </div>
 
       <DealerSpotlight />

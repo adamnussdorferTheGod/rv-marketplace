@@ -23,10 +23,11 @@ interface POI {
   category: POICategory;
 }
 
-type POICategory = 'restaurant' | 'gas_station' | 'grocery' | 'campground';
+type POICategory = 'restaurant' | 'gas_station' | 'grocery' | 'campground' | 'park' | 'trail' | 'kayaking' | 'attraction';
 
 interface CategoryConfig {
   key: POICategory;
+  label: string;
   icon: string;
   query: string;
   color: string;
@@ -39,10 +40,14 @@ interface CategoryConfig {
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN as string | undefined;
 
 const POI_CATEGORIES: CategoryConfig[] = [
-  { key: 'restaurant', icon: 'restaurant', query: 'restaurant', color: '#2D6A4F' },
-  { key: 'gas_station', icon: 'fuel', query: 'gas_station', color: '#494A4C' },
-  { key: 'grocery', icon: 'grocery', query: 'grocery', color: '#3870E9' },
-  { key: 'campground', icon: 'campground', query: 'camping', color: '#006836' },
+  { key: 'campground', label: 'Campgrounds', icon: 'campground', query: 'camping', color: '#006836' },
+  { key: 'park', label: 'Parks', icon: 'park', query: 'park', color: '#4CAF50' },
+  { key: 'trail', label: 'Trails', icon: 'hiking', query: 'hiking', color: '#8B6914' },
+  { key: 'kayaking', label: 'Kayaking', icon: 'kayak', query: 'kayaking', color: '#0288D1' },
+  { key: 'attraction', label: 'Things to Do', icon: 'binoculars', query: 'tourist_attraction', color: '#E65100' },
+  { key: 'restaurant', label: 'Dining', icon: 'restaurant', query: 'restaurant', color: '#2D6A4F' },
+  { key: 'gas_station', label: 'Gas', icon: 'fuel', query: 'gas_station', color: '#494A4C' },
+  { key: 'grocery', label: 'Grocery', icon: 'grocery', query: 'grocery', color: '#3870E9' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -224,6 +229,14 @@ export default function DestinationMap({ name, region, lat, lng }: DestinationMa
   return (
     <div className={styles.mapWrapper}>
       <div ref={containerRef} className={styles.mapContainer} />
+      <div className={styles.legend}>
+        {POI_CATEGORIES.map((cat) => (
+          <span key={cat.key} className={styles.legendItem}>
+            <span className={styles.legendDot} style={{ background: cat.color }} />
+            {cat.label}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

@@ -45,21 +45,22 @@ A pixel-accurate marketplace experience that faithfully implements the Figma ref
 - ✓ Lightbox video player with controls — v2.0
 - ✓ AI voiceover narration — v2.0
 - ✓ Text overlays and 5-act structure — v2.0
+- ✓ "RVs hand-picked for you" listing carousel with filter chips — v5.0 Phase 21
+- ✓ Dealer showcase section with branding and inventory carousel — v5.0 Phase 21
+- ✓ "Featured listings" 2-row listing grid — v5.0 Phase 21
+- ✓ Listing cards → VDP routing via listingPath() — v5.0 Phase 21
 
 ### Active
 
 - [ ] react-router-dom routing with / (homepage), /search (SRP), /listing/:id (VDP)
 - [ ] Hero banner with search bar, AI icon, ZIP input, segmented control
 - [ ] Expanded search dropdown with RV type grid, popular searches/makes chips
-- [ ] "RVs hand-picked for you" listing carousel with filter chips
-- [ ] Dealer showcase section with branding and inventory carousel
 - [ ] "Selling made with you in mind" 3-panel tabbed section
-- [ ] "Featured listings" 2-row listing grid
 - [ ] "Making RV ownership easy" 4 illustrated cards
 - [ ] "Stay in the know" tabbed blog/content section
 - [ ] "Popular searches" SEO link grid
 - [ ] App download + newsletter section
-- [ ] Logo → homepage, listing cards → VDP routing
+- [ ] Logo → homepage navigation
 - [x] SRP data types and ~80 sample listings — v4.0 Phase 24
 - [x] Client-side filter/sort engine with URL sync — v4.0 Phase 24
 
@@ -117,6 +118,9 @@ A pixel-accurate marketplace experience that faithfully implements the Figma ref
 | React Router for multi-page | Client-side routing: / (homepage), /search (SRP), /listing/:id (VDP) | — Pending |
 | Static RV type assets | Download/create 10 RV type thumbnail images for search dropdown | — Pending |
 | Reuse existing components | Header, Footer, CrossPromotionsBar, ListingCard, Button, Icon, ActionChip, SegmentedButtons, AdSlot, Divider | — Pending |
+| Homepage card + carousel pattern | HomepageListingCard (240px fixed) + ListingCarousel (scroll-snap + arrows) reused across 3 sections | ✓ Good |
+| Full-width section breakout | DealerShowcase rendered outside .content as sibling, self-centering for gray background | ✓ Good |
+| CSS custom property card width override | FeaturedListings grid uses --homepage-card-width: 100% to fill grid cells | ✓ Good |
 
 ---
-*Last updated: 2026-02-26 after Phase 24 (v4.0 complete)*
+*Last updated: 2026-02-26 after Phase 21 (v5.0 listing carousels & dealer showcase)*

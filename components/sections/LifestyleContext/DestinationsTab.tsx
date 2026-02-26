@@ -31,9 +31,9 @@ const CHIP_TO_CATEGORY: Record<string, string> = {
 };
 
 const AI_PROMPTS = [
-  'Plan a 3-day trip itinerary',
-  'Best campgrounds with full hookups',
-  'Pet-friendly parks near the coast',
+  'Weekend route from Austin to Big Bend',
+  'Where can I boondock near Zion?',
+  'Pack list for a week in the Smoky Mountains',
 ];
 
 export default function DestinationsTab({ destinations, rvLengthFt }: DestinationsTabProps) {

@@ -619,10 +619,10 @@ const ICONS: Record<string, IconDefinition> = {
   umbrella: {
     viewBox: '0 0 24 24',
     paths: [
-      'M12 2C6.48 2 2 6.48 2 12h9V2.06c.33-.04.66-.06 1-.06zm1 .06V12h9c0-5.16-3.84-9.42-9-9.94zM12 14v6c0 1.1-.9 2-2 2s-2-.9-2-2h2v-6H2c0 5.52 4.48 10 10 10s10-4.48 10-10H12z',
+      'M18 12H6a6 6 0 0 1 12 0z',
+      'M12 12v8',
+      'M12 20a2 2 0 0 1-2-2',
     ],
-    fill: ['currentColor'],
-    strokeWidth: 0,
   },
 
   // Calendar (season stat)
@@ -724,6 +724,16 @@ const ICONS: Record<string, IconDefinition> = {
     viewBox: '0 0 24 24',
     paths: [
       'M12 3L1 21h22L12 3zm0 4.41L18.74 19h-3.49L12 13.5 8.75 19H5.26L12 7.41z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
+
+  // Tree / park icon (POI markers)
+  park: {
+    viewBox: '0 0 24 24',
+    paths: [
+      'M12 2L5 12h3l-2 5h4v5h4v-5h4l-2-5h3L12 2z',
     ],
     fill: ['currentColor'],
     strokeWidth: 0,

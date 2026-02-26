@@ -503,7 +503,7 @@ Plans:
 | 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
 | 20. Hero Banner & Search | 2/2 | Complete    | 2026-02-26 | - |
 | 21. Listing Carousels & Dealer Showcase | 2/2 | Complete    | 2026-02-26 | - |
-| 22. Selling & Ownership Sections | 2/2 | Complete   | 2026-02-26 | - |
+| 22. Selling & Ownership Sections | 2/2 | Complete    | 2026-02-26 | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | v4.0 | 0/2 | Not started | - |
