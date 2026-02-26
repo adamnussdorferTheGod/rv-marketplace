@@ -274,7 +274,7 @@ Plans:
 
 **Reused components:** Header, Footer, CrossPromotionsBar, ListingCard, Button, Icon, ActionChip, SegmentedButtons, AdSlot, Divider
 
-- [ ] **Phase 19: Routing & Homepage Shell** - react-router-dom setup, route config, HomePage shell, Header logo link, SRP placeholder
+- [x] **Phase 19: Routing & Homepage Shell** - react-router-dom setup, route config, HomePage shell, Header logo link, SRP placeholder (completed 2026-02-26)
 - [ ] **Phase 20: Hero Banner & Search** - Hero image, search bar, segmented control, dealer spotlight, expanded search dropdown with RV type grid
 - [ ] **Phase 21: Listing Carousels & Dealer Showcase** - Hand-picked carousel with filter chips, dealer showcase section, featured listings 2-row grid
 - [ ] **Phase 22: Selling & Ownership Sections** - 3-panel selling section with tabs, 4 illustrated ownership cards
@@ -283,7 +283,7 @@ Plans:
 ### Phase 19: Routing & Homepage Shell
 **Goal**: Users can navigate between Homepage, SRP, and VDP via client-side routing, with logo always linking to homepage
 **Depends on**: Phase 9 (v1.0 core exists)
-**Requirements**: NAV-01, NAV-02, NAV-03
+**Requirements**: NAV-01, NAV-02
 **Success Criteria** (what must be TRUE):
   1. react-router-dom is installed and BrowserRouter wraps the app with routes for `/` (HomePage), `/search` (SRP placeholder), and `/listing/:id` (VDP)
   2. The RV Trader logo in the Header navigates to `/` on click from any page
@@ -314,7 +314,7 @@ Plans:
 ### Phase 21: Listing Carousels & Dealer Showcase
 **Goal**: Users can browse recommended listings, dealer inventory, and featured listings in horizontal carousels with filter chips and navigation
 **Depends on**: Phase 19, Phase 20
-**Requirements**: CARO-01, CARO-02, CARO-03, CARO-04, DEAL-01, DEAL-02, DEAL-03, FEAT-01, FEAT-02
+**Requirements**: NAV-03, CARO-01, CARO-02, CARO-03, CARO-04, DEAL-01, DEAL-02, DEAL-03, FEAT-01, FEAT-02
 **Success Criteria** (what must be TRUE):
   1. "RVs hand-picked for you" section shows a horizontal row of 5 listing cards with photo, title, location/distance, and price, plus left/right carousel arrows
   2. Filter chips above the carousel (Recommended, Used, New, Nearest, Deals, Travel trailers, Class A) toggle the active chip and filter visible cards
@@ -500,7 +500,7 @@ Plans:
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
-| 19. Routing & Homepage Shell | v5.0 | 0/1 | Not started | - |
+| 19. Routing & Homepage Shell | 1/1 | Complete   | 2026-02-26 | - |
 | 20. Hero Banner & Search | v5.0 | 0/2 | Not started | - |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 0/2 | Not started | - |
 | 22. Selling & Ownership Sections | v5.0 | 0/2 | Not started | - |

@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v4.0 milestone complete — all phases finished
+**Current focus:** v5.0 routing and homepage -- Phase 19 complete
 
 ## Current Position
 
-Phase: 24 of 29 (Data Layer & Filter Engine) -- COMPLETE
-Plan: 2 of 2 in current phase
+Phase: 19 of 29 (Routing & Homepage Shell) -- COMPLETE
+Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-02-26 -- Completed 24-02 (filter engine & URL sync)
+Last activity: 2026-02-26 -- Completed 19-01 (routing & homepage shell)
 
-Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0/v5.0 starting)
+Progress: [=================...] ~87% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 starting)
 
 ## Performance Metrics
 
@@ -39,7 +39,8 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 0
+- Completed: 1
+- Phase 19 Plan 01: 3min (2 tasks, 18 files)
 
 ## Accumulated Context
 
@@ -59,6 +60,9 @@ Progress: [=================...] ~85% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v4.0]: Native history API (replaceState) for URL sync instead of react-router dependency
 - [v4.0]: Pure filter/sort functions in data layer, React hook as thin state wrapper
 - [v5.0]: Reuse existing components: Header, Footer, CrossPromotionsBar, ListingCard, etc.
+- [v5.0]: BrowserRouter (traditional) over createBrowserRouter for simplicity
+- [v5.0]: Layout route pattern with AppLayout rendering shared chrome via Outlet
+- [v5.0]: VdpVariantContext default value allows Header to render safely on non-VDP pages
 
 ### Pending Todos
 
@@ -66,10 +70,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- v4.0 complete but SRP UI phases (25-29) depend on v5.0 Phase 19 (routing) shipping first
+None -- Phase 19 routing shipped, unblocking SRP UI phases (25-29)
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Phase 24 complete — v4.0 milestone finished, ready for /gsd:complete-milestone v4.0
+Stopped at: Completed 19-01-PLAN.md (routing & homepage shell)
 Resume file: None

@@ -69,8 +69,8 @@
 
 ### Navigation & Routing
 
-- [ ] **NAV-01**: react-router-dom routes: `/` (HomePage), `/search` (SRP placeholder), `/listing/:id` (VDP)
-- [ ] **NAV-02**: Logo in Header always navigates to `/` (homepage)
+- [x] **NAV-01**: react-router-dom routes: `/` (HomePage), `/search` (SRP placeholder), `/listing/:id` (VDP)
+- [x] **NAV-02**: Logo in Header always navigates to `/` (homepage)
 - [ ] **NAV-03**: Clicking any listing card on homepage navigates to `/listing/:id` (VDP)
 
 ### Hero Banner
@@ -210,9 +210,9 @@ Deferred to subsequent milestones.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| NAV-01 | Phase 19 | Pending |
-| NAV-02 | Phase 19 | Pending |
-| NAV-03 | Phase 19 | Pending |
+| NAV-01 | Phase 19 | Complete |
+| NAV-02 | Phase 19 | Complete |
+| NAV-03 | Phase 21 | Pending |
 | HERO-01 | Phase 20 | Pending |
 | HERO-02 | Phase 20 | Pending |
 | HERO-03 | Phase 20 | Pending |
