@@ -42,10 +42,7 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
                 <DestinationAbout description={destination.description} />
                 <DestinationStats destination={destination} />
                 {highlights.length > 0 && (
-                  <>
-                    <DestinationHighlights highlights={highlights} />
-                    <div className={styles.divider} />
-                  </>
+                  <DestinationHighlights highlights={highlights} />
                 )}
                 {reviews.length > 0 && breakdown && (
                   <>
