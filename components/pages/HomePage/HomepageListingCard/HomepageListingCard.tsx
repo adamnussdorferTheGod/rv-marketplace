@@ -31,13 +31,15 @@ export default function HomepageListingCard({ listing }: HomepageListingCardProp
           }}
           aria-label="Save to favorites"
         >
-          <Icon name="favorite" size={24} />
+          <Icon name="favorite" size={32} />
         </button>
       </div>
 
       <div className={styles.details}>
-        <h3 className={styles.title}>{listing.title}</h3>
-        <span className={styles.location}>{location}</span>
+        <div className={styles.titleGroup}>
+          <h3 className={styles.title}>{listing.title}</h3>
+          <span className={styles.location}>{location}</span>
+        </div>
         <span className={styles.price}>${listing.currentPrice.toLocaleString()}</span>
       </div>
     </Link>

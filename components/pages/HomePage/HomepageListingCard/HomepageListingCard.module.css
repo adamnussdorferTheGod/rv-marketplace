@@ -1,11 +1,11 @@
 .card {
   display: flex;
   flex-direction: column;
-  width: var(--homepage-card-width, 240px);
-  flex: 0 0 auto;
+  align-items: flex-start;
+  flex: 1 0 0;
   min-width: 0;
   border-radius: var(--radius-base);
-  overflow: hidden;
+  overflow: clip;
   text-decoration: none;
   color: inherit;
 }
@@ -30,8 +30,8 @@
 
 .favoriteBtn {
   position: absolute;
-  top: var(--space-12);
-  right: var(--space-12);
+  top: var(--space-16);
+  right: var(--space-16);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,8 +52,15 @@
 .details {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-8);
   padding-top: var(--space-8);
+  width: 100%;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 .title {
