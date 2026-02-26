@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
         '@components': path.resolve(__dirname, '../components'),
         'mapbox-gl': path.resolve(__dirname, 'node_modules/mapbox-gl'),
       },
-      dedupe: ['react', 'react-dom'],
+      dedupe: ['react', 'react-dom', 'react-router-dom'],
     },
     server: {
       proxy: {

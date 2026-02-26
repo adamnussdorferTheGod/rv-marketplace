@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Icon from '@components/ui/Icon/Icon';
 import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
+import { ROUTES } from '../../../app/src/routes';
 import rvTraderLogo from '../../../app/src/assets/rv-trader-logo.svg';
 import styles from './Header.module.css';
 
@@ -29,9 +31,9 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a href="#" className={styles.logo}>
+        <Link to={ROUTES.HOME} className={styles.logo}>
           <img src={rvTraderLogo} alt="RV Trader" width={158} height={40} />
-        </a>
+        </Link>
         <nav className={styles.nav}>
           <ul>
             {NAV_LINKS.map((link) => (

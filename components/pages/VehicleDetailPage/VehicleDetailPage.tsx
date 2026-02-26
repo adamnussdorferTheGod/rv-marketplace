@@ -1,6 +1,3 @@
-import CrossPromotionsBar from '@components/layout/CrossPromotionsBar/CrossPromotionsBar';
-import Header from '@components/layout/Header/Header';
-import Footer from '@components/layout/Footer/Footer';
 import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
@@ -62,8 +59,6 @@ function VehicleDetailPageContent() {
   return (
     <>
       <div className={`${styles.page} ${isOpen ? styles.pageShifted : ''}`}>
-        <CrossPromotionsBar />
-        <Header />
         <div className={styles.leaderboard}>
           <AdSlot width={728} height={90} />
         </div>
@@ -166,7 +161,6 @@ function VehicleDetailPageContent() {
         <div className={styles.bottomLeaderboard}>
           <AdSlot width={728} height={90} />
         </div>
-        <Footer />
       </div>
       <AiModePanel
         listingTitle={sampleListing.title}
