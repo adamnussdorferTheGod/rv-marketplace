@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listingPath } from '../../../../app/src/routes';
 import type { HomepageListingData } from '../../../../app/src/data/homepageData';
-import Icon from '../../../ui/Icon/Icon';
 import styles from './HomepageListingCard.module.css';
 
 interface HomepageListingCardProps {
@@ -9,6 +9,7 @@ interface HomepageListingCardProps {
 }
 
 export default function HomepageListingCard({ listing }: HomepageListingCardProps) {
+  const [isFavorite, setIsFavorite] = useState(false);
   const location = listing.dealer.distanceMiles
     ? `${listing.dealer.city}, ${listing.dealer.state} \u00b7 ${listing.dealer.distanceMiles} miles away`
     : `${listing.dealer.city}, ${listing.dealer.state}`;
@@ -28,10 +29,13 @@ export default function HomepageListingCard({ listing }: HomepageListingCardProp
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
+            setIsFavorite(!isFavorite);
           }}
-          aria-label="Save to favorites"
+          aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
         >
-          <Icon name="favorite" size={32} />
+          <svg width="24" height="24" viewBox="0 0 24 24" fill={isFavorite ? '#E53935' : 'rgba(0,0,0,0.5)'} stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
         </button>
       </div>
 

@@ -18,6 +18,7 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
   const heroImage = images[0];
   const thumbnailsBefore = videoWalkthrough ? images.slice(1, 3) : images.slice(1, 5);
   const thumbnailsAfter = videoWalkthrough ? images.slice(3, 4) : [];
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [lightboxStartIndex, setLightboxStartIndex] = useState(0);
   // Video slide position in unified gallery slides array
@@ -48,8 +49,10 @@ export default function PhotoGallery({ images, totalPhotoCount, tagText, listing
             <button type="button" className={styles.actionButton} aria-label="Share">
               <Icon name="share" size={20} />
             </button>
-            <button type="button" className={styles.actionButton} aria-label="Favorite">
-              <Icon name="favorite" size={20} />
+            <button type="button" className={styles.actionButton} onClick={() => setIsFavorite(!isFavorite)} aria-label={isFavorite ? 'Remove from favorites' : 'Favorite'}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill={isFavorite ? '#E53935' : 'rgba(0,0,0,0.5)'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+              </svg>
             </button>
           </div>
           {/* Mobile: pagination dots */}
