@@ -43,6 +43,7 @@
 
 .loadMore {
   align-self: flex-start;
+  margin-top: 16px;
 }
 
 .placeholder {
