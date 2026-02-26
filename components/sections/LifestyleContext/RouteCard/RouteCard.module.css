@@ -1,0 +1,153 @@
+/* RouteCard — 260px fixed-width route card for horizontal scroll */
+
+.card {
+  flex: 0 0 260px;
+  width: 260px;
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  text-align: left;
+
+  /* Button reset */
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+  padding: 0;
+  color: inherit;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--rv-primary);
+  outline-offset: 2px;
+}
+
+/* Mini map placeholder with CSS route line */
+.mapPlaceholder {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  background: var(--rv-surface-variant);
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Decorative route line via pseudo-element */
+.mapPlaceholder::after {
+  content: '';
+  position: absolute;
+  width: 80%;
+  height: 60%;
+  top: 20%;
+  left: 10%;
+  border: 3px dashed var(--rv-primary);
+  border-radius: 40% 60% 30% 70%;
+  border-right: none;
+  border-bottom: none;
+  pointer-events: none;
+}
+
+/* Start dot */
+.startDot {
+  position: absolute;
+  bottom: 20%;
+  left: 10%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rv-primary);
+  z-index: 1;
+}
+
+/* End dot */
+.endDot {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rv-primary);
+  z-index: 1;
+}
+
+/* RV suitability badge */
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: var(--radius-full);
+  padding: 4px 10px;
+  font: var(--font-label-3);
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.badgeEasy {
+  background: var(--rv-primary);
+}
+
+.badgeMod {
+  background: #F59E0B;
+}
+
+.badgeChal {
+  background: #EF4444;
+}
+
+/* Content area */
+.content {
+  padding: 12px;
+}
+
+.name {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statsRow,
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin-top: 6px;
+}
+
+.dot {
+  color: var(--rv-border);
+}
+
+.stops {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin-top: 6px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.suitNote {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  font-style: italic;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
