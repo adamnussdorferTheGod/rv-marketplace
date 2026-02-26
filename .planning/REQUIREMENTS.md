@@ -99,9 +99,9 @@
 
 ### Dealer Showcase
 
-- [ ] **DEAL-01**: Dealer showcase section displays dealer logo, name ("Roy Robinson RV Center"), tagline, "View inventory" link, and phone number
-- [ ] **DEAL-02**: Below dealer info, horizontal row of 5 listing cards from that dealer with photo, title, location, and price
-- [ ] **DEAL-03**: Carousel navigation arrows for dealer inventory row
+- [x] **DEAL-01**: Dealer showcase section displays dealer logo, name ("Roy Robinson RV Center"), tagline, "View inventory" link, and phone number
+- [x] **DEAL-02**: Below dealer info, horizontal row of 5 listing cards from that dealer with photo, title, location, and price
+- [x] **DEAL-03**: Carousel navigation arrows for dealer inventory row
 
 ### Selling Section
 
@@ -110,8 +110,8 @@
 
 ### Featured Listings
 
-- [ ] **FEAT-01**: "Featured listings" section displays 2 rows x 5 columns of listing cards (10 total)
-- [ ] **FEAT-02**: Section header with title and carousel navigation arrows
+- [x] **FEAT-01**: "Featured listings" section displays 2 rows x 5 columns of listing cards (10 total)
+- [x] **FEAT-02**: Section header with title and carousel navigation arrows
 
 ### Ownership Cards
 
@@ -228,11 +228,11 @@ Deferred to subsequent milestones.
 | CARO-02 | Phase 21 | Complete |
 | CARO-03 | Phase 21 | Complete |
 | CARO-04 | Phase 21 | Complete |
-| DEAL-01 | Phase 21 | Pending |
-| DEAL-02 | Phase 21 | Pending |
-| DEAL-03 | Phase 21 | Pending |
-| FEAT-01 | Phase 21 | Pending |
-| FEAT-02 | Phase 21 | Pending |
+| DEAL-01 | Phase 21 | Complete |
+| DEAL-02 | Phase 21 | Complete |
+| DEAL-03 | Phase 21 | Complete |
+| FEAT-01 | Phase 21 | Complete |
+| FEAT-02 | Phase 21 | Complete |
 | SELL-01 | Phase 22 | Pending |
 | SELL-02 | Phase 22 | Pending |
 | OWN-01 | Phase 22 | Pending |

@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v5.0 listing carousels & dealer showcase -- Phase 21 in progress
+**Current focus:** v5.0 listing carousels & dealer showcase -- Phase 21 complete
 
 ## Current Position
 
 Phase: 21 of 29 (Listing Carousels & Dealer Showcase)
-Plan: 1 of 2 in current phase -- COMPLETE
-Status: Phase 21 Plan 01 complete, Plan 02 remaining
-Last activity: 2026-02-26 -- Completed 21-01 (hand-picked carousel)
+Plan: 2 of 2 in current phase -- COMPLETE
+Status: Phase 21 complete (all plans done)
+Last activity: 2026-02-26 -- Completed 21-02 (dealer showcase & featured listings)
 
 Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial; v4.0 complete; v5.0 in progress)
 
@@ -39,11 +39,12 @@ Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial
 
 **v5.0:**
 - Total plans estimated: 9 (across 5 phases)
-- Completed: 4
+- Completed: 5
 - Phase 19 Plan 01: 3min (2 tasks, 18 files)
 - Phase 20 Plan 01: 2min (2 tasks, 5 files)
 - Phase 20 Plan 02: 3min (2 tasks, 5 files)
 - Phase 21 Plan 01: 2min (2 tasks, 8 files)
+- Phase 21 Plan 02: 2min (2 tasks, 5 files)
 
 ## Accumulated Context
 
@@ -75,6 +76,9 @@ Progress: [==================..] ~90% (v1.0 complete; v2.0 partial; v3.0 partial
 - [v5.0]: HomepageListingData picks minimal fields from SRPListing (single photo, not full array)
 - [v5.0]: Camping World selected as showcase dealer (most city coverage in sample data)
 - [v5.0]: ListingCarousel uses position:relative wrapper with absolute arrow buttons
+- [v5.0]: DealerShowcase rendered outside .content wrapper as full-width sibling for gray background
+- [v5.0]: FeaturedListings grid cards override card width via --homepage-card-width CSS custom property
+- [v5.0]: Split .content into two blocks around DealerShowcase for correct section ordering
 
 ### Pending Todos
 
@@ -82,10 +86,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None -- Phase 21 Plan 01 complete
+None -- Phase 21 complete
 
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 21-01-PLAN.md (hand-picked carousel)
+Stopped at: Completed 21-02-PLAN.md (dealer showcase & featured listings)
 Resume file: None
