@@ -4,6 +4,7 @@ import DealerShowcase from './DealerShowcase/DealerShowcase';
 import FeaturedListings from './FeaturedListings/FeaturedListings';
 import SellingSection from './SellingSection/SellingSection';
 import OwnershipCards from './OwnershipCards/OwnershipCards';
+import StayInTheKnow from './StayInTheKnow/StayInTheKnow';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <div className={styles.content}>
         <SellingSection />
         <FeaturedListings />
+        <StayInTheKnow />
         <OwnershipCards />
       </div>
     </div>

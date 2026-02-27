@@ -1,0 +1,227 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.heading {
+  font: var(--font-display-1-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* ─── Underline tabs ─── */
+
+.tabs {
+  display: flex;
+  gap: var(--space-32);
+  border-bottom: 1px solid var(--rv-border-low);
+  position: relative;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: var(--space-16) 0 var(--space-8);
+  font: var(--font-label-1);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.tabActive {
+  color: var(--rv-on-surface-brand);
+}
+
+.tabActive::after {
+  background: var(--rv-on-surface-brand);
+}
+
+/* ─── Content grid ─── */
+
+.content {
+  display: flex;
+  gap: var(--space-32);
+  align-items: stretch;
+}
+
+/* ─── Featured card (left) ─── */
+
+.featuredCard {
+  position: relative;
+  flex: 0 0 60%;
+  min-height: 464px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.featuredImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featuredOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.55));
+}
+
+.featuredBody {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-32);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-4) var(--space-8);
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-sm);
+  font: var(--font-label-3);
+  color: var(--rv-on-surface);
+  width: fit-content;
+}
+
+.featuredTitle {
+  font: var(--font-display-1);
+  color: var(--rv-on-surface-inverse);
+  margin: 0;
+  max-width: 460px;
+}
+
+.featuredDescription {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-inverse);
+  margin: 0;
+  max-width: 460px;
+}
+
+/* ─── Side article cards (right) ─── */
+
+.sideList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-width: 0;
+}
+
+.sideCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+  flex: 1;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: box-shadow 0.15s ease;
+}
+
+.sideCard:hover {
+  box-shadow: var(--rv-shadow-bottom);
+}
+
+.sideCardText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.sideCategory {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.sideTitle {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.arrowButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-full);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.arrowButton:hover {
+  background: var(--rv-surface-variant);
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 991px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .featuredCard {
+    flex: none;
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    gap: var(--space-24);
+  }
+
+  .tabs {
+    gap: var(--space-24);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .featuredCard {
+    min-height: 300px;
+  }
+
+  .featuredTitle {
+    font: var(--font-headline-1);
+  }
+
+  .sideCard {
+    padding: var(--space-12) var(--space-16);
+    gap: var(--space-16);
+  }
+}

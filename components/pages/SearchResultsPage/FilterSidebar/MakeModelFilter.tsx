@@ -51,12 +51,9 @@ export default function MakeModelFilter({
   }
 
   return (
-    <CollapsibleSection title="Make &amp; Model">
+    <CollapsibleSection title="Make & model">
       {/* Search input */}
       <div className={styles.searchContainer}>
-        <span className={styles.searchIcon}>
-          <Icon name="search" size={20} />
-        </span>
         <input
           className={styles.searchInput}
           type="text"
@@ -88,14 +85,14 @@ export default function MakeModelFilter({
                   >
                     {isMakeChecked && (
                       <svg
-                        width="12"
-                        height="10"
-                        viewBox="0 0 12 10"
+                        width="14"
+                        height="12"
+                        viewBox="0 0 14 12"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M1 5L4.5 8.5L11 1.5"
+                          d="M1 6L5 10L13 2"
                           stroke="white"
                           strokeWidth="2"
                           strokeLinecap="round"
@@ -131,6 +128,10 @@ export default function MakeModelFilter({
                     return (
                       <li key={model} className={styles.modelItem}>
                         <label className={styles.modelLabel}>
+                          <span
+                            className={styles.modelSpacer}
+                            aria-hidden="true"
+                          />
                           <input
                             type="checkbox"
                             className={styles.hiddenCheckbox}
@@ -143,14 +144,14 @@ export default function MakeModelFilter({
                           >
                             {isModelChecked && (
                               <svg
-                                width="12"
-                                height="10"
-                                viewBox="0 0 12 10"
+                                width="14"
+                                height="12"
+                                viewBox="0 0 14 12"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
-                                  d="M1 5L4.5 8.5L11 1.5"
+                                  d="M1 6L5 10L13 2"
                                   stroke="white"
                                   strokeWidth="2"
                                   strokeLinecap="round"
@@ -178,9 +179,7 @@ export default function MakeModelFilter({
           onClick={() => setShowAll((prev) => !prev)}
           type="button"
         >
-          {showAll
-            ? 'Show fewer options'
-            : `See all options (${hiddenCount} more)`}
+          {showAll ? 'Show fewer options' : 'See all options'}
         </button>
       )}
     </CollapsibleSection>

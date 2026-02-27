@@ -92,6 +92,7 @@
 
   /* Display */
   --font-display-1: 700 32px/44.8px var(--font-family);
+  --font-display-1-semibold: 600 32px/44.8px var(--font-family);
 
   /* Headline */
   --font-headline-1: 700 24px/33.6px var(--font-family);

@@ -62,8 +62,17 @@ export default function HandPickedSection() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.headerRow}>
-        <h2 className={styles.heading}>RVs hand-picked for you</h2>
+      <div className={styles.chipRow}>
+        {FILTER_CHIPS.map((chip) => (
+          <button
+            key={chip}
+            type="button"
+            className={`${styles.chip} ${activeFilter === chip ? styles.chipActive : ''}`}
+            onClick={() => handleFilterChange(chip)}
+          >
+            {chip}
+          </button>
+        ))}
         {totalPages > 1 && (
           <div className={styles.navArrows}>
             <button
@@ -86,19 +95,6 @@ export default function HandPickedSection() {
             </button>
           </div>
         )}
-      </div>
-
-      <div className={styles.chipRow}>
-        {FILTER_CHIPS.map((chip) => (
-          <button
-            key={chip}
-            type="button"
-            className={`${styles.chip} ${activeFilter === chip ? styles.chipActive : ''}`}
-            onClick={() => handleFilterChange(chip)}
-          >
-            {chip}
-          </button>
-        ))}
       </div>
 
       {pageListings.length > 0 ? (

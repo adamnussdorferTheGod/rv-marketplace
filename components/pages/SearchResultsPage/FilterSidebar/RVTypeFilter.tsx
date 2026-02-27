@@ -13,7 +13,7 @@ export default function RVTypeFilter({
   onToggle,
 }: RVTypeFilterProps) {
   return (
-    <CollapsibleSection title="RV Type">
+    <CollapsibleSection title="RV type">
       <ul className={styles.list}>
         {RV_TYPE_OPTIONS.map((option) => {
           const isChecked = selectedTypes.includes(option.value);
@@ -32,14 +32,14 @@ export default function RVTypeFilter({
                 >
                   {isChecked && (
                     <svg
-                      width="12"
-                      height="10"
-                      viewBox="0 0 12 10"
+                      width="14"
+                      height="12"
+                      viewBox="0 0 14 12"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M1 5L4.5 8.5L11 1.5"
+                        d="M1 6L5 10L13 2"
                         stroke="white"
                         strokeWidth="2"
                         strokeLinecap="round"
@@ -48,14 +48,14 @@ export default function RVTypeFilter({
                     </svg>
                   )}
                 </span>
-                <img
-                  className={styles.thumbnail}
-                  src={option.thumbnail}
-                  alt={option.label}
-                  loading="lazy"
-                />
                 <span className={styles.labelText}>{option.label}</span>
               </label>
+              <img
+                className={styles.thumbnail}
+                src={option.thumbnail}
+                alt={option.label}
+                loading="lazy"
+              />
             </li>
           );
         })}

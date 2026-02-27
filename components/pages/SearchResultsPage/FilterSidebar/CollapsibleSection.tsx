@@ -5,18 +5,20 @@ import styles from './CollapsibleSection.module.css';
 interface CollapsibleSectionProps {
   title: string;
   defaultOpen?: boolean;
+  noBorder?: boolean;
   children: ReactNode;
 }
 
 export default function CollapsibleSection({
   title,
   defaultOpen = true,
+  noBorder = false,
   children,
 }: CollapsibleSectionProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className={styles.section}>
+    <div className={noBorder ? styles.sectionNoBorder : styles.section}>
       <button
         className={styles.header}
         onClick={() => setIsOpen((prev) => !prev)}

@@ -1,6 +1,10 @@
 .section {
   border-bottom: 1px solid var(--rv-border-low);
-  padding: 16px 0;
+  padding: var(--space-8) 0;
+}
+
+.sectionNoBorder {
+  padding: var(--space-8) 0;
 }
 
 .header {
@@ -9,12 +13,12 @@
   justify-content: space-between;
   cursor: pointer;
   padding: 0;
+  padding-bottom: var(--space-8);
   background: none;
   border: none;
   width: 100%;
-  font: var(--font-body-1);
-  font-weight: 600;
-  color: var(--rv-on-surface);
+  font: var(--font-label-1-semibold);
+  color: #252526;
   user-select: none;
 }
 
@@ -30,10 +34,10 @@
 
 .content {
   overflow: hidden;
-  max-height: 500px;
+  max-height: 600px;
   opacity: 1;
   transition: max-height 0.25s ease, opacity 0.2s ease;
-  padding-top: 12px;
+  padding-top: var(--space-8);
 }
 
 .contentCollapsed {

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { FilterCriteria } from '@app/src/data/srpTypes.ts';
+import Icon from '@components/ui/Icon/Icon';
+import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import CollapsibleSection from './CollapsibleSection';
 import styles from './PriceFilter.module.css';
 
@@ -13,6 +14,22 @@ interface PriceFilterProps {
 }
 
 type PriceMode = 'cash' | 'finance';
+
+const MODE_OPTIONS: { value: PriceMode; label: string }[] = [
+  { value: 'cash', label: 'Cash' },
+  { value: 'finance', label: 'Finance' },
+];
+
+const TERM_OPTIONS = [
+  { value: 36, label: '36 months / 3 years' },
+  { value: 48, label: '48 months / 4 years' },
+  { value: 60, label: '60 months / 5 years' },
+  { value: 72, label: '72 months / 6 years' },
+  { value: 84, label: '84 months / 7 years' },
+  { value: 120, label: '120 months / 10 years' },
+  { value: 180, label: '180 months / 15 years' },
+  { value: 240, label: '240 months / 20 years' },
+];
 
 export default function PriceFilter({
   priceMin,
@@ -43,51 +60,33 @@ export default function PriceFilter({
     if (newMode === mode) return;
 
     if (newMode === 'finance') {
-      // Switching to finance: clear price filters, let buying power drive
       onSetFilter('priceMin', null);
       onSetFilter('priceMax', null);
     }
-    // Switching to cash: keep current priceMin/priceMax values
 
     setMode(newMode);
   };
 
-  const termYears = Math.floor(term / 12);
-  const termRemainder = term % 12;
-  const termLabel = termRemainder > 0
-    ? `${term} months / ${termYears}yr ${termRemainder}mo`
-    : `${term} months / ${termYears} years`;
-
   return (
     <CollapsibleSection title="Price">
-      {/* Tab toggle */}
-      <div className={styles.tabs}>
-        <button
-          className={`${styles.tab}${mode === 'cash' ? ` ${styles.tabActive}` : ''}`}
-          onClick={() => handleModeSwitch('cash')}
-          type="button"
-        >
-          Cash
-        </button>
-        <button
-          className={`${styles.tab}${mode === 'finance' ? ` ${styles.tabActive}` : ''}`}
-          onClick={() => handleModeSwitch('finance')}
-          type="button"
-        >
-          Finance
-        </button>
-      </div>
-
       <div className={styles.content}>
+        {/* Segmented toggle */}
+        <SegmentedButtons
+          options={MODE_OPTIONS}
+          selected={mode}
+          onChange={handleModeSwitch}
+          className={styles.modeToggle}
+        />
+
         {mode === 'cash' ? (
-          /* Cash mode: min/max price inputs */
-          <div className={styles.inputRow}>
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Min</label>
+          <>
+            {/* Cash mode: min/max price inputs with $ prefix */}
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputPrefix}>$</span>
               <input
                 className={styles.input}
                 type="number"
-                placeholder="$0"
+                placeholder="Min price"
                 step={1000}
                 value={priceMin ?? ''}
                 onChange={(e) =>
@@ -98,12 +97,12 @@ export default function PriceFilter({
                 }
               />
             </div>
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Max</label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputPrefix}>$</span>
               <input
                 className={styles.input}
                 type="number"
-                placeholder="$500,000"
+                placeholder="Max price"
                 step={1000}
                 value={priceMax ?? ''}
                 onChange={(e) =>
@@ -114,16 +113,16 @@ export default function PriceFilter({
                 }
               />
             </div>
-          </div>
+          </>
         ) : (
-          /* Finance mode: down payment, monthly, term slider, buying power */
+          /* Finance mode: down payment, monthly, term dropdown, buying power */
           <div className={styles.financeFields}>
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Down payment</label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputPrefix}>$</span>
               <input
                 className={styles.input}
                 type="number"
-                placeholder="$0"
+                placeholder="Down payment"
                 step={1000}
                 value={downPayment || ''}
                 onChange={(e) =>
@@ -132,12 +131,12 @@ export default function PriceFilter({
               />
             </div>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Monthly payment</label>
+            <div className={styles.inputWrapper}>
+              <span className={styles.inputPrefix}>$</span>
               <input
                 className={styles.input}
                 type="number"
-                placeholder="$500"
+                placeholder="Monthly payment"
                 step={50}
                 value={monthlyPayment || ''}
                 onChange={(e) =>
@@ -148,28 +147,42 @@ export default function PriceFilter({
               />
             </div>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.label}>Loan term</label>
-              <input
-                className={styles.slider}
-                type="range"
-                min={36}
-                max={240}
-                step={12}
-                value={term}
-                onChange={(e) => setTerm(Number(e.target.value))}
-              />
-              <span className={styles.sliderValue}>{termLabel}</span>
-            </div>
+            <select
+              className={styles.termSelect}
+              value={term}
+              onChange={(e) => setTerm(Number(e.target.value))}
+            >
+              {TERM_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
 
             {/* Estimated buying power callout */}
             <div className={styles.buyingPower}>
-              <span className={styles.buyingPowerLabel}>
-                Estimated buying power
-              </span>
-              <span className={styles.buyingPowerValue}>
-                ${buyingPower.toLocaleString()}
-              </span>
+              <div className={styles.buyingPowerContent}>
+                <div className={styles.buyingPowerHeader}>
+                  <div className={styles.buyingPowerLabelRow}>
+                    <span className={styles.buyingPowerLabel}>
+                      Estimated buying power
+                    </span>
+                    <Icon name="info" size={20} />
+                  </div>
+                  <span className={styles.buyingPowerValue}>
+                    {buyingPower > 0
+                      ? `$${buyingPower.toLocaleString()}`
+                      : '\u2014'}
+                  </span>
+                </div>
+                <p className={styles.buyingPowerDescription}>
+                  Be the first to know when new RVs get listed within your
+                  budget.
+                </p>
+              </div>
+              <button className={styles.buyingPowerCta} type="button">
+                Get alerts
+              </button>
             </div>
           </div>
         )}

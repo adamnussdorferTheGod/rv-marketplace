@@ -12,7 +12,7 @@
 }
 
 .title {
-  font: var(--font-headline-1);
+  font: var(--font-display-1-semibold);
   color: var(--rv-on-surface);
   margin: 0;
 }

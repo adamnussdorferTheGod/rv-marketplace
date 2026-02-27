@@ -6,7 +6,7 @@ import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import SortControls from './SortControls/SortControls';
 import ListingGrid from './ListingGrid/ListingGrid';
 import Pagination from './Pagination/Pagination';
-import DealerAdCard from './DealerAdCard/DealerAdCard';
+import SellOnRvTrader from './FilterSidebar/SellOnRvTrader';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
@@ -90,14 +90,13 @@ export default function SearchResultsPage() {
               onClose={() => setSidebarOpen(false)}
             />
 
+            <SellOnRvTrader />
+
             <div className={styles.sidebarAd}>
-              <DealerAdCard
-                dealerName="Roy Robinson RV"
-                dealerPhoto="https://images.unsplash.com/photo-1562613532-9740b8b5c823?w=400&h=250&fit=crop"
-                description="Your trusted RV dealer since 1969. Browse our selection of new and pre-owned motorhomes, travel trailers, and fifth wheels."
-                ctaLabel="View Inventory"
-                ctaHref="/search?makes=forest-river"
-              />
+              <AdSlot width={300} height={250} label="Ad: 300x250" />
+            </div>
+            <div className={styles.sidebarAd}>
+              <AdSlot width={300} height={600} label="Ad: 300x600" />
             </div>
           </div>
 

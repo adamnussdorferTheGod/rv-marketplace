@@ -91,38 +91,46 @@ export default function FilterSidebar({
                   type="button"
                   aria-label={`Remove ${af.label} filter`}
                 >
-                  <Icon name="x_close" size={16} />
+                  <Icon name="x_close" size={20} />
                 </button>
               </span>
             ))}
           </div>
         )}
 
-        {/* 3. Keyword search */}
-        <CollapsibleSection title="Keyword">
+        {/* Divider */}
+        <div className={styles.divider} />
+
+        {/* 3. AI Search */}
+        <div className={styles.searchSection}>
           <div className={styles.searchContainer}>
             <span className={styles.searchIcon}>
-              <Icon name="search" size={20} />
+              <Icon name="search" size={24} />
             </span>
             <input
               className={styles.searchInput}
               type="text"
-              placeholder="Search by keyword"
+              placeholder="Family-friendly RVs for 4"
               value={filters.keyword}
               onChange={(e) => setFilter('keyword', e.target.value)}
             />
           </div>
-        </CollapsibleSection>
+          <button className={styles.searchButton} type="button">
+            Search
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div className={styles.divider} />
 
         {/* 4. Location filter */}
         <CollapsibleSection title="Location">
           <div className={styles.locationFields}>
             <div className={styles.fieldGroup}>
-              <label className={styles.fieldLabel}>ZIP code</label>
               <input
                 className={styles.fieldInput}
                 type="text"
-                placeholder="Enter ZIP"
+                placeholder="ZIP code"
                 value={filters.zipCode}
                 onChange={(e) => setFilter('zipCode', e.target.value)}
                 maxLength={5}
@@ -131,7 +139,6 @@ export default function FilterSidebar({
               />
             </div>
             <div className={styles.fieldGroup}>
-              <label className={styles.fieldLabel}>Search within</label>
               <select
                 className={styles.fieldSelect}
                 value={filters.radiusMiles}
@@ -150,7 +157,7 @@ export default function FilterSidebar({
         </CollapsibleSection>
 
         {/* 5. Condition toggle */}
-        <CollapsibleSection title="Condition">
+        <CollapsibleSection title="New or used">
           <SegmentedButtons
             options={CONDITION_OPTIONS}
             selected={filters.condition}
@@ -180,7 +187,7 @@ export default function FilterSidebar({
           onSetFilter={setFilter}
         />
 
-        {/* 9-14. Additional filters: Year, Length, Sleeping, Fuel, Floor Plan, GVW */}
+        {/* 9+. Additional filters: Length, Year, Bunkhouse, Fuel, Sleeping, Floor Plan, GVW */}
         <AdditionalFilters
           filters={filters}
           setFilter={setFilter}

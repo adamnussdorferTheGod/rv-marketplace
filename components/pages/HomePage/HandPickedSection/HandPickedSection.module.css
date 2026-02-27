@@ -4,23 +4,10 @@
   gap: var(--space-32);
 }
 
-/* ─── Header row: title + nav arrows ─── */
-
-.headerRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.heading {
-  font: var(--font-headline-1);
-  color: var(--rv-on-surface);
-  margin: 0;
-}
-
 .navArrows {
   display: flex;
   gap: var(--space-16);
+  margin-left: auto;
 }
 
 .navArrow {
@@ -51,6 +38,7 @@
 
 .chipRow {
   display: flex;
+  align-items: center;
   gap: var(--space-16);
   flex-wrap: wrap;
 }

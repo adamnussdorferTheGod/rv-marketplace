@@ -74,41 +74,41 @@ export interface OwnershipCard {
   title: string;
   description: string;
   ctaText: string;
-  icon: string;
+  image: string;
 }
 
 export const ownershipCards: OwnershipCard[] = [
   {
     id: 'accessories',
-    title: 'RV Accessories',
+    title: 'RV accessories',
     description:
-      'Shop parts, upgrades, and gear to customize your RV for any adventure.',
-    ctaText: 'Learn more',
-    icon: 'wrench',
+      'Shop hitches and covers to fishing gear and much more.',
+    ctaText: 'Shop accessories',
+    image: '/images/ownership-accessories.png',
   },
   {
     id: 'insurance',
-    title: 'Insurance Services',
+    title: 'Insurance services',
     description:
-      'Protect your investment with coverage tailored to RV owners.',
-    ctaText: 'Learn more',
-    icon: 'shield',
+      'Hit the road with confidence knowing your RV is covered.',
+    ctaText: 'Explore options',
+    image: '/images/ownership-insurance.png',
   },
   {
     id: 'closing',
-    title: 'Closing Services',
+    title: 'Closing services',
     description:
-      'Streamline your purchase with title, registration, and delivery support.',
+      'Get help finalizing all documentations for RV ownership.',
     ctaText: 'Learn more',
-    icon: 'document',
+    image: '/images/ownership-closing.png',
   },
   {
     id: 'reviews',
-    title: 'Owner Reviews',
+    title: 'Owner reviews',
     description:
-      'See what real RV owners say about their rigs before you buy.',
-    ctaText: 'Learn more',
-    icon: 'star_filled',
+      'Stay up to date on what it means to be an RV owner.',
+    ctaText: 'Read more',
+    image: '/images/ownership-reviews.png',
   },
 ];
 
@@ -152,5 +152,67 @@ export const sellingPanels: SellingPanel[] = [
       'Get an instant cash offer for your RV and close in as little as a few days. No haggling, no waiting, no hassle -- just a fair price and a quick sale.',
     ctaText: 'Get your offer',
     image: 'https://images.unsplash.com/photo-1533558701576-23c65e0272fb?w=600&h=400&fit=crop&q=80',
+  },
+];
+
+// ─── Stay in the Know (Articles) ─────────────────────────────────────
+
+export type ArticleCategoryId =
+  | 'owner-reviews'
+  | 'news'
+  | 'lifestyle'
+  | 'whats-trending';
+
+export interface ArticleCategory {
+  id: ArticleCategoryId;
+  label: string;
+}
+
+export const articleCategories: ArticleCategory[] = [
+  { id: 'owner-reviews', label: 'Owner reviews' },
+  { id: 'news', label: 'News' },
+  { id: 'lifestyle', label: 'Lifestyle' },
+  { id: 'whats-trending', label: "What's trending" },
+];
+
+export interface Article {
+  id: string;
+  category: ArticleCategoryId;
+  categoryLabel: string;
+  title: string;
+  description?: string;
+  image?: string;
+  featured?: boolean;
+}
+
+export const articles: Article[] = [
+  {
+    id: 'art-1',
+    category: 'owner-reviews',
+    categoryLabel: 'Owner reviews',
+    title: '5 Top RV Rental Platforms for Road Trips',
+    description:
+      'Elevate your RV experience with a rooftop deck. These five innovative platforms can change the way you enjoy the great outdoors.',
+    image:
+      'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=900&h=600&fit=crop&q=80',
+    featured: true,
+  },
+  {
+    id: 'art-2',
+    category: 'owner-reviews',
+    categoryLabel: 'Owner review',
+    title: 'Understanding Insurance: What You Need to Know to Avoid Scams',
+  },
+  {
+    id: 'art-3',
+    category: 'owner-reviews',
+    categoryLabel: 'Owner review',
+    title: 'The Best RV Parks in the Pacific Northwest for 2026',
+  },
+  {
+    id: 'art-4',
+    category: 'owner-reviews',
+    categoryLabel: 'Owner review',
+    title: 'How to Winterize Your RV: A Complete Step-by-Step Guide',
   },
 ];

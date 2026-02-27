@@ -2,7 +2,7 @@
 
 .inputRow {
   display: flex;
-  gap: 12px;
+  gap: var(--space-8);
 }
 
 .inputRow .inputGroup {
@@ -19,22 +19,63 @@
 .label {
   font: var(--font-body-2);
   color: var(--rv-on-surface-variant);
-  margin-bottom: 4px;
+  margin-bottom: var(--space-4);
+}
+
+/* ─── Input with $ prefix ───────────────────────────────────────── */
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  border: 1px solid #939598;
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  height: 58px;
+  box-sizing: border-box;
+  background: white;
+}
+
+.inputWrapper:focus-within {
+  border-color: var(--rv-primary);
 }
 
 .input {
-  border: 1px solid var(--rv-border-input);
-  border-radius: 8px;
-  padding: 8px 12px;
+  border: none;
+  outline: none;
   font: var(--font-body-1);
   color: var(--rv-on-surface);
   background: transparent;
-  outline: none;
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
 }
 
-.input:focus {
+.input::placeholder {
+  color: var(--rv-on-surface-variant);
+  font: var(--font-label-1);
+}
+
+/* Standalone input (not in wrapper) */
+.inputStandalone {
+  border: 1px solid #939598;
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  background: white;
+  outline: none;
+  height: 58px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.inputStandalone::placeholder {
+  color: var(--rv-on-surface-variant);
+  font: var(--font-label-1);
+}
+
+.inputStandalone:focus {
   border-color: var(--rv-primary);
 }
 
@@ -46,7 +87,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-16);
 }
 
 .checkboxRow {
@@ -57,7 +98,7 @@
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
   cursor: pointer;
   width: 100%;
 }
@@ -76,18 +117,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  border: 2px solid var(--rv-border);
+  border: 1px solid #939598;
   border-radius: 4px;
-  background: transparent;
+  background: white;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .checkboxChecked {
-  background: var(--rv-primary);
-  border-color: var(--rv-primary);
+  background: #252526;
+  border-color: #252526;
 }
 
 /* ─── Checkbox text ─────────────────────────────────────────────── */

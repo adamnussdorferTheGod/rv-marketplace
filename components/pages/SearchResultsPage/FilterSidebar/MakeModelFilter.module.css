@@ -5,11 +5,14 @@
 .searchContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
-  border: 1px solid var(--rv-border-input);
-  border-radius: 8px;
-  padding: 8px 12px;
-  margin-bottom: 12px;
+  gap: var(--space-8);
+  border: 1px solid #939598;
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  height: 58px;
+  box-sizing: border-box;
+  background: white;
+  margin-bottom: var(--space-16);
 }
 
 .searchIcon {
@@ -31,6 +34,7 @@
 
 .searchInput::placeholder {
   color: var(--rv-on-surface-variant);
+  font: var(--font-label-1);
 }
 
 /* ─── Make list ──────────────────────────────────────────────────── */
@@ -41,7 +45,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-16);
 }
 
 .makeItem {
@@ -58,7 +62,7 @@
 .makeLabel {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
   cursor: pointer;
   flex: 1;
   min-width: 0;
@@ -66,7 +70,7 @@
 
 .makeName {
   font: var(--font-body-1);
-  color: var(--rv-on-surface);
+  color: #252526;
 }
 
 .expandToggle {
@@ -99,18 +103,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  border: 2px solid var(--rv-border);
+  border: 1px solid #939598;
   border-radius: 4px;
-  background: transparent;
+  background: white;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
 .checkboxChecked {
-  background: var(--rv-primary);
-  border-color: var(--rv-primary);
+  background: #252526;
+  border-color: #252526;
 }
 
 /* ─── Model sub-list ─────────────────────────────────────────────── */
@@ -118,10 +122,10 @@
 .modelList {
   list-style: none;
   margin: 0;
-  padding: 4px 0 0 28px;
+  padding: var(--space-16) 0 0 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-16);
 }
 
 .modelItem {
@@ -132,13 +136,18 @@
 .modelLabel {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-8);
   cursor: pointer;
 }
 
+.modelSpacer {
+  width: 24px;
+  flex-shrink: 0;
+}
+
 .modelName {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
+  font: var(--font-body-1);
+  color: #252526;
 }
 
 /* ─── See all options link ───────────────────────────────────────── */
@@ -147,12 +156,13 @@
   background: none;
   border: none;
   padding: 0;
-  margin-top: 8px;
+  margin-top: var(--space-16);
   cursor: pointer;
-  font: var(--font-body-2);
-  color: var(--rv-primary);
+  font: var(--font-label-1);
+  color: #252526;
+  text-decoration: underline;
 }
 
 .seeAll:hover {
-  text-decoration: underline;
+  color: var(--rv-primary);
 }

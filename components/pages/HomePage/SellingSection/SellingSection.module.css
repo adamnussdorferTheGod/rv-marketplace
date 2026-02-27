@@ -7,7 +7,7 @@
 }
 
 .heading {
-  font: var(--font-display-2);
+  font: var(--font-display-1-semibold);
   color: var(--rv-on-surface);
   margin: 0;
   text-align: center;
