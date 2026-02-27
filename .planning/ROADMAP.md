@@ -436,11 +436,11 @@ Plans:
   3. A sort controls row with "Sort by: Default" dropdown and "Save search" heart button aligns to the right above the listing grid
   4. Listing cards render in a 3-column grid (~403px each, 32px gaps) with featured/sponsored carousels and mid-page ad slots interspersed between card rows
   5. Pagination at the bottom shows numbered pages, prev/next arrows, ellipsis for large ranges, and "X-Y of Z results" count
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 27-01: SRPLayout two-column container, breadcrumbs, page title with subtitle toggle, sort controls row
-- [ ] 27-02: Listing grid with 3-column layout, interleaved featured carousels and ad slots, pagination component, and SearchResultsPage wiring
+- [ ] 27-01-PLAN.md — Two-column layout shell with FilterSidebar integration, Breadcrumbs, page title/subtitle, and SortControls
+- [ ] 27-02-PLAN.md — ListingGrid 3-column card grid with interleaved carousels/ads, Pagination component, and full page wiring
 
 ### Phase 28: Page Chrome & Content Sections
 **Goal**: The SRP includes all surrounding chrome -- reused header/footer, SEO links, app CTA banner, and disclaimer -- completing the full-page experience
@@ -507,7 +507,7 @@ Plans:
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
-| 26. Filter Sidebar | 3/3 | Complete   | 2026-02-27 | - |
-| 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
+| 26. Filter Sidebar | 3/3 | Complete    | 2026-02-27 | - |
+| 27. SRP Page Assembly | 1/2 | In Progress|  | - |
 | 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
 | 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |

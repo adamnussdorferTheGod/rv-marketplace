@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** Phase 26 Filter Sidebar
+**Current focus:** Phase 27 SRP Page Assembly
 
 ## Current Position
 
-Phase: 26 of 29 (Filter Sidebar)
-Plan: 3 of 3 complete
-Status: Phase Complete
-Last activity: 2026-02-27 -- Phase 26 Plan 03 complete (Price, Additional Filters & Mobile Overlay)
+Phase: 27 of 29 (SRP Page Assembly)
+Plan: 1 of 2 complete
+Status: In Progress
+Last activity: 2026-02-27 -- Phase 27 Plan 01 complete (SRP Page Layout Shell)
 
-Progress: [████████████████████] 42/42 plans (100%)
+Progress: [████████████████████] 43/44 plans (98%)
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [████████████████████] 42/42 p
 - Phase 26 Plan 01: 2min (1 task, 4 files)
 - Phase 26 Plan 02: 3min (2 tasks, 6 files)
 - Phase 26 Plan 03: 2min (2 tasks, 6 files)
+- Phase 27 Plan 01: 3min (2 tasks, 8 files)
 
 ## Accumulated Context
 
@@ -104,6 +105,9 @@ Progress: [████████████████████] 42/42 p
 - [Phase 26]: Finance buying power simplified (downPayment + monthlyPayment * term, no interest calc)
 - [Phase 26]: Mobile overlay uses CSS display toggle via .open class (not React portal)
 - [Phase 26]: Sidebar always renders full DOM; CSS media queries control desktop vs mobile visibility
+- [Phase 27]: Added @app Vite/TypeScript alias for cross-directory imports (components/ importing from app/src/)
+- [Phase 27]: Subtitle uses webkit line-clamp for collapsed state with Show more/less toggle
+- [Phase 27]: Mobile filter button uses position:fixed at bottom center with box-shadow
 
 ### Pending Todos
 
@@ -116,5 +120,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 26-03-PLAN.md (Price, Additional Filters & Mobile Overlay)
+Stopped at: Completed 27-01-PLAN.md (SRP Page Layout Shell)
 Resume file: None

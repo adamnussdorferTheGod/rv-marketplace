@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.interleavedSection {
+  grid-column: 1 / -1;
+  margin: var(--space-16) 0;
+}
+
+/* Force AdSlot to fill full width inside the interleaved section */
+.adSlotFull {
+  width: 100% !important;
+}
+
+.emptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-64);
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+}
+
+.emptyTitle {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin-bottom: var(--space-16);
+}

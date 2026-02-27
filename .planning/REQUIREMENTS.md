@@ -43,9 +43,9 @@
 
 ### Page Layout
 
-- [ ] **LAYO-01**: Two-column layout with 330px filter sidebar and 1272px content area, 64px side margins
-- [ ] **LAYO-02**: Content area header shows breadcrumbs (Home > Browse RVs > [Type]), page title "New and used [Type] RVs for sale", and descriptive subtitle with "Show more" toggle
-- [ ] **LAYO-03**: Sort controls row with "Sort by: Default" dropdown and "Save search" heart button, aligned right
+- [x] **LAYO-01**: Two-column layout with 330px filter sidebar and 1272px content area, 64px side margins
+- [x] **LAYO-02**: Content area header shows breadcrumbs (Home > Browse RVs > [Type]), page title "New and used [Type] RVs for sale", and descriptive subtitle with "Show more" toggle
+- [x] **LAYO-03**: Sort controls row with "Sort by: Default" dropdown and "Save search" heart button, aligned right
 - [ ] **LAYO-04**: Listing cards render in 3-column grid (~403px each) with 32px gaps
 - [ ] **LAYO-05**: Featured/sponsored carousels and mid-page ad slots intersperse between listing card rows
 - [ ] **LAYO-06**: Pagination component with numbered pages, prev/next arrows, ellipsis for large ranges, and "X-Y of Z results" count
@@ -190,9 +190,9 @@ Deferred to subsequent milestones.
 | CARD-04 | Phase 25 | Complete |
 | CARD-05 | Phase 25 | Complete |
 | CARD-06 | Phase 25 | Complete |
-| LAYO-01 | Phase 27 | Pending |
-| LAYO-02 | Phase 27 | Pending |
-| LAYO-03 | Phase 27 | Pending |
+| LAYO-01 | Phase 27 | Complete |
+| LAYO-02 | Phase 27 | Complete |
+| LAYO-03 | Phase 27 | Complete |
 | LAYO-04 | Phase 27 | Pending |
 | LAYO-05 | Phase 27 | Pending |
 | LAYO-06 | Phase 27 | Pending |
