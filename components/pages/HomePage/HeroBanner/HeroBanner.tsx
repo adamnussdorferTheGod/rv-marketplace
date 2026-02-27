@@ -27,12 +27,14 @@ const containerVariants = {
   hidden: {
     opacity: 0,
     x: 100,
+    y: '50%',
     filter: 'blur(10px)',
     rotateY: -15,
   },
   visible: {
     opacity: 1,
     x: 0,
+    y: '50%',
     filter: 'blur(0px)',
     rotateY: 0,
     transition: {
@@ -210,7 +212,7 @@ export default function HeroBanner() {
   const animateEntrance = !reducedMotion;
 
   return (
-    <section className={styles.hero}>
+    <section className={styles.hero} style={{ perspective: 1000 }}>
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>Shop the largest RV marketplace</h1>
       </div>
@@ -218,7 +220,6 @@ export default function HeroBanner() {
       <motion.div
         className={styles.searchCard}
         ref={searchContainerRef}
-        style={{ perspective: 1000 }}
         variants={animateEntrance ? containerVariants : undefined}
         initial={animateEntrance ? 'hidden' : false}
         animate={animateEntrance ? 'visible' : undefined}
