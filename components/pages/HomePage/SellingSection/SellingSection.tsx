@@ -11,17 +11,16 @@ const tabOptions = sellingPanels.map((p) => ({
   label: p.tabLabel,
 }));
 
+const CARD_WIDTH = 696;
+const GAP = 32;
+
 export default function SellingSection() {
   const [activeTab, setActiveTab] = useState<SellingPanelId>('sell-privately');
 
   const activeIndex = sellingPanels.findIndex((p) => p.id === activeTab);
-  const prevIndex =
-    (activeIndex - 1 + sellingPanels.length) % sellingPanels.length;
-  const nextIndex = (activeIndex + 1) % sellingPanels.length;
 
-  const prevPanel = sellingPanels[prevIndex];
-  const activePanel = sellingPanels[activeIndex];
-  const nextPanel = sellingPanels[nextIndex];
+  // Shift the track so the active card's center aligns with the container center
+  const trackOffset = -(activeIndex * (CARD_WIDTH + GAP));
 
   return (
     <section className={styles.section}>
@@ -36,65 +35,42 @@ export default function SellingSection() {
       </div>
 
       <div className={styles.carousel}>
-        {/* Previous (left peek) */}
         <div
-          className={`${styles.card} ${styles.cardSide}`}
-          onClick={() => setActiveTab(prevPanel.id)}
+          className={styles.track}
+          style={{
+            transform: `translateX(calc(50% - ${CARD_WIDTH / 2}px + ${trackOffset}px))`,
+          }}
         >
-          <div className={styles.cardImageWrap}>
-            <img
-              className={styles.cardImage}
-              src={prevPanel.image}
-              alt={prevPanel.title}
-            />
-          </div>
-          <div className={styles.cardInfo}>
-            <div className={styles.cardText}>
-              <h3 className={styles.cardTitle}>{prevPanel.title}</h3>
-              <p className={styles.cardDescription}>{prevPanel.description}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Active (center) */}
-        <div className={`${styles.card} ${styles.cardActive}`}>
-          <div className={styles.cardImageWrap}>
-            <img
-              className={styles.cardImage}
-              src={activePanel.image}
-              alt={activePanel.title}
-            />
-          </div>
-          <div className={styles.cardDivider} />
-          <div className={styles.cardInfo}>
-            <div className={styles.cardText}>
-              <h3 className={styles.cardTitle}>{activePanel.title}</h3>
-              <p className={styles.cardDescription}>
-                {activePanel.description}
-              </p>
-            </div>
-            <button className={styles.ctaButton}>{activePanel.ctaText}</button>
-          </div>
-        </div>
-
-        {/* Next (right peek) */}
-        <div
-          className={`${styles.card} ${styles.cardSide}`}
-          onClick={() => setActiveTab(nextPanel.id)}
-        >
-          <div className={styles.cardImageWrap}>
-            <img
-              className={styles.cardImage}
-              src={nextPanel.image}
-              alt={nextPanel.title}
-            />
-          </div>
-          <div className={styles.cardInfo}>
-            <div className={styles.cardText}>
-              <h3 className={styles.cardTitle}>{nextPanel.title}</h3>
-              <p className={styles.cardDescription}>{nextPanel.description}</p>
-            </div>
-          </div>
+          {sellingPanels.map((panel, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <div
+                key={panel.id}
+                className={`${styles.card} ${isActive ? styles.cardActive : styles.cardSide}`}
+                onClick={!isActive ? () => setActiveTab(panel.id) : undefined}
+              >
+                <div className={styles.cardImageWrap}>
+                  <img
+                    className={styles.cardImage}
+                    src={panel.image}
+                    alt={panel.title}
+                  />
+                </div>
+                <div className={styles.cardDivider} />
+                <div className={styles.cardInfo}>
+                  <div className={styles.cardText}>
+                    <h3 className={styles.cardTitle}>{panel.title}</h3>
+                    <p className={styles.cardDescription}>
+                      {panel.description}
+                    </p>
+                  </div>
+                  <button className={styles.ctaButton}>
+                    {panel.ctaText}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

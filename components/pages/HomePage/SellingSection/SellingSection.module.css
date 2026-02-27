@@ -16,14 +16,20 @@
   width: 373px;
 }
 
-/* ─── Carousel track ─── */
+/* ─── Carousel container ─── */
 
 .carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-32);
   width: 100%;
+  overflow: hidden;
+}
+
+/* ─── Sliding track ─── */
+
+.track {
+  display: flex;
+  gap: 32px;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 /* ─── Card base ─── */
@@ -33,39 +39,37 @@
   flex-direction: column;
   gap: var(--space-16);
   flex-shrink: 0;
+  width: 696px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Side cards: scaled down + faded */
+/* Side cards: scaled + faded */
 .cardSide {
-  width: 620px;
   opacity: 0.5;
+  transform: scale(0.89);
   cursor: pointer;
-  transition: opacity 0.3s ease;
 }
 
 .cardSide:hover {
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 /* Active center card */
 .cardActive {
-  width: 696px;
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ─── Card image ─── */
 
 .cardImageWrap {
   width: 100%;
+  height: 402px;
   overflow: hidden;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-.cardSide .cardImageWrap {
-  height: 359px;
-}
-
 .cardActive .cardImageWrap {
-  height: 402px;
   box-shadow: var(--rv-shadow-bottom);
 }
 
@@ -76,7 +80,7 @@
   display: block;
 }
 
-/* ─── Divider under active card image ─── */
+/* ─── Divider under image ─── */
 
 .cardDivider {
   width: calc(100% + 64px);
@@ -86,6 +90,11 @@
   border-radius: var(--radius-full);
   box-shadow: var(--rv-shadow-bottom);
   margin-top: -16px;
+  transition: opacity 0.5s ease;
+}
+
+.cardSide .cardDivider {
+  opacity: 0;
 }
 
 /* ─── Card info row ─── */
@@ -95,6 +104,7 @@
   align-items: flex-start;
   gap: var(--space-16);
   width: 100%;
+  transition: padding 0.5s ease;
 }
 
 .cardActive .cardInfo {
@@ -113,21 +123,13 @@
   font: var(--font-headline-2);
   color: var(--rv-on-surface);
   margin: 0;
-}
-
-.cardSide .cardTitle {
-  font: var(--font-headline-3);
+  transition: font-size 0.5s ease;
 }
 
 .cardDescription {
   font: var(--font-body-1);
   color: var(--rv-on-surface);
   margin: 0;
-}
-
-.cardSide .cardDescription {
-  font-size: 13px;
-  line-height: 1.4;
 }
 
 /* ─── CTA button (outline style per Figma) ─── */
@@ -146,27 +148,37 @@
   white-space: nowrap;
   flex-shrink: 0;
   align-self: flex-end;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, opacity 0.5s ease;
 }
 
 .ctaButton:hover {
   background: var(--rv-surface-variant);
 }
 
+/* Hide CTA + divider on side cards */
+.cardSide .ctaButton {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* ─── Responsive ─── */
 
-/* Hide side cards on tablet */
 @media (max-width: 991px) {
-  .carousel {
-    gap: 0;
+  .track {
+    /* On tablet, just center the active card, no side peeks */
+    justify-content: center;
   }
 
   .cardSide {
     display: none;
   }
 
-  .cardActive {
+  .card {
     width: 100%;
+  }
+
+  .track {
+    transform: none !important;
   }
 
   .cardDivider {
@@ -180,7 +192,6 @@
   }
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .section {
     gap: var(--space-24);
