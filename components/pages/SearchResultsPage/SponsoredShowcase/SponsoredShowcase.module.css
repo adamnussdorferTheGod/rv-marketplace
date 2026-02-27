@@ -1,0 +1,57 @@
+/* SponsoredShowcase — Branded dealer section with featured card carousel */
+
+.showcase {
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-base);
+  padding: var(--space-24);
+}
+
+/* ─── Header ─── */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-16);
+}
+
+.sponsoredLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+}
+
+.title {
+  font: var(--font-title-1);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.dealerName {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Card Row ─── */
+
+.cardRow {
+  display: flex;
+  gap: var(--space-16);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.cardRow::-webkit-scrollbar {
+  display: none;
+}
