@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 ## Current Position
 
 Phase: 26 of 29 (Filter Sidebar)
-Plan: 1 of 3 complete
+Plan: 2 of 3 complete
 Status: In Progress
-Last activity: 2026-02-26 -- Phase 26 Plan 01 complete (FilterSidebar Shell)
+Last activity: 2026-02-26 -- Phase 26 Plan 02 complete (RV Type & Make/Model Filters)
 
-Progress: [████████████████████] 40/42 plans (95%)
+Progress: [████████████████████] 41/42 plans (97%)
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Progress: [████████████████████] 40/42 p
 - Phase 25 Plan 01: 2min (1 task, 2 files)
 - Phase 25 Plan 02: 2min (2 tasks, 8 files)
 - Phase 26 Plan 01: 2min (1 task, 4 files)
+- Phase 26 Plan 02: 3min (2 tasks, 6 files)
 
 ## Accumulated Context
 
@@ -96,6 +97,9 @@ Progress: [████████████████████] 40/42 p
 - [Phase 26]: Used --rv-surface-variant for chip background (--surface-secondary does not exist in theme)
 - [Phase 26]: CollapsibleSection uses max-height CSS transition for smooth expand/collapse
 - [Phase 26]: FilterSidebar receives all state as props (does not own useSrpFilters hook)
+- [Phase 26]: Custom checkbox uses inline SVG checkmark for cross-browser consistency
+- [Phase 26]: MakeModelFilter hierarchical tree uses expandedMakes Set state with toggle function
+- [Phase 26]: "See all options" shows count of hidden items for UX clarity
 
 ### Pending Todos
 
@@ -108,5 +112,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 26-01-PLAN.md (FilterSidebar Shell)
+Stopped at: Completed 26-02-PLAN.md (RV Type & Make/Model Filters)
 Resume file: None

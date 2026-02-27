@@ -507,7 +507,7 @@ Plans:
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
-| 26. Filter Sidebar | 1/3 | In Progress|  | - |
+| 26. Filter Sidebar | 2/3 | In Progress|  | - |
 | 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
 | 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
 | 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |

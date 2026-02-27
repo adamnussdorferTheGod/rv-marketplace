@@ -26,8 +26,8 @@
 - [x] **FILT-03**: Keyword search input with magnifying glass icon and placeholder text
 - [x] **FILT-04**: Location filter with ZIP code input, radius dropdown (25/50/100/150/200 mi), and "Search within" label
 - [x] **FILT-05**: New/Used/All segmented toggle control
-- [ ] **FILT-06**: RV Type filter with checkbox list and thumbnail images for each type (Class A, B, C, Fifth Wheel, etc.)
-- [ ] **FILT-07**: Make & Model hierarchical multi-select with search input, expandable make to model tree, and "See all options" link
+- [x] **FILT-06**: RV Type filter with checkbox list and thumbnail images for each type (Class A, B, C, Fifth Wheel, etc.)
+- [x] **FILT-07**: Make & Model hierarchical multi-select with search input, expandable make to model tree, and "See all options" link
 - [ ] **FILT-08**: Price filter with Cash/Finance tab toggle, min/max inputs (down payment + monthly for finance), term slider, and "Estimated buying power" callout
 - [ ] **FILT-09**: Collapsible filter groups for Length, Year, Bunkhouse floor plan, Fuel type, Sleeping capacity, Floor plan, and Gross vehicle weight
 - [ ] **FILT-10**: Mobile: filter sidebar converts to a full-screen overlay triggered by a filter button
@@ -179,8 +179,8 @@ Deferred to subsequent milestones.
 | FILT-03 | Phase 26 | Complete |
 | FILT-04 | Phase 26 | Complete |
 | FILT-05 | Phase 26 | Complete |
-| FILT-06 | Phase 26 | Pending |
-| FILT-07 | Phase 26 | Pending |
+| FILT-06 | Phase 26 | Complete |
+| FILT-07 | Phase 26 | Complete |
 | FILT-08 | Phase 26 | Pending |
 | FILT-09 | Phase 26 | Pending |
 | FILT-10 | Phase 26 | Pending |
