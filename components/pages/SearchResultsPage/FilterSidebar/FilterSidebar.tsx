@@ -1,7 +1,9 @@
-import type { FilterCriteria, ActiveFilter } from '@app/src/data/srpTypes.ts';
+import type { FilterCriteria, ActiveFilter, RVType } from '@app/src/data/srpTypes.ts';
 import Icon from '@components/ui/Icon/Icon';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import CollapsibleSection from './CollapsibleSection';
+import RVTypeFilter from './RVTypeFilter';
+import MakeModelFilter from './MakeModelFilter';
 import styles from './FilterSidebar.module.css';
 
 interface FilterSidebarProps {
@@ -134,6 +136,20 @@ export default function FilterSidebar({
           className={styles.conditionToggle}
         />
       </CollapsibleSection>
+
+      {/* 6. RV Type filter */}
+      <RVTypeFilter
+        selectedTypes={filters.rvTypes}
+        onToggle={(type: RVType) => toggleArrayFilter('rvTypes', type)}
+      />
+
+      {/* 7. Make & Model filter */}
+      <MakeModelFilter
+        selectedMakes={filters.makes}
+        selectedModels={filters.models}
+        onToggleMake={(make: string) => toggleArrayFilter('makes', make)}
+        onToggleModel={(model: string) => toggleArrayFilter('models', model)}
+      />
     </aside>
   );
 }
