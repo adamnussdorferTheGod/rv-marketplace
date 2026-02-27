@@ -59,6 +59,15 @@
   transform: translateY(50%);
 }
 
+/* Breathing shadow overlay — positioned behind content, inherits card shape */
+.breathingShadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
 /* Segmented control — overlaps top edge of card */
 .segmentedWrap {
   position: absolute;
