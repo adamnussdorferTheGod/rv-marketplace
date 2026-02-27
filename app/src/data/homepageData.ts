@@ -140,7 +140,7 @@ export const sellingPanels: SellingPanel[] = [
     tabLabel: 'Sell privately',
     title: 'Get the best price',
     description:
-      'List your RV directly on our marketplace and connect with serious buyers. Set your own price, manage inquiries, and negotiate on your terms for the highest return.',
+      'Explore top RV models, exclusive offers, and thousands of listings – all in one app!',
     ctaText: 'Learn more',
     image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop&q=80',
   },
