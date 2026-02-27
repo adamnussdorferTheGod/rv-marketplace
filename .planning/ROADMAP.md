@@ -403,11 +403,11 @@ Plans:
   3. The featured/compact card variant (242px width) renders in horizontal carousels with photo, title, price, and dealer location
   4. A sponsored "Native Summit Showcase" section renders a branded dealer header with description and a row of featured card carousels
   5. PAA (People Also Asked) and dealer ad card variants render as inline content within the grid and sidebar respectively
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 25-01: SRPListingCard with photo carousel dots, tag badge, heart toggle, condition label, price, and dealer info section
-- [ ] 25-02: FeaturedCard compact variant, SponsoredShowcase section, PAACard, and DealerAdCard
+- [ ] 25-01-PLAN.md — SRPListingCard with photo carousel dots, tag badge, heart toggle, condition label, price, and dealer info section
+- [ ] 25-02-PLAN.md — FeaturedCard compact variant, SponsoredShowcase section, PAACard, and DealerAdCard
 
 ### Phase 26: Filter Sidebar
 **Goal**: Users can narrow search results using a full filter sidebar with all filter groups from the Figma design
@@ -506,7 +506,7 @@ Plans:
 | 22. Selling & Ownership Sections | 2/2 | Complete    | 2026-02-26 | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
-| 25. Listing Cards | v4.0 | 0/2 | Not started | - |
+| 25. Listing Cards | 1/2 | In Progress|  | - |
 | 26. Filter Sidebar | v4.0 | 0/3 | Not started | - |
 | 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
 | 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |

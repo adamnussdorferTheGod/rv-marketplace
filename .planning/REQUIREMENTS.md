@@ -34,8 +34,8 @@
 
 ### Listing Cards
 
-- [ ] **CARD-01**: Standard listing card displays photo with carousel dots, tag badge (e.g., "Price reduced"), favorite heart toggle, condition/program label, title, price with strikethrough original, and "More info" CTA button
-- [ ] **CARD-02**: Dealer info section below divider shows dealer name, city/state with distance, and "Trusted partner" badge when applicable
+- [x] **CARD-01**: Standard listing card displays photo with carousel dots, tag badge (e.g., "Price reduced"), favorite heart toggle, condition/program label, title, price with strikethrough original, and "More info" CTA button
+- [x] **CARD-02**: Dealer info section below divider shows dealer name, city/state with distance, and "Trusted partner" badge when applicable
 - [ ] **CARD-03**: Featured listing card (compact 242px variant) displays in horizontal carousel with photo, title, price, and dealer location
 - [ ] **CARD-04**: Sponsored "Native Summit Showcase" section displays branded dealer header with description and featured card carousel
 - [ ] **CARD-05**: PAA (People Also Asked) card variant displays as inline content within the grid
@@ -184,8 +184,8 @@ Deferred to subsequent milestones.
 | FILT-08 | Phase 26 | Pending |
 | FILT-09 | Phase 26 | Pending |
 | FILT-10 | Phase 26 | Pending |
-| CARD-01 | Phase 25 | Pending |
-| CARD-02 | Phase 25 | Pending |
+| CARD-01 | Phase 25 | Complete |
+| CARD-02 | Phase 25 | Complete |
 | CARD-03 | Phase 25 | Pending |
 | CARD-04 | Phase 25 | Pending |
 | CARD-05 | Phase 25 | Pending |
