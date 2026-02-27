@@ -1,0 +1,157 @@
+/* SellRvPromoCard — "Get real offers" promo card · Figma node 1:5049 */
+
+.card {
+  background: linear-gradient(to left, #007d5e, #006836);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ─── Text content ─── */
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-64) var(--space-32) var(--space-16);
+}
+
+.headline {
+  font: var(--font-headline-1);
+  color: var(--rv-on-surface-inverse);
+  margin: 0;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.subheadline {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface-inverse);
+  margin: 0;
+}
+
+.body {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-inverse);
+  margin: 0;
+}
+
+/* ─── CTA button ─── */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding: var(--space-8) var(--space-16);
+  background: var(--rv-surface);
+  color: var(--rv-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font: var(--font-button-2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.cta:hover {
+  opacity: 0.9;
+}
+
+/* ─── Image area ─── */
+
+.imageArea {
+  position: relative;
+  margin-top: auto;
+  height: 210px;
+  overflow: visible;
+}
+
+.rvImage {
+  position: absolute;
+  bottom: 0;
+  left: -24px;
+  width: calc(100% + 24px);
+  height: auto;
+  object-fit: contain;
+  object-position: bottom left;
+  pointer-events: none;
+}
+
+/* ─── Offer tags ─── */
+
+.offerTag {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: white;
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-full);
+  padding: var(--space-4) var(--space-16) var(--space-4) var(--space-8);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.07);
+  z-index: 2;
+}
+
+.offerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--rv-primary);
+  color: white;
+  border-radius: 50%;
+  font: var(--font-label-1-semibold);
+  flex-shrink: 0;
+}
+
+.offerIconLg {
+  width: 36px;
+  height: 36px;
+}
+
+.offerText {
+  display: flex;
+  flex-direction: column;
+}
+
+.offerLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.offerPrice {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  line-height: 19.6px;
+}
+
+/* Tag positions — match Figma absolute layout */
+
+.offerTagTopLeft {
+  top: 0;
+  left: 8px;
+  opacity: 0.95;
+}
+
+.offerTagRight {
+  top: -14px;
+  right: 8px;
+  opacity: 0.91;
+  filter: blur(1.15px);
+}
+
+.offerTagBottom {
+  bottom: 24px;
+  left: 56px;
+}

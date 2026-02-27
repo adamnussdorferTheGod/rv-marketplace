@@ -4,6 +4,8 @@ import SponsoredShowcase from '../SponsoredShowcase/SponsoredShowcase';
 import PAACard from '../PAACard/PAACard';
 import AdSlot from '../../../ui/AdSlot/AdSlot';
 import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
+import SellRvCard from '../SellRvCard/SellRvCard';
+import SellRvPromoCard from '../SellRvPromoCard/SellRvPromoCard';
 import styles from './ListingGrid.module.css';
 
 interface ListingGridProps {
@@ -23,8 +25,9 @@ const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'paa'> = {
 
 const CARDS_PER_ROW = 3;
 
-/** Position in the flat card list where the inline ad replaces a listing (0-indexed) */
+/** Positions in the flat card list where special cards replace listings (0-indexed) */
 const INLINE_AD_POSITION = 8;
+const SELL_RV_POSITION = 19;
 
 export default function ListingGrid({
   listings,
@@ -41,14 +44,19 @@ export default function ListingGrid({
     );
   }
 
-  // Build flat list of card-level nodes (listings + inline ad)
+  // Build flat list of card-level nodes (listings + special cards)
+  const specialSlots: Record<number, React.ReactNode> = {
+    [INLINE_AD_POSITION]: <InlineAdCard key="inline-ad" />,
+    [SELL_RV_POSITION]: <SellRvCard key="sell-rv" />,
+  };
+
   const cardNodes: React.ReactNode[] = [];
   let listingIndex = 0;
-  const totalSlots = listings.length + 1; // +1 for the ad card
+  const totalSlots = listings.length + Object.keys(specialSlots).length;
 
   for (let slot = 0; slot < totalSlots && listingIndex < listings.length; slot++) {
-    if (slot === INLINE_AD_POSITION) {
-      cardNodes.push(<InlineAdCard key="inline-ad" />);
+    if (specialSlots[slot]) {
+      cardNodes.push(specialSlots[slot]);
     } else {
       const listing = listings[listingIndex];
       cardNodes.push(<SRPListingCard key={listing.id} listing={listing} />);
@@ -108,6 +116,9 @@ export default function ListingGrid({
       }
     }
   });
+
+  // Append the Figma promo card to the last row of the grid
+  elements.push(<SellRvPromoCard key="sell-rv-promo" />);
 
   return <div className={styles.grid}>{elements}</div>;
 }
