@@ -1,0 +1,25 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--font-body-2);
+  padding: var(--space-8) 0;
+}
+
+.link {
+  color: var(--rv-on-surface-variant);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  color: var(--rv-on-surface-variant);
+  font-size: 12px;
+}
+
+.active {
+  color: var(--rv-on-surface);
+}

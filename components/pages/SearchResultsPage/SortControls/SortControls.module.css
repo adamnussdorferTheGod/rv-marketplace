@@ -1,0 +1,53 @@
+.sortControls {
+  margin-bottom: var(--space-16);
+}
+
+.sortRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.sortLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  white-space: nowrap;
+}
+
+.sortSelect {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-sm);
+  padding: 8px 32px 8px 12px;
+  background: var(--rv-surface);
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236E7072' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+.sortSelect:focus {
+  border-color: var(--rv-primary);
+}
+
+.saveSearchBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.saveSearchBtn:hover {
+  opacity: 0.7;
+}
