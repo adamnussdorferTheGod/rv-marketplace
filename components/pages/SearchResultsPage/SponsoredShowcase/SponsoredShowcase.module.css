@@ -55,3 +55,31 @@
 .cardRow::-webkit-scrollbar {
   display: none;
 }
+
+/* ─── Tablet ─── */
+
+@media (max-width: 991px) {
+  .showcase {
+    padding: var(--space-16);
+  }
+
+  .cardRow {
+    gap: var(--space-12);
+  }
+}
+
+/* ─── Mobile ─── */
+
+@media (max-width: 767px) {
+  .showcase {
+    padding: var(--space-12);
+  }
+
+  .header {
+    gap: var(--space-2);
+  }
+
+  .description {
+    -webkit-line-clamp: 1;
+  }
+}

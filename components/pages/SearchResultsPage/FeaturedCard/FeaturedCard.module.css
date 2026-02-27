@@ -54,3 +54,29 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface-variant);
 }
+
+/* ─── Tablet ─── */
+
+@media (max-width: 991px) {
+  .card {
+    width: 200px;
+    min-width: 200px;
+  }
+}
+
+/* ─── Mobile ─── */
+
+@media (max-width: 767px) {
+  .card {
+    width: 180px;
+    min-width: 180px;
+  }
+
+  .photoWrapper {
+    height: 130px;
+  }
+
+  .content {
+    padding: var(--space-8);
+  }
+}
