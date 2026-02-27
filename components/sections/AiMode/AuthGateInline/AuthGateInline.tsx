@@ -18,10 +18,13 @@ export default function AuthGateInline() {
 
   return (
     <div className={styles.card}>
+      <div className={styles.iconRow}>
+        <Icon name="sparkles" size={24} className={styles.sparkle} />
+      </div>
       <h3 className={styles.heading}>Sign in to keep exploring</h3>
       <p className={styles.subtext}>
-        Create a free account or sign in to continue your AI-powered conversation
-        about this listing.
+        Create a free account to continue your AI-powered conversation —
+        unlimited questions, deeper analysis, and personalized results.
       </p>
       <div className={styles.actions}>
         <button className={styles.authButton} onClick={authenticate}>

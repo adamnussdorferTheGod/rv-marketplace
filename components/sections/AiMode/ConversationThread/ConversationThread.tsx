@@ -114,7 +114,7 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
         </div>
       )}
 
-      {hasMessages && (
+      {hasMessages && !showAuthGate && (
         <div className={styles.messages}>
           {messages.map((msg, i) => (
             <MessageBubble
@@ -129,9 +129,7 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
 
           {isLoading && <LoadingIndicator />}
 
-          {showAuthGate && <AuthGateInline />}
-
-          {!isLoading && !showAuthGate && suggestedPrompts.length > 0 && hasMessages && (
+          {!isLoading && suggestedPrompts.length > 0 && hasMessages && (
             <div className={styles.followUps}>
               <SuggestedPrompts
                 prompts={suggestedPrompts}
@@ -141,6 +139,25 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
             </div>
           )}
         </div>
+      )}
+
+      {hasMessages && showAuthGate && (
+        <>
+          <div className={styles.gatedOuter}>
+            <div className={styles.messages}>
+              {messages.map((msg, i) => (
+                <MessageBubble
+                  key={msg.id}
+                  role={msg.role}
+                  content={msg.content}
+                  isLatest={false}
+                />
+              ))}
+            </div>
+            <div className={styles.gatedGradient} />
+          </div>
+          <AuthGateInline />
+        </>
       )}
     </div>
   );

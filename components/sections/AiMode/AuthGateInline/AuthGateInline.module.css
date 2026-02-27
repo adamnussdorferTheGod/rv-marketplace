@@ -4,10 +4,32 @@
   align-items: center;
   text-align: center;
   padding: var(--space-32) var(--space-24);
-  margin: var(--space-8) 0;
-  background: var(--rv-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.12);
+  animation: fadeIn 300ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.iconRow {
+  margin-bottom: var(--space-16);
+}
+
+.sparkle {
+  color: var(--rv-brand-accent);
+  animation: sparkleGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes sparkleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(250, 202, 51, 0.4));
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(250, 202, 51, 0.8)) drop-shadow(0 0 24px rgba(250, 202, 51, 0.4));
+    transform: scale(1.15) rotate(8deg);
+  }
 }
 
 .heading {
@@ -26,8 +48,9 @@
 .actions {
   display: flex;
   flex-direction: column;
-  gap: var(--space-16);
+  gap: var(--space-12);
   width: 100%;
+  max-width: 260px;
 }
 
 .authButton {
@@ -37,14 +60,14 @@
   align-items: center;
   align-self: stretch;
   gap: var(--space-8);
-  padding: 14px 30px;
+  padding: 12px 24px;
   background: var(--rv-surface);
   border: 2px solid var(--rv-primary);
   border-radius: var(--radius-full);
   color: var(--rv-primary);
   font-family: var(--font-family);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   cursor: pointer;
   box-sizing: border-box;
@@ -63,7 +86,7 @@
   font: var(--font-label-3);
   color: var(--rv-on-surface);
   margin: var(--space-24) 0 0;
-  max-width: 280px;
+  max-width: 260px;
 }
 
 .terms a {
