@@ -146,18 +146,21 @@
   font-family: var(--font-family);
   color: var(--rv-on-surface);
   line-height: 1.4;
+  text-align: center;
 }
 
-/* Placeholder overlay — typewriter text */
+/* Placeholder overlay — typewriter text, centered */
 .placeholderText {
   position: absolute;
   left: 0;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
   font-size: 16px;
   font-family: var(--font-family);
   white-space: nowrap;
+  text-align: center;
   color: var(--rv-on-surface-variant);
 }
 

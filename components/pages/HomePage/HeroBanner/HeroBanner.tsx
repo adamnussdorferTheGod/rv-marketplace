@@ -245,47 +245,30 @@ export default function HeroBanner() {
             whileHover={{ scale: 1.02, boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
             transition={{ duration: 0.2 }}
           >
-            {/* AI icon — scale + rotate loop */}
+            {/* AI icon — subtle glow pulse */}
             <motion.span
               className={styles.sparkleIcon}
               animate={
                 animateEntrance
-                  ? { scale: [1, 1.2, 1], rotate: [0, 360] }
+                  ? {
+                      filter: [
+                        'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                        'drop-shadow(0 0 6px rgba(0,104,54,0.4))',
+                        'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                      ],
+                    }
                   : undefined
               }
               transition={{
                 duration: 2,
-                delay: 0.6,
+                delay: 0.8,
                 repeat: Infinity,
                 repeatDelay: 2,
                 ease: 'easeInOut',
               }}
               style={{ display: 'flex', alignItems: 'center' }}
             >
-              {/* Glow effect layer */}
-              <motion.span
-                animate={
-                  animateEntrance
-                    ? {
-                        filter: [
-                          'drop-shadow(0 0 0px rgba(110,112,114,0))',
-                          'drop-shadow(0 0 8px rgba(110,112,114,0.6))',
-                          'drop-shadow(0 0 0px rgba(110,112,114,0))',
-                        ],
-                      }
-                    : undefined
-                }
-                transition={{
-                  duration: 1.5,
-                  delay: 0.8,
-                  repeat: Infinity,
-                  repeatDelay: 1.5,
-                  ease: 'easeInOut',
-                }}
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-                <Icon name="ai_search" size={22} />
-              </motion.span>
+              <Icon name="ai_search" size={22} />
             </motion.span>
 
             <div className={styles.inputArea}>
