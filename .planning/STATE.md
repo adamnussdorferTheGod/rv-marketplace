@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** Phase 25 Listing Cards
+**Current focus:** Phase 26 Filter Sidebar
 
 ## Current Position
 
-Phase: 25 of 29 (Listing Cards)
-Plan: 2 of 2 complete
-Status: Phase Complete
-Last activity: 2026-02-26 -- Phase 25 Plan 02 complete (Promoted Card Variants)
+Phase: 26 of 29 (Filter Sidebar)
+Plan: 1 of 3 complete
+Status: In Progress
+Last activity: 2026-02-26 -- Phase 26 Plan 01 complete (FilterSidebar Shell)
 
-Progress: [████████████████████] 39/39 plans (100%)
+Progress: [████████████████████] 40/42 plans (95%)
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Progress: [████████████████████] 39/39 p
 - Phase 22 Plan 02: 2min (2 tasks, 4 files)
 - Phase 25 Plan 01: 2min (1 task, 2 files)
 - Phase 25 Plan 02: 2min (2 tasks, 8 files)
+- Phase 26 Plan 01: 2min (1 task, 4 files)
 
 ## Accumulated Context
 
@@ -92,6 +93,9 @@ Progress: [████████████████████] 39/39 p
 - [Phase 25]: Used expand_more icon from registry for PAACard chevron (not inline SVG)
 - [Phase 25]: SponsoredShowcase title is configurable via prop with 'Native Summit Showcase' default
 - [Phase 25]: DealerAdCard CTA renders as anchor tag for proper link semantics
+- [Phase 26]: Used --rv-surface-variant for chip background (--surface-secondary does not exist in theme)
+- [Phase 26]: CollapsibleSection uses max-height CSS transition for smooth expand/collapse
+- [Phase 26]: FilterSidebar receives all state as props (does not own useSrpFilters hook)
 
 ### Pending Todos
 
@@ -104,5 +108,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 25-02-PLAN.md (Promoted Card Variants)
+Stopped at: Completed 26-01-PLAN.md (FilterSidebar Shell)
 Resume file: None

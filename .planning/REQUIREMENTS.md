@@ -21,11 +21,11 @@
 
 ### Filter Sidebar
 
-- [ ] **FILT-01**: Filter sidebar (330px) displays result count header with "Clear all" link
-- [ ] **FILT-02**: Active filter chips appear at top of sidebar with x remove buttons
-- [ ] **FILT-03**: Keyword search input with magnifying glass icon and placeholder text
-- [ ] **FILT-04**: Location filter with ZIP code input, radius dropdown (25/50/100/150/200 mi), and "Search within" label
-- [ ] **FILT-05**: New/Used/All segmented toggle control
+- [x] **FILT-01**: Filter sidebar (330px) displays result count header with "Clear all" link
+- [x] **FILT-02**: Active filter chips appear at top of sidebar with x remove buttons
+- [x] **FILT-03**: Keyword search input with magnifying glass icon and placeholder text
+- [x] **FILT-04**: Location filter with ZIP code input, radius dropdown (25/50/100/150/200 mi), and "Search within" label
+- [x] **FILT-05**: New/Used/All segmented toggle control
 - [ ] **FILT-06**: RV Type filter with checkbox list and thumbnail images for each type (Class A, B, C, Fifth Wheel, etc.)
 - [ ] **FILT-07**: Make & Model hierarchical multi-select with search input, expandable make to model tree, and "See all options" link
 - [ ] **FILT-08**: Price filter with Cash/Finance tab toggle, min/max inputs (down payment + monthly for finance), term slider, and "Estimated buying power" callout
@@ -174,11 +174,11 @@ Deferred to subsequent milestones.
 | DATA-08 | Phase 24 | Complete |
 | DATA-09 | Phase 24 | Complete |
 | DATA-10 | Phase 24 | Complete |
-| FILT-01 | Phase 26 | Pending |
-| FILT-02 | Phase 26 | Pending |
-| FILT-03 | Phase 26 | Pending |
-| FILT-04 | Phase 26 | Pending |
-| FILT-05 | Phase 26 | Pending |
+| FILT-01 | Phase 26 | Complete |
+| FILT-02 | Phase 26 | Complete |
+| FILT-03 | Phase 26 | Complete |
+| FILT-04 | Phase 26 | Complete |
+| FILT-05 | Phase 26 | Complete |
 | FILT-06 | Phase 26 | Pending |
 | FILT-07 | Phase 26 | Pending |
 | FILT-08 | Phase 26 | Pending |

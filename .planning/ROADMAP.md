@@ -419,12 +419,12 @@ Plans:
   3. RV Type filter shows a checkbox list with thumbnail images for each type; Make & Model shows a hierarchical multi-select with search, expandable make-to-model tree, and "See all options" link
   4. Price filter includes Cash/Finance tab toggle, min/max inputs (with down payment + monthly payment for finance mode), term slider, and "Estimated buying power" callout
   5. Additional filters (Length, Year, Bunkhouse, Fuel type, Sleeping capacity, Floor plan, Gross vehicle weight) render as collapsible groups, and on mobile the entire sidebar converts to a full-screen overlay triggered by a filter button
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 26-01: FilterSidebar shell with result count header, active chips, keyword search, location/radius, and condition toggle
-- [ ] 26-02: RV Type checkbox filter with thumbnails, Make & Model hierarchical multi-select with search
-- [ ] 26-03: Price filter with Cash/Finance tabs and buying power callout, collapsible filter groups, and mobile overlay trigger
+- [ ] 26-01-PLAN.md — FilterSidebar shell with result count header, active chips, keyword search, location/radius, and condition toggle
+- [ ] 26-02-PLAN.md — RV Type checkbox filter with thumbnails, Make & Model hierarchical multi-select with search
+- [ ] 26-03-PLAN.md — Price filter with Cash/Finance tabs and buying power callout, collapsible filter groups, and mobile overlay trigger
 
 ### Phase 27: SRP Page Assembly
 **Goal**: The complete SRP page renders at `/search` with filter sidebar, listing grid, interleaved content sections, and pagination -- replacing the placeholder component
@@ -506,8 +506,8 @@ Plans:
 | 22. Selling & Ownership Sections | 2/2 | Complete    | 2026-02-26 | - |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
-| 25. Listing Cards | 2/2 | Complete   | 2026-02-27 | - |
-| 26. Filter Sidebar | v4.0 | 0/3 | Not started | - |
+| 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
+| 26. Filter Sidebar | 1/3 | In Progress|  | - |
 | 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
 | 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
 | 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |
