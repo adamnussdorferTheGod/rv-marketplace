@@ -146,11 +146,11 @@ export const sellingPanels: SellingPanel[] = [
   },
   {
     id: 'cash-offers',
-    tabLabel: 'Cash offers',
-    title: 'Sell fast, stress free',
+    tabLabel: 'Sell to a dealer',
+    title: 'Sell to a dealer',
     description:
       'Get an instant cash offer for your RV and close in as little as a few days. No haggling, no waiting, no hassle -- just a fair price and a quick sale.',
     ctaText: 'Get your offer',
-    image: 'https://images.unsplash.com/photo-1554672408-730436b60dde?w=600&h=400&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1533558701576-23c65e0272fb?w=600&h=400&fit=crop&q=80',
   },
 ];
