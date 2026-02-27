@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-32);
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.label {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface-variant);
+}
+
+.adContainer {
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-32);
+}

@@ -3,6 +3,7 @@ import SRPListingCard from '../SRPListingCard/SRPListingCard';
 import SponsoredShowcase from '../SponsoredShowcase/SponsoredShowcase';
 import PAACard from '../PAACard/PAACard';
 import AdSlot from '../../../ui/AdSlot/AdSlot';
+import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
 import styles from './ListingGrid.module.css';
 
 interface ListingGridProps {
@@ -22,6 +23,9 @@ const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'paa'> = {
 
 const CARDS_PER_ROW = 3;
 
+/** Position in the flat card list where the inline ad replaces a listing (0-indexed) */
+const INLINE_AD_POSITION = 8;
+
 export default function ListingGrid({
   listings,
   sponsoredListings,
@@ -37,10 +41,25 @@ export default function ListingGrid({
     );
   }
 
-  // Split listings into rows of 3 for interleaving logic
-  const rows: SRPListing[][] = [];
-  for (let i = 0; i < listings.length; i += CARDS_PER_ROW) {
-    rows.push(listings.slice(i, i + CARDS_PER_ROW));
+  // Build flat list of card-level nodes (listings + inline ad)
+  const cardNodes: React.ReactNode[] = [];
+  let listingIndex = 0;
+  const totalSlots = listings.length + 1; // +1 for the ad card
+
+  for (let slot = 0; slot < totalSlots && listingIndex < listings.length; slot++) {
+    if (slot === INLINE_AD_POSITION) {
+      cardNodes.push(<InlineAdCard key="inline-ad" />);
+    } else {
+      const listing = listings[listingIndex];
+      cardNodes.push(<SRPListingCard key={listing.id} listing={listing} />);
+      listingIndex++;
+    }
+  }
+
+  // Split card nodes into rows of 3 for interleaving logic
+  const rows: React.ReactNode[][] = [];
+  for (let i = 0; i < cardNodes.length; i += CARDS_PER_ROW) {
+    rows.push(cardNodes.slice(i, i + CARDS_PER_ROW));
   }
 
   const elements: React.ReactNode[] = [];
@@ -49,10 +68,8 @@ export default function ListingGrid({
     const rowNumber = rowIndex + 1;
 
     // Render each card in this row
-    row.forEach((listing) => {
-      elements.push(
-        <SRPListingCard key={listing.id} listing={listing} />,
-      );
+    row.forEach((node) => {
+      elements.push(node);
     });
 
     // Check if interleaved content goes after this row
