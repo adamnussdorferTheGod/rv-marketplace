@@ -18,9 +18,15 @@ export default function Header() {
           <ul>
             {NAV_LINKS.map((link) => (
               <li key={link}>
-                <a href="#" className={styles.navLink}>
-                  {link}
-                </a>
+                {link === 'Shop' ? (
+                  <Link to={ROUTES.SEARCH} className={styles.navLink}>
+                    {link}
+                  </Link>
+                ) : (
+                  <a href="#" className={styles.navLink}>
+                    {link}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
