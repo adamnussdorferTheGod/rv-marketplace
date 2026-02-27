@@ -228,62 +228,69 @@ export default function FilterSidebar({
 
         {/* 3. AI Search with suggestions */}
         <div className={styles.searchSection} ref={searchSectionRef}>
-          <div className={styles.searchContainer}>
-            <span className={styles.searchIcon}>
-              <Icon name="ai_search" size={24} />
-            </span>
-            <input
-              className={styles.searchInput}
-              type="text"
-              placeholder="Family-friendly RVs for 4"
-              value={searchText}
-              onChange={(e) => {
-                setSearchText(e.target.value);
-                setShowSuggestions(true);
-              }}
-              onFocus={() => setShowSuggestions(true)}
-              onKeyDown={handleSearchKeyDown}
-              aria-expanded={showSuggestions && hasSuggestions}
-              aria-controls={hasSuggestions ? 'srp-search-suggestions' : undefined}
-              aria-activedescendant={
-                hasSuggestions && activeIndex >= 0
-                  ? `srp-suggestion-${activeIndex}`
-                  : undefined
-              }
-            />
-          </div>
-
-          {/* Suggestion dropdown */}
-          {showSuggestions && hasSuggestions && (
-            <div className={styles.suggestionsDropdown} id="srp-search-suggestions" role="listbox">
-              {suggestions.map((item, i) => (
-                <button
-                  key={`${item.category}-${item.label}`}
-                  id={`srp-suggestion-${i}`}
-                  type="button"
-                  role="option"
-                  aria-selected={i === activeIndex}
-                  className={`${styles.suggestionRow} ${i === activeIndex ? styles.suggestionRowActive : ''}`}
-                  onClick={() => applySuggestionFilters(item)}
-                  onMouseDown={(e) => e.preventDefault()}
-                >
-                  <span className={styles.suggestionIcon}>
-                    <Icon name={item.category === 'nl_search' ? 'ai_search' : 'search'} size={16} />
-                  </span>
-                  <span className={styles.suggestionLabel}>{item.label}</span>
-                  {item.count && (
-                    <span className={styles.suggestionCount}>{item.count}</span>
-                  )}
-                </button>
-              ))}
-              {isLoadingAI && (
-                <div className={styles.suggestionLoading}>
-                  <Icon name="ai_search" size={16} />
-                  <span>Finding suggestions...</span>
-                </div>
-              )}
+          <div className={`${styles.searchPanel} ${showSuggestions && searchText.trim().length > 0 ? styles.searchPanelExpanded : ''}`}>
+            <div className={styles.searchContainer}>
+              <span className={styles.searchIcon}>
+                <Icon name="ai_search" size={24} />
+              </span>
+              <input
+                className={styles.searchInput}
+                type="text"
+                placeholder="Family-friendly RVs for 4"
+                value={searchText}
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                onFocus={() => setShowSuggestions(true)}
+                onKeyDown={handleSearchKeyDown}
+                aria-expanded={showSuggestions && hasSuggestions}
+                aria-controls={hasSuggestions ? 'srp-search-suggestions' : undefined}
+                aria-activedescendant={
+                  hasSuggestions && activeIndex >= 0
+                    ? `srp-suggestion-${activeIndex}`
+                    : undefined
+                }
+              />
             </div>
-          )}
+
+            {/* Suggestion dropdown */}
+            {showSuggestions && searchText.trim().length > 0 && (
+              <div className={styles.suggestionsDropdown} id="srp-search-suggestions" role="listbox">
+                {suggestions.length === 0 && !isLoadingAI && (
+                  <div className={styles.suggestionLoading}>
+                    <span>No suggestions found</span>
+                  </div>
+                )}
+                {suggestions.map((item, i) => (
+                  <button
+                    key={`${item.category}-${item.label}`}
+                    id={`srp-suggestion-${i}`}
+                    type="button"
+                    role="option"
+                    aria-selected={i === activeIndex}
+                    className={`${styles.suggestionRow} ${i === activeIndex ? styles.suggestionRowActive : ''}`}
+                    onClick={() => applySuggestionFilters(item)}
+                    onMouseDown={(e) => e.preventDefault()}
+                  >
+                    <span className={styles.suggestionIcon}>
+                      <Icon name={item.category === 'nl_search' ? 'ai_search' : 'search'} size={16} />
+                    </span>
+                    <span className={styles.suggestionLabel}>{item.label}</span>
+                    {item.count && (
+                      <span className={styles.suggestionCount}>{item.count}</span>
+                    )}
+                  </button>
+                ))}
+                {isLoadingAI && (
+                  <div className={styles.suggestionLoading}>
+                    <Icon name="ai_search" size={16} />
+                    <span>Finding suggestions...</span>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
 
           <button
             className={styles.searchButton}
