@@ -12,6 +12,7 @@ import SellOnRvTrader from './FilterSidebar/SellOnRvTrader';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
+import FeaturedListings from '../HomePage/FeaturedListings/FeaturedListings';
 import styles from './SearchResultsPage.module.css';
 
 const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
@@ -138,6 +139,9 @@ export default function SearchResultsPage() {
               </div>
               <SortControls sort={sort} onSortChange={setSort} />
             </div>
+
+            <FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
+            <div className={styles.featuredDivider} />
 
             <ListingGrid
               listings={paginatedResults}
