@@ -7,6 +7,9 @@ import SortControls from './SortControls/SortControls';
 import ListingGrid from './ListingGrid/ListingGrid';
 import Pagination from './Pagination/Pagination';
 import DealerAdCard from './DealerAdCard/DealerAdCard';
+import AdSlot from '@components/ui/AdSlot/AdSlot';
+import PopularSearches from './PopularSearches/PopularSearches';
+import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import styles from './SearchResultsPage.module.css';
 
 const SUBTITLE_TEXT =
@@ -68,6 +71,9 @@ export default function SearchResultsPage() {
 
   return (
     <div className={styles.searchResultsPage}>
+      <div className={styles.leaderboardAd}>
+        <AdSlot width={728} height={90} label="Leaderboard Ad" />
+      </div>
       <div className={styles.content}>
         <div className={styles.twoColumn}>
           {/* Left: Filter sidebar (330px desktop, overlay mobile) */}
@@ -128,8 +134,12 @@ export default function SearchResultsPage() {
               resultsPerPage={RESULTS_PER_PAGE}
               onPageChange={handlePageChange}
             />
+
+            <SrpDisclaimer />
           </div>
         </div>
+
+        <PopularSearches />
       </div>
 
       {/* Mobile filter button */}

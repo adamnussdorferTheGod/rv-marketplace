@@ -2,6 +2,15 @@
   width: 100%;
 }
 
+/* ─── Leaderboard ad ─────────────────────────────────────────────── */
+
+.leaderboardAd {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-24) 0;
+  background: var(--rv-surface-secondary);
+}
+
 .content {
   max-width: 1762px;
   margin: 0 auto;
