@@ -1,13 +1,15 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Button from '@components/ui/Button/Button';
+import Select from '@components/ui/Select/Select';
 import Icon from '@components/ui/Icon/Icon';
 import SearchDropdown from './SearchDropdown';
 import SearchSuggestions from './SearchSuggestions';
 import { useSearchSuggestions } from './useSearchSuggestions';
 import { buildSearchURL } from './nlParser';
+import { RV_TYPES, SELL_CATALOG, makeLabelFromSlug } from './heroData';
 import DealerSpotlight from './DealerSpotlight';
 import styles from './HeroBanner.module.css';
 
@@ -74,6 +76,47 @@ export default function HeroBanner() {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
+
+  /* ── Sell form state ── */
+  const [sellRvType, setSellRvType] = useState('');
+  const [sellMake, setSellMake] = useState('');
+  const [sellModel, setSellModel] = useState('');
+
+  const rvTypeOptions = useMemo(
+    () => RV_TYPES.map((t) => ({ value: t.slug, label: t.label })),
+    [],
+  );
+
+  // Makes depend on selected RV type
+  const makeOptions = useMemo(() => {
+    const makeSlugs = sellRvType ? Object.keys(SELL_CATALOG[sellRvType] ?? {}) : [];
+    return makeSlugs.map((slug) => ({ value: slug, label: makeLabelFromSlug(slug) }));
+  }, [sellRvType]);
+
+  // Models depend on selected RV type + make
+  const modelOptions = useMemo(() => {
+    const models = (sellRvType && sellMake) ? (SELL_CATALOG[sellRvType]?.[sellMake] ?? []) : [];
+    return models.map((m) => ({ value: m.toLowerCase().replace(/\s+/g, '-'), label: m }));
+  }, [sellRvType, sellMake]);
+
+  const handleRvTypeChange = (value: string) => {
+    setSellRvType(value);
+    setSellMake('');  // reset downstream
+    setSellModel('');
+  };
+
+  const handleMakeChange = (value: string) => {
+    setSellMake(value);
+    setSellModel(''); // reset model when make changes
+  };
+
+  const handleSell = () => {
+    const params = new URLSearchParams();
+    if (sellRvType) params.set('type', sellRvType);
+    if (sellMake) params.set('make', sellMake);
+    if (sellModel) params.set('model', sellModel);
+    navigate(`/sell${params.toString() ? `?${params}` : ''}`);
+  };
 
   const showPlaceholder = !searchQuery && !isDropdownOpen;
   const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
@@ -249,92 +292,139 @@ export default function HeroBanner() {
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
         >
-          <div className={styles.searchRow}>
-            <div className={searchBarClass}>
-              {/* AI icon — subtle glow pulse */}
-              <motion.span
-                className={styles.sparkleIcon}
-                animate={
-                  animateEntrance
-                    ? {
-                        filter: [
-                          'drop-shadow(0 0 0px rgba(0,104,54,0))',
-                          'drop-shadow(0 0 6px rgba(0,104,54,0.4))',
-                          'drop-shadow(0 0 0px rgba(0,104,54,0))',
-                        ],
-                      }
-                    : undefined
-                }
-                transition={{
-                  duration: 2,
-                  delay: 1,
-                  repeat: Infinity,
-                  repeatDelay: 2,
-                  ease: 'easeInOut',
-                }}
-                style={{ display: 'flex', alignItems: 'center' }}
+          <AnimatePresence mode="wait" initial={false}>
+            {segment === 'shop' ? (
+              <motion.div
+                key="shop"
+                className={styles.searchRow}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
               >
-                <Icon name="ai_search" size={24} />
-              </motion.span>
+                <div className={searchBarClass}>
+                  {/* AI icon — subtle glow pulse */}
+                  <motion.span
+                    className={styles.sparkleIcon}
+                    animate={
+                      animateEntrance
+                        ? {
+                            filter: [
+                              'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                              'drop-shadow(0 0 6px rgba(0,104,54,0.4))',
+                              'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                            ],
+                          }
+                        : undefined
+                    }
+                    transition={{
+                      duration: 2,
+                      delay: 1,
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                      ease: 'easeInOut',
+                    }}
+                    style={{ display: 'flex', alignItems: 'center' }}
+                  >
+                    <Icon name="ai_search" size={24} />
+                  </motion.span>
 
-              <div className={styles.inputArea}>
-                <input
-                  type="text"
-                  className={styles.searchInput}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  onFocus={handleSearchFocus}
-                  aria-label="Search RVs"
-                  aria-expanded={isDropdownOpen}
-                  aria-controls={hasSuggestions ? 'search-suggestions' : undefined}
-                  aria-activedescendant={
-                    hasSuggestions && activeIndex >= 0
-                      ? `suggestion-${activeIndex}`
-                      : undefined
-                  }
-                />
+                  <div className={styles.inputArea}>
+                    <input
+                      type="text"
+                      className={styles.searchInput}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      onFocus={handleSearchFocus}
+                      aria-label="Search RVs"
+                      aria-expanded={isDropdownOpen}
+                      aria-controls={hasSuggestions ? 'search-suggestions' : undefined}
+                      aria-activedescendant={
+                        hasSuggestions && activeIndex >= 0
+                          ? `suggestion-${activeIndex}`
+                          : undefined
+                      }
+                    />
 
-                {/* Phrase crossfade placeholder */}
-                <AnimatePresence mode="wait">
-                  {showPlaceholder && (
-                    <motion.span
-                      key={phraseIndex}
-                      className={styles.placeholderText}
-                      aria-hidden="true"
-                      initial={{ opacity: 0, filter: 'blur(4px)' }}
-                      animate={{ opacity: 1, filter: 'blur(0px)' }}
-                      exit={{ opacity: 0, filter: 'blur(4px)' }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                    >
-                      {PLACEHOLDER_PHRASES[phraseIndex]}
-                      <span className={styles.cursor} />
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </div>
+                    {/* Phrase crossfade placeholder */}
+                    <AnimatePresence mode="wait">
+                      {showPlaceholder && (
+                        <motion.span
+                          key={phraseIndex}
+                          className={styles.placeholderText}
+                          aria-hidden="true"
+                          initial={{ opacity: 0, filter: 'blur(4px)' }}
+                          animate={{ opacity: 1, filter: 'blur(0px)' }}
+                          exit={{ opacity: 0, filter: 'blur(4px)' }}
+                          transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        >
+                          {PLACEHOLDER_PHRASES[phraseIndex]}
+                          <span className={styles.cursor} />
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-              <span className={styles.divider} />
+                  <span className={styles.divider} />
 
-              <div className={styles.locationGroup}>
-                <Icon name="location_pin" size={18} />
-                <input
-                  type="text"
-                  className={styles.zipInput}
-                  placeholder="ZIP code"
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  aria-label="ZIP code"
-                  maxLength={5}
-                />
-              </div>
-            </div>
+                  <div className={styles.locationGroup}>
+                    <Icon name="location_pin" size={18} />
+                    <input
+                      type="text"
+                      className={styles.zipInput}
+                      placeholder="ZIP code"
+                      value={zipCode}
+                      onChange={(e) => setZipCode(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                      aria-label="ZIP code"
+                      maxLength={5}
+                    />
+                  </div>
+                </div>
 
-            <Button variant="primary" size="lg" onClick={handleSearch}>
-              Search
-            </Button>
-          </div>
+                <Button variant="primary" size="lg" onClick={handleSearch}>
+                  Search
+                </Button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="sell"
+                className={styles.sellForm}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+              >
+                <div className={styles.sellFields}>
+                  <Select
+                    options={rvTypeOptions}
+                    placeholder="RV type"
+                    value={sellRvType}
+                    onChange={handleRvTypeChange}
+                    aria-label="RV type"
+                  />
+                  <Select
+                    options={makeOptions}
+                    placeholder="Make"
+                    value={sellMake}
+                    onChange={handleMakeChange}
+                    aria-label="Make"
+                  />
+                  <Select
+                    options={modelOptions}
+                    placeholder="Model"
+                    value={sellModel}
+                    onChange={setSellModel}
+                    aria-label="Model"
+                  />
+                </div>
+                <Button variant="primary" size="lg" onClick={handleSell}>
+                  Sell
+                </Button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
       </div>

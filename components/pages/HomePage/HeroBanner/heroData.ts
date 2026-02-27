@@ -55,6 +55,92 @@ export const POPULAR_MAKES: PopularMake[] = [
   { label: 'Heartland', slug: 'heartland' },
 ];
 
+/**
+ * Sell-form catalog: RV Type slug → Make slug → Model names
+ * Drives the cascading dropdowns in the "Sell my RV" hero form.
+ */
+export const SELL_CATALOG: Record<string, Record<string, string[]>> = {
+  'travel-trailer': {
+    'forest-river': ['Cherokee', 'Flagstaff', 'Rockwood', 'Salem', 'Wildwood', 'Vibe', 'R-Pod', 'Surveyor', 'No Boundaries'],
+    'keystone': ['Cougar', 'Passport', 'Springdale', 'Bullet', 'Hideout'],
+    'jayco': ['Jay Feather', 'Jay Flight', 'White Hawk', 'Eagle HT'],
+    'grand-design': ['Imagine', 'Transcend', 'Imagine XLS'],
+    'coachmen': ['Catalina', 'Apex', 'Freedom Express', 'Spirit'],
+    'heartland': ['Mallard', 'North Trail', 'Pioneer', 'Trail Runner', 'Sundance'],
+    'winnebago': ['Minnie', 'Micro Minnie', 'Hike', 'Voyage', 'Access'],
+  },
+  'class-a': {
+    'thor-motor-coach': ['Ace', 'Aria', 'Hurricane', 'Venetian', 'Magnitude', 'Palazzo'],
+    'winnebago': ['Adventurer', 'Forza', 'Vista', 'Intent', 'Journey'],
+    'coachmen': ['Mirada', 'Pursuit', 'Sportscoach', 'Encore'],
+    'forest-river': ['Berkshire', 'Georgetown', 'FR3'],
+    'jayco': ['Precept', 'Alante'],
+  },
+  'class-b': {
+    'winnebago': ['Ekko', 'Solis', 'Revel', 'Travato'],
+    'thor-motor-coach': ['Sanctuary', 'Twist', 'Rangeline', 'Tranquility'],
+    'coachmen': ['Beyond', 'Nova', 'Cross Trail'],
+    'jayco': ['Terrain', 'Swift'],
+    'forest-river': ['Sunseeker TS'],
+  },
+  'class-c': {
+    'thor-motor-coach': ['Chateau', 'Four Winds', 'Compass', 'Gemini', 'Outlaw'],
+    'winnebago': ['View', 'Navion', 'Porto', 'Vita', 'Minnie Winnie'],
+    'jayco': ['Melbourne', 'Redhawk', 'Seneca'],
+    'coachmen': ['Freelander', 'Leprechaun', 'Cross Trail'],
+    'forest-river': ['Sunseeker', 'Forester', 'Solera'],
+  },
+  'fifth-wheel': {
+    'keystone': ['Montana', 'Cougar', 'Arcadia', 'Fuzion', 'Alpine', 'Sprinter'],
+    'grand-design': ['Reflection', 'Solitude', 'Momentum'],
+    'forest-river': ['Rockwood', 'Cardinal', 'Sandpiper', 'Sierra', 'Wildcat'],
+    'jayco': ['Eagle', 'North Point', 'Pinnacle'],
+    'heartland': ['Big Country', 'Bighorn', 'Elkridge', 'Cyclone'],
+  },
+  'toy-hauler': {
+    'keystone': ['Fuzion', 'Raptor', 'Impact'],
+    'grand-design': ['Momentum'],
+    'forest-river': ['XLR', 'Shockwave', 'Vengeance'],
+    'heartland': ['Cyclone', 'Road Warrior', 'Torque'],
+    'jayco': ['Octane', 'Seismic'],
+  },
+  'pop-up-camper': {
+    'forest-river': ['Flagstaff', 'Rockwood'],
+    'coachmen': ['Clipper'],
+    'jayco': ['Jay Sport', 'Jay Series'],
+  },
+  'truck-camper': {
+    'lance': ['Lance 650', 'Lance 825', 'Lance 850', 'Lance 960', 'Lance 1062', 'Lance 1172'],
+    'palomino': ['Backpack', 'HS-750', 'HS-2902'],
+    'northwood': ['Arctic Fox 811', 'Arctic Fox 990', 'Arctic Fox 1150', 'Wolf Creek 840', 'Wolf Creek 890'],
+    'nucamp': ['Cirrus 620', 'Cirrus 720', 'Cirrus 820', 'Cirrus 920'],
+  },
+  'park-model': {
+    'forest-river': ['Quailridge', 'Wildwood DLX'],
+    'champion': ['Athens Park 264', 'Athens Park 305'],
+    'woodland-park': ['Timber Ridge', 'Grand Cedar'],
+    'kal': ['KAL K-22', 'KAL K-28'],
+  },
+  'fish-house': {
+    'ice-castle': ['American Eagle', 'Walleye', 'Lake of the Woods'],
+    'glacier': ['Ice House A168', 'Ice House A176'],
+    'forest-river': ['Salem Ice Cabin'],
+    'yetti': ['Grand Escape', 'Traxx', 'Shell'],
+  },
+};
+
+/** Derive a label from a make slug (e.g. "forest-river" → "Forest River") */
+export function makeLabelFromSlug(slug: string): string {
+  // Check POPULAR_MAKES first for canonical labels
+  const found = POPULAR_MAKES.find((m) => m.slug === slug);
+  if (found) return found.label;
+  // Fallback: title-case the slug
+  return slug
+    .split('-')
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+}
+
 export const FEATURED_DEALERS: FeaturedDealer[] = [
   { name: 'General RV Center', slug: 'general-rv-center', color: '#006836' },
   { name: 'Camping World', slug: 'camping-world', color: '#D8202E' },

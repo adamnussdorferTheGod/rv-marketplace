@@ -1,0 +1,63 @@
+/* ==========================================================================
+   Select — TIDE 2.0 Design System
+   Custom dropdown with native <select> for accessibility
+   ========================================================================== */
+
+.wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 48px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  background: var(--color-white);
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.select:hover:not(:disabled) {
+  border-color: var(--rv-border-high);
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px rgba(0, 104, 54, 0.12);
+}
+
+.select:disabled {
+  opacity: var(--rv-disabled-opacity);
+  cursor: not-allowed;
+}
+
+/* Placeholder state — muted text */
+.placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+/* Chevron icon */
+.chevron {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--rv-on-surface-variant);
+  display: flex;
+  align-items: center;
+}
+
+/* Disabled wrapper */
+.disabled {
+  opacity: var(--rv-disabled-opacity);
+}

@@ -250,6 +250,20 @@
   color: var(--rv-on-surface-variant);
 }
 
+/* ============ Sell form ============ */
+.sellForm {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.sellFields {
+  flex: 1;
+  display: flex;
+  gap: 12px;
+}
+
 /* ================= Reduced motion ================= */
 @media (prefers-reduced-motion: reduce) {
   .searchCard {
@@ -348,4 +362,16 @@
     width: 100%;
   }
 
+  .sellForm {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .sellFields {
+    flex-direction: column;
+  }
+
+  .sellForm > button {
+    width: 100%;
+  }
 }
