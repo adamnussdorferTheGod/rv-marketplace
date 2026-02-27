@@ -44,6 +44,12 @@ export default function NarrationSheet() {
         <div className={styles.handle}>
           <div className={styles.handleBar} />
         </div>
+        <div className={styles.gatedOuter}>
+          <div className={styles.gatedContent}>
+            <NarrationContent narration={narration} variant="full" />
+          </div>
+          <div className={styles.gatedGradient} />
+        </div>
         <div className={styles.scrollArea}>
           <NarrationAuthGate onAuthenticate={authenticate} />
         </div>

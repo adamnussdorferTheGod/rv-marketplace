@@ -20,48 +20,54 @@ export default function NarrationPanel() {
     setTimeout(() => setSent(false), 3000);
   };
 
-  if (isGated) {
-    return (
-      <aside className={styles.panel}>
-        <div className={styles.scrollArea}>
-          <NarrationAuthGate onAuthenticate={authenticate} />
-        </div>
-      </aside>
-    );
-  }
-
   return (
     <aside className={styles.panel}>
-      <div className={styles.scrollArea}>
-        <NarrationContent narration={narration} variant="full" />
-      </div>
-      <div className={styles.messageBox}>
-        {sent ? (
-          <div className={styles.sentConfirmation}>
-            <Icon name="check_circle" size={16} className={styles.sentIcon} />
-            <span>Message sent to seller</span>
+      {isGated ? (
+        <>
+          <div className={styles.gatedOuter}>
+            <div className={styles.gatedContent}>
+              <NarrationContent narration={narration} variant="full" />
+            </div>
+            <div className={styles.gatedGradient} />
           </div>
-        ) : (
-          <div className={styles.inputRow}>
-            <input
-              type="text"
-              className={styles.input}
-              placeholder="Have a question for the seller?"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            />
-            <button
-              className={styles.sendButton}
-              onClick={handleSend}
-              disabled={!message.trim()}
-              aria-label="Send message"
-            >
-              <Icon name="send" size={16} />
-            </button>
+          <div className={styles.gatedCard}>
+            <NarrationAuthGate onAuthenticate={authenticate} />
           </div>
-        )}
-      </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.scrollArea}>
+            <NarrationContent narration={narration} variant="full" />
+          </div>
+          <div className={styles.messageBox}>
+            {sent ? (
+              <div className={styles.sentConfirmation}>
+                <Icon name="check_circle" size={16} className={styles.sentIcon} />
+                <span>Message sent to seller</span>
+              </div>
+            ) : (
+              <div className={styles.inputRow}>
+                <input
+                  type="text"
+                  className={styles.input}
+                  placeholder="Have a question for the seller?"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                />
+                <button
+                  className={styles.sendButton}
+                  onClick={handleSend}
+                  disabled={!message.trim()}
+                  aria-label="Send message"
+                >
+                  <Icon name="send" size={16} />
+                </button>
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </aside>
   );
 }
