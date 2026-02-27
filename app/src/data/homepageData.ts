@@ -142,7 +142,7 @@ export const sellingPanels: SellingPanel[] = [
     description:
       'Explore top RV models, exclusive offers, and thousands of listings – all in one app!',
     ctaText: 'Learn more',
-    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop&q=80',
+    image: '/images/sell-privately.png',
   },
   {
     id: 'cash-offers',
