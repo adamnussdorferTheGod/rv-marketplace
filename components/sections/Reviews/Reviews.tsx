@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import Button from '@components/ui/Button/Button';
 import type { ReviewsData } from '../../../app/src/data/types';
@@ -31,6 +31,46 @@ function StarRating({ rating, size = 20 }: { rating: number; size?: number }) {
     );
   }
   return <div className={styles.stars}>{stars}</div>;
+}
+
+function DistributionBars({ distribution, labels }: { distribution: number[]; labels: number[] }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={styles.distribution}>
+      {labels.map((label, i) => (
+        <div key={label} className={styles.distributionRow}>
+          <span className={styles.distributionLabel}>{label}</span>
+          <div className={styles.distributionBar}>
+            <div
+              className={styles.distributionFill}
+              style={{
+                width: visible ? `${distribution[i]}%` : '0%',
+                transitionDelay: `${i * 80}ms`,
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default function Reviews({ reviews, modelName }: ReviewsProps) {
@@ -68,19 +108,7 @@ export default function Reviews({ reviews, modelName }: ReviewsProps) {
             </div>
           </div>
 
-          <div className={styles.distribution}>
-            {distributionLabels.map((label, i) => (
-              <div key={label} className={styles.distributionRow}>
-                <span className={styles.distributionLabel}>{label}</span>
-                <div className={styles.distributionBar}>
-                  <div
-                    className={styles.distributionFill}
-                    style={{ width: `${reviews.distribution[i]}%` }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <DistributionBars distribution={reviews.distribution} labels={distributionLabels} />
         </div>
 
         {/* Right: category ratings */}
