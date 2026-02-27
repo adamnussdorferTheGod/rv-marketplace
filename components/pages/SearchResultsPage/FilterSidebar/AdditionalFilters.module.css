@@ -1,0 +1,98 @@
+/* ─── Input row (side-by-side inputs) ────────────────────────────── */
+
+.inputRow {
+  display: flex;
+  gap: 12px;
+}
+
+.inputRow .inputGroup {
+  flex: 1;
+}
+
+/* ─── Shared input group ────────────────────────────────────────── */
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.input {
+  border: 1px solid var(--rv-border-input);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  background: transparent;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--rv-primary);
+}
+
+/* ─── Checkbox list ─────────────────────────────────────────────── */
+
+.checkboxList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ─── Custom checkbox ───────────────────────────────────────────── */
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border: 2px solid var(--rv-border);
+  border-radius: 4px;
+  background: transparent;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.checkboxChecked {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+}
+
+/* ─── Checkbox text ─────────────────────────────────────────────── */
+
+.checkboxText {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+}
