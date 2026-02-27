@@ -70,7 +70,6 @@ export default function HeroBanner() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
 
   const showPlaceholder = !searchQuery && !isDropdownOpen;
   const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
@@ -123,24 +122,6 @@ export default function HeroBanner() {
     setIsDropdownOpen(true);
   };
 
-  /* ── Parallax mouse tracking ── */
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      if (!heroRef.current || !bgRef.current || reducedMotion) return;
-      const rect = heroRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-      bgRef.current.style.transform = `translate(${x}px, ${y}px) scale(1.03)`;
-    },
-    [reducedMotion],
-  );
-
-  const handleMouseLeave = useCallback(() => {
-    if (bgRef.current) {
-      bgRef.current.style.transform = 'translate(0px, 0px) scale(1.03)';
-    }
-  }, []);
-
   const searchBarClass = isDropdownOpen
     ? `${styles.searchBar} ${styles.searchBarOpen}`
     : styles.searchBar;
@@ -149,12 +130,10 @@ export default function HeroBanner() {
     <section
       className={styles.hero}
       ref={heroRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
     >
-      {/* ── Parallax background layer ── */}
+      {/* ── Background layer ── */}
       <div className={styles.heroImageWrap}>
-        <div className={styles.heroBackground} ref={bgRef} />
+        <div className={styles.heroBackground} />
         <div className={styles.heroOverlay} />
       </div>
 
@@ -177,6 +156,15 @@ export default function HeroBanner() {
 
       {/* ── Search card (CSS handles translateY + float + breathing shadow) ── */}
       <div className={styles.searchCard} ref={searchContainerRef}>
+        <div className={styles.segmentedWrap}>
+          <SegmentedButtons
+            options={SEGMENT_OPTIONS}
+            selected={segment}
+            onChange={setSegment}
+            animated
+          />
+        </div>
+
         {/* Inner wrapper — motion handles entrance fade only */}
         <motion.div
           className={styles.cardInner}
@@ -184,15 +172,6 @@ export default function HeroBanner() {
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
         >
-          <div className={styles.segmentedWrap}>
-            <SegmentedButtons
-              options={SEGMENT_OPTIONS}
-              selected={segment}
-              onChange={setSegment}
-              animated
-            />
-          </div>
-
           <div className={styles.searchRow}>
             <div className={searchBarClass}>
               {/* AI icon — subtle glow pulse */}

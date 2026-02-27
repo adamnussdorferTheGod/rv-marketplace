@@ -64,7 +64,7 @@
 }
 
 .title {
-  font: var(--font-label-1-semibold);
+  font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
   margin: 0;
   display: -webkit-box;
@@ -80,6 +80,6 @@
 }
 
 .price {
-  font: var(--font-label-1-semibold);
+  font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
 }

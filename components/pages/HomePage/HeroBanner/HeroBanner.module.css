@@ -14,7 +14,7 @@
   overflow: visible;
 }
 
-/* ── Parallax background layers ── */
+/* ── Background layers ── */
 .heroImageWrap {
   position: absolute;
   inset: 0;
@@ -24,14 +24,11 @@
 
 .heroBackground {
   position: absolute;
-  inset: -12px; /* extra bleed for parallax movement */
+  inset: 0;
   background-image: url('/images/hero-rv.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transform: scale(1.03);
-  transition: transform 0.15s ease-out;
-  will-change: transform;
 }
 
 .heroOverlay {
@@ -241,9 +238,6 @@
   .searchCard {
     animation: none;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
-  }
-  .heroBackground {
-    transition: none;
   }
 }
 
