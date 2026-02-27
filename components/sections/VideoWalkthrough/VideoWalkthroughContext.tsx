@@ -29,6 +29,7 @@ export interface VideoState {
   error: string | null;
   isLightboxOpen: boolean;
   hasPlayed: boolean;
+  isGated: boolean;
 }
 
 // 3. VideoAction discriminated union
@@ -46,7 +47,9 @@ export type VideoAction =
   | { type: 'ERROR'; message: string }
   | { type: 'TOGGLE_MUTE' }
   | { type: 'SET_VOLUME'; volume: number }
-  | { type: 'TICK'; elapsedMs: number };
+  | { type: 'TICK'; elapsedMs: number }
+  | { type: 'GATE' }
+  | { type: 'UNGATE' };
 
 // 4. Initial state
 const initialState: VideoState = {
@@ -59,6 +62,7 @@ const initialState: VideoState = {
   error: null,
   isLightboxOpen: false,
   hasPlayed: false,
+  isGated: false,
 };
 
 // 5. Reducer with guarded transitions
@@ -126,6 +130,12 @@ function videoReducer(state: VideoState, action: VideoAction): VideoState {
     case 'TICK':
       return { ...state, elapsedMs: action.elapsedMs };
 
+    case 'GATE':
+      return { ...state, status: 'paused', isGated: true };
+
+    case 'UNGATE':
+      return { ...state, isGated: false };
+
     default:
       return state;
   }
@@ -149,6 +159,8 @@ interface VideoWalkthroughContextValue {
   tick: (elapsedMs: number) => void;
   advanceSegment: (segmentIndex: number, actIndex: number) => void;
   end: () => void;
+  gate: () => void;
+  ungate: () => void;
 }
 
 // 7. Context and provider
@@ -256,6 +268,14 @@ export function VideoWalkthroughProvider({
     dispatch({ type: 'END' });
   }, []);
 
+  const gate = useCallback(() => {
+    dispatch({ type: 'GATE' });
+  }, []);
+
+  const ungate = useCallback(() => {
+    dispatch({ type: 'UNGATE' });
+  }, []);
+
   const value = useMemo<VideoWalkthroughContextValue>(
     () => ({
       state,
@@ -274,6 +294,8 @@ export function VideoWalkthroughProvider({
       tick,
       advanceSegment,
       end,
+      gate,
+      ungate,
     }),
     [
       state,
@@ -292,6 +314,8 @@ export function VideoWalkthroughProvider({
       tick,
       advanceSegment,
       end,
+      gate,
+      ungate,
     ],
   );
 

@@ -6,12 +6,15 @@ import { useVideoWalkthrough } from '@components/sections/VideoWalkthrough/Video
 import CompositionCanvas from '@components/sections/VideoWalkthrough/CompositionCanvas/CompositionCanvas';
 import VideoControls from '@components/sections/VideoWalkthrough/VideoControls/VideoControls';
 import TranscriptPanel from '@components/sections/VideoWalkthrough/TranscriptPanel/TranscriptPanel';
+import VideoAuthGate from '@components/sections/VideoWalkthrough/VideoAuthGate/VideoAuthGate';
 import { useAudioSync } from '@components/sections/VideoWalkthrough/hooks/useAudioSync';
 import { useNarration } from '@components/sections/PhotoNarration/NarrationContext';
 import NarrationToggle from '@components/sections/PhotoNarration/NarrationToggle/NarrationToggle';
 import NarrationPanel from '@components/sections/PhotoNarration/NarrationPanel/NarrationPanel';
 import NarrationSheet from '@components/sections/PhotoNarration/NarrationSheet/NarrationSheet';
 import styles from './GalleryLightbox.module.css';
+
+const GATE_THRESHOLD_MS = 30_000;
 
 type Slide =
   | { type: 'photo'; image: ListingImage }
@@ -43,10 +46,44 @@ export default function GalleryLightbox({
     startLoading,
     loaded: videoLoaded,
     closeLightbox: resetVideo,
+    gate,
+    ungate,
   } = useVideoWalkthrough();
 
   // Always call hooks (safe no-op when audioUrl is undefined / video not playing)
   useAudioSync();
+
+  // ── 30-second content gate ──
+  const hasGatedRef = useRef(false);
+
+  const flatDurations = useMemo(() => {
+    if (!videoData) return [];
+    return videoData.acts.flatMap((act) => act.segments.map((s) => s.durationMs));
+  }, [videoData]);
+
+  const globalElapsedMs = useMemo(() => {
+    let elapsed = 0;
+    for (let i = 0; i < videoState.currentSegmentIndex; i++) {
+      elapsed += flatDurations[i] ?? 0;
+    }
+    return elapsed + videoState.elapsedMs;
+  }, [videoState.currentSegmentIndex, videoState.elapsedMs, flatDurations]);
+
+  useEffect(() => {
+    if (
+      !hasGatedRef.current &&
+      videoState.status === 'playing' &&
+      globalElapsedMs >= GATE_THRESHOLD_MS
+    ) {
+      hasGatedRef.current = true;
+      gate();
+    }
+  }, [globalElapsedMs, videoState.status, gate]);
+
+  const handleAuthenticate = useCallback(() => {
+    ungate();
+    requestAnimationFrame(() => videoPlay());
+  }, [ungate, videoPlay]);
 
   // ── Unified slides array ──
   const slides = useMemo<Slide[]>(() => {
@@ -167,16 +204,20 @@ export default function GalleryLightbox({
                 {videoState.status === 'playing' || videoState.status === 'paused' || videoState.status === 'seeking' || videoState.status === 'ended' ? (
                   <>
                     <CompositionCanvas />
-                    {(videoState.status === 'paused' || videoState.status === 'ended') && (
-                      <button
-                        className={styles.videoPlayOverlay}
-                        onClick={videoPlay}
-                        aria-label="Play video"
-                      >
-                        <div className={styles.videoPlayCircle}>
-                          <Icon name={videoState.status === 'ended' ? 'replay' : 'play_arrow'} size={40} />
-                        </div>
-                      </button>
+                    {videoState.isGated ? (
+                      <VideoAuthGate onAuthenticate={handleAuthenticate} />
+                    ) : (
+                      (videoState.status === 'paused' || videoState.status === 'ended') && (
+                        <button
+                          className={styles.videoPlayOverlay}
+                          onClick={videoPlay}
+                          aria-label="Play video"
+                        >
+                          <div className={styles.videoPlayCircle}>
+                            <Icon name={videoState.status === 'ended' ? 'replay' : 'play_arrow'} size={40} />
+                          </div>
+                        </button>
+                      )
                     )}
                   </>
                 ) : (
