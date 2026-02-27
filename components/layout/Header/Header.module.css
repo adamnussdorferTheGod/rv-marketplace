@@ -94,8 +94,8 @@
   gap: var(--space-8);
   padding: var(--space-8);
   border-radius: 100px;
-  border: 1px solid var(--rv-border);
-  background: transparent;
+  border: none;
+  background: var(--rv-surface);
   cursor: pointer;
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);

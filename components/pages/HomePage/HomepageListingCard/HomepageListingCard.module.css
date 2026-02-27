@@ -8,6 +8,7 @@
   overflow: clip;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 /* ─── Photo ─── */
@@ -19,6 +20,20 @@
   overflow: hidden;
   border-radius: var(--radius-base);
   border: 1px solid var(--rv-border-floating);
+}
+
+.photoWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.card:hover .photoWrapper::after {
+  opacity: 1;
 }
 
 .photo {

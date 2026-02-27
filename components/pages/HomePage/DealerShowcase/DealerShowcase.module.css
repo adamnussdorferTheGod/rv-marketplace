@@ -146,6 +146,7 @@
   box-shadow: var(--rv-shadow-bottom);
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .cardPhoto {
@@ -155,6 +156,20 @@
   overflow: hidden;
   border: 1px solid var(--rv-border-floating);
   border-radius: var(--radius-base) var(--radius-base) 0 0;
+}
+
+.cardPhoto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.card:hover .cardPhoto::after {
+  opacity: 1;
 }
 
 .cardImage {
