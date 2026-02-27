@@ -145,7 +145,7 @@
   .gatedOuter {
     position: relative;
     overflow: hidden;
-    max-height: 120px;
+    max-height: 200px;
     flex-shrink: 0;
   }
 
