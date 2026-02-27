@@ -26,60 +26,40 @@ const PLACEHOLDER_PHRASES = [
 const containerVariants = {
   hidden: {
     opacity: 0,
-    x: 100,
     y: '50%',
-    filter: 'blur(10px)',
-    rotateY: -15,
+    filter: 'blur(6px)',
   },
   visible: {
     opacity: 1,
-    x: 0,
     y: '50%',
     filter: 'blur(0px)',
-    rotateY: 0,
     transition: {
-      duration: 0.6,
-      ease: [0.6, -0.05, 0.01, 0.99],
-      staggerChildren: 0.06,
-      delayChildren: 0.2,
+      duration: 0.5,
+      ease: 'easeOut',
+      staggerChildren: 0.08,
+      delayChildren: 0.15,
     },
   },
 };
 
-const searchInputVariants = {
-  hidden: { opacity: 0, x: -30, rotateX: -20 },
+const childFadeVariants = {
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
-    x: 0,
-    rotateX: 0,
-    transition: { duration: 0.45, ease: 'easeOut' },
-  },
-};
-
-const searchButtonVariants = {
-  hidden: { opacity: 0, scale: 0, rotate: -180 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    rotate: 0,
-    transition: {
-      duration: 0.55,
-      delay: 0.5,
-      ease: [0.68, -0.55, 0.265, 1.55],
-    },
+    y: 0,
+    transition: { duration: 0.4, ease: 'easeOut' },
   },
 };
 
 const segmentedGroupVariants = {
-  hidden: { opacity: 0, scaleX: 0, filter: 'blur(5px)' },
+  hidden: { opacity: 0, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
-    scaleX: 1,
     filter: 'blur(0px)',
     transition: {
-      duration: 0.5,
-      delay: 0.35,
-      ease: [0.68, -0.55, 0.265, 1.55],
+      duration: 0.45,
+      delay: 0.3,
+      ease: 'easeOut',
     },
   },
 };
@@ -212,7 +192,7 @@ export default function HeroBanner() {
   const animateEntrance = !reducedMotion;
 
   return (
-    <section className={styles.hero} style={{ perspective: 1000 }}>
+    <section className={styles.hero}>
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>Shop the largest RV marketplace</h1>
       </div>
@@ -258,10 +238,10 @@ export default function HeroBanner() {
         </motion.div>
 
         <div className={styles.searchRow}>
-          {/* Search input — slide from left with 3D tilt */}
+          {/* Search input — fade in */}
           <motion.div
             className={searchBarClass}
-            variants={animateEntrance ? searchInputVariants : undefined}
+            variants={animateEntrance ? childFadeVariants : undefined}
             whileHover={{ scale: 1.02, boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
             transition={{ duration: 0.2 }}
           >
@@ -350,14 +330,14 @@ export default function HeroBanner() {
             </div>
           </motion.div>
 
-          {/* Search button — spin-in pop */}
+          {/* Search button — fade in */}
           <motion.div
-            variants={animateEntrance ? searchButtonVariants : undefined}
+            variants={animateEntrance ? childFadeVariants : undefined}
             whileHover={{
-              scale: 1.08,
-              boxShadow: '0 0 25px rgba(0, 104, 54, 0.6)',
+              scale: 1.05,
+              boxShadow: '0 0 20px rgba(0, 104, 54, 0.4)',
             }}
-            whileTap={{ scale: 0.92, boxShadow: '0 0 15px rgba(0, 104, 54, 0.4)' }}
+            whileTap={{ scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             style={{ borderRadius: 'var(--radius-full)' }}
           >
