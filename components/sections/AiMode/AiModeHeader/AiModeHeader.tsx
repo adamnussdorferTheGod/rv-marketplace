@@ -20,7 +20,7 @@ export default function AiModeHeader({
   const isPlan = panelMode === 'plan';
 
   const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'AI Mode';
-  const showSparkles = !isFitcheck;
+  const showSparkles = true;
   const useLargeStyle = isFitcheck;
 
   return (
