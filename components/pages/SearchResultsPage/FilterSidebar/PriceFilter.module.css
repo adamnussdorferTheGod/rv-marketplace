@@ -26,6 +26,20 @@
   margin-bottom: var(--space-4);
 }
 
+/* ─── Side-by-side input row ────────────────────────────────────── */
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.inputSeparator {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+  flex-shrink: 0;
+}
+
 /* ─── Price input with $ prefix ──────────────────────────────────── */
 
 .inputWrapper {
@@ -34,10 +48,12 @@
   gap: var(--space-8);
   border: 1px solid #939598;
   border-radius: var(--radius-base);
-  padding: var(--space-16);
-  height: 58px;
+  padding: var(--space-8) var(--space-16);
+  height: 44px;
   box-sizing: border-box;
   background: white;
+  flex: 1;
+  min-width: 0;
 }
 
 .inputWrapper:focus-within {

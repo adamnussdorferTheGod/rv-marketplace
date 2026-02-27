@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import type { FilterCriteria, ActiveFilter, RVType } from '@app/src/data/srpTypes.ts';
+import type { FilterCriteria, ActiveFilter, RVType, SRPListing } from '@app/src/data/srpTypes.ts';
 import Icon from '@components/ui/Icon/Icon';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import { isNaturalLanguageQuery, parseNLQuery } from '@components/pages/HomePage/HeroBanner/nlParser';
@@ -14,6 +14,7 @@ interface FilterSidebarProps {
   filters: FilterCriteria;
   totalCount: number;
   activeFilters: ActiveFilter[];
+  allListings: SRPListing[];
   setFilter: <K extends keyof FilterCriteria>(
     key: K,
     value: FilterCriteria[K],
@@ -40,6 +41,7 @@ export default function FilterSidebar({
   filters,
   totalCount,
   activeFilters,
+  allListings,
   setFilter,
   toggleArrayFilter,
   removeFilter,
@@ -236,6 +238,7 @@ export default function FilterSidebar({
         <PriceFilter
           priceMin={filters.priceMin}
           priceMax={filters.priceMax}
+          listings={allListings}
           onSetFilter={setFilter}
         />
 

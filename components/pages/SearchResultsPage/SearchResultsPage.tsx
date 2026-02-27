@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { RV_TYPE_LABELS } from '@app/src/data/srpTypes.ts';
+import { sampleSrpListings } from '@app/src/data/sampleSrpListings.ts';
 import Icon from '../../ui/Icon/Icon';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
@@ -84,6 +85,7 @@ export default function SearchResultsPage() {
               filters={filters}
               totalCount={totalCount}
               activeFilters={activeFilters}
+              allListings={sampleSrpListings}
               setFilter={setFilter}
               toggleArrayFilter={toggleArrayFilter}
               removeFilter={removeFilter}

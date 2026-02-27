@@ -1,0 +1,116 @@
+/* ─── Price Histogram Slider ──────────────────────────────────────── */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  user-select: none;
+}
+
+/* ─── Histogram + track wrapper ─────────────────────────────────── */
+
+.histogramArea {
+  position: relative;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 10px 14px 0; /* 10px top spacing, half thumb width sides */
+}
+
+.barInRange,
+.barOutOfRange {
+  flex: 1;
+  min-width: 0;
+  border-radius: 1px 1px 0 0;
+  transition: background 0.15s ease;
+}
+
+.barInRange {
+  background: var(--rv-primary);
+}
+
+.barOutOfRange {
+  background: var(--rv-border-low);
+}
+
+/* ─── Dual range slider track ───────────────────────────────────── */
+
+.sliderTrack {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px; /* half thumb width so circles stay within bounds */
+}
+
+.trackLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--rv-border-low);
+  border-radius: 2px;
+}
+
+.trackFill {
+  position: absolute;
+  height: 3px;
+  background: var(--rv-primary);
+  border-radius: 2px;
+}
+
+/* ─── Native range inputs (stacked) ─────────────────────────────── */
+
+.rangeInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--rv-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.rangeInput::-webkit-slider-thumb:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.08);
+}
+
+.rangeInput::-webkit-slider-thumb:active {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  transform: scale(1.12);
+}
+
+.rangeInput::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--rv-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.rangeInput::-moz-range-thumb:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+

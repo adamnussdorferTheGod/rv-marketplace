@@ -1,12 +1,15 @@
 import { useState, useEffect, useMemo } from 'react';
+import type { SRPListing } from '@app/src/data/srpTypes.ts';
 import Icon from '@components/ui/Icon/Icon';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import CollapsibleSection from './CollapsibleSection';
+import PriceHistogramSlider from './PriceHistogramSlider';
 import styles from './PriceFilter.module.css';
 
 interface PriceFilterProps {
   priceMin: number | null;
   priceMax: number | null;
+  listings: SRPListing[];
   onSetFilter: (
     key: 'priceMin' | 'priceMax',
     value: number | null,
@@ -34,6 +37,7 @@ const TERM_OPTIONS = [
 export default function PriceFilter({
   priceMin,
   priceMax,
+  listings,
   onSetFilter,
 }: PriceFilterProps) {
   const [mode, setMode] = useState<PriceMode>('cash');
@@ -80,38 +84,49 @@ export default function PriceFilter({
 
         {mode === 'cash' ? (
           <>
+            {/* Histogram range slider */}
+            <PriceHistogramSlider
+              listings={listings}
+              priceMin={priceMin}
+              priceMax={priceMax}
+              onSetFilter={onSetFilter}
+            />
+
             {/* Cash mode: min/max price inputs with $ prefix */}
-            <div className={styles.inputWrapper}>
-              <span className={styles.inputPrefix}>$</span>
-              <input
-                className={styles.input}
-                type="number"
-                placeholder="Min price"
-                step={1000}
-                value={priceMin ?? ''}
-                onChange={(e) =>
-                  onSetFilter(
-                    'priceMin',
-                    e.target.value ? Number(e.target.value) : null,
-                  )
-                }
-              />
-            </div>
-            <div className={styles.inputWrapper}>
-              <span className={styles.inputPrefix}>$</span>
-              <input
-                className={styles.input}
-                type="number"
-                placeholder="Max price"
-                step={1000}
-                value={priceMax ?? ''}
-                onChange={(e) =>
-                  onSetFilter(
-                    'priceMax',
-                    e.target.value ? Number(e.target.value) : null,
-                  )
-                }
-              />
+            <div className={styles.inputRow}>
+              <div className={styles.inputWrapper}>
+                <span className={styles.inputPrefix}>$</span>
+                <input
+                  className={styles.input}
+                  type="number"
+                  placeholder="Min price"
+                  step={1000}
+                  value={priceMin ?? ''}
+                  onChange={(e) =>
+                    onSetFilter(
+                      'priceMin',
+                      e.target.value ? Number(e.target.value) : null,
+                    )
+                  }
+                />
+              </div>
+              <span className={styles.inputSeparator}>–</span>
+              <div className={styles.inputWrapper}>
+                <span className={styles.inputPrefix}>$</span>
+                <input
+                  className={styles.input}
+                  type="number"
+                  placeholder="Max price"
+                  step={1000}
+                  value={priceMax ?? ''}
+                  onChange={(e) =>
+                    onSetFilter(
+                      'priceMax',
+                      e.target.value ? Number(e.target.value) : null,
+                    )
+                  }
+                />
+              </div>
             </div>
           </>
         ) : (
