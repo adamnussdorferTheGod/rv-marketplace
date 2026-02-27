@@ -20,6 +20,24 @@ function formatFull(n: number) {
 
 export default function OfferRangeSection({ data }: OfferRangeSectionProps) {
   const { opening, target, walkAway, listPrice } = data;
+  const [visible, setVisible] = useState(false);
+  const barRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // The bar spans from opening.amount to listPrice
   const min = opening.amount;
@@ -33,7 +51,7 @@ export default function OfferRangeSection({ data }: OfferRangeSectionProps) {
     <section id="offer-range" className={styles.section}>
       <h2 className={styles.heading}>Offer Range</h2>
       <div className={styles.card}>
-        <div className={styles.barContainer}>
+        <div ref={barRef} className={`${styles.barContainer} ${visible ? styles.barVisible : ''}`}>
           {/* Callout bubble for target price */}
           <div className={styles.callout} style={{ left: `${targetPct}%` }}>
             <div className={styles.calloutBubble}>
