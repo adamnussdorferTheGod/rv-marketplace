@@ -62,8 +62,8 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
           aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
         >
           <svg
-            width="24"
-            height="24"
+            width="32"
+            height="32"
             viewBox="0 0 24 24"
             fill={isFavorite ? '#E53935' : 'rgba(0,0,0,0.5)'}
             stroke="white"
@@ -78,41 +78,43 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
 
       {/* ── Content Section ── */}
       <div className={styles.content}>
-        <span className={styles.condition}>{listing.condition}</span>
+        <div className={styles.mainGroup}>
+          <div className={styles.textBlock}>
+            <span className={styles.condition}>{listing.condition}</span>
+            <h3 className={styles.title}>{listing.title}</h3>
+            <div className={styles.priceRow}>
+              <span className={styles.currentPrice}>
+                ${listing.currentPrice.toLocaleString()}
+              </span>
+              {showOriginalPrice && (
+                <span className={styles.originalPrice}>
+                  ${listing.originalPrice!.toLocaleString()}
+                </span>
+              )}
+            </div>
+          </div>
 
-        <h3 className={styles.title}>{listing.title}</h3>
-
-        <div className={styles.priceRow}>
-          <span className={styles.currentPrice}>
-            ${listing.currentPrice.toLocaleString()}
-          </span>
-          {showOriginalPrice && (
-            <span className={styles.originalPrice}>
-              ${listing.originalPrice!.toLocaleString()}
-            </span>
-          )}
+          <button type="button" className={styles.ctaButton}>
+            More info
+          </button>
         </div>
 
-        <span className={styles.monthlyPayment}>
-          ${listing.monthlyPayment.toLocaleString()}/mo
-        </span>
+        <div className={styles.dividerWrapper}>
+          <div className={styles.divider} />
+        </div>
 
-        <button type="button" className={styles.ctaButton}>
-          More info
-        </button>
-      </div>
-
-      {/* ── Dealer Section ── */}
-      <div className={styles.divider} />
-      <div className={styles.dealer}>
-        <span className={styles.dealerName}>{listing.dealer.name}</span>
-        <span className={styles.dealerLocation}>{location}</span>
-        {listing.isTrustedPartner && (
-          <span className={styles.trustedBadge}>
-            <Icon name="shield_check" size={16} className={styles.trustedBadgeIcon} />
-            Trusted partner
-          </span>
-        )}
+        <div className={styles.dealer}>
+          <div className={styles.dealerInfo}>
+            <span className={styles.dealerName}>{listing.dealer.name}</span>
+            <span className={styles.dealerLocation}>{location}</span>
+          </div>
+          {listing.isTrustedPartner && (
+            <div className={styles.trustedBadge}>
+              <Icon name="award_star" size={20} className={styles.trustedBadgeIcon} />
+              Trusted partner
+            </div>
+          )}
+        </div>
       </div>
     </article>
   );

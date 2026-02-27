@@ -7,6 +7,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 /* ─── Photo Section ─── */
@@ -16,6 +17,15 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
+}
+
+.photoWrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--rv-border-floating);
+  border-radius: var(--radius-base) var(--radius-base) 0 0;
+  pointer-events: none;
 }
 
 .photo {
@@ -29,11 +39,12 @@
 
 .dots {
   position: absolute;
-  bottom: var(--space-8);
+  bottom: var(--space-16);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 4px;
+  gap: var(--space-8);
+  align-items: center;
 }
 
 .dot {
@@ -44,6 +55,8 @@
 }
 
 .dotActive {
+  width: 8px;
+  height: 8px;
   background: #fff;
 }
 
@@ -51,22 +64,23 @@
 
 .tagBadge {
   position: absolute;
-  top: var(--space-8);
-  left: var(--space-8);
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
-  font: var(--font-label-3);
-  padding: 4px 8px;
-  border-radius: var(--radius-full);
-  line-height: 1;
+  top: var(--space-16);
+  left: var(--space-16);
+  background: var(--rv-surface-floating);
+  color: var(--rv-on-surface);
+  font: var(--font-label-2);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  border-left: var(--border-heavy) solid var(--rv-border-tag-red);
+  box-shadow: var(--rv-shadow-bottom);
 }
 
 /* Favorite heart button */
 
 .favoriteBtn {
   position: absolute;
-  top: var(--space-8);
-  right: var(--space-8);
+  top: var(--space-16);
+  right: var(--space-16);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,7 +88,6 @@
   border: none;
   background: none;
   cursor: pointer;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
 }
 
 .favoriteBtn:hover {
@@ -84,7 +97,20 @@
 /* ─── Content Section ─── */
 
 .content {
+  flex: 1;
   padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.mainGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.textBlock {
   display: flex;
   flex-direction: column;
   gap: var(--space-8);
@@ -94,6 +120,9 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface-variant);
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .title {
@@ -109,8 +138,9 @@
 
 .priceRow {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-8);
+  white-space: nowrap;
 }
 
 .currentPrice {
@@ -119,41 +149,56 @@
 }
 
 .originalPrice {
-  font: var(--font-body-2);
+  font: var(--font-label-1);
   color: var(--rv-on-surface-variant);
   text-decoration: line-through;
 }
 
-.monthlyPayment {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-}
-
 .ctaButton {
+  display: flex;
+  height: 40px;
+  padding: var(--space-16) var(--space-32);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--space-8);
   width: 100%;
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
-  border: none;
-  border-radius: var(--radius-base);
-  font: var(--font-label-1-semibold);
-  padding: 12px 0;
-  text-align: center;
+  background: var(--rv-surface);
+  color: var(--rv-secondary);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-full);
+  font: var(--font-button-1);
   cursor: pointer;
 }
 
 .ctaButton:hover {
-  opacity: 0.92;
+  background: var(--rv-surface-variant);
 }
 
-/* ─── Dealer Section ─── */
+/* ─── Divider ─── */
+
+.dividerWrapper {
+  margin-top: auto;
+  padding: var(--space-8) 0;
+}
 
 .divider {
   height: 1px;
   background: var(--rv-border-low);
 }
 
+/* ─── Dealer Section ─── */
+
 .dealer {
-  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  justify-content: center;
+  min-height: 72px;
+}
+
+.dealerInfo {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -166,7 +211,7 @@
 
 .dealerLocation {
   font: var(--font-label-2);
-  color: var(--rv-on-surface-variant);
+  color: var(--rv-on-surface);
 }
 
 .trustedBadge {
@@ -174,7 +219,7 @@
   align-items: center;
   gap: var(--space-4);
   color: var(--rv-on-surface-brand);
-  font: var(--font-label-2-semibold);
+  font: var(--font-label-2);
 }
 
 .trustedBadgeIcon {
