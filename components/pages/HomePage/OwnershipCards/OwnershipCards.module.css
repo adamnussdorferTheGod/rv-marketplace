@@ -1,5 +1,6 @@
 .section {
   padding: var(--space-32) 0;
+  margin-top: 48px;
 }
 
 .heading {
@@ -74,7 +75,7 @@
   background: var(--rv-secondary);
   color: var(--rv-on-secondary);
   border: none;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-full);
   padding: 16px 32px;
   font-weight: 600;
   font-size: 16px;
