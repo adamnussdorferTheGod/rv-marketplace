@@ -1,0 +1,122 @@
+/* ─── Price filter tabs ──────────────────────────────────────────── */
+
+.tabs {
+  display: flex;
+  width: 100%;
+  gap: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font: var(--font-body-1);
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface-variant);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tab:first-child {
+  border-radius: 8px 0 0 0;
+}
+
+.tab:last-child {
+  border-radius: 0 8px 0 0;
+}
+
+.tabActive {
+  background: var(--rv-primary);
+  color: white;
+}
+
+/* ─── Content area ──────────────────────────────────────────────── */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+/* ─── Input row (cash mode) ─────────────────────────────────────── */
+
+.inputRow {
+  display: flex;
+  gap: 12px;
+}
+
+.inputRow .inputGroup {
+  flex: 1;
+}
+
+/* ─── Finance fields ────────────────────────────────────────────── */
+
+.financeFields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ─── Shared input group ────────────────────────────────────────── */
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin-bottom: 4px;
+}
+
+.input {
+  border: 1px solid var(--rv-border-input);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  background: transparent;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--rv-primary);
+}
+
+/* ─── Term slider ───────────────────────────────────────────────── */
+
+.slider {
+  width: 100%;
+  accent-color: var(--rv-primary);
+  margin: 8px 0;
+}
+
+.sliderValue {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-align: center;
+}
+
+/* ─── Buying power callout ──────────────────────────────────────── */
+
+.buyingPower {
+  display: flex;
+  flex-direction: column;
+  background: var(--rv-surface-variant);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.buyingPowerLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.buyingPowerValue {
+  font: var(--font-title-2);
+  color: var(--rv-primary);
+}
