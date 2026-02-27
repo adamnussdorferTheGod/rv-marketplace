@@ -147,20 +147,22 @@
 
 .searchButton {
   width: 100%;
-  padding: 14px var(--space-32);
-  background: transparent;
+  padding: 14px 30px;
+  background: var(--rv-surface);
   color: var(--rv-primary);
   border: 2px solid var(--rv-primary);
-  border-radius: var(--radius-base);
-  font: var(--font-label-1-semibold);
+  border-radius: var(--radius-full);
+  font: var(--font-button-1);
   cursor: pointer;
   text-align: center;
-  transition: background 150ms ease, color 150ms ease;
 }
 
 .searchButton:hover {
-  background: var(--rv-primary);
-  color: var(--rv-on-primary);
+  border-color: var(--rv-border-high);
+}
+
+.searchButton:active {
+  background: var(--rv-surface-variant);
 }
 
 /* ─── Location filter ─────────────────────────────────────────────── */
