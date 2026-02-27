@@ -33,13 +33,24 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
     panelModeRef.current = mode;
     setPanelModeState(mode);
   }, []);
-  const [messages, setMessages] = useState<ConversationMessage[]>([]);
-  const [exchangeCount, setExchangeCount] = useState(0);
+  const [threadMap, setThreadMap] = useState<Record<PanelMode, {
+    messages: ConversationMessage[];
+    exchangeCount: number;
+    suggestedPrompts: string[];
+  }>>({
+    default: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+    fitcheck: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+    plan: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+  });
+  const threadMapRef = useRef(threadMap);
+  threadMapRef.current = threadMap;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(() =>
-    generateInitialPrompts(listing),
-  );
+
+  const thread = threadMap[panelMode];
+  const messages = thread.messages;
+  const exchangeCount = thread.exchangeCount;
+  const suggestedPrompts = thread.suggestedPrompts;
 
   const openPanel = useCallback((mode?: PanelMode) => {
     if (mode) setPanelMode(mode);
@@ -51,7 +62,9 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const sendMessage = useCallback(
     async (content: string) => {
       if (isLoading) return;
-      if (exchangeCount >= 2 && !isAuthenticated) return;
+      const mode = panelModeRef.current;
+      const currentThread = threadMapRef.current[mode];
+      if (currentThread.exchangeCount >= 2 && !isAuthenticated) return;
 
       const userMsg: ConversationMessage = {
         id: nextId(),
@@ -60,16 +73,18 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
         timestamp: Date.now(),
       };
 
-      setMessages((prev) => [...prev, userMsg]);
-      setSuggestedPrompts([]);
+      setThreadMap((prev) => ({
+        ...prev,
+        [mode]: { ...prev[mode], messages: [...prev[mode].messages, userMsg], suggestedPrompts: [] },
+      }));
       setIsLoading(true);
 
       try {
-        const history = [...messages, userMsg];
+        const history = [...currentThread.messages, userMsg];
         let response: string;
         if (isClaudeAvailable()) {
           try {
-            response = await generateClaudeResponse(listing, content, history, panelModeRef.current);
+            response = await generateClaudeResponse(listing, content, history, mode);
             console.log('[AiMode] Claude response received');
           } catch (err) {
             console.warn('[AiMode] Claude failed, falling back to mock:', err);
@@ -87,14 +102,20 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
           timestamp: Date.now(),
         };
 
-        setMessages((prev) => [...prev, assistantMsg]);
-        setExchangeCount((c) => c + 1);
-        setSuggestedPrompts(generateFollowUpPrompts(response, listing, panelModeRef.current));
+        setThreadMap((prev) => ({
+          ...prev,
+          [mode]: {
+            ...prev[mode],
+            messages: [...prev[mode].messages, assistantMsg],
+            exchangeCount: prev[mode].exchangeCount + 1,
+            suggestedPrompts: generateFollowUpPrompts(response, listing, mode),
+          },
+        }));
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading, exchangeCount, isAuthenticated, listing, messages],
+    [isLoading, isAuthenticated, listing],
   );
 
   const value = useMemo<AiModeContextValue>(
