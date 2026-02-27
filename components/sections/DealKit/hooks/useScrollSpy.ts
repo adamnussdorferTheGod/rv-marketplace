@@ -3,7 +3,7 @@ import { DEAL_KIT_SECTIONS } from '../../../../app/src/data/dealKitTypes';
 import { useDealKit } from '../DealKitContext';
 
 export function useScrollSpy(containerRef: React.RefObject<HTMLElement | null>) {
-  const { step, setActiveSection } = useDealKit();
+  const { step, isContentUnlocked, setActiveSection } = useDealKit();
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastId = DEAL_KIT_SECTIONS[DEAL_KIT_SECTIONS.length - 1].id;
 
@@ -44,6 +44,7 @@ export function useScrollSpy(containerRef: React.RefObject<HTMLElement | null>) 
   }, [containerRef, setActiveSection]);
 
   // Re-run setup when step changes (loading → ready renders the sections)
+  // or when content unlocks (sections move to new DOM positions)
   useEffect(() => {
     if (step !== 'ready') return;
 
@@ -52,7 +53,7 @@ export function useScrollSpy(containerRef: React.RefObject<HTMLElement | null>) 
       clearTimeout(timer);
       observerRef.current?.disconnect();
     };
-  }, [step, setup]);
+  }, [step, isContentUnlocked, setup]);
 
   // Activate last section when scrolled to bottom
   useEffect(() => {

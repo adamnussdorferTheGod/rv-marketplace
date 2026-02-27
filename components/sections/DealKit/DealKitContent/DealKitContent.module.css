@@ -24,6 +24,7 @@
   gap: var(--space-32);
 }
 
+
 .sidebarSpacer {
   width: 220px;
   flex-shrink: 0;

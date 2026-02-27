@@ -20,6 +20,7 @@ interface DealKitContextValue {
   step: DealKitStep;
   isOverlayOpen: boolean;
   isAuthenticated: boolean;
+  isContentUnlocked: boolean;
   data: DealKitData | null;
   loadingStep: number;
   activeSection: string;
@@ -29,6 +30,7 @@ interface DealKitContextValue {
   closeDealKit: () => void;
   setActiveSection: (id: string) => void;
   toggleChecklistItem: (id: string) => void;
+  unlockContent: () => void;
 }
 
 const DealKitContext = createContext<DealKitContextValue | null>(null);
@@ -55,6 +57,7 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
   const [data, setData] = useState<DealKitData | null>(null);
   const [loadingStep, setLoadingStep] = useState(0);
   const [activeSection, setActiveSection] = useState('deal-score');
+  const [isContentUnlocked, setIsContentUnlocked] = useState(false);
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set());
 
   // Body scroll lock
@@ -102,6 +105,10 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
     setStep('idle');
   }, []);
 
+  const unlockContent = useCallback(() => {
+    setIsContentUnlocked(true);
+  }, []);
+
   const toggleChecklistItem = useCallback((id: string) => {
     setCheckedItems((prev) => {
       const next = new Set(prev);
@@ -119,6 +126,7 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
       step,
       isOverlayOpen,
       isAuthenticated,
+      isContentUnlocked,
       data,
       loadingStep,
       activeSection,
@@ -128,11 +136,13 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
       closeDealKit,
       setActiveSection,
       toggleChecklistItem,
+      unlockContent,
     }),
     [
       step,
       isOverlayOpen,
       isAuthenticated,
+      isContentUnlocked,
       data,
       loadingStep,
       activeSection,
@@ -141,6 +151,7 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
       authenticate,
       closeDealKit,
       toggleChecklistItem,
+      unlockContent,
     ],
   );
 
