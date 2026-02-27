@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-32);
+  margin-top: 48px;
   margin-bottom: var(--space-64);
 }
 

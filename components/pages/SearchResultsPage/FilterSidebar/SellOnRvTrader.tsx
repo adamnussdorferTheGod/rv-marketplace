@@ -18,7 +18,7 @@ export default function SellOnRvTrader() {
         </p>
       </div>
       <a className={styles.cta} href="/sell">
-        List your RV
+        Sell my RV
       </a>
     </div>
   );

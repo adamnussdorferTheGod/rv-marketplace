@@ -1,10 +1,10 @@
 .section {
   border-bottom: 1px solid var(--rv-border-low);
-  padding: var(--space-8) 0;
+  padding-bottom: var(--space-8);
 }
 
 .sectionNoBorder {
-  padding: var(--space-8) 0;
+  /* No padding or border needed */
 }
 
 .header {
@@ -36,12 +36,14 @@
   overflow: hidden;
   max-height: 600px;
   opacity: 1;
-  transition: max-height 0.25s ease, opacity 0.2s ease;
-  padding-top: var(--space-8);
+  transition: max-height 0.25s ease, opacity 0.2s ease, margin-bottom 0.25s ease, padding-top 0.25s ease;
+  padding-top: var(--space-16);
+  margin-bottom: var(--space-16);
 }
 
 .contentCollapsed {
   max-height: 0;
   opacity: 0;
   padding-top: 0;
+  margin-bottom: 0;
 }

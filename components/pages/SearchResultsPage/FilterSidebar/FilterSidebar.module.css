@@ -16,6 +16,7 @@
 .sidebarContent {
   display: flex;
   flex-direction: column;
+  gap: var(--space-16);
 }
 
 /* ─── Mobile overlay header (hidden on desktop) ──────────────────── */

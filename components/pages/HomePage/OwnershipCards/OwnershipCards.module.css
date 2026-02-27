@@ -1,9 +1,13 @@
 .section {
   padding: var(--space-32) 0;
+  margin-top: 80px;
 }
 
 .heading {
-  font: var(--font-headline-1);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
   color: var(--rv-on-surface);
   margin: 0 0 var(--space-24);
 }
