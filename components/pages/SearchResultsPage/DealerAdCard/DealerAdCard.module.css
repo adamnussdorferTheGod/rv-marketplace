@@ -1,0 +1,79 @@
+/* DealerAdCard — Dealer advertisement card for the SRP sidebar */
+
+.card {
+  width: 100%;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Sponsored Label ─── */
+
+.sponsoredLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+  padding: var(--space-16) var(--space-16) 0;
+}
+
+/* ─── Photo ─── */
+
+.photoWrapper {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ─── Content ─── */
+
+.content {
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+}
+
+.dealerName {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.description {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: var(--space-8) 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ctaButton {
+  display: block;
+  width: 100%;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border: none;
+  border-radius: var(--radius-base);
+  font: var(--font-label-1-semibold);
+  padding: 12px 0;
+  text-align: center;
+  text-decoration: none;
+  margin-top: var(--space-16);
+  cursor: pointer;
+}
+
+.ctaButton:hover {
+  opacity: 0.92;
+}
