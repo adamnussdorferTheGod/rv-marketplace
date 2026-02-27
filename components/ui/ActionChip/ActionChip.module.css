@@ -9,11 +9,23 @@
   font: var(--font-label-2);
   color: var(--rv-on-surface);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   white-space: nowrap;
 }
 
 .chip:hover {
   background: var(--rv-surface-variant);
   border-color: var(--rv-border-high);
+}
+
+.chipSelected {
+  background: var(--rv-secondary);
+  color: white;
+  border-color: var(--rv-secondary);
+}
+
+.chipSelected:hover {
+  background: var(--rv-secondary);
+  border-color: var(--rv-secondary);
+  opacity: 0.9;
 }

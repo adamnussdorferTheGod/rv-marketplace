@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import Icon from '@components/ui/Icon/Icon';
+import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import styles from './Pagination.module.css';
 
 interface PaginationProps {
@@ -8,21 +8,6 @@ interface PaginationProps {
   totalResults: number;
   resultsPerPage: number;
   onPageChange: (page: number) => void;
-}
-
-function useIsMobile(breakpoint = 767): boolean {
-  const [isMobile, setIsMobile] = useState(
-    () => window.matchMedia(`(max-width: ${breakpoint}px)`).matches,
-  );
-
-  useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`);
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, [breakpoint]);
-
-  return isMobile;
 }
 
 function buildPageNumbers(
@@ -98,7 +83,7 @@ export default function Pagination({
   resultsPerPage,
   onPageChange,
 }: PaginationProps) {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(767);
 
   if (totalPages <= 1) {
     return null;

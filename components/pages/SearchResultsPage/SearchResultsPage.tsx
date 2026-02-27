@@ -1,11 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
+import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import { RV_TYPE_LABELS } from '@app/src/data/srpTypes.ts';
 import { sampleSrpListings } from '@app/src/data/sampleSrpListings.ts';
 import Icon from '../../ui/Icon/Icon';
+import ActionChip from '../../ui/ActionChip/ActionChip';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import SortControls from './SortControls/SortControls';
+import SortBottomSheet from './SortControls/SortBottomSheet';
+import MobileFilterBar from './MobileFilterBar/MobileFilterBar';
 import ListingGrid from './ListingGrid/ListingGrid';
 import Pagination from './Pagination/Pagination';
 import SellOnRvTrader from './FilterSidebar/SellOnRvTrader';
@@ -40,6 +44,8 @@ export default function SearchResultsPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortSheetOpen, setSortSheetOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   // Reset to page 1 whenever filters or sort change
   useEffect(() => {
@@ -78,7 +84,21 @@ export default function SearchResultsPage() {
       <div className={styles.leaderboardAd}>
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
       </div>
+
+      {/* Mobile filter/sort bar */}
+      <MobileFilterBar
+        activeFilterCount={activeFilters.length}
+        sort={sort}
+        onFilterClick={() => setSidebarOpen(true)}
+        onSortClick={() => setSortSheetOpen(true)}
+      />
+
       <div className={styles.content}>
+        {/* Mobile ad banner */}
+        <div className={styles.mobileAdBanner}>
+          <AdSlot width={390} height={100} label="Mobile Ad" />
+        </div>
+
         <div className={styles.twoColumn}>
           {/* Left: Filter sidebar (330px desktop, overlay mobile) */}
           <div className={styles.sidebarColumn}>
@@ -137,7 +157,9 @@ export default function SearchResultsPage() {
                   </div>
                 )}
               </div>
-              <SortControls sort={sort} onSortChange={setSort} />
+              <div className={styles.sortControlsDesktop}>
+                <SortControls sort={sort} onSortChange={setSort} />
+              </div>
             </div>
 
             <FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
@@ -156,6 +178,14 @@ export default function SearchResultsPage() {
               onPageChange={handlePageChange}
             />
 
+            {/* Search suggestion chips (mobile only) */}
+            {isMobile && (
+              <div className={styles.searchSuggestions}>
+                <ActionChip label="New travel trailers" />
+                <ActionChip label="Used travel trailers" />
+              </div>
+            )}
+
             <SrpDisclaimer />
           </div>
         </div>
@@ -163,14 +193,13 @@ export default function SearchResultsPage() {
         <PopularSearches />
       </div>
 
-      {/* Mobile filter button */}
-      <button
-        type="button"
-        className={styles.mobileFilterBtn}
-        onClick={() => setSidebarOpen(true)}
-      >
-        Filter{activeFilters.length > 0 ? ` (${activeFilters.length})` : ''}
-      </button>
+      {/* Mobile sort bottom sheet */}
+      <SortBottomSheet
+        isOpen={sortSheetOpen}
+        sort={sort}
+        onSortChange={setSort}
+        onClose={() => setSortSheetOpen(false)}
+      />
     </div>
   );
 }

@@ -357,9 +357,9 @@
   .mobileHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 8px;
     padding: 16px;
-    border-bottom: 1px solid var(--rv-border);
+    border-bottom: 1px solid var(--rv-border-low);
     position: sticky;
     top: 0;
     background: var(--rv-surface);
@@ -372,7 +372,7 @@
     color: var(--rv-on-surface);
   }
 
-  .mobileClose {
+  .mobileBack {
     display: flex;
     align-items: center;
     background: none;

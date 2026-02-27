@@ -254,3 +254,17 @@
 .trustedBadgeIcon {
   flex-shrink: 0;
 }
+
+/* ─── Mobile tweaks ───────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .photoWrapper {
+    aspect-ratio: unset;
+    height: 295px;
+  }
+
+  .ctaButton {
+    height: auto;
+    padding: 16px 32px;
+  }
+}

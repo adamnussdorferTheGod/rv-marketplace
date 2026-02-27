@@ -1,0 +1,64 @@
+.bar {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E4E4E5;
+    background: var(--rv-surface);
+    position: sticky;
+    top: 72px;
+    z-index: 150;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid #939598;
+    background: white;
+    font: var(--font-label-2);
+    color: var(--rv-on-surface);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .pill:hover {
+    background: var(--rv-surface-variant);
+  }
+
+  .pillActive {
+    background: var(--rv-secondary);
+    color: white;
+    border-color: var(--rv-secondary);
+  }
+
+  .pillActive:hover {
+    background: var(--rv-secondary);
+    border-color: var(--rv-secondary);
+    opacity: 0.9;
+  }
+
+  .heartBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--rv-on-surface);
+    cursor: pointer;
+  }
+
+  .heartBtn:hover {
+    color: var(--rv-primary);
+  }
+}

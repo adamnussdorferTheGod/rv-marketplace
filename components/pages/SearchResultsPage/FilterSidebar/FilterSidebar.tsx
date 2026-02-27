@@ -176,15 +176,15 @@ export default function FilterSidebar({
     <aside className={sidebarClassName}>
       {/* Mobile overlay header */}
       <div className={styles.mobileHeader}>
-        <span className={styles.mobileTitle}>Filters</span>
         <button
-          className={styles.mobileClose}
+          className={styles.mobileBack}
           onClick={onClose}
           type="button"
-          aria-label="Close filters"
+          aria-label="Back"
         >
-          <Icon name="x_close" size={24} />
+          <Icon name="chevron_left" size={24} />
         </button>
+        <span className={styles.mobileTitle}>Filters</span>
       </div>
 
       <div className={styles.sidebarContent}>
