@@ -2,10 +2,11 @@ import { useState } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useNarration } from '../NarrationContext';
 import NarrationContent from '../NarrationContent/NarrationContent';
+import NarrationAuthGate from '../NarrationAuthGate/NarrationAuthGate';
 import styles from './NarrationPanel.module.css';
 
 export default function NarrationPanel() {
-  const { getCurrentNarration, isEnabled } = useNarration();
+  const { getCurrentNarration, isEnabled, isGated, authenticate } = useNarration();
   const narration = getCurrentNarration();
   const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
@@ -18,6 +19,16 @@ export default function NarrationPanel() {
     setMessage('');
     setTimeout(() => setSent(false), 3000);
   };
+
+  if (isGated) {
+    return (
+      <aside className={styles.panel}>
+        <div className={styles.scrollArea}>
+          <NarrationAuthGate onAuthenticate={authenticate} />
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside className={styles.panel}>

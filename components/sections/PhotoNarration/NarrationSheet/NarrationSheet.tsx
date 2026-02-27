@@ -2,10 +2,11 @@ import { useRef, useCallback, useState } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useNarration } from '../NarrationContext';
 import NarrationContent from '../NarrationContent/NarrationContent';
+import NarrationAuthGate from '../NarrationAuthGate/NarrationAuthGate';
 import styles from './NarrationSheet.module.css';
 
 export default function NarrationSheet() {
-  const { isEnabled, mobileSheetExpanded, setMobileSheetExpanded, getCurrentNarration } = useNarration();
+  const { isEnabled, mobileSheetExpanded, setMobileSheetExpanded, getCurrentNarration, isGated, authenticate } = useNarration();
   const narration = getCurrentNarration();
   const touchStartY = useRef(0);
   const [message, setMessage] = useState('');
@@ -32,6 +33,23 @@ export default function NarrationSheet() {
   };
 
   if (!isEnabled || !narration) return null;
+
+  if (isGated) {
+    return (
+      <div
+        className={`${styles.sheet} ${styles.expanded}`}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className={styles.handle}>
+          <div className={styles.handleBar} />
+        </div>
+        <div className={styles.scrollArea}>
+          <NarrationAuthGate onAuthenticate={authenticate} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
