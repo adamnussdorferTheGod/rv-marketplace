@@ -282,21 +282,13 @@ export default function HeroBanner() {
                 aria-label="Search RVs"
                 aria-expanded={isDropdownOpen}
               />
+              {showPlaceholder && (
+                <span className={styles.placeholderText} aria-hidden="true">
+                  {typedText}
+                  <span className={styles.cursor} />
+                </span>
+              )}
             </div>
-
-            {/* Placeholder spans full search bar width for true centering */}
-            {showPlaceholder && (
-              <motion.span
-                className={styles.placeholderText}
-                aria-hidden="true"
-                initial={animateEntrance ? { opacity: 0, filter: 'blur(4px)' } : false}
-                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                transition={{ delay: 0.8, duration: 0.4, ease: 'easeOut' }}
-              >
-                {typedText}
-                <span className={styles.cursor} />
-              </motion.span>
-            )}
 
             <span className={styles.divider} />
 

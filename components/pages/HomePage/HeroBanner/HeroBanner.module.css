@@ -91,7 +91,6 @@
 
 /* Search pill — bordered input container */
 .searchBar {
-  position: relative;
   flex: 1;
   height: 56px;
   background: var(--color-white);
@@ -128,9 +127,10 @@
   align-items: center;
 }
 
-/* Input area */
+/* Input area with rotating placeholder */
 .inputArea {
   flex: 1;
+  position: relative;
   min-height: 44px;
   display: flex;
   align-items: center;
@@ -146,16 +146,14 @@
   font-family: var(--font-family);
   color: var(--rv-on-surface);
   line-height: 1.4;
-  text-align: center;
 }
 
-/* Placeholder overlay — centered over full search bar */
+/* Placeholder overlay — typewriter text */
 .placeholderText {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   pointer-events: none;
   font-size: 16px;
   font-family: var(--font-family);

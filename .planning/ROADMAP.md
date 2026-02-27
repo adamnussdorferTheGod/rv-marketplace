@@ -374,7 +374,7 @@ Plans:
 - [x] **Phase 25: Listing Cards** - Standard card, featured compact card, sponsored showcase, PAA card, dealer ad card with all visual treatments (completed 2026-02-27)
 - [x] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay (completed 2026-02-27)
 - [x] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination (completed 2026-02-27)
-- [ ] **Phase 28: Page Chrome & Content Sections** - Header/footer reuse, SEO popular searches footer, app CTA banner, disclaimer
+- [x] **Phase 28: Page Chrome & Content Sections** - Header/footer reuse, SEO popular searches footer, app CTA banner, disclaimer (completed 2026-02-27)
 - [ ] **Phase 29: Responsive Breakpoints** - 991px and 767px breakpoint adaptations for grid, sidebar, carousels, and pagination
 
 ### Phase 24: Data Layer & Filter Engine
@@ -451,10 +451,10 @@ Plans:
   2. A "Popular searches" SEO footer section displays categorized link grids below the main results area
   3. An app download CTA banner with phone mockup, QR code, and App Store/Google Play badges appears between results and footer
   4. A disclaimer text block at the bottom of the results area notes AI-enhanced photos and third-party data accuracy
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 28-01: SearchResultsPage chrome wiring (Header, Footer, CrossPromotionsBar), SEO popular searches footer, app CTA banner, and disclaimer text
+- [ ] 28-01-PLAN.md — Chrome verification, PopularSearches SEO section, leaderboard ad, SrpDisclaimer, and full SearchResultsPage wiring
 
 ### Phase 29: Responsive Breakpoints
 **Goal**: The SRP adapts gracefully to tablet and mobile viewports using the existing project breakpoints
@@ -508,6 +508,6 @@ Plans:
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
 | 26. Filter Sidebar | 3/3 | Complete    | 2026-02-27 | - |
-| 27. SRP Page Assembly | 2/2 | Complete   | 2026-02-27 | - |
-| 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
+| 27. SRP Page Assembly | 2/2 | Complete    | 2026-02-27 | - |
+| 28. Page Chrome & Content Sections | 1/1 | Complete   | 2026-02-27 | - |
 | 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |

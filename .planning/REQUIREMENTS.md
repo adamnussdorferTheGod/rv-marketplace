@@ -52,11 +52,11 @@
 
 ### Page Chrome
 
-- [ ] **CHRO-01**: Reuses existing Header and Cross-promotions bar from VDP
-- [ ] **CHRO-02**: SEO "Popular searches" footer section with categorized link grid
-- [ ] **CHRO-03**: App download CTA banner with phone mockup, QR code, and App Store/Google Play badges
-- [ ] **CHRO-04**: Reuses existing Footer from VDP
-- [ ] **CHRO-05**: Disclaimer text at bottom of results for AI-enhanced photos and third-party data accuracy
+- [x] **CHRO-01**: Reuses existing Header and Cross-promotions bar from VDP
+- [x] **CHRO-02**: SEO "Popular searches" footer section with categorized link grid
+- [x] **CHRO-03**: App download CTA banner with phone mockup, QR code, and App Store/Google Play badges
+- [x] **CHRO-04**: Reuses existing Footer from VDP
+- [x] **CHRO-05**: Disclaimer text at bottom of results for AI-enhanced photos and third-party data accuracy
 
 ### Responsive
 
@@ -196,11 +196,11 @@ Deferred to subsequent milestones.
 | LAYO-04 | Phase 27 | Complete |
 | LAYO-05 | Phase 27 | Complete |
 | LAYO-06 | Phase 27 | Complete |
-| CHRO-01 | Phase 28 | Pending |
-| CHRO-02 | Phase 28 | Pending |
-| CHRO-03 | Phase 28 | Pending |
-| CHRO-04 | Phase 28 | Pending |
-| CHRO-05 | Phase 28 | Pending |
+| CHRO-01 | Phase 28 | Complete |
+| CHRO-02 | Phase 28 | Complete |
+| CHRO-03 | Phase 28 | Complete |
+| CHRO-04 | Phase 28 | Complete |
+| CHRO-05 | Phase 28 | Complete |
 | RESP-01 | Phase 29 | Pending |
 | RESP-02 | Phase 29 | Pending |
 | RESP-03 | Phase 29 | Pending |

@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-02-26)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** Phase 27 SRP Page Assembly
+**Current focus:** Phase 28 Page Chrome Content Sections
 
 ## Current Position
 
-Phase: 27 of 29 (SRP Page Assembly)
-Plan: 2 of 2 complete
+Phase: 28 of 29 (Page Chrome Content Sections)
+Plan: 1 of 1 complete
 Status: Complete
-Last activity: 2026-02-27 -- Phase 27 Plan 02 complete (SRP Grid and Pagination)
+Last activity: 2026-02-27 -- Phase 28 Plan 01 complete (Page Chrome Content Sections)
 
-Progress: [████████████████████] 44/44 plans (100%)
+Progress: [████████████████████] 45/45 plans (100%)
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [████████████████████] 44/44 p
 - Phase 26 Plan 03: 2min (2 tasks, 6 files)
 - Phase 27 Plan 01: 3min (2 tasks, 8 files)
 - Phase 27 Plan 02: 3min (2 tasks, 6 files)
+- Phase 28 Plan 01: 2min (2 tasks, 7 files)
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Progress: [████████████████████] 44/44 p
 - [Phase 27]: AdSlot className override for full-width in interleaved grid sections
 - [Phase 27]: Pagination buildPageNumbers helper with always-show first/last page pattern
 - [Phase 27]: Page reset to 1 on filter/sort change via useEffect dependency
+- [Phase 28]: Underline-style text tabs for PopularSearches (not SegmentedButtons) matching Figma
+- [Phase 28]: Responsive grid breakpoints: 6col -> 4col -> 3col -> 2col for popular search links
+- [Phase 28]: Leaderboard ad placed outside .content container for full-width background styling
 
 ### Pending Todos
 
@@ -124,5 +128,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 27-02-PLAN.md (SRP Grid and Pagination)
+Stopped at: Completed 28-01-PLAN.md (Page Chrome Content Sections)
 Resume file: None
