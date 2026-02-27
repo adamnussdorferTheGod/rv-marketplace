@@ -1,6 +1,8 @@
+import { useState, useCallback } from 'react';
 import type { FilterCriteria, ActiveFilter, RVType } from '@app/src/data/srpTypes.ts';
 import Icon from '@components/ui/Icon/Icon';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
+import { isNaturalLanguageQuery, parseNLQuery } from '@components/pages/HomePage/HeroBanner/nlParser';
 import CollapsibleSection from './CollapsibleSection';
 import RVTypeFilter from './RVTypeFilter';
 import MakeModelFilter from './MakeModelFilter';
@@ -45,7 +47,52 @@ export default function FilterSidebar({
   isOpen,
   onClose,
 }: FilterSidebarProps) {
+  const [searchText, setSearchText] = useState(filters.keyword);
   const sidebarClassName = `${styles.sidebar}${isOpen ? ` ${styles.open}` : ''}`;
+
+  const handleNLSearch = useCallback(() => {
+    const text = searchText.trim();
+    if (!text) return;
+
+    if (isNaturalLanguageQuery(text)) {
+      const result = parseNLQuery(text);
+      if (result) {
+        const { filters: nlFilters } = result;
+        // Apply each parsed filter
+        if (nlFilters.rvTypes?.length) setFilter('rvTypes', nlFilters.rvTypes as RVType[]);
+        if (nlFilters.makes?.length) setFilter('makes', nlFilters.makes);
+        if (nlFilters.models?.length) setFilter('models', nlFilters.models);
+        if (nlFilters.priceMin != null) setFilter('priceMin', nlFilters.priceMin);
+        if (nlFilters.priceMax != null) setFilter('priceMax', nlFilters.priceMax);
+        if (nlFilters.yearMin != null) setFilter('yearMin', nlFilters.yearMin);
+        if (nlFilters.yearMax != null) setFilter('yearMax', nlFilters.yearMax);
+        if (nlFilters.condition) setFilter('condition', nlFilters.condition);
+        if (nlFilters.sleepingCapacity != null) setFilter('sleepingCapacity', nlFilters.sleepingCapacity);
+        if (nlFilters.fuelTypes?.length) setFilter('fuelTypes', nlFilters.fuelTypes as FilterCriteria['fuelTypes']);
+        if (nlFilters.gvwMax != null) setFilter('grossVehicleWeightMax', nlFilters.gvwMax);
+        if (nlFilters.lengthMin != null) setFilter('lengthMin', nlFilters.lengthMin);
+        if (nlFilters.lengthMax != null) setFilter('lengthMax', nlFilters.lengthMax);
+        if (nlFilters.floorPlans?.length) setFilter('floorPlans', nlFilters.floorPlans);
+        // Clear keyword since we've applied structured filters
+        setFilter('keyword', '');
+        setSearchText('');
+        return;
+      }
+    }
+
+    // Not NL or couldn't parse — fall back to keyword search
+    setFilter('keyword', text);
+  }, [searchText, setFilter]);
+
+  const handleSearchKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleNLSearch();
+      }
+    },
+    [handleNLSearch],
+  );
 
   return (
     <aside className={sidebarClassName}>
@@ -105,17 +152,22 @@ export default function FilterSidebar({
         <div className={styles.searchSection}>
           <div className={styles.searchContainer}>
             <span className={styles.searchIcon}>
-              <Icon name="search" size={24} />
+              <Icon name="ai_search" size={24} />
             </span>
             <input
               className={styles.searchInput}
               type="text"
               placeholder="Family-friendly RVs for 4"
-              value={filters.keyword}
-              onChange={(e) => setFilter('keyword', e.target.value)}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
             />
           </div>
-          <button className={styles.searchButton} type="button">
+          <button
+            className={styles.searchButton}
+            type="button"
+            onClick={handleNLSearch}
+          >
             Search
           </button>
         </div>

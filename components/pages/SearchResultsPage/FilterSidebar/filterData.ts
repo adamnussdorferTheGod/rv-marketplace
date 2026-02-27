@@ -13,44 +13,37 @@ export const RV_TYPE_OPTIONS: RVTypeOption[] = [
   {
     value: 'class-a',
     label: RV_TYPE_LABELS['class-a'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1668503237794-00b1212b5749?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/class-a.png',
   },
   {
     value: 'class-b',
     label: RV_TYPE_LABELS['class-b'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1565126703573-3537bb43cd46?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/class-b.png',
   },
   {
     value: 'class-c',
     label: RV_TYPE_LABELS['class-c'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1613142078060-88d5609458c4?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/class-c.png',
   },
   {
     value: 'travel-trailer',
     label: RV_TYPE_LABELS['travel-trailer'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1721495669193-2746e9f82598?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/travel-trailer.png',
   },
   {
     value: 'fifth-wheel',
     label: RV_TYPE_LABELS['fifth-wheel'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1649621991444-6ff6ca66b0b9?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/fifth-wheel.png',
   },
   {
     value: 'toy-hauler',
     label: RV_TYPE_LABELS['toy-hauler'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1693482968534-41993f5a9594?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/toy-hauler.png',
   },
   {
     value: 'pop-up',
     label: RV_TYPE_LABELS['pop-up'],
-    thumbnail:
-      'https://images.unsplash.com/photo-1513309993343-cf3bfa51f700?w=60&h=40&fit=crop&auto=format',
+    thumbnail: '/images/rv-types/pop-up-camper.png',
   },
 ];
 

@@ -147,18 +147,20 @@
 
 .searchButton {
   width: 100%;
-  padding: var(--space-16) var(--space-32);
-  background: var(--rv-primary);
-  color: white;
-  border: none;
+  padding: 14px var(--space-32);
+  background: transparent;
+  color: var(--rv-primary);
+  border: 2px solid var(--rv-primary);
   border-radius: var(--radius-base);
   font: var(--font-label-1-semibold);
   cursor: pointer;
   text-align: center;
+  transition: background 150ms ease, color 150ms ease;
 }
 
 .searchButton:hover {
-  opacity: 0.9;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
 }
 
 /* ─── Location filter ─────────────────────────────────────────────── */
