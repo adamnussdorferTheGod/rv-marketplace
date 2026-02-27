@@ -9,7 +9,7 @@ function fmt(price: number): string {
   }).format(price);
 }
 
-function buildSystemPrompt(listing: ListingData): string {
+function buildSystemPrompt(listing: ListingData, panelMode: PanelMode = 'default'): string {
   const specs = listing.specs.map((s) => `  - ${s.label}: ${s.value}`).join('\n');
 
   const priceHistory = listing.priceAnalysis.priceHistory
@@ -27,7 +27,32 @@ function buildSystemPrompt(listing: ListingData): string {
     )
     .join('\n');
 
-  return `You are an AI shopping assistant on the RV Trader marketplace. You're embedded on the listing page for a specific RV. Your job is to help potential buyers make an informed decision about THIS vehicle — answer questions with concrete data, be direct, and be genuinely helpful.
+  const isPlan = panelMode === 'plan';
+
+  const roleIntro = isPlan
+    ? `You are an AI travel and trip planning assistant on the RV Trader marketplace. The user is browsing a specific RV listing and has opened "Plan with AI" mode to explore trips, destinations, and adventures with this vehicle. Your job is to help them plan trips, find campgrounds, suggest routes, recommend gear, and answer travel questions — all tailored to this specific RV. You also know everything about the vehicle itself and can answer questions about it.`
+    : `You are an AI shopping assistant on the RV Trader marketplace. You're embedded on the listing page for a specific RV. Your job is to help potential buyers make an informed decision about THIS vehicle — answer questions with concrete data, be direct, and be genuinely helpful.`;
+
+  const responseGuidelines = isPlan
+    ? `RESPONSE GUIDELINES:
+- You are a trip planning assistant first — enthusiastically help with destinations, campgrounds, road trips, routes, gear, packing, seasonal advice, and travel tips
+- Tailor recommendations to this vehicle's specs: ${listing.specs.find((s) => s.label === 'Length')?.value || 'standard'} length, ${listing.specs.find((s) => s.label === 'GVWR')?.value || 'standard'} GVWR — mention which campgrounds fit, which roads are suitable for towing, etc.
+- Be specific with real place names, campground names, and practical details
+- Use markdown: **bold** for key facts, bullet points for lists, tables when comparing options
+- Keep responses concise (150-250 words)
+- You can also answer vehicle questions — use the listing data below when relevant
+- Never invent vehicle specs or prices not provided below`
+    : `RESPONSE GUIDELINES:
+- Be conversational, helpful, and specific to THIS listing — always use real data, never make up specs or prices
+- Use markdown: **bold** for key facts, bullet points for lists, tables when comparing options
+- When asked about fit/suitability, structure as: What fits → What to verify → What doesn't fit
+- Keep responses concise (150-250 words) — buyers are browsing, not reading essays
+- When users ask where to buy, visit, test drive, etc. — give the actual dealer name, address, phone, and hours
+- When asked about alternatives, reference the similar listings with real prices
+- Be honest about limitations — if something isn't in the data, say so and suggest contacting the dealer
+- Never invent specs, features, or details not provided above`;
+
+  return `${roleIntro}
 
 VEHICLE:
 - Title: ${listing.title}
@@ -81,31 +106,7 @@ ENGAGEMENT:
 - ${listing.viewerCount} people currently viewing this listing
 - ${listing.totalPhotoCount} photos available
 
-RESPONSE GUIDELINES:
-- Be conversational, helpful, and specific to THIS listing — always use real data, never make up specs or prices
-- Use markdown: **bold** for key facts, bullet points for lists, tables when comparing options
-- When asked about fit/suitability, structure as: What fits → What to verify → What doesn't fit
-- Keep responses concise (150-250 words) — buyers are browsing, not reading essays
-- When users ask where to buy, visit, test drive, etc. — give the actual dealer name, address, phone, and hours
-- When asked about alternatives, reference the similar listings with real prices
-- Be honest about limitations — if something isn't in the data, say so and suggest contacting the dealer
-- Never invent specs, features, or details not provided above`;
-}
-
-function buildPlanModeAddendum(listing: ListingData): string {
-  return `
-
-ADDITIONAL ROLE — TRIP PLANNING:
-The user has opened the "Plan with AI" mode. In addition to your vehicle expertise, you are now also a knowledgeable RV travel and trip planning assistant. Help with:
-- Destination recommendations and campground suggestions suited to this ${listing.year} ${listing.make} ${listing.model} (${listing.specs.find((s) => s.label === 'Length')?.value || 'standard size'})
-- Road trip itineraries, scenic routes, and driving distances
-- Campground types (full hookup, boondocking, national parks) and what works for this trailer's size and hookup needs
-- Seasonal travel advice, weather considerations, and peak vs off-season timing
-- Gear recommendations and packing lists for RV trips
-- Towing tips for specific routes (mountain passes, long hauls)
-- First-timer advice for new RV owners
-
-When discussing destinations and campgrounds, be specific with real place names and practical details. Relate recommendations back to this vehicle's specs (length, weight, hookups) when relevant.`;
+${responseGuidelines}`;
 }
 
 export function isClaudeAvailable(): boolean {
@@ -136,7 +137,7 @@ export async function generateClaudeResponse(
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
-      system: buildSystemPrompt(listing) + (panelMode === 'plan' ? buildPlanModeAddendum(listing) : ''),
+      system: buildSystemPrompt(listing, panelMode),
       messages,
     }),
   });

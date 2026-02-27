@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 ## Current Position
 
 Phase: 25 of 29 (Listing Cards)
-Plan: 1 of 2 complete
-Status: Executing
-Last activity: 2026-02-26 -- Phase 25 Plan 01 complete (SRPListingCard)
+Plan: 2 of 2 complete
+Status: Phase Complete
+Last activity: 2026-02-26 -- Phase 25 Plan 02 complete (Promoted Card Variants)
 
-Progress: [████████████████████] 38/39 plans (97%)
+Progress: [████████████████████] 39/39 plans (100%)
 
 ## Performance Metrics
 
@@ -48,6 +48,7 @@ Progress: [████████████████████] 38/39 p
 - Phase 22 Plan 01: 2min (2 tasks, 4 files)
 - Phase 22 Plan 02: 2min (2 tasks, 4 files)
 - Phase 25 Plan 01: 2min (1 task, 2 files)
+- Phase 25 Plan 02: 2min (2 tasks, 8 files)
 
 ## Accumulated Context
 
@@ -88,6 +89,9 @@ Progress: [████████████████████] 38/39 p
 - [Phase 25]: Used shield_check icon from registry for trusted partner badge (not inline SVG)
 - [Phase 25]: Carousel dots are visual-only (no navigation) per plan -- Phase 27 adds interaction
 - [Phase 25]: Heart toggle uses inline SVG (same pattern as HomepageListingCard) for consistent fill/stroke control
+- [Phase 25]: Used expand_more icon from registry for PAACard chevron (not inline SVG)
+- [Phase 25]: SponsoredShowcase title is configurable via prop with 'Native Summit Showcase' default
+- [Phase 25]: DealerAdCard CTA renders as anchor tag for proper link semantics
 
 ### Pending Todos
 
@@ -100,5 +104,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-26
-Stopped at: Completed 25-01-PLAN.md (SRPListingCard)
+Stopped at: Completed 25-02-PLAN.md (Promoted Card Variants)
 Resume file: None

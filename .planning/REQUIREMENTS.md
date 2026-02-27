@@ -36,10 +36,10 @@
 
 - [x] **CARD-01**: Standard listing card displays photo with carousel dots, tag badge (e.g., "Price reduced"), favorite heart toggle, condition/program label, title, price with strikethrough original, and "More info" CTA button
 - [x] **CARD-02**: Dealer info section below divider shows dealer name, city/state with distance, and "Trusted partner" badge when applicable
-- [ ] **CARD-03**: Featured listing card (compact 242px variant) displays in horizontal carousel with photo, title, price, and dealer location
-- [ ] **CARD-04**: Sponsored "Native Summit Showcase" section displays branded dealer header with description and featured card carousel
-- [ ] **CARD-05**: PAA (People Also Asked) card variant displays as inline content within the grid
-- [ ] **CARD-06**: Dealer ad card in sidebar displays dealer photo, description, and CTA button
+- [x] **CARD-03**: Featured listing card (compact 242px variant) displays in horizontal carousel with photo, title, price, and dealer location
+- [x] **CARD-04**: Sponsored "Native Summit Showcase" section displays branded dealer header with description and featured card carousel
+- [x] **CARD-05**: PAA (People Also Asked) card variant displays as inline content within the grid
+- [x] **CARD-06**: Dealer ad card in sidebar displays dealer photo, description, and CTA button
 
 ### Page Layout
 
@@ -186,10 +186,10 @@ Deferred to subsequent milestones.
 | FILT-10 | Phase 26 | Pending |
 | CARD-01 | Phase 25 | Complete |
 | CARD-02 | Phase 25 | Complete |
-| CARD-03 | Phase 25 | Pending |
-| CARD-04 | Phase 25 | Pending |
-| CARD-05 | Phase 25 | Pending |
-| CARD-06 | Phase 25 | Pending |
+| CARD-03 | Phase 25 | Complete |
+| CARD-04 | Phase 25 | Complete |
+| CARD-05 | Phase 25 | Complete |
+| CARD-06 | Phase 25 | Complete |
 | LAYO-01 | Phase 27 | Pending |
 | LAYO-02 | Phase 27 | Pending |
 | LAYO-03 | Phase 27 | Pending |
