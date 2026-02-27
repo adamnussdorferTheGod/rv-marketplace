@@ -1,0 +1,43 @@
+.section {
+  border-bottom: 1px solid var(--rv-border-low);
+  padding: 16px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  border: none;
+  width: 100%;
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  user-select: none;
+}
+
+.header:hover {
+  color: var(--rv-primary);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  color: var(--rv-on-surface-variant);
+}
+
+.content {
+  overflow: hidden;
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+  padding-top: 12px;
+}
+
+.contentCollapsed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+}
