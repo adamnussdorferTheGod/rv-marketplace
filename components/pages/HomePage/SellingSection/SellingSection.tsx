@@ -57,7 +57,6 @@ export default function SellingSection() {
                     alt={panel.title}
                   />
                 </div>
-                <div className={styles.cardDivider} />
                 <div className={styles.cardInfo}>
                   <div className={styles.cardText}>
                     <h3 className={styles.cardTitle}>{panel.title}</h3>

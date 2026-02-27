@@ -70,7 +70,7 @@
   width: 100%;
   height: 402px;
   overflow: hidden;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-radius: var(--radius-lg);
 }
 
 .cardActive .cardImageWrap {
@@ -82,23 +82,6 @@
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-/* ─── Divider under image ─── */
-
-.cardDivider {
-  width: calc(100% + 64px);
-  margin-left: -32px;
-  height: 2px;
-  background: var(--rv-border-low);
-  border-radius: var(--radius-full);
-  box-shadow: var(--rv-shadow-bottom);
-  margin-top: -16px;
-  transition: opacity 0.4s ease;
-}
-
-.cardSide .cardDivider {
-  opacity: 0;
 }
 
 /* ─── Card info row ─── */
@@ -178,10 +161,6 @@
     max-width: 373px;
   }
 
-  .cardDivider {
-    width: 100%;
-    margin-left: 0;
-  }
 }
 
 @media (max-width: 767px) {
