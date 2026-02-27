@@ -63,7 +63,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
         let response: string;
         if (isClaudeAvailable()) {
           try {
-            response = await generateClaudeResponse(listing, content, history);
+            response = await generateClaudeResponse(listing, content, history, panelMode);
             console.log('[AiMode] Claude response received');
           } catch (err) {
             console.warn('[AiMode] Claude failed, falling back to mock:', err);

@@ -1,5 +1,5 @@
 import type { ListingData } from '../../../app/src/data/types';
-import type { ConversationMessage } from './types';
+import type { ConversationMessage, PanelMode } from './types';
 
 function fmt(price: number): string {
   return new Intl.NumberFormat('en-US', {
@@ -92,6 +92,22 @@ RESPONSE GUIDELINES:
 - Never invent specs, features, or details not provided above`;
 }
 
+function buildPlanModeAddendum(listing: ListingData): string {
+  return `
+
+ADDITIONAL ROLE — TRIP PLANNING:
+The user has opened the "Plan with AI" mode. In addition to your vehicle expertise, you are now also a knowledgeable RV travel and trip planning assistant. Help with:
+- Destination recommendations and campground suggestions suited to this ${listing.year} ${listing.make} ${listing.model} (${listing.specs.find((s) => s.label === 'Length')?.value || 'standard size'})
+- Road trip itineraries, scenic routes, and driving distances
+- Campground types (full hookup, boondocking, national parks) and what works for this trailer's size and hookup needs
+- Seasonal travel advice, weather considerations, and peak vs off-season timing
+- Gear recommendations and packing lists for RV trips
+- Towing tips for specific routes (mountain passes, long hauls)
+- First-timer advice for new RV owners
+
+When discussing destinations and campgrounds, be specific with real place names and practical details. Relate recommendations back to this vehicle's specs (length, weight, hookups) when relevant.`;
+}
+
 export function isClaudeAvailable(): boolean {
   return true; // Server-side function handles the API key
 }
@@ -100,6 +116,7 @@ export async function generateClaudeResponse(
   listing: ListingData,
   message: string,
   history: ConversationMessage[],
+  panelMode: PanelMode = 'default',
 ): Promise<string> {
   const messages = history.map((msg) => ({
     role: msg.role as 'user' | 'assistant',
@@ -119,7 +136,7 @@ export async function generateClaudeResponse(
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
-      system: buildSystemPrompt(listing),
+      system: buildSystemPrompt(listing) + (panelMode === 'plan' ? buildPlanModeAddendum(listing) : ''),
       messages,
     }),
   });

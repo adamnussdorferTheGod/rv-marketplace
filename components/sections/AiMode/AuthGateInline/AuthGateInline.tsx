@@ -18,11 +18,8 @@ export default function AuthGateInline() {
 
   return (
     <div className={styles.card}>
-      <div className={styles.iconWrap}>
-        <Icon name="lock" size={24} />
-      </div>
       <h3 className={styles.heading}>Sign in to keep exploring</h3>
-      <p className={styles.body}>
+      <p className={styles.subtext}>
         Create a free account or sign in to continue your AI-powered conversation
         about this listing.
       </p>
@@ -36,6 +33,11 @@ export default function AuthGateInline() {
           <span>Continue with email</span>
         </button>
       </div>
+      <p className={styles.terms}>
+        By continuing, you agree to the{' '}
+        <a href="#terms">Terms of Service</a> and{' '}
+        <a href="#privacy">Privacy Policy</a>.
+      </p>
     </div>
   );
 }
