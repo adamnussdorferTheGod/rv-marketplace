@@ -4,6 +4,7 @@ import {
   useState,
   useCallback,
   useMemo,
+  useRef,
   type ReactNode,
 } from 'react';
 import type { ListingData } from '../../../app/src/data/types';
@@ -26,7 +27,12 @@ function nextId(): string {
 
 export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [panelMode, setPanelMode] = useState<PanelMode>('default');
+  const [panelMode, setPanelModeState] = useState<PanelMode>('default');
+  const panelModeRef = useRef<PanelMode>(panelMode);
+  const setPanelMode = useCallback((mode: PanelMode) => {
+    panelModeRef.current = mode;
+    setPanelModeState(mode);
+  }, []);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [exchangeCount, setExchangeCount] = useState(0);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,7 +44,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const openPanel = useCallback((mode?: PanelMode) => {
     if (mode) setPanelMode(mode);
     setIsOpen(true);
-  }, []);
+  }, [setPanelMode]);
   const closePanel = useCallback(() => setIsOpen(false), []);
   const authenticate = useCallback(() => setIsAuthenticated(true), []);
 
@@ -63,7 +69,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
         let response: string;
         if (isClaudeAvailable()) {
           try {
-            response = await generateClaudeResponse(listing, content, history, panelMode);
+            response = await generateClaudeResponse(listing, content, history, panelModeRef.current);
             console.log('[AiMode] Claude response received');
           } catch (err) {
             console.warn('[AiMode] Claude failed, falling back to mock:', err);
@@ -83,12 +89,12 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
 
         setMessages((prev) => [...prev, assistantMsg]);
         setExchangeCount((c) => c + 1);
-        setSuggestedPrompts(generateFollowUpPrompts(response, listing, panelMode));
+        setSuggestedPrompts(generateFollowUpPrompts(response, listing, panelModeRef.current));
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading, exchangeCount, isAuthenticated, listing, messages, panelMode],
+    [isLoading, exchangeCount, isAuthenticated, listing, messages],
   );
 
   const value = useMemo<AiModeContextValue>(
