@@ -15,8 +15,8 @@ export default function HomePage() {
       </div>
       <DealerShowcase />
       <div className={styles.content}>
-        <FeaturedListings />
         <SellingSection />
+        <FeaturedListings />
         <OwnershipCards />
       </div>
     </div>
