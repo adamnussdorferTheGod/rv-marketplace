@@ -23,3 +23,13 @@
 .active {
   color: var(--rv-on-surface);
 }
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .breadcrumbs {
+    font-size: 13px;
+    flex-wrap: wrap;
+  }
+}

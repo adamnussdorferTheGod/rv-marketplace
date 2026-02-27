@@ -51,3 +51,21 @@
 .saveSearchBtn:hover {
   opacity: 0.7;
 }
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+/* XS: <=767px */
+@media (max-width: 767px) {
+  .sortRow {
+    justify-content: space-between;
+  }
+
+  .sortLabel {
+    display: none;
+  }
+
+  .sortSelect {
+    flex: 1;
+    max-width: 200px;
+  }
+}
