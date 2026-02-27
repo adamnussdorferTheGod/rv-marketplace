@@ -20,7 +20,7 @@ export default function NarrationAuthGate({ onAuthenticate }: NarrationAuthGateP
   return (
     <div className={styles.gate}>
       <div className={styles.iconRow}>
-        <Icon name="sparkle" size={24} className={styles.sparkle} />
+        <Icon name="sparkles" size={24} className={styles.sparkle} />
       </div>
       <h3 className={styles.heading}>Sign in for full AI narration</h3>
       <p className={styles.subtext}>

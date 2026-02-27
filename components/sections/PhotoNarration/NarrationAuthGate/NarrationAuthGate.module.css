@@ -17,7 +17,19 @@
 }
 
 .sparkle {
-  color: var(--rv-primary);
+  color: var(--rv-brand-accent);
+  animation: sparkleGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes sparkleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(250, 202, 51, 0.4));
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(250, 202, 51, 0.8)) drop-shadow(0 0 24px rgba(250, 202, 51, 0.4));
+    transform: scale(1.15) rotate(8deg);
+  }
 }
 
 .heading {
