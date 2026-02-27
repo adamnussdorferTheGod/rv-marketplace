@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import {
   sellingPanels,
@@ -11,43 +11,70 @@ const tabOptions = sellingPanels.map((p) => ({
   label: p.tabLabel,
 }));
 
-const CARD_WIDTH = 696;
-const GAP = 32;
+const AUTO_ADVANCE_MS = 5000;
 
 export default function SellingSection() {
-  const [activeTab, setActiveTab] = useState<SellingPanelId>('sell-privately');
+  const [activeTab, setActiveTab] = useState<SellingPanelId>('consignment');
+  const [paused, setPaused] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeIndex = sellingPanels.findIndex((p) => p.id === activeTab);
 
-  // Shift the track so the active card's center aligns with the container center
-  const trackOffset = -(activeIndex * (CARD_WIDTH + GAP));
+  const advance = useCallback(() => {
+    setActiveTab((prev) => {
+      const idx = sellingPanels.findIndex((p) => p.id === prev);
+      return sellingPanels[(idx + 1) % sellingPanels.length].id;
+    });
+  }, []);
+
+  // Auto-advance timer
+  useEffect(() => {
+    if (paused) return;
+    timerRef.current = setTimeout(advance, AUTO_ADVANCE_MS);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [activeTab, paused, advance]);
+
+  const handleTabChange = (id: SellingPanelId) => {
+    setActiveTab(id);
+    // Reset the auto-advance timer on manual interaction
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
 
   return (
-    <section className={styles.section}>
+    <section
+      className={styles.section}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <h2 className={styles.heading}>Selling made with you in mind</h2>
 
       <div className={styles.tabs}>
         <SegmentedButtons
           options={tabOptions}
           selected={activeTab}
-          onChange={setActiveTab}
+          onChange={handleTabChange}
         />
       </div>
 
       <div className={styles.carousel}>
-        <div
-          className={styles.track}
-          style={{
-            transform: `translateX(calc(50% - ${CARD_WIDTH / 2}px + ${trackOffset}px))`,
-          }}
-        >
+        <div className={styles.track}>
           {sellingPanels.map((panel, i) => {
-            const isActive = i === activeIndex;
+            const offset = i - activeIndex;
+            const isActive = offset === 0;
+
             return (
               <div
                 key={panel.id}
                 className={`${styles.card} ${isActive ? styles.cardActive : styles.cardSide}`}
-                onClick={!isActive ? () => setActiveTab(panel.id) : undefined}
+                style={{
+                  transform: `translateX(${offset * 100}%)`,
+                  zIndex: isActive ? 2 : 1,
+                }}
+                onClick={
+                  !isActive ? () => handleTabChange(panel.id) : undefined
+                }
               >
                 <div className={styles.cardImageWrap}>
                   <img
