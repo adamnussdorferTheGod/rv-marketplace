@@ -126,6 +126,10 @@ export default function HeroBanner() {
     ? `${styles.searchBar} ${styles.searchBarOpen}`
     : styles.searchBar;
 
+  const searchCardClass = isDropdownOpen
+    ? `${styles.searchCard} ${styles.searchCardOpen}`
+    : styles.searchCard;
+
   return (
     <section
       className={styles.hero}
@@ -155,7 +159,7 @@ export default function HeroBanner() {
       </div>
 
       {/* ── Search card (CSS handles translateY + float + breathing shadow) ── */}
-      <div className={styles.searchCard} ref={searchContainerRef}>
+      <div className={searchCardClass} ref={searchContainerRef}>
         <div className={styles.segmentedWrap}>
           <SegmentedButtons
             options={SEGMENT_OPTIONS}
@@ -197,7 +201,7 @@ export default function HeroBanner() {
                 }}
                 style={{ display: 'flex', alignItems: 'center' }}
               >
-                <Icon name="ai_search" size={22} />
+                <Icon name="ai_search" size={24} />
               </motion.span>
 
               <div className={styles.inputArea}>

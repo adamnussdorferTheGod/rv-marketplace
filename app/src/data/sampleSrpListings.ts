@@ -106,48 +106,25 @@ const dealers: DealerDef[] = [
 
 // ─── Photo pool ──────────────────────────────────────────────────────
 
-const photoIds = [
-  // RVs & motorhomes
-  'photo-1668503237794-00b1212b5749',
-  'photo-1613142078060-88d5609458c4',
-  'photo-1649621991444-6ff6ca66b0b9',
-  'photo-1693482968534-41993f5a9594',
-  'photo-1721931373745-861d4cc7e629',
-  'photo-1769293633164-cf46f09635ab',
-  'photo-1511533910568-be3ffdc229bb',
-  'photo-1669393978073-600987715897',
-  'photo-1765647927486-227ed8c0b5f5',
-  'photo-1550142300-653829b45152',
-  'photo-1660908249029-d4ddd9dc4255',
-  'photo-1660908249012-a1a5a8d16946',
-  'photo-1660908249007-291eeebebeb1',
-  // Travel trailers & airstreams
-  'photo-1721495669193-2746e9f82598',
-  'photo-1721495642810-caf9b438791d',
-  'photo-1739573644124-16a38e5d6fee',
-  'photo-1721495753440-c977517aad9e',
-  'photo-1721495781989-ba9e79f44d50',
-  'photo-1721495781960-c9dc7bf1174a',
-  'photo-1739573797103-6ebbacd23c3c',
-  'photo-1761519609306-db98f314c843',
-  'photo-1513309993343-cf3bfa51f700',
-  'photo-1769888591869-fe6a89f22552',
-  'photo-1760574704957-6c7c0e3ca0c1',
-  // Campervans
-  'photo-1565126703573-3537bb43cd46',
-  'photo-1688237645799-bacb267ddc3b',
-  'photo-1625241310933-640978bb5176',
-  'photo-1666730140368-860ac4d94e1f',
-  'photo-1576793048000-494aaa93d160',
-  'photo-1687360429549-efd2d2b613fb',
+const localPhotos = [
+  '/images/listing-rv-1.png',
+  '/images/listing-rv-2.png',
+  '/images/listing-rv-3.png',
+  '/images/listing-rv-4.png',
+  '/images/listings/rv-03.png',
+  '/images/listings/rv-04.png',
+  '/images/listings/rv-05.png',
+  '/images/listings/rv-06.png',
+  '/images/listings/rv-07.png',
+  '/images/listings/rv-08.png',
 ];
 
 function buildPhotos(index: number, title: string, count: number): ListingImage[] {
   const photos: ListingImage[] = [];
   for (let i = 0; i < count; i++) {
-    const pid = photoIds[(index * 3 + i) % photoIds.length];
+    const photo = localPhotos[(index * 3 + i) % localPhotos.length];
     photos.push({
-      url: `https://images.unsplash.com/${pid}?w=800&h=600&fit=crop&q=80`,
+      url: photo,
       alt: `${title} photo ${i + 1}`,
     });
   }

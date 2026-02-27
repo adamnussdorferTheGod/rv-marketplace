@@ -135,7 +135,7 @@ export const sellingPanels: SellingPanel[] = [
     description:
       'Partner with a trusted dealership to sell your RV on consignment. They handle the marketing, showings, and paperwork while you sit back and wait for the best offer.',
     ctaText: 'Learn more',
-    image: 'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=600&h=400&fit=crop&q=80',
+    image: '/images/listings/rv-05.png',
   },
   {
     id: 'sell-privately',
@@ -153,7 +153,7 @@ export const sellingPanels: SellingPanel[] = [
     description:
       'Get an instant cash offer for your RV and close in as little as a few days. No haggling, no waiting, no hassle -- just a fair price and a quick sale.',
     ctaText: 'Get your offer',
-    image: 'https://images.unsplash.com/photo-1533558701576-23c65e0272fb?w=600&h=400&fit=crop&q=80',
+    image: '/images/listings/rv-07.png',
   },
 ];
 
@@ -196,7 +196,7 @@ export const articles: Article[] = [
     description:
       'Elevate your RV experience with a rooftop deck. These five innovative platforms can change the way you enjoy the great outdoors.',
     image:
-      'https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?w=900&h=600&fit=crop&q=80',
+      '/images/listings/rv-05.png',
     featured: true,
   },
   {

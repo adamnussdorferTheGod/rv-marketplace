@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import ActionChip from '@components/ui/ActionChip/ActionChip';
 import Icon from '@components/ui/Icon/Icon';
 import {
   RV_TYPES,
@@ -49,7 +48,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
       {/* Section 1: RV Types */}
       <section>
-        <h3 className={styles.sectionHeading}>RV Types</h3>
+        <h3 className={styles.sectionHeading}>RV types</h3>
         <div className={styles.typeGrid}>
           {RV_TYPES.map((type) => (
             <button
@@ -58,13 +57,13 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
               className={styles.typeCard}
               onClick={() => handleTypeClick(type.slug)}
             >
+              <span className={styles.typeLabel}>{type.label}</span>
               <img
                 src={type.imageUrl}
                 alt={type.label}
                 className={styles.typeImage}
                 loading="lazy"
               />
-              <span className={styles.typeLabel}>{type.label}</span>
             </button>
           ))}
         </div>
@@ -75,11 +74,15 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
         <h3 className={styles.sectionHeading}>Popular searches</h3>
         <div className={styles.chipWrap}>
           {POPULAR_SEARCHES.map((search) => (
-            <ActionChip
+            <button
               key={search.label}
-              label={search.label}
+              type="button"
+              className={styles.searchChip}
               onClick={() => handleSearchClick(search.query)}
-            />
+            >
+              <Icon name="search" size={20} />
+              {search.label}
+            </button>
           ))}
         </div>
       </section>
@@ -89,11 +92,15 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
         <h3 className={styles.sectionHeading}>Popular makes</h3>
         <div className={styles.chipWrap}>
           {POPULAR_MAKES.map((make) => (
-            <ActionChip
+            <button
               key={make.slug}
-              label={make.label}
+              type="button"
+              className={styles.searchChip}
               onClick={() => handleMakeClick(make.slug)}
-            />
+            >
+              <Icon name="search" size={20} />
+              {make.label}
+            </button>
           ))}
         </div>
       </section>
@@ -106,13 +113,10 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
             <button
               key={dealer.slug}
               type="button"
-              className={styles.dealerChip}
+              className={styles.searchChip}
               onClick={() => handleDealerClick(dealer.slug)}
             >
-              <span
-                className={styles.dealerDot}
-                style={{ backgroundColor: dealer.color }}
-              />
+              <Icon name="search" size={20} />
               {dealer.name}
             </button>
           ))}
