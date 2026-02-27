@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Icon from '@components/ui/Icon/Icon';
 import styles from './Pagination.module.css';
 
 interface PaginationProps {
@@ -111,20 +112,16 @@ export default function Pagination({
 
   return (
     <nav aria-label="Search results pagination" className={styles.pagination}>
-      <span className={styles.resultCount}>
-        {rangeStart}-{rangeEnd} of {totalResults} results
-      </span>
-
       <div className={styles.pages}>
-        {/* Prev button */}
+        {/* Prev arrow */}
         <button
           type="button"
-          className={styles.pageButton}
+          className={styles.arrowButton}
           disabled={currentPage === 1}
           onClick={() => onPageChange(currentPage - 1)}
           aria-label="Previous page"
         >
-          &lt;
+          <Icon name="chevron_left" size={24} />
         </button>
 
         {/* Page numbers */}
@@ -147,17 +144,21 @@ export default function Pagination({
           ),
         )}
 
-        {/* Next button */}
+        {/* Next arrow */}
         <button
           type="button"
-          className={styles.pageButton}
+          className={styles.arrowButton}
           disabled={currentPage === totalPages}
           onClick={() => onPageChange(currentPage + 1)}
           aria-label="Next page"
         >
-          &gt;
+          <Icon name="chevron_right" size={24} />
         </button>
       </div>
+
+      <span className={styles.resultCount}>
+        {rangeStart}–{rangeEnd} of {totalResults.toLocaleString()} results
+      </span>
     </nav>
   );
 }
