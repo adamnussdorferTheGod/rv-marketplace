@@ -15,7 +15,7 @@
 .photoWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 4;
+  height: 195px;
   overflow: hidden;
   border-radius: var(--radius-base);
   border: 1px solid var(--rv-border-floating);
