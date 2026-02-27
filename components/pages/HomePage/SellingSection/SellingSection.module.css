@@ -117,26 +117,26 @@
 /* ─── CTA button (outline style per Figma) ─── */
 
 .ctaButton {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-8) var(--space-16);
-  background: var(--rv-surface);
-  color: var(--rv-on-surface);
+  padding: var(--space-8) var(--space-32);
+  background: var(--rv-secondary);
+  color: var(--rv-on-secondary);
   border: 1px solid var(--rv-border);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-full);
   font: var(--font-button-2);
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
-  align-self: flex-end;
+  align-self: center;
   transition:
     background 0.15s ease,
     opacity 0.4s ease;
 }
 
 .ctaButton:hover {
-  background: var(--rv-surface-variant);
+  opacity: 0.85;
 }
 
 /* Hide CTA on side cards */
