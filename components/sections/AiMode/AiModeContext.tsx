@@ -53,7 +53,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
   const suggestedPrompts = thread.suggestedPrompts;
 
   const openPanel = useCallback((mode?: PanelMode) => {
-    if (mode) setPanelMode(mode);
+    if (mode && typeof mode === 'string') setPanelMode(mode);
     setIsOpen(true);
   }, [setPanelMode]);
   const closePanel = useCallback(() => setIsOpen(false), []);
