@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import styles from './Pagination.module.css';
 
 interface PaginationProps {
@@ -6,6 +7,21 @@ interface PaginationProps {
   totalResults: number;
   resultsPerPage: number;
   onPageChange: (page: number) => void;
+}
+
+function useIsMobile(breakpoint = 767): boolean {
+  const [isMobile, setIsMobile] = useState(
+    () => window.matchMedia(`(max-width: ${breakpoint}px)`).matches,
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, [breakpoint]);
+
+  return isMobile;
 }
 
 function buildPageNumbers(
@@ -43,6 +59,37 @@ function buildPageNumbers(
   return pages;
 }
 
+function buildMobilePageNumbers(
+  currentPage: number,
+  totalPages: number,
+): (number | 'ellipsis')[] {
+  if (totalPages <= 1) return [1];
+  if (totalPages === 2) return [1, 2];
+
+  const pages: (number | 'ellipsis')[] = [];
+
+  // Always show page 1
+  pages.push(1);
+
+  if (currentPage === 1) {
+    // Current is first: [1] ... [last]
+    if (totalPages > 2) pages.push('ellipsis');
+    pages.push(totalPages);
+  } else if (currentPage === totalPages) {
+    // Current is last: [1] ... [last]
+    if (totalPages > 2) pages.push('ellipsis');
+    pages.push(totalPages);
+  } else {
+    // Current is in middle: [1] ... [current] ... [last]
+    if (currentPage > 2) pages.push('ellipsis');
+    pages.push(currentPage);
+    if (currentPage < totalPages - 1) pages.push('ellipsis');
+    pages.push(totalPages);
+  }
+
+  return pages;
+}
+
 export default function Pagination({
   currentPage,
   totalPages,
@@ -50,13 +97,17 @@ export default function Pagination({
   resultsPerPage,
   onPageChange,
 }: PaginationProps) {
+  const isMobile = useIsMobile();
+
   if (totalPages <= 1) {
     return null;
   }
 
   const rangeStart = (currentPage - 1) * resultsPerPage + 1;
   const rangeEnd = Math.min(currentPage * resultsPerPage, totalResults);
-  const pageNumbers = buildPageNumbers(currentPage, totalPages);
+  const pageNumbers = isMobile
+    ? buildMobilePageNumbers(currentPage, totalPages)
+    : buildPageNumbers(currentPage, totalPages);
 
   return (
     <nav aria-label="Search results pagination" className={styles.pagination}>

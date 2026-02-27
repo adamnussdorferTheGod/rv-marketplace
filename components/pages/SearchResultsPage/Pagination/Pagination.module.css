@@ -54,3 +54,43 @@
   justify-content: center;
   color: var(--rv-on-surface-variant);
 }
+
+/* ─── Tablet ─── */
+
+@media (max-width: 991px) {
+  .pagination {
+    padding: var(--space-16) 0;
+  }
+
+  .pageButton {
+    min-width: 36px;
+    height: 36px;
+  }
+}
+
+/* ─── Mobile ─── */
+
+@media (max-width: 767px) {
+  .pagination {
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .resultCount {
+    text-align: center;
+  }
+
+  .pages {
+    justify-content: center;
+  }
+
+  .pageButton {
+    min-width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .ellipsis {
+    min-width: 24px;
+  }
+}
