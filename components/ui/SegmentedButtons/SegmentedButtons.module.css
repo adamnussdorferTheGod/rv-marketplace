@@ -8,6 +8,7 @@
 }
 
 .segment {
+  position: relative;
   flex: 1 0 0;
   padding: var(--space-8);
   border: 2px solid transparent;
@@ -17,7 +18,7 @@
   color: var(--rv-on-surface-variant);
   cursor: pointer;
   text-align: center;
-  transition: all 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 .selected {
@@ -25,4 +26,21 @@
   border-color: var(--rv-border-high);
   color: var(--rv-on-surface);
   box-shadow: var(--rv-shadow-segment);
+}
+
+/* Sliding indicator — animated via layoutId, covers the static .selected styles */
+.indicator {
+  position: absolute;
+  inset: -2px; /* cover the border area */
+  border-radius: inherit;
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-border-high);
+  box-shadow: var(--rv-shadow-segment);
+  z-index: 0;
+}
+
+/* Label sits above indicator */
+.label {
+  position: relative;
+  z-index: 1;
 }

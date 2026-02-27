@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Button from '@components/ui/Button/Button';
 import Icon from '@components/ui/Icon/Icon';
@@ -21,90 +21,29 @@ const PLACEHOLDER_PHRASES = [
   'Try: Travel trailers near me',
 ];
 
-/* ── animation constants ── */
+const HEADING_WORDS = ['Shop', 'the', 'largest', 'RV', 'marketplace'];
 
-const containerVariants = {
-  hidden: {
-    opacity: 0,
-    y: '50%',
-    filter: 'blur(6px)',
-  },
-  visible: {
-    opacity: 1,
-    y: '50%',
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.5,
-      ease: 'easeOut',
-      staggerChildren: 0.08,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const childFadeVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: 'easeOut' },
-  },
-};
-
-const segmentedGroupVariants = {
-  hidden: { opacity: 0, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.45,
-      delay: 0.3,
-      ease: 'easeOut',
-    },
-  },
-};
+const PHRASE_INTERVAL = 3500; // ms between phrase swaps
 
 /* ── hooks ── */
 
-function useTypewriter(phrases: string[], active: boolean) {
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [deleting, setDeleting] = useState(false);
+/** Cycles through phrases on a timer. Returns current index. */
+function usePhraseCycle(count: number, interval: number, active: boolean) {
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (!active) return;
-
-    const phrase = phrases[phraseIndex];
-
-    if (!deleting && charIndex < phrase.length) {
-      const id = setTimeout(() => setCharIndex((c) => c + 1), 70);
-      return () => clearTimeout(id);
-    }
-
-    if (!deleting && charIndex === phrase.length) {
-      const id = setTimeout(() => setDeleting(true), 2000);
-      return () => clearTimeout(id);
-    }
-
-    if (deleting && charIndex > 0) {
-      const id = setTimeout(() => setCharIndex((c) => c - 1), 35);
-      return () => clearTimeout(id);
-    }
-
-    if (deleting && charIndex === 0) {
-      setDeleting(false);
-      setPhraseIndex((i) => (i + 1) % phrases.length);
-    }
-  }, [phrases, phraseIndex, charIndex, deleting, active]);
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, interval);
+    return () => clearInterval(id);
+  }, [count, interval, active]);
 
   useEffect(() => {
-    if (!active) {
-      setCharIndex(0);
-      setDeleting(false);
-    }
+    if (!active) setIndex(0);
   }, [active]);
 
-  return phrases[phraseIndex].slice(0, charIndex);
+  return index;
 }
 
 function usePrefersReducedMotion() {
@@ -130,9 +69,13 @@ export default function HeroBanner() {
   const [zipCode, setZipCode] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
+
   const showPlaceholder = !searchQuery && !isDropdownOpen;
-  const typedText = useTypewriter(PLACEHOLDER_PHRASES, showPlaceholder);
+  const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
   const reducedMotion = usePrefersReducedMotion();
+  const animateEntrance = !reducedMotion;
 
   const closeDropdown = useCallback(() => {
     setIsDropdownOpen(false);
@@ -160,9 +103,7 @@ export default function HeroBanner() {
     if (!isDropdownOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeDropdown();
-      }
+      if (e.key === 'Escape') closeDropdown();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -175,165 +116,171 @@ export default function HeroBanner() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
+    if (e.key === 'Enter') handleSearch();
   };
 
   const handleSearchFocus = () => {
     setIsDropdownOpen(true);
   };
 
+  /* ── Parallax mouse tracking ── */
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      if (!heroRef.current || !bgRef.current || reducedMotion) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+      const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
+      bgRef.current.style.transform = `translate(${x}px, ${y}px) scale(1.03)`;
+    },
+    [reducedMotion],
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    if (bgRef.current) {
+      bgRef.current.style.transform = 'translate(0px, 0px) scale(1.03)';
+    }
+  }, []);
+
   const searchBarClass = isDropdownOpen
     ? `${styles.searchBar} ${styles.searchBarOpen}`
     : styles.searchBar;
 
-  /* If user prefers reduced motion, skip entrance animations */
-  const animateEntrance = !reducedMotion;
-
   return (
-    <section className={styles.hero}>
-      <div className={styles.heroContent}>
-        <h1 className={styles.heading}>Shop the largest RV marketplace</h1>
+    <section
+      className={styles.hero}
+      ref={heroRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* ── Parallax background layer ── */}
+      <div className={styles.heroImageWrap}>
+        <div className={styles.heroBackground} ref={bgRef} />
+        <div className={styles.heroOverlay} />
       </div>
 
-      <motion.div
-        className={styles.searchCard}
-        ref={searchContainerRef}
-        variants={animateEntrance ? containerVariants : undefined}
-        initial={animateEntrance ? 'hidden' : false}
-        animate={animateEntrance ? 'visible' : undefined}
-      >
-        {/* Breathing shadow — loops infinitely */}
-        <motion.div
-          className={styles.breathingShadow}
-          animate={
-            animateEntrance
-              ? {
-                  boxShadow: [
-                    '0px 2px 8px 2px rgba(0,0,0,0.07)',
-                    '0px 8px 24px 4px rgba(0,0,0,0.12)',
-                    '0px 2px 8px 2px rgba(0,0,0,0.07)',
-                  ],
-                }
-              : undefined
-          }
-          transition={{
-            duration: 3,
-            ease: 'easeInOut',
-            repeat: Infinity,
-          }}
-        />
-
-        {/* Segmented buttons — expand from center */}
-        <motion.div
-          className={styles.segmentedWrap}
-          variants={animateEntrance ? segmentedGroupVariants : undefined}
-        >
-          <SegmentedButtons
-            options={SEGMENT_OPTIONS}
-            selected={segment}
-            onChange={setSegment}
-          />
-        </motion.div>
-
-        <div className={styles.searchRow}>
-          {/* Search input — fade in */}
-          <motion.div
-            className={searchBarClass}
-            variants={animateEntrance ? childFadeVariants : undefined}
-            whileHover={{ scale: 1.02, boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
-            transition={{ duration: 0.2 }}
-          >
-            {/* AI icon — subtle glow pulse */}
+      {/* ── Heading with per-word stagger reveal ── */}
+      <div className={styles.heroContent}>
+        <h1 className={styles.heading}>
+          {HEADING_WORDS.map((word, i) => (
             <motion.span
-              className={styles.sparkleIcon}
-              animate={
-                animateEntrance
-                  ? {
-                      filter: [
-                        'drop-shadow(0 0 0px rgba(0,104,54,0))',
-                        'drop-shadow(0 0 6px rgba(0,104,54,0.4))',
-                        'drop-shadow(0 0 0px rgba(0,104,54,0))',
-                      ],
-                    }
-                  : undefined
-              }
-              transition={{
-                duration: 2,
-                delay: 0.8,
-                repeat: Infinity,
-                repeatDelay: 2,
-                ease: 'easeInOut',
-              }}
-              style={{ display: 'flex', alignItems: 'center' }}
+              key={word}
+              style={{ display: 'inline-block' }}
+              initial={animateEntrance ? { opacity: 0, y: 20, filter: 'blur(4px)' } : false}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ delay: 0.1 + i * 0.08, duration: 0.45, ease: 'easeOut' }}
             >
-              <Icon name="ai_search" size={22} />
+              {word}
             </motion.span>
+          ))}
+        </h1>
+      </div>
 
-            <div className={styles.inputArea}>
-              <input
-                type="text"
-                className={styles.searchInput}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={handleKeyDown}
-                onFocus={handleSearchFocus}
-                aria-label="Search RVs"
-                aria-expanded={isDropdownOpen}
-              />
-              {showPlaceholder && (
-                <span className={styles.placeholderText} aria-hidden="true">
-                  {typedText}
-                  <span className={styles.cursor} />
-                </span>
-              )}
+      {/* ── Search card (CSS handles translateY + float + breathing shadow) ── */}
+      <div className={styles.searchCard} ref={searchContainerRef}>
+        {/* Inner wrapper — motion handles entrance fade only */}
+        <motion.div
+          className={styles.cardInner}
+          initial={animateEntrance ? { opacity: 0, filter: 'blur(6px)' } : false}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
+        >
+          <div className={styles.segmentedWrap}>
+            <SegmentedButtons
+              options={SEGMENT_OPTIONS}
+              selected={segment}
+              onChange={setSegment}
+              animated
+            />
+          </div>
+
+          <div className={styles.searchRow}>
+            <div className={searchBarClass}>
+              {/* AI icon — subtle glow pulse */}
+              <motion.span
+                className={styles.sparkleIcon}
+                animate={
+                  animateEntrance
+                    ? {
+                        filter: [
+                          'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                          'drop-shadow(0 0 6px rgba(0,104,54,0.4))',
+                          'drop-shadow(0 0 0px rgba(0,104,54,0))',
+                        ],
+                      }
+                    : undefined
+                }
+                transition={{
+                  duration: 2,
+                  delay: 1,
+                  repeat: Infinity,
+                  repeatDelay: 2,
+                  ease: 'easeInOut',
+                }}
+                style={{ display: 'flex', alignItems: 'center' }}
+              >
+                <Icon name="ai_search" size={22} />
+              </motion.span>
+
+              <div className={styles.inputArea}>
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onFocus={handleSearchFocus}
+                  aria-label="Search RVs"
+                  aria-expanded={isDropdownOpen}
+                />
+
+                {/* Phrase crossfade placeholder */}
+                <AnimatePresence mode="wait">
+                  {showPlaceholder && (
+                    <motion.span
+                      key={phraseIndex}
+                      className={styles.placeholderText}
+                      aria-hidden="true"
+                      initial={{ opacity: 0, filter: 'blur(4px)' }}
+                      animate={{ opacity: 1, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, filter: 'blur(4px)' }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    >
+                      {PLACEHOLDER_PHRASES[phraseIndex]}
+                      <span className={styles.cursor} />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <span className={styles.divider} />
+
+              <div className={styles.locationGroup}>
+                <Icon name="location_pin" size={18} />
+                <input
+                  type="text"
+                  className={styles.zipInput}
+                  placeholder="ZIP code"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  aria-label="ZIP code"
+                  maxLength={5}
+                />
+              </div>
             </div>
 
-            <span className={styles.divider} />
-
-            <div className={styles.locationGroup}>
-              <Icon name="location_pin" size={18} />
-              <input
-                type="text"
-                className={styles.zipInput}
-                placeholder="ZIP code"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                onKeyDown={handleKeyDown}
-                aria-label="ZIP code"
-                maxLength={5}
-              />
-            </div>
-          </motion.div>
-
-          {/* Search button — fade in */}
-          <motion.div
-            variants={animateEntrance ? childFadeVariants : undefined}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: '0 0 20px rgba(0, 104, 54, 0.4)',
-            }}
-            whileTap={{ scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeInOut' }}
-            style={{ borderRadius: 'var(--radius-full)' }}
-          >
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={handleSearch}
-            >
+            <Button variant="primary" size="lg" onClick={handleSearch}>
               Search
             </Button>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {isDropdownOpen && (
           <div className={styles.dropdownWrap}>
             <SearchDropdown onClose={closeDropdown} />
           </div>
         )}
-      </motion.div>
+      </div>
 
       <DealerSpotlight />
     </section>

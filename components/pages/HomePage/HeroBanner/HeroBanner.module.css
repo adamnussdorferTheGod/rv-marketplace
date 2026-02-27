@@ -1,26 +1,46 @@
-/* Hero banner — constrained width with rounded corners, inset from edges */
+/* ============ Hero banner ============ */
 .hero {
   position: relative;
   width: calc(100% - 48px);
   max-width: 1653px;
   height: 393px;
-  margin: var(--space-16) auto 100px; /* top gap, center, search card overhang */
+  margin: var(--space-16) auto 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: var(--space-48) var(--space-32) 0;
   border-radius: 16px;
   background-color: #d4d4d4;
-  background-image:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 100%),
-    url('/images/hero-rv.png');
-  background-size: cover, cover;
-  background-position: center, center;
-  background-repeat: no-repeat, no-repeat;
   overflow: visible;
 }
 
-/* Content layer — heading centered vertically in the hero image */
+/* ── Parallax background layers ── */
+.heroImageWrap {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  inset: -12px; /* extra bleed for parallax movement */
+  background-image: url('/images/hero-rv.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.03);
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.40) 100%);
+}
+
+/* ── Heading ── */
 .heroContent {
   position: relative;
   max-width: 762px;
@@ -33,43 +53,51 @@
   flex: 1;
 }
 
-/* Heading */
 .heading {
   color: var(--color-white);
   font: var(--font-display-1);
   font-size: 40px;
   margin: 190px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.3em;
 }
 
 /* ============ White search card ============ */
-/* Straddles the hero bottom edge — top half overlaps image, bottom half below */
 .searchCard {
   position: relative;
   width: 100%;
   max-width: 762px;
   background: var(--color-white);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   padding: 48px 32px 32px 32px;
+  z-index: 10;
+  transform: translateY(50%);
+  animation: float 4s ease-in-out 1s infinite, breathe 3s ease-in-out infinite;
+}
+
+/* Inner content wrapper — motion handles entrance fade */
+.cardInner {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 32px;
-  z-index: 10;
-  /* translateY(50%) now handled by motion's y prop to avoid transform conflicts */
+  width: 100%;
 }
 
-/* Breathing shadow overlay — positioned behind content, inherits card shape */
-.breathingShadow {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: -1;
+/* ── Floating + breathing animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(50%); }
+  50% { transform: translateY(calc(50% - 3px)); }
 }
 
-/* Segmented control — overlaps top edge of card */
-/* Centering via left/right + margin-auto instead of translateX to avoid motion transform conflicts */
+@keyframes breathe {
+  0%, 100% { box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.08); }
+  50% { box-shadow: 0px 8px 28px 4px rgba(0,0,0,0.14); }
+}
+
+/* ── Segmented control ── */
 .segmentedWrap {
   position: absolute;
   top: -17px;
@@ -89,7 +117,7 @@
   width: 100%;
 }
 
-/* Search pill — bordered input container */
+/* Search pill */
 .searchBar {
   flex: 1;
   height: 56px;
@@ -100,15 +128,17 @@
   align-items: center;
   padding: 4px 32px 4px 16px;
   gap: var(--space-8);
-  transition: border-radius 150ms ease;
+  transition: border-radius 150ms ease, border-color 250ms ease, box-shadow 250ms ease;
 }
 
-/* When dropdown is open, flatten bottom corners for seamless connection */
+/* Focus / open state — green border + glow */
 .searchBarOpen {
   border-radius: 100px 100px 0 0;
+  border-color: #006836;
+  box-shadow: 0 4px 20px rgba(0, 104, 54, 0.12);
 }
 
-/* Dropdown positioned directly below the card */
+/* Dropdown below card */
 .dropdownWrap {
   position: absolute;
   top: 100%;
@@ -119,7 +149,7 @@
   overflow: hidden;
 }
 
-/* AI search icon in brand green */
+/* AI icon */
 .sparkleIcon {
   color: #006836;
   flex-shrink: 0;
@@ -127,7 +157,7 @@
   align-items: center;
 }
 
-/* Input area with rotating placeholder */
+/* Input area */
 .inputArea {
   flex: 1;
   position: relative;
@@ -148,7 +178,7 @@
   line-height: 1.4;
 }
 
-/* Placeholder overlay — typewriter text */
+/* Placeholder overlay — phrase crossfade */
 .placeholderText {
   position: absolute;
   left: 0;
@@ -206,6 +236,17 @@
   color: var(--rv-on-surface-variant);
 }
 
+/* ================= Reduced motion ================= */
+@media (prefers-reduced-motion: reduce) {
+  .searchCard {
+    animation: none;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  }
+  .heroBackground {
+    transition: none;
+  }
+}
+
 /* ================= Responsive ================= */
 
 /* Tablet */
@@ -245,6 +286,9 @@
 
   .searchCard {
     padding: 40px 16px 16px 16px;
+  }
+
+  .cardInner {
     gap: 16px;
   }
 
@@ -293,7 +337,6 @@
     width: 100%;
   }
 
-  /* On mobile, dropdown becomes full-screen overlay (handled by SearchDropdown.module.css) */
   .dropdownWrap {
     position: static;
     border-radius: 0;
