@@ -372,7 +372,7 @@ Plans:
 
 - [x] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL query sync, active filter chips (completed 2026-02-26)
 - [x] **Phase 25: Listing Cards** - Standard card, featured compact card, sponsored showcase, PAA card, dealer ad card with all visual treatments (completed 2026-02-27)
-- [ ] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay
+- [x] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay (completed 2026-02-27)
 - [ ] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination
 - [ ] **Phase 28: Page Chrome & Content Sections** - Header/footer reuse, SEO popular searches footer, app CTA banner, disclaimer
 - [ ] **Phase 29: Responsive Breakpoints** - 991px and 767px breakpoint adaptations for grid, sidebar, carousels, and pagination
@@ -507,7 +507,7 @@ Plans:
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
 | 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
 | 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
-| 26. Filter Sidebar | 2/3 | In Progress|  | - |
+| 26. Filter Sidebar | 3/3 | Complete   | 2026-02-27 | - |
 | 27. SRP Page Assembly | v4.0 | 0/2 | Not started | - |
 | 28. Page Chrome & Content Sections | v4.0 | 0/1 | Not started | - |
 | 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |
