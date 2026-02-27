@@ -88,10 +88,23 @@
   border: none;
   background: none;
   cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
 .favoriteBtn:hover {
   transform: scale(1.1);
+}
+
+.favoriteBtn:active {
+  animation: heartPop 0.4s ease;
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.35); }
+  50% { transform: scale(0.9); }
+  75% { transform: scale(1.15); }
+  100% { transform: scale(1); }
 }
 
 /* ─── Content Section ─── */

@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import Icon from '@components/ui/Icon/Icon';
+import { ROUTES } from '../../../app/src/routes';
 import styles from './NavigationBar.module.css';
 
 interface NavigationBarProps {
@@ -9,10 +11,10 @@ interface NavigationBarProps {
 export default function NavigationBar({ resultPosition, totalResults }: NavigationBarProps) {
   return (
     <nav className={styles.navigationBar}>
-      <a href="#" className={styles.backLink}>
+      <Link to={ROUTES.SEARCH} className={styles.backLink}>
         <Icon name="chevron_left" size={20} />
         Search results
-      </a>
+      </Link>
       <div className={styles.pagination}>
         <span className={styles.resultText}>
           Result {resultPosition.toLocaleString()} of {totalResults.toLocaleString()}
