@@ -10,10 +10,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     resolve: {
       alias: {
+        '@app': path.resolve(__dirname, '.'),
         '@components': path.resolve(__dirname, '../components'),
         'mapbox-gl': path.resolve(__dirname, 'node_modules/mapbox-gl'),
       },
-      dedupe: ['react', 'react-dom', 'react-router-dom'],
+      dedupe: ['react', 'react-dom', 'react-router-dom', 'motion'],
     },
     server: {
       proxy: {

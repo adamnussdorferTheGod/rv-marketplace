@@ -3,17 +3,77 @@
 }
 
 .content {
-  max-width: 1248px;
+  max-width: 1762px;
   margin: 0 auto;
   padding: var(--space-32) var(--space-64);
 }
 
-.heading {
+/* ─── Two-column layout ──────────────────────────────────────────── */
+
+.twoColumn {
+  display: flex;
+  gap: 32px;
+}
+
+.sidebarColumn {
+  width: 330px;
+  flex-shrink: 0;
+}
+
+.mainColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Title and subtitle ─────────────────────────────────────────── */
+
+.title {
   font: var(--font-headline-1);
   color: var(--rv-on-surface);
-  margin: 0;
-  padding: var(--space-64) 0;
+  margin: var(--space-16) 0 var(--space-8);
 }
+
+.subtitle {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-8);
+  line-height: 1.5;
+}
+
+.subtitleCollapsed {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.showMore {
+  background: none;
+  border: none;
+  color: var(--rv-primary);
+  cursor: pointer;
+  font: var(--font-body-2);
+  padding: 0;
+  margin-bottom: var(--space-16);
+}
+
+.showMore:hover {
+  text-decoration: underline;
+}
+
+/* ─── Listing grid placeholder ───────────────────────────────────── */
+
+.listingGridPlaceholder {
+  min-height: 200px;
+}
+
+/* ─── Mobile filter button ───────────────────────────────────────── */
+
+.mobileFilterBtn {
+  display: none;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
 
 /* MD: 992-1231px */
 @media (max-width: 1231px) {
@@ -22,10 +82,40 @@
   }
 }
 
-/* SM: 768-991px */
+/* SM and below: <=991px — single column */
 @media (max-width: 991px) {
   .content {
-    padding: var(--space-32);
+    padding: var(--space-32) 16px;
+  }
+
+  .sidebarColumn {
+    display: none;
+  }
+
+  .twoColumn {
+    gap: 0;
+  }
+
+  .mobileFilterBtn {
+    display: block;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--rv-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 12px 24px;
+    font: var(--font-body-1);
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .mobileFilterBtn:hover {
+    opacity: 0.9;
   }
 }
 
