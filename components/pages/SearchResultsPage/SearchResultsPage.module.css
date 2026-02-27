@@ -61,10 +61,10 @@
   text-decoration: underline;
 }
 
-/* ─── Listing grid placeholder ───────────────────────────────────── */
+/* ─── Sidebar ad ────────────────────────────────────────────────── */
 
-.listingGridPlaceholder {
-  min-height: 200px;
+.sidebarAd {
+  margin-top: var(--space-24);
 }
 
 /* ─── Mobile filter button ───────────────────────────────────────── */
