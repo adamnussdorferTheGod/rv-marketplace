@@ -1,71 +1,63 @@
 .sortControls {
-  margin-bottom: var(--space-16);
-}
-
-.sortRow {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-}
-
-.sortLabel {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  white-space: nowrap;
-}
-
-.sortSelect {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface);
-  border: 1px solid var(--rv-border);
-  border-radius: var(--radius-sm);
-  padding: 8px 32px 8px 12px;
-  background: var(--rv-surface);
-  outline: none;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236E7072' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  cursor: pointer;
-}
-
-.sortSelect:focus {
-  border-color: var(--rv-primary);
-}
-
-.saveSearchBtn {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--rv-border);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--rv-on-surface);
-  cursor: pointer;
+  gap: var(--space-8);
   flex-shrink: 0;
 }
 
-.saveSearchBtn:hover {
-  opacity: 0.7;
+/* ─── Sort text button with hidden native select ─── */
+
+.sortButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: var(--rv-surface);
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-16);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.sortText {
+  font: var(--font-button-2);
+  color: var(--rv-secondary);
+}
+
+.sortSelect {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Save search text button ─── */
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: var(--rv-surface);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-8) var(--space-16);
+  font: var(--font-button-2);
+  color: var(--rv-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.saveButton:hover,
+.sortButton:hover {
+  background: var(--rv-surface-variant);
 }
 
 /* ─── Responsive ─────────────────────────────────────────────────── */
 
-/* XS: <=767px */
 @media (max-width: 767px) {
-  .sortRow {
-    justify-content: space-between;
-  }
-
-  .sortLabel {
+  .saveButton span {
     display: none;
-  }
-
-  .sortSelect {
-    flex: 1;
-    max-width: 200px;
   }
 }

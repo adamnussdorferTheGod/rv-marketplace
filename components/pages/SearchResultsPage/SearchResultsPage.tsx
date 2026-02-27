@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { RV_TYPE_LABELS } from '@app/src/data/srpTypes.ts';
+import Icon from '../../ui/Icon/Icon';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import SortControls from './SortControls/SortControls';
@@ -12,7 +13,8 @@ import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import styles from './SearchResultsPage.module.css';
 
-const SUBTITLE_TEXT =
+const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
+const FULL_SUBTITLE =
   'Browse thousands of new and used RVs for sale from trusted dealers and private sellers across the country. ' +
   'Compare prices, features, and floor plans to find the perfect recreational vehicle for your next adventure. ' +
   'Whether you\'re looking for a compact camper van or a luxurious Class A motorhome, filter by type, make, price, and more to narrow your search.';
@@ -102,24 +104,38 @@ export default function SearchResultsPage() {
 
           {/* Right: Content area */}
           <div className={styles.mainColumn}>
-            <Breadcrumbs rvType={activeRvTypeLabel} />
-
-            <h1 className={styles.title}>{titleText}</h1>
-
-            <p
-              className={`${styles.subtitle}${!showFullSubtitle ? ` ${styles.subtitleCollapsed}` : ''}`}
-            >
-              {SUBTITLE_TEXT}
-            </p>
-            <button
-              type="button"
-              className={styles.showMore}
-              onClick={() => setShowFullSubtitle(!showFullSubtitle)}
-            >
-              {showFullSubtitle ? 'Show less' : 'Show more'}
-            </button>
-
-            <SortControls sort={sort} onSortChange={setSort} />
+            <div className={styles.headerRow}>
+              <div className={styles.headerLeft}>
+                <Breadcrumbs rvType={activeRvTypeLabel} />
+                <h1 className={styles.title}>{titleText}</h1>
+                {!showFullSubtitle ? (
+                  <div className={styles.subtitleRow}>
+                    <span className={styles.subtitle}>{SHORT_SUBTITLE}</span>
+                    <button
+                      type="button"
+                      className={styles.showMore}
+                      onClick={() => setShowFullSubtitle(true)}
+                    >
+                      Show more
+                      <Icon name="expand_more" size={20} />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <p className={styles.subtitleFull}>{FULL_SUBTITLE}</p>
+                    <button
+                      type="button"
+                      className={styles.showMore}
+                      onClick={() => setShowFullSubtitle(false)}
+                    >
+                      Show less
+                      <Icon name="expand_less" size={20} />
+                    </button>
+                  </div>
+                )}
+              </div>
+              <SortControls sort={sort} onSortChange={setSort} />
+            </div>
 
             <ListingGrid
               listings={paginatedResults}
