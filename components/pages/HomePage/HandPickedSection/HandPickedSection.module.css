@@ -13,10 +13,7 @@
 }
 
 .heading {
-  font-size: 32px;
-  font-weight: 600;
-  font-style: italic;
-  line-height: 1.3;
+  font: var(--font-headline-1);
   color: var(--rv-on-surface);
   margin: 0;
 }

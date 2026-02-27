@@ -61,10 +61,10 @@ export const dealerShowcaseListings: HomepageListingData[] = sampleSrpListings
   .map(toHomepageCard);
 
 export const showcaseDealer = {
-  name: SHOWCASE_DEALER_NAME,
+  name: 'Roy Robinson RV Center',
   tagline: 'Your adventure starts here. Over 200 locations nationwide.',
   phone: '(888) 626-7576',
-  logoUrl: 'https://images.unsplash.com/photo-1535913989690-f90e1c2d4cfa?w=120&h=60&fit=crop&q=80',
+  logoUrl: '/images/roy-robinson-rv-logo.png',
 };
 
 // ─── Ownership Cards ────────────────────────────────────────────────────
