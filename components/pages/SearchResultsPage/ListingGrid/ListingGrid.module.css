@@ -27,3 +27,25 @@
   color: var(--rv-on-surface);
   margin-bottom: var(--space-16);
 }
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+/* SM and below: <=991px — 2-column grid */
+@media (max-width: 991px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* XS: <=767px — single column */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .interleavedSection {
+    margin: var(--space-8) 0;
+  }
+}
