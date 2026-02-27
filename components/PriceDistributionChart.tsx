@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import PriceAlertSheet from './sections/PriceAlert/PriceAlertSheet';
 import PriceAlertToast from './sections/PriceAlert/PriceAlertToast';
 import styles from './PriceDistributionChart.module.css';
@@ -159,7 +159,25 @@ export default function PriceDistributionChart({
   listingTitle,
 }: PriceDistributionChartProps) {
   const [historyOpen, setHistoryOpen] = useState(true);
+  const [gaugeVisible, setGaugeVisible] = useState(false);
+  const gaugeRef = useRef<HTMLDivElement>(null);
   const dealColor = DEAL_COLORS[dealRating] || DEAL_COLORS.good;
+
+  useEffect(() => {
+    const el = gaugeRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setGaugeVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Three equal visual sections: Low | Average | Above average
   // rangeMin..rangeMax defines "Average" zone
@@ -183,7 +201,7 @@ export default function PriceDistributionChart({
   return (
     <div className={styles.container}>
       {/* ── Gauge Visualization ── */}
-      <div className={styles.gaugeArea}>
+      <div ref={gaugeRef} className={`${styles.gaugeArea} ${gaugeVisible ? styles.gaugeVisible : ''}`}>
         {showAvgLine && (
           <div className={styles.avgLabelRow}>
             <span className={styles.avgLabel} style={{ left: `${avgPos}%` }}>

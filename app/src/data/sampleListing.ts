@@ -16,7 +16,7 @@ export const sampleListing: ListingData = {
   images: [
     { url: 'https://images.unsplash.com/photo-1619317190381-643a6b28d6e6?w=1600&h=1200&fit=crop&q=80', alt: '2024 Airstream Flying Cloud 25RB exterior front view' },
     { url: 'https://images.unsplash.com/photo-1589870505717-e9e60cec4b5c?w=1600&h=1200&fit=crop&q=80', alt: '2024 Airstream Flying Cloud 25RB exterior rear view' },
-    { url: '/assets/photos/kitchen.jpg', alt: '2024 Airstream Flying Cloud 25RB interior living area' },
+    { url: '/assets/photos/kitchen.jpg', alt: '2024 Airstream Flying Cloud 25RB interior kitchen' },
     { url: 'https://images.unsplash.com/photo-1721495781960-c9dc7bf1174a?w=1600&h=1200&fit=crop&q=80', alt: '2024 Airstream Flying Cloud 25RB kitchen' },
     { url: '/assets/photos/bedroom.jpg', alt: '2024 Airstream Flying Cloud 25RB bedroom' },
     { url: 'https://images.unsplash.com/photo-1660800111201-d0ff7c21382d?w=1600&h=1200&fit=crop&q=80', alt: '2024 Airstream Flying Cloud 25RB at campsite' },

@@ -37,6 +37,26 @@
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  opacity: 0;
+}
+
+.gaugeVisible .dealCardPositioner {
+  animation: dealCardDrop 0.7s ease-out 0.3s both;
+}
+
+@keyframes dealCardDrop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px) scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(3px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
 }
 
 .dealCard {
@@ -80,6 +100,49 @@
   height: 8px;
   border-radius: var(--radius-full);
   background: linear-gradient(to right, #61c487 6.25%, #d1de56 50%, #fa8131 100%);
+  position: relative;
+  overflow: hidden;
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+.gaugeVisible .gradientBar {
+  animation: barReveal 0.8s ease-out both;
+}
+
+.gaugeVisible .gradientBar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  animation: barShimmer 1s ease-in-out 0.7s 1 both;
+  pointer-events: none;
+}
+
+@keyframes barReveal {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes barShimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(430%);
+  }
 }
 
 /* ── Section Labels ── */

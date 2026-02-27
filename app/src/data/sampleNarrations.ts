@@ -45,42 +45,44 @@ export const sampleNarrations: ListingNarrations = {
       },
       {
         photo_id: 'photo-03',
-        classification: 'interior_living' as const,
+        classification: 'interior_kitchen' as const,
         narration: {
-          area_label: 'Interior — Living Area',
+          area_label: 'Interior — Kitchen',
           description:
-            'The main living space features Airstream\'s panoramic windows that flood the cabin with natural light. The convertible dinette seats four comfortably and doubles as a sleeping area.',
+            'The galley kitchen comes fully equipped with stainless steel appliances including a 3-burner stove, oven, range hood, and residential-size refrigerator. Light wood cabinetry provides storage above and below the countertops.',
           notable_features: [
-            'Panoramic windows in excellent condition',
-            'Upholstery shows minimal wear',
-            'Convertible dinette seats four',
+            'Stainless steel appliances in excellent condition',
+            'Solid surface countertops with ample prep space',
+            'Light wood cabinetry above and below counter',
+            'Range hood with built-in lighting',
           ],
           worth_checking: [
-            'Test all window latches and blinds',
-            'Check dinette conversion mechanism',
+            'Test all burners and oven operation',
+            'Run refrigerator on both propane and electric',
+            'Check countertop seams and sink drain',
           ],
           comparison_note:
-            'The 25RB layout provides more living space than the 23CB but less than the 28RB.',
+            'Airstream kitchens use higher-end appliances than most competitors at this price point.',
         },
       },
       {
         photo_id: 'photo-04',
         classification: 'interior_kitchen' as const,
         narration: {
-          area_label: 'Interior — Kitchen',
+          area_label: 'Interior — Galley Detail',
           description:
-            'The galley kitchen comes fully equipped with stainless steel appliances including a 3-burner stove, oven, microwave, and residential-size refrigerator.',
+            'A closer look at the kitchen workspace reveals the quality of materials and practical layout. The countertop space, while compact, is well-organized for meal preparation on the road.',
           notable_features: [
-            'Stainless steel appliances in good condition',
-            'Solid surface countertops',
-            'Adequate cabinet storage above and below',
+            'Efficient galley layout maximizes counter space',
+            'Quality hardware and fixtures throughout',
+            'Adequate storage for cooking essentials',
           ],
           worth_checking: [
-            'Test all burners and oven operation',
-            'Run refrigerator on both propane and electric',
+            'Open all cabinet doors to check alignment and hinges',
+            'Test faucet water pressure and hot water response',
           ],
           comparison_note:
-            'Airstream kitchens use higher-end appliances than most competitors at this price point.',
+            'The 25RB galley offers more counter space than most trailers in this length class.',
         },
       },
       {
@@ -89,34 +91,36 @@ export const sampleNarrations: ListingNarrations = {
         narration: {
           area_label: 'Interior — Bedroom',
           description:
-            'The front bedroom features a dedicated queen-size bed with residential mattress. The layout provides walk-around access on both sides.',
+            'The front bedroom features a comfortable sleeping area with twin beds and stunning panoramic views through the rear windows. Privacy curtains on both sides let you control the light.',
           notable_features: [
-            'Queen-size bed with residential mattress',
-            'Walk-around bed access on both sides',
+            'Twin beds with quality bedding and accent pillows',
+            'Panoramic windows with scenic views',
             'Overhead storage cabinets',
+            'Reading lights on both sides',
           ],
           worth_checking: [
             'Check mattress condition and any moisture signs',
-            'Inspect bedroom windows for proper seal',
+            'Inspect window seals for proper fit',
+            'Test privacy curtain tracks',
           ],
           comparison_note: null,
         },
       },
       {
         photo_id: 'photo-06',
-        classification: 'exterior_side_driver' as const,
+        classification: 'campsite_setup' as const,
         narration: {
-          area_label: 'Exterior — Driver Side',
+          area_label: 'Campsite Setup',
           description:
-            'The driver-side profile shows the full length of the 25-foot trailer. The awning, entry door, and exterior storage compartments are visible.',
+            'The Flying Cloud set up at a campsite shows how it looks in a real-world camping environment. The compact 25-foot length fits comfortably in standard campsites.',
           notable_features: [
-            'Power awning appears intact',
-            'Entry door and step in good condition',
-            'Exterior storage compartments visible',
+            'Shows realistic campsite footprint',
+            'Compact size fits standard camping spots',
+            'Entry side accessible and welcoming',
           ],
           worth_checking: [
-            'Extend and retract the power awning to verify operation',
-            'Check all exterior compartment latches and seals',
+            'Ask seller about typical setup and teardown time',
+            'Confirm leveling system type and operation',
           ],
           comparison_note:
             'At 25 feet, this is a manageable tow for mid-size trucks — shorter than many competing floorplans.',
@@ -124,64 +128,15 @@ export const sampleNarrations: ListingNarrations = {
       },
       {
         photo_id: 'photo-07',
-        classification: 'interior_detail' as const,
-        narration: {
-          area_label: 'Interior — Detail',
-          description:
-            'Close-up details reveal the quality of Airstream\'s interior craftsmanship, including the cabinetry, hardware, and finish materials.',
-          notable_features: [
-            'Quality cabinet hardware throughout',
-            'Clean interior finish with no visible damage',
-          ],
-          worth_checking: [
-            'Open and close all cabinet doors to check alignment',
-          ],
-          comparison_note: null,
-        },
-      },
-      {
-        photo_id: 'photo-08',
-        classification: 'campsite_setup' as const,
-        narration: {
-          area_label: 'Campsite Setup',
-          description:
-            'This lifestyle shot shows the Flying Cloud at a campsite, demonstrating its real-world setup. The awning extends to create a shaded outdoor living area.',
-          notable_features: [
-            'Shows realistic campsite footprint',
-            'Awning provides generous shade coverage',
-          ],
-          worth_checking: [
-            'Ask seller about typical setup and teardown time',
-          ],
-          comparison_note: null,
-        },
-      },
-      {
-        photo_id: 'photo-09',
-        classification: 'campsite_setup' as const,
-        narration: {
-          area_label: 'Camping Setup — Full View',
-          description:
-            'Another campsite angle showing the overall camping setup with outdoor furniture and accessories.',
-          notable_features: [
-            'Demonstrates versatile camping configurations',
-          ],
-          worth_checking: [
-            'Ask what outdoor accessories are included in the sale',
-          ],
-          comparison_note: null,
-        },
-      },
-      {
-        photo_id: 'photo-10',
         classification: 'exterior_rear' as const,
         narration: {
           area_label: 'Exterior — Rear Quarter',
           description:
-            'The rear quarter view shows the trailer\'s profile lines and the relationship between the body and the undercarriage.',
+            'The rear quarter view shows the trailer\'s profile lines and the relationship between the body and the undercarriage. The curved aluminum panels are in excellent condition.',
           notable_features: [
             'Clean body lines with no visible damage',
             'Undercarriage appears well-maintained',
+            'Wheel wells and tires visible',
           ],
           worth_checking: [
             'Inspect undercarriage for any corrosion or road damage',
@@ -191,18 +146,82 @@ export const sampleNarrations: ListingNarrations = {
         },
       },
       {
-        photo_id: 'photo-11',
+        photo_id: 'photo-08',
         classification: 'lifestyle' as const,
         narration: {
           area_label: 'Lifestyle',
           description:
             'This lifestyle image captures the spirit of Airstream ownership — freedom, adventure, and connecting with nature in comfort and style.',
           notable_features: [
-            'Iconic Airstream aesthetic',
+            'Iconic Airstream aesthetic on display',
           ],
           worth_checking: [],
           comparison_note:
             'Airstream trailers tend to retain 60-70% of their value after 5 years — significantly higher than the industry average of 40-50%.',
+        },
+      },
+      {
+        photo_id: 'photo-09',
+        classification: 'interior_living' as const,
+        narration: {
+          area_label: 'Interior — Living & Dining',
+          description:
+            'The main living space features Airstream\'s signature panoramic windows flooding the cabin with natural light. The booth-style dinette seats four comfortably and doubles as a sleeping area, while the sofa provides additional lounging space.',
+          notable_features: [
+            'Booth dinette seats four and converts to bed',
+            'Spacious sofa with decorative pillows',
+            'Wall-mounted TV for entertainment',
+            'Ceiling vent fan and skylights for ventilation',
+          ],
+          worth_checking: [
+            'Test dinette conversion mechanism',
+            'Check all window latches and blinds',
+            'Verify TV mount is secure and connections work',
+          ],
+          comparison_note:
+            'The 25RB layout provides more living space than the 23CB but less than the 28RB.',
+        },
+      },
+      {
+        photo_id: 'photo-10',
+        classification: 'campsite_setup' as const,
+        narration: {
+          area_label: 'Campsite — Aerial View',
+          description:
+            'An elevated view of the Flying Cloud set up at a wooded lakeside campsite. The awning is extended, outdoor furniture is arranged, and multiple roof-mounted AC units are visible.',
+          notable_features: [
+            'Awning provides generous shade coverage',
+            'Dual roof-mounted AC units visible',
+            'Full campsite setup with outdoor living area',
+          ],
+          worth_checking: [
+            'Extend and retract the power awning to verify operation',
+            'Confirm both AC units are functional',
+            'Ask what outdoor accessories are included in the sale',
+          ],
+          comparison_note: null,
+        },
+      },
+      {
+        photo_id: 'photo-11',
+        classification: 'interior_living' as const,
+        narration: {
+          area_label: 'Interior — Full Overview',
+          description:
+            'A wide-angle view from the front captures the full length of the interior. The kitchen galley lines the left side with the L-shaped lounge and dinette on the right, showcasing the open and efficient floor plan.',
+          notable_features: [
+            'Open floor plan feels spacious for a 25-foot trailer',
+            'L-shaped sofa provides ample seating',
+            'Skylights and overhead lighting brighten the space',
+            'Premium speakers integrated into the ceiling',
+          ],
+          worth_checking: [
+            'Walk the full length checking for soft spots in flooring',
+            'Test all overhead lights and ceiling fixtures',
+            'Check skylights for any signs of leaking',
+          ],
+          comparison_note:
+            'The panoramic windows and aluminum interior are unique to Airstream — most competitors use fiberglass walls and smaller windows.',
         },
       },
     ];
