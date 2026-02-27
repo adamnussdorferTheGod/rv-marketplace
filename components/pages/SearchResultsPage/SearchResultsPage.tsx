@@ -85,14 +85,6 @@ export default function SearchResultsPage() {
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
       </div>
 
-      {/* Mobile filter/sort bar */}
-      <MobileFilterBar
-        activeFilterCount={activeFilters.length}
-        sort={sort}
-        onFilterClick={() => setSidebarOpen(true)}
-        onSortClick={() => setSortSheetOpen(true)}
-      />
-
       <div className={styles.content}>
         {/* Mobile ad banner */}
         <div className={styles.mobileAdBanner}>
@@ -161,6 +153,14 @@ export default function SearchResultsPage() {
                 <SortControls sort={sort} onSortChange={setSort} />
               </div>
             </div>
+
+            {/* Mobile filter/sort bar */}
+            <MobileFilterBar
+              activeFilterCount={activeFilters.length}
+              sort={sort}
+              onFilterClick={() => setSidebarOpen(true)}
+              onSortClick={() => setSortSheetOpen(true)}
+            />
 
             <FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
             <div className={styles.featuredDivider} />
