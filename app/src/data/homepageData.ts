@@ -218,3 +218,97 @@ export const articles: Article[] = [
     title: 'How to Winterize Your RV: A Complete Step-by-Step Guide',
   },
 ];
+
+// ─── Popular Searches (SEO section) ─────────────────────────────────
+
+export type PopularSearchTab =
+  | 'makes'
+  | 'models'
+  | 'types'
+  | 'states';
+
+export interface PopularSearchCategory {
+  id: PopularSearchTab;
+  label: string;
+}
+
+export interface PopularSearchItem {
+  name: string;
+  count: string;
+  label: string;
+}
+
+export const popularSearchCategories: PopularSearchCategory[] = [
+  { id: 'makes', label: 'Top RV makes' },
+  { id: 'models', label: 'Top RV models' },
+  { id: 'types', label: 'Top RV types' },
+  { id: 'states', label: 'Top RV states' },
+];
+
+export const popularSearches: Record<PopularSearchTab, PopularSearchItem[]> = {
+  makes: [
+    { name: 'Forest River', count: '46,098', label: 'RVs for sale' },
+    { name: 'Keystone', count: '28,714', label: 'RVs for sale' },
+    { name: 'Coachmen', count: '18,502', label: 'RVs for sale' },
+    { name: 'Jayco', count: '16,339', label: 'RVs for sale' },
+    { name: 'Heartland', count: '14,217', label: 'RVs for sale' },
+    { name: 'Thor Motor Coach', count: '12,845', label: 'RVs for sale' },
+    { name: 'Winnebago', count: '9,671', label: 'RVs for sale' },
+    { name: 'Grand Design', count: '11,402', label: 'RVs for sale' },
+    { name: 'Dutchmen', count: '8,923', label: 'RVs for sale' },
+    { name: 'Tiffin', count: '4,187', label: 'RVs for sale' },
+    { name: 'Newmar', count: '2,956', label: 'RVs for sale' },
+    { name: 'Fleetwood', count: '6,341', label: 'RVs for sale' },
+    { name: 'Airstream', count: '3,829', label: 'RVs for sale' },
+    { name: 'Entegra Coach', count: '2,104', label: 'RVs for sale' },
+    { name: 'Holiday Rambler', count: '3,512', label: 'RVs for sale' },
+  ],
+  models: [
+    { name: 'Flagstaff', count: '8,214', label: 'for sale' },
+    { name: 'Montana', count: '6,892', label: 'for sale' },
+    { name: 'Catalina', count: '5,731', label: 'for sale' },
+    { name: 'Jay Flight', count: '7,103', label: 'for sale' },
+    { name: 'Bighorn', count: '3,456', label: 'for sale' },
+    { name: 'Chateau', count: '4,289', label: 'for sale' },
+    { name: 'Minnie Winnie', count: '2,817', label: 'for sale' },
+    { name: 'Reflection', count: '4,612', label: 'for sale' },
+    { name: 'Cougar', count: '5,934', label: 'for sale' },
+    { name: 'Phaeton', count: '1,423', label: 'for sale' },
+    { name: 'Flying Cloud', count: '1,987', label: 'for sale' },
+    { name: 'Sprinter', count: '3,241', label: 'for sale' },
+    { name: 'Bounder', count: '2,156', label: 'for sale' },
+    { name: 'Solitude', count: '3,078', label: 'for sale' },
+    { name: 'Imagine', count: '4,521', label: 'for sale' },
+  ],
+  types: [
+    { name: 'Travel Trailers', count: '142,381', label: 'for sale' },
+    { name: 'Fifth Wheels', count: '58,912', label: 'for sale' },
+    { name: 'Class A Motorhomes', count: '31,204', label: 'for sale' },
+    { name: 'Class C Motorhomes', count: '24,567', label: 'for sale' },
+    { name: 'Class B Campervans', count: '12,893', label: 'for sale' },
+    { name: 'Toy Haulers', count: '27,641', label: 'for sale' },
+    { name: 'Pop-Up Campers', count: '8,234', label: 'for sale' },
+    { name: 'Truck Campers', count: '6,102', label: 'for sale' },
+    { name: 'Hybrid Trailers', count: '3,478', label: 'for sale' },
+    { name: 'Park Models', count: '4,891', label: 'for sale' },
+    { name: 'Sport Utility', count: '9,345', label: 'for sale' },
+    { name: 'Teardrop Trailers', count: '5,672', label: 'for sale' },
+  ],
+  states: [
+    { name: 'Florida', count: '34,521', label: 'RVs for sale' },
+    { name: 'Texas', count: '29,187', label: 'RVs for sale' },
+    { name: 'California', count: '22,843', label: 'RVs for sale' },
+    { name: 'Arizona', count: '15,672', label: 'RVs for sale' },
+    { name: 'Michigan', count: '12,934', label: 'RVs for sale' },
+    { name: 'Ohio', count: '11,287', label: 'RVs for sale' },
+    { name: 'North Carolina', count: '10,456', label: 'RVs for sale' },
+    { name: 'Georgia', count: '9,823', label: 'RVs for sale' },
+    { name: 'Pennsylvania', count: '8,912', label: 'RVs for sale' },
+    { name: 'Indiana', count: '8,341', label: 'RVs for sale' },
+    { name: 'Colorado', count: '7,654', label: 'RVs for sale' },
+    { name: 'Tennessee', count: '7,102', label: 'RVs for sale' },
+    { name: 'Washington', count: '6,234', label: 'RVs for sale' },
+    { name: 'Oregon', count: '5,891', label: 'RVs for sale' },
+    { name: 'Utah', count: '4,523', label: 'RVs for sale' },
+  ],
+};

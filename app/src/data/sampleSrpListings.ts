@@ -9,7 +9,7 @@ interface ModelDef {
   trims: string[];
 }
 
-const rvTypeModels: Record<RVType, ModelDef[]> = {
+export const rvTypeModels: Record<RVType, ModelDef[]> = {
   'travel-trailer': [
     { make: 'Forest River', model: 'Rockwood', trims: ['2613RLS', '2104S', '2612WS', '1940LT'] },
     { make: 'Keystone', model: 'Passport', trims: ['229RK', '2521RL', '282QB'] },

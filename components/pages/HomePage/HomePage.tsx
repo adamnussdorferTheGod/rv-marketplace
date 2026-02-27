@@ -5,6 +5,7 @@ import FeaturedListings from './FeaturedListings/FeaturedListings';
 import SellingSection from './SellingSection/SellingSection';
 import OwnershipCards from './OwnershipCards/OwnershipCards';
 import StayInTheKnow from './StayInTheKnow/StayInTheKnow';
+import PopularSearches from './PopularSearches/PopularSearches';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
@@ -20,6 +21,7 @@ export default function HomePage() {
         <FeaturedListings />
         <StayInTheKnow />
         <OwnershipCards />
+        <PopularSearches />
       </div>
     </div>
   );

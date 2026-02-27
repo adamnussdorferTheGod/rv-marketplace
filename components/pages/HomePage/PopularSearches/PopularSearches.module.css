@@ -1,0 +1,154 @@
+.section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-64);
+  align-items: flex-start;
+  margin-top: 80px;
+  padding-bottom: 80px;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.heading {
+  font: var(--font-display-1-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* ─── Content wrapper (tabs + grid, 32px gap) ─── */
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+/* ─── Underline tabs ─── */
+
+.tabs {
+  display: flex;
+  gap: var(--space-32);
+  border-bottom: 1px solid var(--rv-border-low);
+  position: relative;
+}
+
+.tab {
+  background: none;
+  border: none;
+  padding: var(--space-16) 0 var(--space-8);
+  font: var(--font-label-1);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.tabActive {
+  color: var(--rv-on-surface-brand);
+}
+
+.tabActive::after {
+  background: var(--rv-on-surface-brand);
+}
+
+/* ─── Search items grid ─── */
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-64);
+  row-gap: var(--space-32);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item:hover .itemName {
+  text-decoration: underline;
+}
+
+.itemName {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+}
+
+.itemCount {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Ad containers ─── */
+
+.adContainer {
+  flex-shrink: 0;
+  padding-top: 80px;
+}
+
+.bannerAd {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 991px) {
+  .section {
+    flex-direction: column;
+    gap: var(--space-32);
+    padding-bottom: 48px;
+  }
+
+  .adContainer {
+    padding-top: 0;
+    align-self: center;
+  }
+
+  .grid {
+    column-gap: var(--space-32);
+    row-gap: var(--space-24);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    margin-top: 48px;
+  }
+
+  .tabs {
+    gap: var(--space-24);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .grid {
+    column-gap: var(--space-24);
+    row-gap: var(--space-16);
+  }
+
+  .item {
+    min-width: calc(50% - var(--space-12));
+  }
+}

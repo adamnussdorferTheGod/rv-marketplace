@@ -5,6 +5,8 @@ import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Button from '@components/ui/Button/Button';
 import Icon from '@components/ui/Icon/Icon';
 import SearchDropdown from './SearchDropdown';
+import SearchSuggestions from './SearchSuggestions';
+import { useSearchSuggestions } from './useSearchSuggestions';
 import DealerSpotlight from './DealerSpotlight';
 import styles from './HeroBanner.module.css';
 
@@ -77,6 +79,11 @@ export default function HeroBanner() {
   const reducedMotion = usePrefersReducedMotion();
   const animateEntrance = !reducedMotion;
 
+  const { suggestions, isLoadingAI, activeIndex, setActiveIndex } =
+    useSearchSuggestions(searchQuery);
+
+  const hasSuggestions = searchQuery.trim().length > 0;
+
   const closeDropdown = useCallback(() => {
     setIsDropdownOpen(false);
   }, []);
@@ -112,12 +119,12 @@ export default function HeroBanner() {
   useEffect(() => {
     if (!isDropdownOpen) return;
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeDropdown();
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener('keydown', handleGlobalKeyDown);
+    return () => document.removeEventListener('keydown', handleGlobalKeyDown);
   }, [isDropdownOpen, closeDropdown]);
 
   const handleSearch = () => {
@@ -125,8 +132,38 @@ export default function HeroBanner() {
     navigate('/search');
   };
 
+  const handleSuggestionSelect = useCallback(
+    (item: { navigateTo: string }) => {
+      closeDropdown();
+      navigate(item.navigateTo);
+    },
+    [closeDropdown, navigate],
+  );
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') handleSearch();
+    if (!isDropdownOpen || !hasSuggestions || suggestions.length === 0) {
+      if (e.key === 'Enter') handleSearch();
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setActiveIndex(activeIndex < suggestions.length - 1 ? activeIndex + 1 : 0);
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setActiveIndex(activeIndex > 0 ? activeIndex - 1 : suggestions.length - 1);
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (activeIndex >= 0 && activeIndex < suggestions.length) {
+          handleSuggestionSelect(suggestions[activeIndex]);
+        } else {
+          handleSearch();
+        }
+        break;
+    }
   };
 
   const handleSearchFocus = () => {
@@ -230,6 +267,12 @@ export default function HeroBanner() {
                   onFocus={handleSearchFocus}
                   aria-label="Search RVs"
                   aria-expanded={isDropdownOpen}
+                  aria-controls={hasSuggestions ? 'search-suggestions' : undefined}
+                  aria-activedescendant={
+                    hasSuggestions && activeIndex >= 0
+                      ? `suggestion-${activeIndex}`
+                      : undefined
+                  }
                 />
 
                 {/* Phrase crossfade placeholder */}
@@ -294,7 +337,18 @@ export default function HeroBanner() {
               : undefined,
           }}
         >
-          <SearchDropdown onClose={closeDropdown} />
+          {hasSuggestions ? (
+            <SearchSuggestions
+              suggestions={suggestions}
+              query={searchQuery}
+              activeIndex={activeIndex}
+              isLoadingAI={isLoadingAI}
+              onSelect={handleSuggestionSelect}
+              onClose={closeDropdown}
+            />
+          ) : (
+            <SearchDropdown onClose={closeDropdown} />
+          )}
         </div>
       )}
 
