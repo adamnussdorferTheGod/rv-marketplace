@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-26)
 ## Current Position
 
 Phase: 27 of 29 (SRP Page Assembly)
-Plan: 1 of 2 complete
-Status: In Progress
-Last activity: 2026-02-27 -- Phase 27 Plan 01 complete (SRP Page Layout Shell)
+Plan: 2 of 2 complete
+Status: Complete
+Last activity: 2026-02-27 -- Phase 27 Plan 02 complete (SRP Grid and Pagination)
 
-Progress: [████████████████████] 43/44 plans (98%)
+Progress: [████████████████████] 44/44 plans (100%)
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Progress: [████████████████████] 43/44 p
 - Phase 26 Plan 02: 3min (2 tasks, 6 files)
 - Phase 26 Plan 03: 2min (2 tasks, 6 files)
 - Phase 27 Plan 01: 3min (2 tasks, 8 files)
+- Phase 27 Plan 02: 3min (2 tasks, 6 files)
 
 ## Accumulated Context
 
@@ -108,6 +109,9 @@ Progress: [████████████████████] 43/44 p
 - [Phase 27]: Added @app Vite/TypeScript alias for cross-directory imports (components/ importing from app/src/)
 - [Phase 27]: Subtitle uses webkit line-clamp for collapsed state with Show more/less toggle
 - [Phase 27]: Mobile filter button uses position:fixed at bottom center with box-shadow
+- [Phase 27]: AdSlot className override for full-width in interleaved grid sections
+- [Phase 27]: Pagination buildPageNumbers helper with always-show first/last page pattern
+- [Phase 27]: Page reset to 1 on filter/sort change via useEffect dependency
 
 ### Pending Todos
 
@@ -120,5 +124,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 27-01-PLAN.md (SRP Page Layout Shell)
+Stopped at: Completed 27-02-PLAN.md (SRP Grid and Pagination)
 Resume file: None
