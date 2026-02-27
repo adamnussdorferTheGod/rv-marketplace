@@ -158,13 +158,9 @@
   to { opacity: 1; }
 }
 
-/* Dropdown below card */
+/* Dropdown — fixed position, rendered outside card */
 .dropdownWrap {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  z-index: 301;
 }
 
 /* AI icon */
@@ -352,8 +348,4 @@
     width: 100%;
   }
 
-  .dropdownWrap {
-    position: static;
-    border-radius: 0;
-  }
 }

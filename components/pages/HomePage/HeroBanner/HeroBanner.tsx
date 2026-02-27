@@ -69,6 +69,7 @@ export default function HeroBanner() {
   const [zipCode, setZipCode] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
 
   const showPlaceholder = !searchQuery && !isDropdownOpen;
@@ -95,10 +96,10 @@ export default function HeroBanner() {
     if (!isDropdownOpen) return;
 
     const handleMouseDown = (e: MouseEvent) => {
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(e.target as Node)
-      ) {
+      const target = e.target as Node;
+      const inCard = searchContainerRef.current?.contains(target);
+      const inDropdown = dropdownRef.current?.contains(target);
+      if (!inCard && !inDropdown) {
         closeDropdown();
       }
     };
@@ -273,12 +274,29 @@ export default function HeroBanner() {
           </div>
         </motion.div>
 
-        {isDropdownOpen && (
-          <div className={styles.dropdownWrap}>
-            <SearchDropdown onClose={closeDropdown} />
-          </div>
-        )}
       </div>
+
+      {/* Dropdown rendered outside card to avoid transform scroll issues */}
+      {isDropdownOpen && (
+        <div
+          ref={dropdownRef}
+          className={styles.dropdownWrap}
+          style={{
+            position: 'fixed',
+            top: searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().bottom + 'px'
+              : '50%',
+            left: searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().left + 'px'
+              : undefined,
+            width: searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().width + 'px'
+              : undefined,
+          }}
+        >
+          <SearchDropdown onClose={closeDropdown} />
+        </div>
+      )}
 
       <DealerSpotlight />
     </section>
