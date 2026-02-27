@@ -124,6 +124,18 @@
 
 .planSparkle {
   flex-shrink: 0;
+  animation: sparkleGlow 3s ease-in-out infinite;
+}
+
+@keyframes sparkleGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 0px transparent);
+    opacity: 0.7;
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(250, 202, 51, 0.5));
+    opacity: 1;
+  }
 }
 
 /* Decorative glow behind pills */
