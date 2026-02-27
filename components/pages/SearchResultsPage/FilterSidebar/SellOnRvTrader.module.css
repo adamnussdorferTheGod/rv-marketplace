@@ -55,7 +55,7 @@
   background: var(--rv-primary);
   color: white;
   border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font: var(--font-label-2-semibold);
   cursor: pointer;
   text-align: center;

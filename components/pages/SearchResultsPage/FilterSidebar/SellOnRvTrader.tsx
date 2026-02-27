@@ -5,7 +5,7 @@ export default function SellOnRvTrader() {
     <div className={styles.card}>
       <div className={styles.photo}>
         <img
-          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=200&fit=crop"
+          src="/images/sell-on-rv-trader.png"
           alt="Sell your RV"
           className={styles.photoImg}
         />
