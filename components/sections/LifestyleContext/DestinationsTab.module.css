@@ -124,17 +124,17 @@
 
 .planSparkle {
   flex-shrink: 0;
-  animation: sparkleGlow 3s ease-in-out infinite;
+  animation: sparkleGlow 2.5s ease-in-out infinite;
 }
 
 @keyframes sparkleGlow {
   0%, 100% {
-    filter: drop-shadow(0 0 0px transparent);
-    opacity: 0.7;
+    filter: drop-shadow(0 0 2px rgba(250, 202, 51, 0.2));
+    transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 6px rgba(250, 202, 51, 0.5));
-    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(250, 202, 51, 0.7)) drop-shadow(0 0 20px rgba(250, 202, 51, 0.3));
+    transform: scale(1.1);
   }
 }
 
