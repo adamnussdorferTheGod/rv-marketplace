@@ -45,10 +45,10 @@
 .inputWrapper {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4);
   border: 1px solid #939598;
   border-radius: var(--radius-base);
-  padding: var(--space-8) var(--space-16);
+  padding: var(--space-8) var(--space-12);
   height: 44px;
   box-sizing: border-box;
   background: white;
