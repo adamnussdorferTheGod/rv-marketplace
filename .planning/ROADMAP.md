@@ -375,7 +375,7 @@ Plans:
 - [x] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay (completed 2026-02-27)
 - [x] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination (completed 2026-02-27)
 - [x] **Phase 28: Page Chrome & Content Sections** - Header/footer reuse, SEO popular searches footer, app CTA banner, disclaimer (completed 2026-02-27)
-- [ ] **Phase 29: Responsive Breakpoints** - 991px and 767px breakpoint adaptations for grid, sidebar, carousels, and pagination
+- [x] **Phase 29: Responsive Breakpoints** - 991px and 767px breakpoint adaptations for grid, sidebar, carousels, and pagination (completed 2026-02-27)
 
 ### Phase 24: Data Layer & Filter Engine
 **Goal**: The entire SRP data pipeline is established -- typed listing data, realistic sample dataset, and a working filter/sort engine that syncs state to URL parameters
@@ -465,11 +465,11 @@ Plans:
   2. At the 767px breakpoint, the card grid switches to a single column with a fully stacked layout
   3. Featured carousels adapt to show fewer visible cards at smaller breakpoints (e.g., 3 cards at tablet, 1-2 at mobile)
   4. Pagination adapts to show fewer visible page numbers on mobile (e.g., current +/- 1 with ellipsis)
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 29-01: 991px breakpoint -- 2-col grid, sidebar overlay with filter button trigger
-- [ ] 29-02: 767px breakpoint -- single-column grid, stacked layout, carousel and pagination mobile adaptations
+- [ ] 29-01-PLAN.md — Grid and layout responsive: ListingGrid 2-col/1-col breakpoints, SortControls and Breadcrumbs mobile polish
+- [ ] 29-02-PLAN.md — Carousel and pagination responsive: SponsoredShowcase/FeaturedCard fewer cards, Pagination compact mobile page numbers
 
 ## Progress
 
@@ -509,5 +509,5 @@ Plans:
 | 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
 | 26. Filter Sidebar | 3/3 | Complete    | 2026-02-27 | - |
 | 27. SRP Page Assembly | 2/2 | Complete    | 2026-02-27 | - |
-| 28. Page Chrome & Content Sections | 1/1 | Complete   | 2026-02-27 | - |
-| 29. Responsive Breakpoints | v4.0 | 0/2 | Not started | - |
+| 28. Page Chrome & Content Sections | 1/1 | Complete    | 2026-02-27 | - |
+| 29. Responsive Breakpoints | 2/2 | Complete   | 2026-02-27 | - |

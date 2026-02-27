@@ -60,8 +60,8 @@
 
 ### Responsive
 
-- [ ] **RESP-01**: At 991px breakpoint: 2-column card grid, filter sidebar collapses to overlay
-- [ ] **RESP-02**: At 767px breakpoint: single-column card grid, stacked layout
+- [x] **RESP-01**: At 991px breakpoint: 2-column card grid, filter sidebar collapses to overlay
+- [x] **RESP-02**: At 767px breakpoint: single-column card grid, stacked layout
 - [ ] **RESP-03**: Featured carousels adapt to fewer visible cards at smaller breakpoints
 - [ ] **RESP-04**: Pagination adapts to fewer visible page numbers on mobile
 
@@ -201,8 +201,8 @@ Deferred to subsequent milestones.
 | CHRO-03 | Phase 28 | Complete |
 | CHRO-04 | Phase 28 | Complete |
 | CHRO-05 | Phase 28 | Complete |
-| RESP-01 | Phase 29 | Pending |
-| RESP-02 | Phase 29 | Pending |
+| RESP-01 | Phase 29 | Complete |
+| RESP-02 | Phase 29 | Complete |
 | RESP-03 | Phase 29 | Pending |
 | RESP-04 | Phase 29 | Pending |
 
