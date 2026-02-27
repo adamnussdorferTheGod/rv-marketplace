@@ -107,7 +107,9 @@ export default function SearchResultsPage() {
               onClose={() => setSidebarOpen(false)}
             />
 
-            <SellOnRvTrader />
+            <div className={styles.sidebarExtra}>
+              <SellOnRvTrader />
+            </div>
 
             <div className={styles.sidebarAd}>
               <AdSlot width={300} height={250} label="Ad: 300x250" />

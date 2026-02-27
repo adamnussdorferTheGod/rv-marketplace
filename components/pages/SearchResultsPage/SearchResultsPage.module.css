@@ -66,14 +66,17 @@
   display: flex;
   gap: var(--space-8);
   align-items: center;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .subtitle {
   font: var(--font-body-2);
   color: var(--rv-on-surface);
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .subtitleFull {
@@ -123,6 +126,10 @@
 
 /* ─── Sidebar ad ────────────────────────────────────────────────── */
 
+.sidebarExtra {
+  display: contents;
+}
+
 .sidebarAd {
   display: flex;
   justify-content: center;
@@ -163,6 +170,16 @@
   }
 
   .sidebarColumn {
+    /* Collapse to zero width but keep in DOM so FilterSidebar's
+       fixed-position mobile overlay can still render */
+    width: 0;
+    min-width: 0;
+    overflow: visible;
+    gap: 0;
+  }
+
+  .sidebarAd,
+  .sidebarExtra {
     display: none;
   }
 
