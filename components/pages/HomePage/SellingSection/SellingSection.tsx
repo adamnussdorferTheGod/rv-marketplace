@@ -15,7 +15,7 @@ const CARD_WIDTH = 696;
 const GAP = 32;
 
 export default function SellingSection() {
-  const [activeTab, setActiveTab] = useState<SellingPanelId>('consignment');
+  const [activeTab, setActiveTab] = useState<SellingPanelId>('sell-privately');
 
   const activeIndex = sellingPanels.findIndex((p) => p.id === activeTab);
 
