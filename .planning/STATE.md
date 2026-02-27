@@ -120,6 +120,8 @@ Progress: [█████████████████████] 47/4
 - [Phase 28]: Leaderboard ad placed outside .content container for full-width background styling
 - [Phase 29]: Breakpoints align with SearchResultsPage.module.css: 991px and 767px
 - [Phase 29]: Interleaved section margin reduced on mobile but grid-column span inherited from base styles
+- [Phase 29]: useIsMobile hook with matchMedia listener for responsive JS behavior
+- [Phase 29]: buildMobilePageNumbers shows [1]...[current]...[last] pattern (max 5 elements)
 
 ### Pending Todos
 
@@ -132,5 +134,5 @@ None -- Phase 21 complete
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 29-01-PLAN.md (SRP Grid Responsive Breakpoints)
+Stopped at: Completed 29-02-PLAN.md (SRP Carousel and Pagination Responsive)
 Resume file: None
