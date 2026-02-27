@@ -4,7 +4,6 @@ import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
 import TitleSection from '@components/sections/TitleSection/TitleSection';
 import PhotoGallery from '@components/sections/PhotoGallery/PhotoGallery';
 import PricePayment from '@components/sections/PricePayment/PricePayment';
-import AISummary from '@components/sections/AISummary/AISummary';
 import FitCheck from '@components/sections/FitCheck/FitCheck';
 import VehicleHistoryReport from '@components/sections/VehicleHistoryReport/VehicleHistoryReport';
 import WillingToNegotiate from '@components/sections/WillingToNegotiate/WillingToNegotiate';
@@ -32,7 +31,7 @@ import DealKitCard from '@components/sections/DealKit/DealKitCard/DealKitCard';
 import DealKitOverlay from '@components/sections/DealKit/DealKitOverlay/DealKitOverlay';
 import { VideoWalkthroughProvider, useVideoWalkthrough } from '@components/sections/VideoWalkthrough/VideoWalkthroughContext';
 import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerShell/VideoPlayerShell';
-import { VdpVariantProvider, useVdpVariant } from './VdpVariantContext';
+import { VdpVariantProvider } from './VdpVariantContext';
 import { NavigationProvider, useNavigation } from '../NavigationContext';
 import DestinationDetailPage from '../DestinationDetailPage/DestinationDetailPage';
 import { sampleListing } from '../../../app/src/data/sampleListing';
@@ -42,7 +41,6 @@ import styles from './VehicleDetailPage.module.css';
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
-  const { variant } = useVdpVariant();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
   const { currentPage } = useNavigation();
 
@@ -92,11 +90,7 @@ function VehicleDetailPageContent() {
                   monthlyPayment={sampleListing.monthlyPayment}
                   dealRating={sampleListing.dealRating}
                 />
-                {variant === 'option-1' ? (
-                  <AISummary aiSummary={sampleListing.aiSummary} />
-                ) : (
-                  <FitCheck />
-                )}
+                <FitCheck />
                 <VehicleHistoryReport
                   vhrAvailable={sampleListing.vhrAvailable}
                 />

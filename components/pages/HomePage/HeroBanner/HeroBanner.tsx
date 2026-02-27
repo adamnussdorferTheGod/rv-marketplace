@@ -7,6 +7,7 @@ import Icon from '@components/ui/Icon/Icon';
 import SearchDropdown from './SearchDropdown';
 import SearchSuggestions from './SearchSuggestions';
 import { useSearchSuggestions } from './useSearchSuggestions';
+import { buildSearchURL } from './nlParser';
 import DealerSpotlight from './DealerSpotlight';
 import styles from './HeroBanner.module.css';
 
@@ -79,7 +80,7 @@ export default function HeroBanner() {
   const reducedMotion = usePrefersReducedMotion();
   const animateEntrance = !reducedMotion;
 
-  const { suggestions, isLoadingAI, activeIndex, setActiveIndex } =
+  const { suggestions, isLoadingAI, nlParseResult, activeIndex, setActiveIndex } =
     useSearchSuggestions(searchQuery);
 
   const hasSuggestions = searchQuery.trim().length > 0;
@@ -129,7 +130,26 @@ export default function HeroBanner() {
 
   const handleSearch = () => {
     closeDropdown();
-    navigate('/search');
+
+    if (nlParseResult) {
+      // NL query: navigate with parsed filter params
+      let url = `/search${buildSearchURL(nlParseResult.filters, nlParseResult.sort)}`;
+      // Append zip code if provided
+      if (zipCode.match(/^\d{5}$/)) {
+        const sep = url.includes('?') ? '&' : '?';
+        url += `${sep}zip=${zipCode}`;
+      }
+      navigate(url);
+    } else if (searchQuery.trim()) {
+      // Plain text: navigate with keyword param
+      let url = `/search?keyword=${encodeURIComponent(searchQuery.trim())}`;
+      if (zipCode.match(/^\d{5}$/)) {
+        url += `&zip=${zipCode}`;
+      }
+      navigate(url);
+    } else {
+      navigate('/search');
+    }
   };
 
   const handleSuggestionSelect = useCallback(

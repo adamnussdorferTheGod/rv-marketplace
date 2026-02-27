@@ -13,6 +13,7 @@ interface SearchSuggestionsProps {
 }
 
 const CATEGORY_LABELS: Record<SuggestionCategory, string> = {
+  nl_search: 'Search Results',
   make: 'Makes',
   make_model: 'Makes & Models',
   model: 'Models',
@@ -21,6 +22,7 @@ const CATEGORY_LABELS: Record<SuggestionCategory, string> = {
 };
 
 const CATEGORY_ORDER: SuggestionCategory[] = [
+  'nl_search',
   'make',
   'make_model',
   'model',
@@ -137,11 +139,20 @@ export default function SearchSuggestions({
                 onMouseDown={(e) => e.preventDefault()}
               >
                 <span className={styles.rowIcon}>
-                  <Icon name="search" size={18} />
+                  <Icon name={item.category === 'nl_search' ? 'ai_search' : 'search'} size={18} />
                 </span>
-                <span className={styles.rowLabel}>
-                  {highlightMatch(item.label, query)}
-                </span>
+                {item.subtitle ? (
+                  <span className={styles.rowLabelWithSub}>
+                    <span className={styles.rowLabelText}>
+                      {highlightMatch(item.label, query)}
+                    </span>
+                    <span className={styles.rowSubtitle}>{item.subtitle}</span>
+                  </span>
+                ) : (
+                  <span className={styles.rowLabel}>
+                    {highlightMatch(item.label, query)}
+                  </span>
+                )}
                 {item.count && (
                   <span className={styles.rowCount}>
                     {item.count} {item.category === 'make' || item.category === 'make_model' ? 'RVs' : 'for sale'}

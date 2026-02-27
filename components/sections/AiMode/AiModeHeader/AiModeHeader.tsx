@@ -1,6 +1,5 @@
 import Icon from '@components/ui/Icon/Icon';
 import { useAiMode } from '../AiModeContext';
-import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import styles from './AiModeHeader.module.css';
 
 interface AiModeHeaderProps {
@@ -15,8 +14,7 @@ export default function AiModeHeader({
   isMobile,
 }: AiModeHeaderProps) {
   const { closePanel, panelMode } = useAiMode();
-  const { variant } = useVdpVariant();
-  const isFitcheck = variant === 'option-2' && panelMode !== 'plan';
+  const isFitcheck = panelMode !== 'plan';
   const isPlan = panelMode === 'plan';
 
   const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'AI Mode';

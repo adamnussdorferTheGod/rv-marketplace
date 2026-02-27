@@ -7,7 +7,8 @@ export type SuggestionCategory =
   | 'make_model'
   | 'model'
   | 'rv_type'
-  | 'popular_search';
+  | 'popular_search'
+  | 'nl_search';
 
 export interface SuggestionItem {
   label: string;
@@ -15,6 +16,7 @@ export interface SuggestionItem {
   searchTerms: string[];
   navigateTo: string;
   count?: string;
+  subtitle?: string;
 }
 
 function slugify(name: string): string {
@@ -50,7 +52,7 @@ function buildIndex(): SuggestionItem[] {
       label: make.name,
       category: 'make',
       searchTerms: tokenize(make.name),
-      navigateTo: `/search?make=${slugify(make.name)}`,
+      navigateTo: `/search?makes=${slugify(make.name)}`,
       count: make.count,
     });
   }
@@ -97,7 +99,7 @@ function buildIndex(): SuggestionItem[] {
         label: `${def.make} ${def.model}`,
         category: 'make_model',
         searchTerms: tokenize(`${def.make} ${def.model}`),
-        navigateTo: `/search?make=${slugify(def.make)}&model=${slugify(def.model)}`,
+        navigateTo: `/search?makes=${slugify(def.make)}&models=${slugify(def.model)}`,
         count: makeModelCounts[key],
       });
     }
@@ -109,7 +111,7 @@ function buildIndex(): SuggestionItem[] {
       label: model.name,
       category: 'model',
       searchTerms: tokenize(model.name),
-      navigateTo: `/search?model=${slugify(model.name)}`,
+      navigateTo: `/search?models=${slugify(model.name)}`,
       count: model.count,
     });
   }
@@ -120,7 +122,7 @@ function buildIndex(): SuggestionItem[] {
       label: type.name,
       category: 'rv_type',
       searchTerms: tokenize(type.name),
-      navigateTo: `/search?type=${TYPE_SLUG_MAP[type.name] || slugify(type.name)}`,
+      navigateTo: `/search?rvTypes=${TYPE_SLUG_MAP[type.name] || slugify(type.name)}`,
       count: type.count,
     });
   }
@@ -139,3 +141,13 @@ function buildIndex(): SuggestionItem[] {
 }
 
 export const SEARCH_INDEX: SuggestionItem[] = buildIndex();
+
+/** Lowercase make names for NL parser entity detection */
+export const KNOWN_MAKES: string[] = popularSearches.makes.map((m) =>
+  m.name.toLowerCase(),
+);
+
+/** Lowercase model names for NL parser entity detection */
+export const KNOWN_MODELS: string[] = popularSearches.models.map((m) =>
+  m.name.toLowerCase(),
+);

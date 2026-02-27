@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { useAiMode } from '../AiModeContext';
-import { useVdpVariant } from '@components/pages/VehicleDetailPage/VdpVariantContext';
 import MessageBubble from '../MessageBubble/MessageBubble';
 import SuggestedPrompts from '../SuggestedPrompts/SuggestedPrompts';
 import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
@@ -33,8 +32,6 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
     isAuthenticated,
     sendMessage,
   } = useAiMode();
-  const { variant } = useVdpVariant();
-
   const { panelMode } = useAiMode();
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +44,7 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
 
   const showAuthGate = exchangeCount >= 2 && !isAuthenticated;
   const hasMessages = messages.length > 0;
-  const isFitcheck = variant === 'option-2' && panelMode !== 'plan';
+  const isFitcheck = panelMode !== 'plan';
   const isPlan = panelMode === 'plan';
 
   return (
