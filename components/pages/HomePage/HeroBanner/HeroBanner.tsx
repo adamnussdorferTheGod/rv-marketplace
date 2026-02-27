@@ -80,6 +80,16 @@ export default function HeroBanner() {
     setIsDropdownOpen(false);
   }, []);
 
+  /* Lock body scroll when dropdown is open */
+  useEffect(() => {
+    if (isDropdownOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isDropdownOpen]);
+
   /* Close on click outside */
   useEffect(() => {
     if (!isDropdownOpen) return;
@@ -157,6 +167,11 @@ export default function HeroBanner() {
           ))}
         </h1>
       </div>
+
+      {/* ── Lightbox backdrop when search is expanded ── */}
+      {isDropdownOpen && (
+        <div className={styles.searchBackdrop} onClick={closeDropdown} />
+      )}
 
       {/* ── Search card (CSS handles translateY + float + breathing shadow) ── */}
       <div className={searchCardClass} ref={searchContainerRef}>
