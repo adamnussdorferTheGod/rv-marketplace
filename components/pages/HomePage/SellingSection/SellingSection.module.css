@@ -89,7 +89,7 @@
 .cardInfo {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-16);
+  gap: var(--space-32);
   width: 100%;
 }
 
