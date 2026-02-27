@@ -35,6 +35,10 @@
   --rv-border-input: #D5D5D5;
   --rv-border-floating: rgba(0, 0, 0, 0.1);
   --rv-border-tag-red: #D8202E;
+  --rv-border-tag-blue: #3870E9;
+  --rv-border-tag-navy: #22438C;
+  --rv-border-tag-green: #11A94E;
+  --rv-border-tag-orange: #FA8131;
 
   /* Shadows */
   --rv-shadow-bottom: 0px 2px 8px 2px rgba(0, 0, 0, 0.07);

@@ -8,6 +8,14 @@ interface HomepageListingCardProps {
   listing: HomepageListingData;
 }
 
+const TAG_COLORS: Record<string, string> = {
+  'Price reduced': 'var(--rv-border-tag-red)',
+  'Hot deal': 'var(--rv-border-tag-orange)',
+  'New arrival': 'var(--rv-border-tag-blue)',
+  'Newly listed': 'var(--rv-border-tag-blue)',
+  'History report': 'var(--rv-border-tag-navy)',
+};
+
 export default function HomepageListingCard({ listing }: HomepageListingCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const location = listing.dealer.distanceMiles
@@ -23,6 +31,14 @@ export default function HomepageListingCard({ listing }: HomepageListingCardProp
           className={styles.photo}
           loading="lazy"
         />
+        {listing.tag && (
+          <span
+            className={styles.tagBadge}
+            style={{ borderLeftColor: TAG_COLORS[listing.tag] ?? 'var(--rv-border-tag-red)' }}
+          >
+            {listing.tag}
+          </span>
+        )}
         <button
           type="button"
           className={styles.favoriteBtn}

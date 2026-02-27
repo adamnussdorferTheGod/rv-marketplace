@@ -7,6 +7,14 @@ interface SRPListingCardProps {
   listing: SRPListing;
 }
 
+const TAG_COLORS: Record<string, string> = {
+  'Price reduced': 'var(--rv-border-tag-red)',
+  'Hot deal': 'var(--rv-border-tag-orange)',
+  'New arrival': 'var(--rv-border-tag-blue)',
+  'Newly listed': 'var(--rv-border-tag-blue)',
+  'History report': 'var(--rv-border-tag-navy)',
+};
+
 export default function SRPListingCard({ listing }: SRPListingCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -47,7 +55,12 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
 
         {/* Tag badge */}
         {listing.tagBadge && (
-          <span className={styles.tagBadge}>{listing.tagBadge}</span>
+          <span
+            className={styles.tagBadge}
+            style={{ borderLeftColor: TAG_COLORS[listing.tagBadge] ?? 'var(--rv-border-tag-red)' }}
+          >
+            {listing.tagBadge}
+          </span>
         )}
 
         {/* Favorite heart toggle */}

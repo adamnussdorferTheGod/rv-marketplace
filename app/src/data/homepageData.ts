@@ -19,6 +19,7 @@ export interface HomepageListingData {
   };
   rvType: RVType;
   dealRating: SRPListing['dealRating'];
+  tag: string | null;
 }
 
 function toHomepageCard(listing: SRPListing): HomepageListingData {
@@ -37,6 +38,7 @@ function toHomepageCard(listing: SRPListing): HomepageListingData {
     },
     rvType: listing.rvType,
     dealRating: listing.dealRating,
+    tag: listing.tagBadge,
   };
 }
 

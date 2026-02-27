@@ -194,15 +194,15 @@ interface ListingDef {
 const listingDefs: ListingDef[] = [
   // ──────────────── TRAVEL TRAILERS (~20) ────────────────
   // 1
-  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 42000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 0, lengthFt: 26, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7500, mileage: null, daysOnSite: 12, photoCount: 5 },
+  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 42000, originalPrice: null, dealRating: 'good', tagBadge: 'Newly listed', isFeatured: true, isSponsored: false, locationIndex: 0, lengthFt: 26, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7500, mileage: null, daysOnSite: 12, photoCount: 5 },
   // 2
-  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 1, year: 2023, condition: 'used', price: 28500, originalPrice: 32000, dealRating: 'great', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 1, lengthFt: 21, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 5800, mileage: null, daysOnSite: 30, photoCount: 4 },
+  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 1, year: 2023, condition: 'used', price: 28500, originalPrice: 32000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 1, lengthFt: 21, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 5800, mileage: null, daysOnSite: 30, photoCount: 4 },
   // 3
-  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 2, year: 2022, condition: 'used', price: 35000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 3, lengthFt: 26, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7600, mileage: null, daysOnSite: 55, photoCount: 4 },
+  { rvType: 'travel-trailer', modelIndex: 0, trimIndex: 2, year: 2022, condition: 'used', price: 35000, originalPrice: null, dealRating: 'fair', tagBadge: 'History report', isFeatured: false, isSponsored: false, locationIndex: 3, lengthFt: 26, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7600, mileage: null, daysOnSite: 55, photoCount: 4 },
   // 4
   { rvType: 'travel-trailer', modelIndex: 1, trimIndex: 0, year: 2024, condition: 'new', price: 38000, originalPrice: null, dealRating: null, tagBadge: 'New arrival', isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 22, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: 'Rear kitchen', gvw: 6200, mileage: null, daysOnSite: 3, photoCount: 5 },
   // 5
-  { rvType: 'travel-trailer', modelIndex: 1, trimIndex: 1, year: 2021, condition: 'used', price: 31000, originalPrice: 34500, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 25, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 7000, mileage: null, daysOnSite: 42, photoCount: 4 },
+  { rvType: 'travel-trailer', modelIndex: 1, trimIndex: 1, year: 2021, condition: 'used', price: 31000, originalPrice: 34500, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 25, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 7000, mileage: null, daysOnSite: 42, photoCount: 4 },
   // 6
   { rvType: 'travel-trailer', modelIndex: 2, trimIndex: 0, year: 2025, condition: 'new', price: 34000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 6, lengthFt: 22, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 5900, mileage: null, daysOnSite: 8, photoCount: 5 },
   // 7
@@ -214,9 +214,9 @@ const listingDefs: ListingDef[] = [
   // 10
   { rvType: 'travel-trailer', modelIndex: 3, trimIndex: 1, year: 2019, condition: 'used', price: 22000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 15, lengthFt: 28, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear kitchen', gvw: 7400, mileage: null, daysOnSite: 90, photoCount: 3 },
   // 11
-  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 0, year: 2025, condition: 'new', price: 45000, originalPrice: null, dealRating: null, tagBadge: 'New arrival', isFeatured: true, isSponsored: false, locationIndex: 8, lengthFt: 25, sleepingCapacity: 5, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7000, mileage: null, daysOnSite: 5, photoCount: 6 },
+  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 0, year: 2025, condition: 'new', price: 45000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 8, lengthFt: 25, sleepingCapacity: 5, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 7000, mileage: null, daysOnSite: 5, photoCount: 6 },
   // 12
-  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 1, year: 2022, condition: 'used', price: 38500, originalPrice: 42000, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 9, lengthFt: 29, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 8200, mileage: null, daysOnSite: 25, photoCount: 5 },
+  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 1, year: 2022, condition: 'used', price: 38500, originalPrice: 42000, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 9, lengthFt: 29, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 8200, mileage: null, daysOnSite: 25, photoCount: 5 },
   // 13
   { rvType: 'travel-trailer', modelIndex: 5, trimIndex: 0, year: 2024, condition: 'new', price: 88000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: true, locationIndex: 0, lengthFt: 25, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: 'Front bedroom', gvw: 6500, mileage: null, daysOnSite: 20, photoCount: 6 },
   // 14
@@ -228,7 +228,7 @@ const listingDefs: ListingDef[] = [
   // 17
   { rvType: 'travel-trailer', modelIndex: 1, trimIndex: 2, year: 2025, condition: 'new', price: 42500, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 13, lengthFt: 28, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 8000, mileage: null, daysOnSite: 10, photoCount: 5 },
   // 18
-  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 2, year: 2020, condition: 'used', price: 40000, originalPrice: 45000, dealRating: 'great', tagBadge: 'Hot deal', isFeatured: false, isSponsored: false, locationIndex: 17, lengthFt: 32, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 9000, mileage: null, daysOnSite: 50, photoCount: 4 },
+  { rvType: 'travel-trailer', modelIndex: 4, trimIndex: 2, year: 2020, condition: 'used', price: 40000, originalPrice: 45000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 17, lengthFt: 32, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 9000, mileage: null, daysOnSite: 50, photoCount: 4 },
   // 19
   { rvType: 'travel-trailer', modelIndex: 5, trimIndex: 2, year: 2023, condition: 'used', price: 95000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 2, lengthFt: 30, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Front bedroom', gvw: 8500, mileage: null, daysOnSite: 22, photoCount: 5 },
   // 20
@@ -238,7 +238,7 @@ const listingDefs: ListingDef[] = [
   // 21
   { rvType: 'fifth-wheel', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 92000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 3, lengthFt: 39, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear kitchen', gvw: 14500, mileage: null, daysOnSite: 14, photoCount: 6 },
   // 22
-  { rvType: 'fifth-wheel', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 75000, originalPrice: 82000, dealRating: 'great', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 37, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Front bedroom', gvw: 13800, mileage: null, daysOnSite: 38, photoCount: 5 },
+  { rvType: 'fifth-wheel', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 75000, originalPrice: 82000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 37, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Front bedroom', gvw: 13800, mileage: null, daysOnSite: 38, photoCount: 5 },
   // 23
   { rvType: 'fifth-wheel', modelIndex: 0, trimIndex: 2, year: 2021, condition: 'used', price: 68000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 38, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 14200, mileage: null, daysOnSite: 60, photoCount: 4 },
   // 24
@@ -248,7 +248,7 @@ const listingDefs: ListingDef[] = [
   // 26
   { rvType: 'fifth-wheel', modelIndex: 1, trimIndex: 2, year: 2024, condition: 'new', price: 85000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: true, locationIndex: 9, lengthFt: 36, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Bunkhouse', gvw: 13000, mileage: null, daysOnSite: 11, photoCount: 5 },
   // 27
-  { rvType: 'fifth-wheel', modelIndex: 2, trimIndex: 0, year: 2023, condition: 'used', price: 72000, originalPrice: 79000, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 10, lengthFt: 33, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 12000, mileage: null, daysOnSite: 45, photoCount: 4 },
+  { rvType: 'fifth-wheel', modelIndex: 2, trimIndex: 0, year: 2023, condition: 'used', price: 72000, originalPrice: 79000, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 10, lengthFt: 33, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 12000, mileage: null, daysOnSite: 45, photoCount: 4 },
   // 28
   { rvType: 'fifth-wheel', modelIndex: 2, trimIndex: 1, year: 2020, condition: 'used', price: 58000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 13, lengthFt: 39, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Front bedroom', gvw: 14000, mileage: null, daysOnSite: 80, photoCount: 4 },
   // 29
@@ -258,13 +258,13 @@ const listingDefs: ListingDef[] = [
   // 31
   { rvType: 'fifth-wheel', modelIndex: 0, trimIndex: 0, year: 2018, condition: 'used', price: 48000, originalPrice: null, dealRating: 'high', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 6, lengthFt: 39, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear kitchen', gvw: 14500, mileage: null, daysOnSite: 110, photoCount: 3 },
   // 32
-  { rvType: 'fifth-wheel', modelIndex: 1, trimIndex: 0, year: 2022, condition: 'used', price: 62000, originalPrice: 68000, dealRating: 'great', tagBadge: 'Hot deal', isFeatured: false, isSponsored: false, locationIndex: 14, lengthFt: 33, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 11500, mileage: null, daysOnSite: 33, photoCount: 5 },
+  { rvType: 'fifth-wheel', modelIndex: 1, trimIndex: 0, year: 2022, condition: 'used', price: 62000, originalPrice: 68000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 14, lengthFt: 33, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Rear living', gvw: 11500, mileage: null, daysOnSite: 33, photoCount: 5 },
 
   // ──────────────── CLASS A (~10) ────────────────
   // 33
   { rvType: 'class-a', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 198000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 3, lengthFt: 34, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: 'Front bedroom', gvw: 26000, mileage: null, daysOnSite: 10, photoCount: 6 },
   // 34
-  { rvType: 'class-a', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 165000, originalPrice: 180000, dealRating: 'great', tagBadge: 'Hot deal', isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 37, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: null, gvw: 28000, mileage: 18500, daysOnSite: 28, photoCount: 5 },
+  { rvType: 'class-a', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 165000, originalPrice: 180000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 37, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: null, gvw: 28000, mileage: 18500, daysOnSite: 28, photoCount: 5 },
   // 35
   { rvType: 'class-a', modelIndex: 1, trimIndex: 0, year: 2025, condition: 'new', price: 225000, originalPrice: null, dealRating: null, tagBadge: 'New arrival', isFeatured: false, isSponsored: false, locationIndex: 0, lengthFt: 30, sleepingCapacity: 4, fuelType: 'gas', floorPlan: null, gvw: 22000, mileage: null, daysOnSite: 6, photoCount: 6 },
   // 36
@@ -272,7 +272,7 @@ const listingDefs: ListingDef[] = [
   // 37
   { rvType: 'class-a', modelIndex: 2, trimIndex: 0, year: 2023, condition: 'used', price: 320000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: true, locationIndex: 11, lengthFt: 37, sleepingCapacity: 4, fuelType: 'diesel', floorPlan: 'Rear living', gvw: 34000, mileage: 12000, daysOnSite: 22, photoCount: 6 },
   // 38
-  { rvType: 'class-a', modelIndex: 2, trimIndex: 1, year: 2021, condition: 'used', price: 385000, originalPrice: 410000, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 16, lengthFt: 40, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: null, gvw: 40000, mileage: 8500, daysOnSite: 40, photoCount: 5 },
+  { rvType: 'class-a', modelIndex: 2, trimIndex: 1, year: 2021, condition: 'used', price: 385000, originalPrice: 410000, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 16, lengthFt: 40, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: null, gvw: 40000, mileage: 8500, daysOnSite: 40, photoCount: 5 },
   // 39
   { rvType: 'class-a', modelIndex: 3, trimIndex: 0, year: 2024, condition: 'new', price: 275000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 17, lengthFt: 40, sleepingCapacity: 6, fuelType: 'diesel', floorPlan: 'Front bedroom', gvw: 36000, mileage: null, daysOnSite: 16, photoCount: 6 },
   // 40
@@ -286,7 +286,7 @@ const listingDefs: ListingDef[] = [
   // 43
   { rvType: 'class-c', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 118000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 1, lengthFt: 28, sleepingCapacity: 6, fuelType: 'gas', floorPlan: null, gvw: 14500, mileage: null, daysOnSite: 18, photoCount: 5 },
   // 44
-  { rvType: 'class-c', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 88000, originalPrice: 95000, dealRating: 'great', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 31, sleepingCapacity: 8, fuelType: 'gas', floorPlan: 'Bunkhouse', gvw: 16000, mileage: 15000, daysOnSite: 32, photoCount: 5 },
+  { rvType: 'class-c', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 88000, originalPrice: 95000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 31, sleepingCapacity: 8, fuelType: 'gas', floorPlan: 'Bunkhouse', gvw: 16000, mileage: 15000, daysOnSite: 32, photoCount: 5 },
   // 45
   { rvType: 'class-c', modelIndex: 0, trimIndex: 2, year: 2020, condition: 'used', price: 72000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 8, lengthFt: 25, sleepingCapacity: 5, fuelType: 'gas', floorPlan: null, gvw: 12500, mileage: 22000, daysOnSite: 58, photoCount: 4 },
   // 46
@@ -298,7 +298,7 @@ const listingDefs: ListingDef[] = [
   // 49
   { rvType: 'class-c', modelIndex: 2, trimIndex: 1, year: 2019, condition: 'used', price: 98000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 14, lengthFt: 24, sleepingCapacity: 4, fuelType: 'diesel', floorPlan: null, gvw: 11000, mileage: 35000, daysOnSite: 70, photoCount: 4 },
   // 50
-  { rvType: 'class-c', modelIndex: 3, trimIndex: 0, year: 2023, condition: 'used', price: 82000, originalPrice: 89000, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 7, lengthFt: 26, sleepingCapacity: 6, fuelType: 'gas', floorPlan: null, gvw: 14000, mileage: 12000, daysOnSite: 25, photoCount: 5 },
+  { rvType: 'class-c', modelIndex: 3, trimIndex: 0, year: 2023, condition: 'used', price: 82000, originalPrice: 89000, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 7, lengthFt: 26, sleepingCapacity: 6, fuelType: 'gas', floorPlan: null, gvw: 14000, mileage: 12000, daysOnSite: 25, photoCount: 5 },
   // 51
   { rvType: 'class-c', modelIndex: 3, trimIndex: 1, year: 2018, condition: 'used', price: 65000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 12, lengthFt: 31, sleepingCapacity: 8, fuelType: 'gas', floorPlan: 'Bunkhouse', gvw: 16000, mileage: 38000, daysOnSite: 85, photoCount: 3 },
   // 52
@@ -310,9 +310,9 @@ const listingDefs: ListingDef[] = [
   // 54
   { rvType: 'class-b', modelIndex: 0, trimIndex: 0, year: 2022, condition: 'used', price: 185000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 8, lengthFt: 19, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 8550, mileage: 14000, daysOnSite: 30, photoCount: 4 },
   // 55
-  { rvType: 'class-b', modelIndex: 1, trimIndex: 0, year: 2025, condition: 'new', price: 240000, originalPrice: null, dealRating: null, tagBadge: 'New arrival', isFeatured: false, isSponsored: true, locationIndex: 0, lengthFt: 24, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 10500, mileage: null, daysOnSite: 3, photoCount: 6 },
+  { rvType: 'class-b', modelIndex: 1, trimIndex: 0, year: 2025, condition: 'new', price: 240000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: true, locationIndex: 0, lengthFt: 24, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 10500, mileage: null, daysOnSite: 3, photoCount: 6 },
   // 56
-  { rvType: 'class-b', modelIndex: 1, trimIndex: 1, year: 2021, condition: 'used', price: 175000, originalPrice: 190000, dealRating: 'great', tagBadge: 'Hot deal', isFeatured: false, isSponsored: false, locationIndex: 16, lengthFt: 24, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 10500, mileage: 22000, daysOnSite: 35, photoCount: 5 },
+  { rvType: 'class-b', modelIndex: 1, trimIndex: 1, year: 2021, condition: 'used', price: 175000, originalPrice: 190000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 16, lengthFt: 24, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 10500, mileage: 22000, daysOnSite: 35, photoCount: 5 },
   // 57
   { rvType: 'class-b', modelIndex: 2, trimIndex: 0, year: 2024, condition: 'new', price: 168000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 6, lengthFt: 19, sleepingCapacity: 2, fuelType: 'diesel', floorPlan: null, gvw: 9350, mileage: null, daysOnSite: 15, photoCount: 5 },
   // 58
@@ -326,7 +326,7 @@ const listingDefs: ListingDef[] = [
   // 61
   { rvType: 'toy-hauler', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 55000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 32, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 10500, mileage: null, daysOnSite: 14, photoCount: 5 },
   // 62
-  { rvType: 'toy-hauler', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 42000, originalPrice: 48000, dealRating: 'great', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 7, lengthFt: 35, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 12000, mileage: null, daysOnSite: 40, photoCount: 5 },
+  { rvType: 'toy-hauler', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 42000, originalPrice: 48000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 7, lengthFt: 35, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 12000, mileage: null, daysOnSite: 40, photoCount: 5 },
   // 63
   { rvType: 'toy-hauler', modelIndex: 0, trimIndex: 2, year: 2021, condition: 'used', price: 58000, originalPrice: null, dealRating: 'fair', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 13, lengthFt: 40, sleepingCapacity: 10, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 15000, mileage: null, daysOnSite: 50, photoCount: 4 },
   // 64
@@ -336,7 +336,7 @@ const listingDefs: ListingDef[] = [
   // 66
   { rvType: 'toy-hauler', modelIndex: 2, trimIndex: 0, year: 2024, condition: 'new', price: 88000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: true, isSponsored: false, locationIndex: 10, lengthFt: 35, sleepingCapacity: 8, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 14500, mileage: null, daysOnSite: 9, photoCount: 6 },
   // 67
-  { rvType: 'toy-hauler', modelIndex: 2, trimIndex: 1, year: 2020, condition: 'used', price: 72000, originalPrice: 78000, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 39, sleepingCapacity: 10, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 17000, mileage: null, daysOnSite: 52, photoCount: 4 },
+  { rvType: 'toy-hauler', modelIndex: 2, trimIndex: 1, year: 2020, condition: 'used', price: 72000, originalPrice: 78000, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 5, lengthFt: 39, sleepingCapacity: 10, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 17000, mileage: null, daysOnSite: 52, photoCount: 4 },
   // 68
   { rvType: 'toy-hauler', modelIndex: 3, trimIndex: 0, year: 2023, condition: 'used', price: 48000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 14, lengthFt: 32, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: 'Toy hauler garage', gvw: 11000, mileage: null, daysOnSite: 35, photoCount: 4 },
   // 69
@@ -348,7 +348,7 @@ const listingDefs: ListingDef[] = [
   // 71
   { rvType: 'pop-up', modelIndex: 0, trimIndex: 0, year: 2024, condition: 'new', price: 22000, originalPrice: null, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 1, lengthFt: 14, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 3500, mileage: null, daysOnSite: 20, photoCount: 4 },
   // 72
-  { rvType: 'pop-up', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 18000, originalPrice: 21000, dealRating: 'great', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 11, lengthFt: 15, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 3800, mileage: null, daysOnSite: 42, photoCount: 4 },
+  { rvType: 'pop-up', modelIndex: 0, trimIndex: 1, year: 2022, condition: 'used', price: 18000, originalPrice: 21000, dealRating: 'great', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 11, lengthFt: 15, sleepingCapacity: 6, fuelType: 'n/a', floorPlan: null, gvw: 3800, mileage: null, daysOnSite: 42, photoCount: 4 },
   // 73
   { rvType: 'pop-up', modelIndex: 1, trimIndex: 0, year: 2025, condition: 'new', price: 16500, originalPrice: null, dealRating: null, tagBadge: 'New arrival', isFeatured: false, isSponsored: false, locationIndex: 6, lengthFt: 10, sleepingCapacity: 3, fuelType: 'n/a', floorPlan: null, gvw: 2200, mileage: null, daysOnSite: 2, photoCount: 4 },
   // 74
@@ -358,7 +358,7 @@ const listingDefs: ListingDef[] = [
   // 76
   { rvType: 'pop-up', modelIndex: 2, trimIndex: 1, year: 2019, condition: 'used', price: 15000, originalPrice: null, dealRating: null, tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 15, lengthFt: 10, sleepingCapacity: 3, fuelType: 'n/a', floorPlan: null, gvw: 2000, mileage: null, daysOnSite: 80, photoCount: 3 },
   // 77
-  { rvType: 'pop-up', modelIndex: 2, trimIndex: 2, year: 2023, condition: 'used', price: 16000, originalPrice: 18500, dealRating: 'good', tagBadge: 'Price reduced', isFeatured: false, isSponsored: false, locationIndex: 9, lengthFt: 12, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 2400, mileage: null, daysOnSite: 30, photoCount: 4 },
+  { rvType: 'pop-up', modelIndex: 2, trimIndex: 2, year: 2023, condition: 'used', price: 16000, originalPrice: 18500, dealRating: 'good', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 9, lengthFt: 12, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 2400, mileage: null, daysOnSite: 30, photoCount: 4 },
   // 78
   { rvType: 'pop-up', modelIndex: 0, trimIndex: 0, year: 2017, condition: 'used', price: 13500, originalPrice: null, dealRating: 'high', tagBadge: null, isFeatured: false, isSponsored: false, locationIndex: 4, lengthFt: 14, sleepingCapacity: 4, fuelType: 'n/a', floorPlan: null, gvw: 3500, mileage: null, daysOnSite: 95, photoCount: 3 },
   // 79

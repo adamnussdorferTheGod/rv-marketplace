@@ -43,6 +43,20 @@
   display: block;
 }
 
+.tagBadge {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  background: var(--rv-surface-floating);
+  color: var(--rv-on-surface);
+  font: var(--font-label-2);
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  border-left: var(--border-heavy) solid var(--rv-border-tag-red);
+  box-shadow: var(--rv-shadow-bottom);
+  z-index: 1;
+}
+
 .favoriteBtn {
   position: absolute;
   top: var(--space-16);
