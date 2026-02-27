@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
+import { listingPath } from '../../../../app/src/routes';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SRPListingCard.module.css';
 
@@ -29,6 +31,7 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
     listing.originalPrice != null && listing.originalPrice !== listing.currentPrice;
 
   return (
+    <Link to={listingPath(listing.id)} className={styles.cardLink}>
     <article className={styles.card}>
       {/* ── Photo Section ── */}
       <div className={styles.photoWrapper}>
@@ -130,5 +133,6 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
         </div>
       </div>
     </article>
+    </Link>
   );
 }

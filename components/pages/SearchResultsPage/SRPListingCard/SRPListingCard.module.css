@@ -1,5 +1,12 @@
 /* SRPListingCard — Standard listing card for the SRP 3-column grid */
 
+.cardLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  height: 100%;
+}
+
 .card {
   background: var(--rv-surface);
   border: 1px solid var(--rv-border-low);
@@ -8,6 +15,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
 /* ─── Photo Section ─── */
@@ -31,7 +39,8 @@
   pointer-events: none;
 }
 
-.card:hover .photoWrapper::after {
+.card:hover .photoWrapper::after,
+.cardLink:hover .photoWrapper::after {
   opacity: 1;
 }
 

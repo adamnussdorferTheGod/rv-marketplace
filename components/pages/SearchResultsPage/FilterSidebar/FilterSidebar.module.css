@@ -165,6 +165,88 @@
   background: var(--rv-surface-variant);
 }
 
+/* ─── Search suggestions dropdown ─────────────────────────────────── */
+
+.suggestionsDropdown {
+  width: 100%;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: var(--space-4) 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  animation: suggestFadeIn 120ms ease-out;
+}
+
+@keyframes suggestFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.suggestionRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.suggestionRow:hover {
+  background: var(--rv-surface-variant);
+}
+
+.suggestionRowActive {
+  background: var(--rv-surface-variant);
+}
+
+.suggestionIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--rv-on-surface-variant);
+}
+
+.suggestionLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestionCount {
+  flex-shrink: 0;
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  white-space: nowrap;
+}
+
+.suggestionLoading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  animation: suggestPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes suggestPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 /* ─── Location filter ─────────────────────────────────────────────── */
 
 .locationFields {
