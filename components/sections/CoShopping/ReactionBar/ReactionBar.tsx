@@ -101,26 +101,22 @@ export default function ReactionBar({
             >
               {config.label}
             </span>
-            {count > 0 && (
-              <span className={styles.countWrap}>
-                <span className={styles.countBubble}>{count}</span>
-                <span className={styles.countTooltip}>
-                  {reactors.map((member) => (
-                    <span key={member!.id} className={styles.tooltipRow}>
-                      <span
-                        className={styles.tooltipAvatar}
-                        style={member!.avatarUrl ? undefined : { backgroundColor: member!.avatarColor }}
-                      >
-                        {member!.avatarUrl ? (
-                          <img src={member!.avatarUrl} alt={member!.displayName} className={styles.tooltipAvatarImg} />
-                        ) : (
-                          member!.avatarInitials
-                        )}
-                      </span>
-                      <span className={styles.tooltipName}>{member!.displayName}</span>
-                    </span>
-                  ))}
-                </span>
+            {reactors.length > 0 && (
+              <span className={styles.avatarGroup}>
+                {reactors.map((member) => (
+                  <span
+                    key={member!.id}
+                    className={styles.miniAvatar}
+                    style={member!.avatarUrl ? undefined : { backgroundColor: member!.avatarColor }}
+                    title={member!.displayName}
+                  >
+                    {member!.avatarUrl ? (
+                      <img src={member!.avatarUrl} alt={member!.displayName} className={styles.miniAvatarImg} />
+                    ) : (
+                      member!.avatarInitials
+                    )}
+                  </span>
+                ))}
               </span>
             )}
           </button>
