@@ -187,9 +187,9 @@ export default function TowVehicleSetupPrompt({
         <div className={styles.matchImages}>
           <div className={styles.matchImageCircle}>
             <img
-              src="/images/icons/car-pickup.svg"
+              src="/images/tow-vehicle-placeholder.png"
               alt={vehicleName}
-              className={styles.matchImageIcon}
+              className={styles.matchImagePhoto}
             />
           </div>
           <div className={`${styles.matchImageCircle} ${styles.matchImageOverlap}`}>

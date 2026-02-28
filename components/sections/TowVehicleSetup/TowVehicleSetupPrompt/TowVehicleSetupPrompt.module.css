@@ -204,12 +204,6 @@
   object-fit: cover;
 }
 
-.matchImageIcon {
-  width: 48px;
-  height: 48px;
-  opacity: 0.5;
-}
-
 .matchImageFallback {
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface-variant);
