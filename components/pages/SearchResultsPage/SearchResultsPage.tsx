@@ -155,19 +155,19 @@ export default function SearchResultsPage() {
                   </div>
                 )}
               </div>
-              <button
-                type="button"
-                className={`${styles.sharedListToggle} ${sharedListOpen ? styles.sharedListToggleActive : ''}`}
-                onClick={() => setSharedListOpen(!sharedListOpen)}
-              >
-                <Icon name="favorite" size={20} />
-                Saved RVs
-                {activeList && activeList.listings.length > 0 && (
+              {activeList && activeList.listings.length > 0 && (
+                <button
+                  type="button"
+                  className={`${styles.sharedListToggle} ${sharedListOpen ? styles.sharedListToggleActive : ''}`}
+                  onClick={() => setSharedListOpen(!sharedListOpen)}
+                >
+                  <Icon name="favorite" size={20} />
+                  Saved RVs
                   <span className={styles.sharedListBadge}>
                     {activeList.listings.length}
                   </span>
-                )}
-              </button>
+                </button>
+              )}
               <div className={styles.sortControlsDesktop}>
                 <SortControls sort={sort} onSortChange={setSort} />
               </div>
