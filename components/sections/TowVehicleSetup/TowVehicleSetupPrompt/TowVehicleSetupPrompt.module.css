@@ -1,11 +1,10 @@
 .card {
-  background: var(--rv-surface-variant);
-  border: 1px solid var(--rv-border-low);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--rv-surface-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
+  align-items: center;
+  gap: var(--space-16);
 }
 
 .iconWrap {
@@ -13,30 +12,46 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  background: var(--rv-surface-accent);
-  color: var(--rv-primary);
+  background: var(--rv-surface);
+  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.07);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .content {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-4);
 }
 
 .heading {
-  font-size: 16px;
-  font-weight: 600;
+  font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
   margin: 0;
-  line-height: 1.3;
 }
 
 .subtext {
-  font-size: 14px;
-  color: var(--rv-on-surface-variant);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
   margin: 0;
-  line-height: 1.4;
+}
+
+.addButton {
+  flex-shrink: 0;
+  padding: var(--space-8) var(--space-16);
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-full);
+  font: var(--font-button-2);
+  color: var(--rv-secondary);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.addButton:hover {
+  border-color: var(--rv-on-surface-variant);
 }

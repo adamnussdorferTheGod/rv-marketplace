@@ -1,5 +1,3 @@
-import Icon from '@components/ui/Icon/Icon';
-import Button from '@components/ui/Button/Button';
 import { useTowVehicle } from '../TowVehicleContext';
 import styles from './TowVehicleSetupPrompt.module.css';
 
@@ -11,17 +9,22 @@ export default function TowVehicleSetupPrompt() {
   return (
     <div className={styles.card}>
       <div className={styles.iconWrap}>
-        <Icon name="rv_type" size={24} />
+        <img
+          src="/images/icons/car-pickup.svg"
+          alt=""
+          width={24}
+          height={24}
+        />
       </div>
       <div className={styles.content}>
-        <h3 className={styles.heading}>What's your tow vehicle?</h3>
+        <p className={styles.heading}>Tow-Match</p>
         <p className={styles.subtext}>
-          Add it to see which RVs are a match for your truck
+          Add your vehicle to see if this is a match for this RV.
         </p>
-        <Button variant="primary" onClick={openSetupModal}>
-          Add My Vehicle
-        </Button>
       </div>
+      <button type="button" className={styles.addButton} onClick={openSetupModal}>
+        Add vehicle
+      </button>
     </div>
   );
 }
