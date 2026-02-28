@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 ## Current Position
 
-Phase: 47 - State Tax & Fee Data Layer
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-02-28 — Completed 47-01 (State Tax & Fee Type System and Calculations)
+Phase: 47 - State Tax & Fee Data Layer (COMPLETE)
+Plan: 2 of 2 in current phase
+Status: Phase Complete
+Last activity: 2026-02-28 — Completed 47-02 (51-State Tax & Fee Database)
 
 ## Performance Metrics
 
@@ -31,8 +31,8 @@ Last activity: 2026-02-28 — Completed 47-01 (State Tax & Fee Type System and C
 
 **v8.0:**
 - Total plans estimated: 10 (across 5 phases)
-- Completed: 1
-- 47-01: 4min
+- Completed: 2
+- 47-01: 4min, 47-02: 6min
 
 ## Accumulated Context
 
@@ -46,6 +46,9 @@ Last activity: 2026-02-28 — Completed 47-01 (State Tax & Fee Type System and C
 - [47-01]: RV-specific rules keyed by string identifiers (MD_AGE_EXEMPT, CT_TIERED, etc.) for extensible dispatch
 - [47-01]: Tax cap states collapse state+local into single capped amount (localTax=0)
 - [47-01]: vitest added for TDD workflow
+- [47-02]: State entries ordered alphabetically by code for consistent scanning
+- [47-02]: RV-specific dispatch keys in database match calculation engine switch exactly
+- [47-02]: SC taxCapRate=0.05 ($300 cap), NC taxCapRate=0.03 ($2,000 cap) per real state law
 
 ### Pending Todos
 
@@ -62,5 +65,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 47-01-PLAN.md
+Stopped at: Completed 47-02-PLAN.md (Phase 47 complete)
 Resume file: None
