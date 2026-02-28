@@ -1,0 +1,112 @@
+.reactionBar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.reactionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--rv-border-low);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.reactionButton:hover {
+  background: var(--rv-surface-variant);
+}
+
+.reactionButtonActive {
+  /* Base active state — overridden by type-specific classes */
+}
+
+.love {
+  border-color: var(--color-red-200);
+  background: var(--color-red-100);
+}
+
+.love:hover {
+  background: var(--color-red-100);
+}
+
+.maybe {
+  border-color: var(--color-orange-200);
+  background: var(--color-orange-100);
+}
+
+.maybe:hover {
+  background: var(--color-orange-100);
+}
+
+.pass {
+  border-color: var(--color-gray-600);
+  background: var(--color-gray-200);
+}
+
+.pass:hover {
+  background: var(--color-gray-200);
+}
+
+.reactionLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.coShopperReactions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.coShopperRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  flex-shrink: 0;
+}
+
+.coShopperName {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.coShopperStatus {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  font-style: italic;
+}
+
+/* Compact variant */
+.compact .buttons {
+  gap: 4px;
+}
+
+.compact .reactionButton {
+  padding: 6px 12px;
+}
