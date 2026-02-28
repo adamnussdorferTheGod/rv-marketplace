@@ -43,6 +43,7 @@ Progress: [####################] 50/61 plans (82%)
 - Total plans estimated: 14 (across 6 phases)
 - Completed: 3
 - 30-01: 2min (Vehicle Data Layer Types)
+- 30-02: 3min (Vehicle Database and VIN Decoder)
 - 30-03: 2min (Tow Compatibility Algorithm)
 
 ## Accumulated Context
@@ -64,6 +65,9 @@ Progress: [####################] 50/61 plans (82%)
 - [v6.0]: TowVehicle uses 15 flat fields (no nested objects) for simplicity
 - [v6.0]: SRPListing keeps existing grossVehicleWeight alongside new gvwr for backward compat
 - [v6.0]: Motorhome types excluded from tow fields via MOTORHOME_TYPES set
+- [v6.0]: 60-config vehicle database covers 13 models from 2022-2024 with realistic manufacturer tow specs
+- [v6.0]: VIN decoder references database via getVehicle() for single source of truth
+- [v6.0]: VIN validation follows FMVSS 115 (excludes I, O, Q)
 - [v6.0]: Tongue weight estimated at 12% of GVWR (conservative middle of 10-15% range)
 - [v6.0]: Pure algorithm pattern -- no side effects, typed inputs/outputs, consumed by UI phases
 
@@ -78,5 +82,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 30-03-PLAN.md
+Stopped at: Completed 30-02-PLAN.md (30-03 also done)
 Resume file: None

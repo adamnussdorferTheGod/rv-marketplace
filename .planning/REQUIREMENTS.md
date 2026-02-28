@@ -10,9 +10,9 @@ Requirements for Tow Vehicle Match milestone. Each maps to roadmap phases.
 ### Vehicle Data & Algorithm
 
 - [x] **VDAT-01**: TypeScript interfaces define tow vehicle shape (year, make, model, trim, engine, cab, bed, maxTow, maxTongue, payload, gcwr, curbWeight, wheelbase, hitchClass, hasTowPackage)
-- [ ] **VDAT-02**: Static JSON vehicle database contains ~50 popular truck/SUV configurations with full tow specs (Ford F-150, Ram 1500, Chevy Silverado, Toyota Tundra, etc.)
-- [ ] **VDAT-03**: YMMT cascading data supports year → make → model → trim → engine → cab → bed filtering
-- [ ] **VDAT-04**: Mock VIN decoder maps sample VINs to vehicle configurations from the database
+- [x] **VDAT-02**: Static JSON vehicle database contains ~50 popular truck/SUV configurations with full tow specs (Ford F-150, Ram 1500, Chevy Silverado, Toyota Tundra, etc.)
+- [x] **VDAT-03**: YMMT cascading data supports year → make → model → trim → engine → cab → bed filtering
+- [x] **VDAT-04**: Mock VIN decoder maps sample VINs to vehicle configurations from the database
 - [x] **VDAT-05**: RV listing data is augmented with GVWR, tongue weight, and hitch type fields (populated for sample listings)
 - [x] **VDAT-06**: Tow compatibility algorithm evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) and returns per-check status + overall verdict
 - [x] **VDAT-07**: Algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR)
@@ -108,9 +108,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | VDAT-01 | Phase 30 | Complete |
-| VDAT-02 | Phase 30 | Pending |
-| VDAT-03 | Phase 30 | Pending |
-| VDAT-04 | Phase 30 | Pending |
+| VDAT-02 | Phase 30 | Complete |
+| VDAT-03 | Phase 30 | Complete |
+| VDAT-04 | Phase 30 | Complete |
 | VDAT-05 | Phase 30 | Complete |
 | VDAT-06 | Phase 30 | Complete |
 | VDAT-07 | Phase 30 | Complete |
