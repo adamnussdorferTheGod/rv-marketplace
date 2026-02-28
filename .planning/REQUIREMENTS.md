@@ -1,255 +1,152 @@
-# Requirements: RV Marketplace
+# Requirements: RV Marketplace — v6.0 Tow Vehicle Match
 
-**Defined:** 2026-02-25
-**Core Value:** A pixel-accurate marketplace experience implementing Figma designs with dynamic client-side filtering.
+**Defined:** 2026-02-27
+**Core Value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
 
-**Figma references:**
-- SRP: frame 1:3997 (1762x9280px) -- "SRP -- Desktop 3"
-- Homepage: frame 1:9679 (1789x6316px) -- "Homepage -- Desktop 1"
-- Expanded search: frame 1:10901 (1789x1566px) -- "Homepage Search -- Desktop 2"
+## v6.0 Requirements
 
-## v4.0 Requirements -- Search Results Page
+Requirements for Tow Vehicle Match milestone. Each maps to roadmap phases.
 
-### Data Layer
+### Vehicle Data & Algorithm
 
-- [x] **DATA-05**: TypeScript interfaces for SRP listing data (extends existing ListingData with SRP-specific fields: photo array, tag badges, featured flag, sponsored flag)
-- [x] **DATA-06**: ~80 sample RV listings with realistic variety across types (Class A/B/C, travel trailer, fifth wheel, toy hauler, pop-up), makes, price ranges ($15K-$500K), years (2015-2026), and locations
-- [x] **DATA-07**: Client-side filter engine filters listings by type, make/model, price range, year range, condition (new/used), location/radius, length, floor plan, sleeping capacity, fuel type, and keyword search
-- [x] **DATA-08**: Client-side sort engine sorts results by default relevance, price low-to-high, price high-to-low, newest, and distance
-- [x] **DATA-09**: Filter state syncs to URL query parameters so filtered views are shareable/bookmarkable
-- [x] **DATA-10**: Active filters display as removable chips with individual clear and "Clear all" reset
+- [x] **VDAT-01**: TypeScript interfaces define tow vehicle shape (year, make, model, trim, engine, cab, bed, maxTow, maxTongue, payload, gcwr, curbWeight, wheelbase, hitchClass, hasTowPackage)
+- [ ] **VDAT-02**: Static JSON vehicle database contains ~50 popular truck/SUV configurations with full tow specs (Ford F-150, Ram 1500, Chevy Silverado, Toyota Tundra, etc.)
+- [ ] **VDAT-03**: YMMT cascading data supports year → make → model → trim → engine → cab → bed filtering
+- [ ] **VDAT-04**: Mock VIN decoder maps sample VINs to vehicle configurations from the database
+- [x] **VDAT-05**: RV listing data is augmented with GVWR, tongue weight, and hitch type fields (populated for sample listings)
+- [ ] **VDAT-06**: Tow compatibility algorithm evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) and returns per-check status + overall verdict
+- [ ] **VDAT-07**: Algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR)
+- [ ] **VDAT-08**: Overall verdict is "good" (all green), "marginal" (any yellow, none red), or "not_recommended" (any red)
 
-### Filter Sidebar
+### Vehicle Setup
 
-- [x] **FILT-01**: Filter sidebar (330px) displays result count header with "Clear all" link
-- [x] **FILT-02**: Active filter chips appear at top of sidebar with x remove buttons
-- [x] **FILT-03**: Keyword search input with magnifying glass icon and placeholder text
-- [x] **FILT-04**: Location filter with ZIP code input, radius dropdown (25/50/100/150/200 mi), and "Search within" label
-- [x] **FILT-05**: New/Used/All segmented toggle control
-- [x] **FILT-06**: RV Type filter with checkbox list and thumbnail images for each type (Class A, B, C, Fifth Wheel, etc.)
-- [x] **FILT-07**: Make & Model hierarchical multi-select with search input, expandable make to model tree, and "See all options" link
-- [x] **FILT-08**: Price filter with Cash/Finance tab toggle, min/max inputs (down payment + monthly for finance), term slider, and "Estimated buying power" callout
-- [x] **FILT-09**: Collapsible filter groups for Length, Year, Bunkhouse floor plan, Fuel type, Sleeping capacity, Floor plan, and Gross vehicle weight
-- [x] **FILT-10**: Mobile: filter sidebar converts to a full-screen overlay triggered by a filter button
+- [ ] **VSTP-01**: User can select tow vehicle via cascading Year/Make/Model/Trim/Engine/Cab/Bed dropdowns where each selection filters the next
+- [ ] **VSTP-02**: After selecting a full configuration, vehicle tow specs display below the form (max towing, payload, tongue weight, GCWR, hitch class, wheelbase)
+- [ ] **VSTP-03**: User can enter a VIN and see decoded vehicle with auto-populated specs
+- [ ] **VSTP-04**: User can save selected vehicle to profile (persists in app state across page navigations)
+- [ ] **VSTP-05**: "My Tow Vehicle" setup is accessible from a VDP prompt, SRP filter prompt, and a dedicated profile entry point
+- [ ] **VSTP-06**: Tow package and weight distribution hitch checkboxes appear on the setup form
 
-### Listing Cards
+### VDP Tow Match
 
-- [x] **CARD-01**: Standard listing card displays photo with carousel dots, tag badge (e.g., "Price reduced"), favorite heart toggle, condition/program label, title, price with strikethrough original, and "More info" CTA button
-- [x] **CARD-02**: Dealer info section below divider shows dealer name, city/state with distance, and "Trusted partner" badge when applicable
-- [x] **CARD-03**: Featured listing card (compact 242px variant) displays in horizontal carousel with photo, title, price, and dealer location
-- [x] **CARD-04**: Sponsored "Native Summit Showcase" section displays branded dealer header with description and featured card carousel
-- [x] **CARD-05**: PAA (People Also Asked) card variant displays as inline content within the grid
-- [x] **CARD-06**: Dealer ad card in sidebar displays dealer photo, description, and CTA button
+- [ ] **VDPM-01**: When user has a saved vehicle and views a towable listing, a tow match badge appears near the price showing green/yellow/red verdict
+- [ ] **VDPM-02**: Badge text reads "Good Match", "Marginal Match", or "Not Recommended" with "for your [Year Make Model]"
+- [ ] **VDPM-03**: Clicking the badge expands a detailed breakdown panel showing all 6 compatibility checks with RV value, vehicle value, and status
+- [ ] **VDPM-04**: A capacity bar shows percentage of tow capacity used, color-coded green (<75%), yellow (75-90%), red (>90%)
+- [ ] **VDPM-05**: An itemized payload breakdown shows tongue weight, passengers, accessories, and remaining payload with the math visible
+- [ ] **VDPM-06**: Contextual recommendations appear below the breakdown (WDH recommended, brake controller, tire pressure)
+- [ ] **VDPM-07**: A disclaimer appears at the bottom of every tow match view noting manufacturer ratings and advising scale verification
+- [ ] **VDPM-08**: When user has no saved vehicle, a prompt appears: "What's your tow vehicle? Add it to see if this RV is a match" with CTA to setup
 
-### Page Layout
+### SRP Integration
 
-- [x] **LAYO-01**: Two-column layout with 330px filter sidebar and 1272px content area, 64px side margins
-- [x] **LAYO-02**: Content area header shows breadcrumbs (Home > Browse RVs > [Type]), page title "New and used [Type] RVs for sale", and descriptive subtitle with "Show more" toggle
-- [x] **LAYO-03**: Sort controls row with "Sort by: Default" dropdown and "Save search" heart button, aligned right
-- [x] **LAYO-04**: Listing cards render in 3-column grid (~403px each) with 32px gaps
-- [x] **LAYO-05**: Featured/sponsored carousels and mid-page ad slots intersperse between listing card rows
-- [x] **LAYO-06**: Pagination component with numbered pages, prev/next arrows, ellipsis for large ranges, and "X-Y of Z results" count
+- [ ] **SRPI-01**: "Fits My Vehicle" filter appears in the SRP filter sidebar when user has a saved vehicle
+- [ ] **SRPI-02**: Filter shows active vehicle name, key specs, and "Change vehicle" link
+- [ ] **SRPI-03**: Filter has match level options: "All matches" (good + marginal) and "Good matches only" (10% margin)
+- [ ] **SRPI-04**: When filter is active, listings exceeding vehicle capacity are excluded from results
+- [ ] **SRPI-05**: Each SRP listing card shows a mini tow badge with verdict and capacity percentage when the filter is active
+- [ ] **SRPI-06**: When user has no vehicle and tries to enable the filter, a prompt appears to add their tow vehicle
+- [ ] **SRPI-07**: Non-towable RV types (motorhomes) are unaffected by the tow filter
 
-### Page Chrome
+### Reverse Match
 
-- [x] **CHRO-01**: Reuses existing Header and Cross-promotions bar from VDP
-- [x] **CHRO-02**: SEO "Popular searches" footer section with categorized link grid
-- [x] **CHRO-03**: App download CTA banner with phone mockup, QR code, and App Store/Google Play badges
-- [x] **CHRO-04**: Reuses existing Footer from VDP
-- [x] **CHRO-05**: Disclaimer text at bottom of results for AI-enhanced photos and third-party data accuracy
+- [ ] **RVRM-01**: VDP shows a "What Can Tow This?" section listing minimum tow requirements for the current RV
+- [ ] **RVRM-02**: The section displays minimum tow capacity, payload, and hitch class needed (with 10% safety margin)
+- [ ] **RVRM-03**: A list of popular compatible vehicles shows verdict and capacity percentage for each
 
-### Responsive
+### Education & UX
 
-- [x] **RESP-01**: At 991px breakpoint: 2-column card grid, filter sidebar collapses to overlay
-- [x] **RESP-02**: At 767px breakpoint: single-column card grid, stacked layout
-- [x] **RESP-03**: Featured carousels adapt to fewer visible cards at smaller breakpoints
-- [x] **RESP-04**: Pagination adapts to fewer visible page numbers on mobile
-
-## v5.0 Requirements
-
-### Navigation & Routing
-
-- [x] **NAV-01**: react-router-dom routes: `/` (HomePage), `/search` (SRP placeholder), `/listing/:id` (VDP)
-- [x] **NAV-02**: Logo in Header always navigates to `/` (homepage)
-- [x] **NAV-03**: Clicking any listing card on homepage navigates to `/listing/:id` (VDP)
-
-### Hero Banner
-
-- [x] **HERO-01**: Hero section displays full-width background image of RV lifestyle with dark overlay and centered "Shop the largest RV marketplace" heading
-- [x] **HERO-02**: Search bar with AI sparkle icon, rotating placeholder text ("Try: Family-friendly RVs for 4"), and ZIP code input with location icon
-- [x] **HERO-03**: Segmented control above search toggles between "Shop RVs" and "Sell my RV"
-- [x] **HERO-04**: Green "Search" button triggers navigation to SRP
-- [x] **HERO-05**: Dealer spotlight badge in hero bottom-right shows dealer logo, name ("Uwharrie RV"), and "Shop inventory" link
-
-### Expanded Search Dropdown
-
-- [x] **SRCH-01**: Clicking the search input field opens an expanded dropdown overlay below the hero search
-- [x] **SRCH-02**: Dropdown shows "RV types" section with 10 RV type thumbnails in a 5x2 grid (Travel Trailer, Class A, Class B, Class C, Fifth Wheel, Toy Hauler, Pop-up Camper, Truck Camper, Park Model, Fish House) using static image assets
-- [x] **SRCH-03**: Dropdown shows "Popular searches" section with search chip links (e.g., "RVs under $35,000", "Min. 4 sleeping capacity", "Under 50,000 miles")
-- [x] **SRCH-04**: Dropdown shows "Popular makes" section with make chip links (Forest River, Keystone, Jayco, Grand Design, Coachmen, Thor Motor Coach, Winnebago, Heartland)
-- [x] **SRCH-05**: Dropdown shows "Featured from dealers near you" with dealer chip links
-- [x] **SRCH-06**: Clicking an RV type thumbnail or search chip navigates to SRP with appropriate filter context
-
-### Listing Carousels
-
-- [x] **CARO-01**: "RVs hand-picked for you" section displays horizontal carousel of 5 listing cards with photo, title, location/distance, and price
-- [x] **CARO-02**: Filter chips above carousel allow filtering by category (Recommended, Used, New, Nearest, Deals, Travel trailers, Class A)
-- [x] **CARO-03**: Left/right arrow buttons navigate the carousel
-- [x] **CARO-04**: Clicking a listing card navigates to VDP (`/listing/:id`)
-
-### Dealer Showcase
-
-- [x] **DEAL-01**: Dealer showcase section displays dealer logo, name ("Roy Robinson RV Center"), tagline, "View inventory" link, and phone number
-- [x] **DEAL-02**: Below dealer info, horizontal row of 5 listing cards from that dealer with photo, title, location, and price
-- [x] **DEAL-03**: Carousel navigation arrows for dealer inventory row
-
-### Selling Section
-
-- [x] **SELL-01**: "Selling made with you in mind" section with segmented tab control (Consignment / Sell privately / Cash offers)
-- [x] **SELL-02**: Each tab shows a large image panel, title, description text, and CTA button ("Learn more")
-
-### Featured Listings
-
-- [x] **FEAT-01**: "Featured listings" section displays 2 rows x 5 columns of listing cards (10 total)
-- [x] **FEAT-02**: Section header with title and carousel navigation arrows
-
-### Ownership Cards
-
-- [x] **OWN-01**: "Making RV ownership easy" section with 4 cards in a horizontal row: RV Accessories, Insurance Services, Closing Services, Owner Reviews
-- [x] **OWN-02**: Each card has an illustration, title, description text, and "Learn more" CTA button
-
-### Blog / Content Section
-
-- [ ] **BLOG-01**: "Stay in the know" section with tab navigation (Owner reviews, News, Lifestyle, RV consulting)
-- [ ] **BLOG-02**: Content area shows featured article image on left (~55%) and 3 article rows on right with category label, title, and arrow icon
-
-### SEO Links
-
-- [ ] **SEO-01**: "Popular searches" section with tab categories and a grid of search links (6 columns x 3 rows per tab)
-- [ ] **SEO-02**: Each link shows a search term with result count (e.g., "Forest River RVs for sale (46,098)")
-
-### App & Newsletter
-
-- [ ] **APP-01**: App download section with App Store and Google Play badge links
-- [ ] **APP-02**: Newsletter signup section with email input and subscribe button
-- [ ] **APP-03**: Social media icon row (Facebook, Instagram, YouTube, Twitter, Pinterest, TikTok)
+- [ ] **EDUC-01**: Technical terms (GVWR, tongue weight, payload, GCWR, hitch class, wheelbase ratio, WDH) have hover/tap tooltip definitions in plain language
+- [ ] **EDUC-02**: A "What this means" summary paragraph explains the overall verdict in conversational language specific to the user's vehicle and the RV
 
 ## Future Requirements
 
-Deferred to subsequent milestones.
+Deferred to future milestone. Tracked but not in current roadmap.
 
-- **HOME-MOB-01**: Responsive homepage layout for mobile/tablet breakpoints
-- **HOME-SRCH-01**: AI-powered search with real NLP suggestions
-- **HOME-PERS-01**: Personalized listing recommendations based on user history
-- **HOME-GEO-01**: Geolocation-based "near you" content
-- **SRP-ADV-01**: Saved searches with notification preferences
-- **SRP-ADV-02**: Recently viewed listings sidebar widget
-- **SRP-ADV-03**: Comparison feature (select multiple listings to compare)
+### Vehicle Setup Enhancements
+
+- **VSTP-07**: Manual entry fallback for users who know ratings from door jamb sticker
+- **VSTP-08**: Multiple saved vehicles (up to 3) with active vehicle switcher
+- **VSTP-09**: VIN camera scanner on mobile for quick input
+
+### VDP Enhancements
+
+- **VDPM-09**: Adjustable passenger and cargo weights in payload breakdown
+- **VDPM-10**: Weight distribution hitch toggle adjusts effective capacity calculations
+
+### SRP Enhancements
+
+- **SRPI-08**: "Best match for my vehicle" sort option (lowest capacity usage first)
+- **SRPI-09**: Listings missing RV weight specs show "Specs incomplete — verify compatibility" badge
+
+### Platform Features (P2)
+
+- **PLAT-01**: Tow match email alerts for new compatible listings
+- **PLAT-02**: Side-by-side tow comparison of two RVs against same vehicle
+- **PLAT-03**: Tow vehicle recommendation engine
+- **PLAT-04**: Dealer dashboard with tow match analytics
+- **PLAT-05**: Truck camper payload-only variant
 
 ## Out of Scope
 
+Explicitly excluded. Documented to prevent scope creep.
+
 | Feature | Reason |
 |---------|--------|
-| Real search backend (Elasticsearch, Algolia) | Client-side array filtering sufficient for demo |
-| Server-side rendering / SSR | SPA-only architecture |
-| User authentication / persistent saved searches | UI-only interactions, no backend |
-| Map integration for dealer locations | Text-based location display |
-| Real-time inventory updates | Static sample dataset |
-| A/B testing framework | Single layout variant |
-| Dealer dashboard / listing management | Buyer-facing only |
-| Advanced search (NLP, AI-powered) | Standard filter/sort only |
-| Infinite scroll | Pagination per Figma design |
-| Mobile responsive homepage | Desktop-first; mobile is future work |
-| Analytics/tracking | No event tracking integration |
+| Real vehicle data API (DataOne, NHTSA) | Frontend-only constraint — mock data with static JSON |
+| Real VIN decode service | Mock decoder with sample VINs mapping to database entries |
+| User authentication / real persistence | UI-only state — no backend, no login |
+| Tow match for AI Mode / FitCheck integration | Separate feature system, add later |
+| Route/Lifestyle Context tow integration | Depends on v3.0 completion, add later |
+| Mobile-first responsive design | Desktop-first consistent with all milestones |
+| Real-time calculation updates | Static data, no server-side computation |
 
 ## Traceability
 
-### v4.0 SRP
+Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-05 | Phase 24 | Complete |
-| DATA-06 | Phase 24 | Complete |
-| DATA-07 | Phase 24 | Complete |
-| DATA-08 | Phase 24 | Complete |
-| DATA-09 | Phase 24 | Complete |
-| DATA-10 | Phase 24 | Complete |
-| FILT-01 | Phase 26 | Complete |
-| FILT-02 | Phase 26 | Complete |
-| FILT-03 | Phase 26 | Complete |
-| FILT-04 | Phase 26 | Complete |
-| FILT-05 | Phase 26 | Complete |
-| FILT-06 | Phase 26 | Complete |
-| FILT-07 | Phase 26 | Complete |
-| FILT-08 | Phase 26 | Complete |
-| FILT-09 | Phase 26 | Complete |
-| FILT-10 | Phase 26 | Complete |
-| CARD-01 | Phase 25 | Complete |
-| CARD-02 | Phase 25 | Complete |
-| CARD-03 | Phase 25 | Complete |
-| CARD-04 | Phase 25 | Complete |
-| CARD-05 | Phase 25 | Complete |
-| CARD-06 | Phase 25 | Complete |
-| LAYO-01 | Phase 27 | Complete |
-| LAYO-02 | Phase 27 | Complete |
-| LAYO-03 | Phase 27 | Complete |
-| LAYO-04 | Phase 27 | Complete |
-| LAYO-05 | Phase 27 | Complete |
-| LAYO-06 | Phase 27 | Complete |
-| CHRO-01 | Phase 28 | Complete |
-| CHRO-02 | Phase 28 | Complete |
-| CHRO-03 | Phase 28 | Complete |
-| CHRO-04 | Phase 28 | Complete |
-| CHRO-05 | Phase 28 | Complete |
-| RESP-01 | Phase 29 | Complete |
-| RESP-02 | Phase 29 | Complete |
-| RESP-03 | Phase 29 | Complete |
-| RESP-04 | Phase 29 | Complete |
-
-### v5.0 Homepage
-
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| NAV-01 | Phase 19 | Complete |
-| NAV-02 | Phase 19 | Complete |
-| NAV-03 | Phase 21 | Complete |
-| HERO-01 | Phase 20 | Complete |
-| HERO-02 | Phase 20 | Complete |
-| HERO-03 | Phase 20 | Complete |
-| HERO-04 | Phase 20 | Complete |
-| HERO-05 | Phase 20 | Complete |
-| SRCH-01 | Phase 20 | Complete |
-| SRCH-02 | Phase 20 | Complete |
-| SRCH-03 | Phase 20 | Complete |
-| SRCH-04 | Phase 20 | Complete |
-| SRCH-05 | Phase 20 | Complete |
-| SRCH-06 | Phase 20 | Complete |
-| CARO-01 | Phase 21 | Complete |
-| CARO-02 | Phase 21 | Complete |
-| CARO-03 | Phase 21 | Complete |
-| CARO-04 | Phase 21 | Complete |
-| DEAL-01 | Phase 21 | Complete |
-| DEAL-02 | Phase 21 | Complete |
-| DEAL-03 | Phase 21 | Complete |
-| FEAT-01 | Phase 21 | Complete |
-| FEAT-02 | Phase 21 | Complete |
-| SELL-01 | Phase 22 | Complete |
-| SELL-02 | Phase 22 | Complete |
-| OWN-01 | Phase 22 | Complete |
-| OWN-02 | Phase 22 | Complete |
-| BLOG-01 | Phase 23 | Pending |
-| BLOG-02 | Phase 23 | Pending |
-| SEO-01 | Phase 23 | Pending |
-| SEO-02 | Phase 23 | Pending |
-| APP-01 | Phase 23 | Pending |
-| APP-02 | Phase 23 | Pending |
-| APP-03 | Phase 23 | Pending |
+| VDAT-01 | Phase 30 | Complete |
+| VDAT-02 | Phase 30 | Pending |
+| VDAT-03 | Phase 30 | Pending |
+| VDAT-04 | Phase 30 | Pending |
+| VDAT-05 | Phase 30 | Complete |
+| VDAT-06 | Phase 30 | Pending |
+| VDAT-07 | Phase 30 | Pending |
+| VDAT-08 | Phase 30 | Pending |
+| VSTP-01 | Phase 31 | Pending |
+| VSTP-02 | Phase 31 | Pending |
+| VSTP-03 | Phase 31 | Pending |
+| VSTP-04 | Phase 31 | Pending |
+| VSTP-05 | Phase 31 | Pending |
+| VSTP-06 | Phase 31 | Pending |
+| VDPM-01 | Phase 32 | Pending |
+| VDPM-02 | Phase 32 | Pending |
+| VDPM-03 | Phase 32 | Pending |
+| VDPM-04 | Phase 32 | Pending |
+| VDPM-05 | Phase 32 | Pending |
+| VDPM-06 | Phase 32 | Pending |
+| VDPM-07 | Phase 32 | Pending |
+| VDPM-08 | Phase 33 | Pending |
+| SRPI-01 | Phase 34 | Pending |
+| SRPI-02 | Phase 34 | Pending |
+| SRPI-03 | Phase 34 | Pending |
+| SRPI-04 | Phase 34 | Pending |
+| SRPI-05 | Phase 34 | Pending |
+| SRPI-06 | Phase 34 | Pending |
+| SRPI-07 | Phase 34 | Pending |
+| RVRM-01 | Phase 35 | Pending |
+| RVRM-02 | Phase 35 | Pending |
+| RVRM-03 | Phase 35 | Pending |
+| EDUC-01 | Phase 33 | Pending |
+| EDUC-02 | Phase 33 | Pending |
 
 **Coverage:**
-- v4.0 requirements: 37 total, mapped: 37
-- v5.0 requirements: 34 total, mapped: 34
-- Total: 71
+- v6.0 requirements: 34 total
+- Mapped to phases: 34
+- Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-25*
-*Last updated: 2026-02-25 after v4.0 SRP roadmap created (Phases 24-29)*
+*Requirements defined: 2026-02-27*
+*Last updated: 2026-02-27 after roadmap creation*

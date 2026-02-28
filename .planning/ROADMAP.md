@@ -7,6 +7,7 @@
 - [ ] **v3.0 Lifestyle Context** - Phases 15-18 (in progress)
 - [ ] **v4.0 Search Results Page** - Phases 24-29 (planned)
 - [ ] **v5.0 Homepage** - Phases 19-23 (planned)
+- [ ] **v6.0 Tow Vehicle Match** - Phases 30-35 (planned)
 
 ## Phases
 
@@ -471,14 +472,124 @@ Plans:
 - [ ] 29-01-PLAN.md — Grid and layout responsive: ListingGrid 2-col/1-col breakpoints, SortControls and Breadcrumbs mobile polish
 - [ ] 29-02-PLAN.md — Carousel and pagination responsive: SponsoredShowcase/FeaturedCard fewer cards, Pagination compact mobile page numbers
 
+## v6.0 Tow Vehicle Match
+
+**Milestone Goal:** Add a platform-wide towing compatibility system that lets buyers save their tow vehicle, see green/yellow/red match verdicts on every towable listing, filter search results by what their truck can safely tow, and get reverse vehicle recommendations.
+
+**Dependencies:** Phase 29 (SRP complete), Phase 9 (VDP complete)
+
+**Reused components:** Button, Icon, ActionChip, Divider, CollapsibleSection, existing SRP filter sidebar, existing VDP left column
+
+- [ ] **Phase 30: Vehicle Data Layer** - TypeScript tow vehicle types, static JSON vehicle database (~50 trucks/SUVs), YMMT cascading data, mock VIN decoder, RV listing weight augmentation, and 6-check compatibility algorithm
+- [ ] **Phase 31: Tow Vehicle Setup** - YMMT cascading dropdown selector, VIN entry with auto-populated specs, spec display panel, tow package/WDH checkboxes, save vehicle to app state, accessible from VDP/SRP/profile
+- [ ] **Phase 32: VDP Tow Match Display** - Tow match badge near price (green/yellow/red), expandable 6-check breakdown panel, capacity bar visualization, itemized payload breakdown, contextual recommendations, and disclaimer
+- [ ] **Phase 33: VDP Prompts & Education** - "Add your tow vehicle" prompt for users without a saved vehicle, glossary tooltips on technical terms, and conversational verdict summary
+- [ ] **Phase 34: SRP Tow Filter & Badges** - "Fits My Vehicle" filter in sidebar with match level selector, listing exclusion logic, mini tow badges on SRP cards, no-vehicle prompt, and motorhome exclusion
+- [ ] **Phase 35: Reverse Match** - "What Can Tow This?" VDP section with minimum tow requirements, safety margins, and popular compatible vehicle list
+
+### Phase 30: Vehicle Data Layer
+**Goal**: The entire tow compatibility data pipeline is established -- typed vehicle data, a populated database of popular trucks/SUVs, cascading YMMT lookup data, mock VIN decoding, augmented RV weights, and a deterministic 6-check compatibility algorithm
+**Depends on**: Phase 9 (VDP listing data exists), Phase 24 (SRP listing data exists)
+**Requirements**: VDAT-01, VDAT-02, VDAT-03, VDAT-04, VDAT-05, VDAT-06, VDAT-07, VDAT-08
+**Success Criteria** (what must be TRUE):
+  1. TypeScript interfaces define the tow vehicle shape (year, make, model, trim, engine, cab, bed, maxTow, maxTongue, payload, gcwr, curbWeight, wheelbase, hitchClass, hasTowPackage) and both VDP and SRP listing types include GVWR, tongue weight, and hitch type fields
+  2. A static JSON vehicle database contains at least 50 popular truck/SUV configurations (Ford F-150, Ram 1500, Chevy Silverado, Toyota Tundra, etc.) with full tow specs, and the data supports year-make-model-trim-engine-cab-bed cascading lookups
+  3. A mock VIN decoder maps sample VINs to vehicle configurations from the database and returns the matching vehicle record
+  4. The tow compatibility algorithm accepts a tow vehicle and an RV listing, evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio), and returns per-check status (green/yellow/red) plus an overall verdict
+  5. The algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR) and correctly produces "good" (all green), "marginal" (any yellow, none red), or "not_recommended" (any red) verdicts
+**Plans**: 3 plans
+
+Plans:
+- [ ] 30-01-PLAN.md — TypeScript tow vehicle interfaces, RV listing weight field augmentation, and tow compatibility result types
+- [ ] 30-02-PLAN.md — Static JSON vehicle database (~50 configs), YMMT cascading lookup data structure, and mock VIN decoder
+- [ ] 30-03-PLAN.md — Tow compatibility algorithm with 6 checks, conservative defaults, and verdict logic
+
+### Phase 31: Tow Vehicle Setup
+**Goal**: Users can select and save their tow vehicle through an intuitive multi-step form, with specs confirmed before saving
+**Depends on**: Phase 30 (vehicle data and types exist)
+**Requirements**: VSTP-01, VSTP-02, VSTP-03, VSTP-04, VSTP-05, VSTP-06
+**Success Criteria** (what must be TRUE):
+  1. User can select a tow vehicle via cascading Year/Make/Model/Trim/Engine/Cab/Bed dropdowns where each selection filters the available options in subsequent dropdowns
+  2. After completing a full vehicle configuration, a spec display panel shows the vehicle's key tow ratings (max towing, payload, tongue weight, GCWR, hitch class, wheelbase) below the form
+  3. User can enter a VIN in an alternative input and see the decoded vehicle with auto-populated specs identical to the YMMT selection result
+  4. User can save the selected vehicle to app state (React context or equivalent) and the saved vehicle persists across page navigations between VDP, SRP, and homepage
+  5. The setup form includes tow package and weight distribution hitch checkboxes, and is accessible from a VDP prompt, an SRP filter prompt, and a dedicated entry point
+**Plans**: TBD
+
+Plans:
+- [ ] 31-01: TowVehicleContext provider with save/load/clear actions and cross-page state persistence
+- [ ] 31-02: YMMT cascading dropdown selector component with filtered options at each level
+- [ ] 31-03: VIN entry input, spec display panel, tow package/WDH checkboxes, and save flow
+
+### Phase 32: VDP Tow Match Display
+**Goal**: Users with a saved tow vehicle see a clear compatibility verdict on the VDP with detailed breakdown of how their truck matches the RV
+**Depends on**: Phase 30 (algorithm exists), Phase 31 (saved vehicle exists)
+**Requirements**: VDPM-01, VDPM-02, VDPM-03, VDPM-04, VDPM-05, VDPM-06, VDPM-07
+**Success Criteria** (what must be TRUE):
+  1. When a user has a saved vehicle and views a towable listing, a tow match badge appears near the price area showing "Good Match", "Marginal Match", or "Not Recommended" in green/yellow/red with "for your [Year Make Model]"
+  2. Clicking the badge expands a detailed breakdown panel showing all 6 compatibility checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) with the RV value, the vehicle's rated value, and a green/yellow/red status indicator for each
+  3. A capacity bar shows the percentage of tow capacity used, color-coded green (<75%), yellow (75-90%), or red (>90%)
+  4. An itemized payload breakdown displays tongue weight, passengers, accessories, and remaining payload with the math visible (e.g., "Payload: 1,800 lbs - 600 tongue - 340 passengers - 50 accessories = 810 lbs remaining")
+  5. Contextual recommendations appear below the breakdown (e.g., "WDH recommended for trailers over 50% of tow capacity", "Brake controller required") and a disclaimer notes manufacturer ratings and advises scale verification
+**Plans**: TBD
+
+Plans:
+- [ ] 32-01: TowMatchBadge component near VDP price area with verdict color, label, and vehicle name
+- [ ] 32-02: TowMatchBreakdown expandable panel with 6-check detail rows, capacity bar, and payload itemization
+- [ ] 32-03: Contextual recommendations, disclaimer, and VDP integration wiring
+
+### Phase 33: VDP Prompts & Education
+**Goal**: Users without a saved vehicle are guided to add one, and all technical towing terms are explained in plain language throughout the tow match UI
+**Depends on**: Phase 32 (tow match display exists)
+**Requirements**: VDPM-08, EDUC-01, EDUC-02
+**Success Criteria** (what must be TRUE):
+  1. When a user has no saved vehicle and views a towable listing, a prompt appears in the tow match area reading "What's your tow vehicle? Add it to see if this RV is a match" with a CTA button that opens the vehicle setup form
+  2. Technical terms (GVWR, tongue weight, payload, GCWR, hitch class, wheelbase ratio, WDH) throughout the tow match breakdown and reverse match sections have hover/tap tooltip definitions explaining each term in plain language
+  3. A "What this means" summary paragraph appears near the tow match verdict, explaining the overall result in conversational language specific to the user's vehicle and the RV (e.g., "Your F-150 can comfortably tow this Airstream with 25% capacity to spare")
+**Plans**: TBD
+
+Plans:
+- [ ] 33-01: AddVehiclePrompt component with CTA, conditional rendering based on saved vehicle state
+- [ ] 33-02: TowingTooltip component with plain-language definitions, "What this means" verdict summary paragraph
+
+### Phase 34: SRP Tow Filter & Badges
+**Goal**: Users can filter search results to only show RVs their vehicle can tow, and see at-a-glance compatibility on every listing card
+**Depends on**: Phase 30 (algorithm exists), Phase 31 (saved vehicle exists), Phase 29 (SRP filter sidebar exists)
+**Requirements**: SRPI-01, SRPI-02, SRPI-03, SRPI-04, SRPI-05, SRPI-06, SRPI-07
+**Success Criteria** (what must be TRUE):
+  1. When a user has a saved vehicle, a "Fits My Vehicle" filter section appears in the SRP filter sidebar showing the active vehicle name, key specs (max tow, payload), and a "Change vehicle" link
+  2. The filter offers match level options ("All matches" for good + marginal, "Good matches only" with 10% safety margin) and when active, listings exceeding vehicle capacity are excluded from search results
+  3. Each SRP listing card shows a mini tow badge with the verdict (green/yellow/red dot + "Good Match" / "Marginal" / "Not Rec.") and capacity percentage when the tow filter is active
+  4. When a user has no vehicle and interacts with the "Fits My Vehicle" filter area, a prompt appears to add their tow vehicle first
+  5. Non-towable RV types (motorhomes, Class A, Class B, Class C) are unaffected by the tow filter and do not show tow badges
+**Plans**: TBD
+
+Plans:
+- [ ] 34-01: FitsMyVehicleFilter sidebar section with vehicle info display, match level selector, and no-vehicle prompt
+- [ ] 34-02: SRP filter engine integration (tow filter logic, motorhome exclusion) and MiniTowBadge on listing cards
+
+### Phase 35: Reverse Match
+**Goal**: Users without a tow vehicle (or shopping for a truck) can see what vehicles are capable of towing the RV they are viewing
+**Depends on**: Phase 30 (vehicle database and algorithm exist)
+**Requirements**: RVRM-01, RVRM-02, RVRM-03
+**Success Criteria** (what must be TRUE):
+  1. The VDP shows a "What Can Tow This?" section below the tow match area that lists the minimum tow requirements for the current RV (minimum tow capacity, minimum payload, minimum hitch class) with a 10% safety margin applied
+  2. The section displays minimum tow capacity, minimum payload, and minimum hitch class needed, clearly labeled with the safety margin noted
+  3. A list of popular compatible vehicles from the database shows each vehicle's name, tow capacity, and a verdict/capacity percentage, giving buyers a concrete sense of what trucks work
+**Plans**: TBD
+
+Plans:
+- [ ] 35-01: ReverseMatch component with minimum requirements display and compatible vehicle list, VDP integration
+
 ## Progress
 
 **Execution Order:**
 - v1.0 (Phases 1-9): Complete
 - v2.0 (Phases 10-14): Phases 10-11 complete, 12-14 remaining
 - v3.0 (Phases 15-18): Phases 15-17 complete, 18 remaining
-- v5.0 (Phases 19-23): 19 -> 20 -> 21 -> 22/23 (Phases 22 and 23 can run in parallel)
-- v4.0 (Phases 24-29): 24 -> 25 -> 26 -> 27 -> 28/29 (depends on Phase 19 for routing)
+- v5.0 (Phases 19-23): Phases 19-22 complete, 23 remaining
+- v4.0 (Phases 24-29): Complete
+- v6.0 (Phases 30-35): 30 -> 31 -> 32 -> 33, and 30 -> 31 -> 34 (Phases 32/33 and 34 can run in parallel after 31; Phase 35 only needs 30)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -500,14 +611,20 @@ Plans:
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
-| 19. Routing & Homepage Shell | 1/1 | Complete    | 2026-02-26 | - |
-| 20. Hero Banner & Search | 2/2 | Complete    | 2026-02-26 | - |
-| 21. Listing Carousels & Dealer Showcase | 2/2 | Complete    | 2026-02-26 | - |
-| 22. Selling & Ownership Sections | 2/2 | Complete    | 2026-02-26 | - |
+| 19. Routing & Homepage Shell | v5.0 | 1/1 | Complete | 2026-02-26 |
+| 20. Hero Banner & Search | v5.0 | 2/2 | Complete | 2026-02-26 |
+| 21. Listing Carousels & Dealer Showcase | v5.0 | 2/2 | Complete | 2026-02-26 |
+| 22. Selling & Ownership Sections | v5.0 | 2/2 | Complete | 2026-02-26 |
 | 23. Content, SEO & App Sections | v5.0 | 0/2 | Not started | - |
-| 24. Data Layer & Filter Engine | 2/2 | Complete    | 2026-02-26 | - |
-| 25. Listing Cards | 2/2 | Complete    | 2026-02-27 | - |
-| 26. Filter Sidebar | 3/3 | Complete    | 2026-02-27 | - |
-| 27. SRP Page Assembly | 2/2 | Complete    | 2026-02-27 | - |
-| 28. Page Chrome & Content Sections | 1/1 | Complete    | 2026-02-27 | - |
-| 29. Responsive Breakpoints | 2/2 | Complete   | 2026-02-27 | - |
+| 24. Data Layer & Filter Engine | v4.0 | 2/2 | Complete | 2026-02-26 |
+| 25. Listing Cards | v4.0 | 2/2 | Complete | 2026-02-27 |
+| 26. Filter Sidebar | v4.0 | 3/3 | Complete | 2026-02-27 |
+| 27. SRP Page Assembly | v4.0 | 2/2 | Complete | 2026-02-27 |
+| 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
+| 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
+| 30. Vehicle Data Layer | 1/3 | In Progress|  | - |
+| 31. Tow Vehicle Setup | v6.0 | 0/3 | Not started | - |
+| 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
+| 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
+| 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |
+| 35. Reverse Match | v6.0 | 0/1 | Not started | - |

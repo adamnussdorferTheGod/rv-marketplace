@@ -23,7 +23,9 @@ export default function AppLayout() {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <div className={styles.fullWidth}>
+        <Footer />
+      </div>
     </div>
   );
 }

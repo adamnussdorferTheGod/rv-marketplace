@@ -2,19 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-02-26)
+See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** Phase 29 Responsive Breakpoints
+**Current focus:** v6.0 Tow Vehicle Match — Phase 30 (Vehicle Data Layer)
 
 ## Current Position
 
-Phase: 29 of 29 (Responsive Breakpoints)
-Plan: 2 of 2 complete
-Status: Complete
-Last activity: 2026-02-27 -- Phase 29 Plan 02 complete (SRP Carousel and Pagination Responsive)
+Phase: 30 of 35 (Vehicle Data Layer)
+Plan: 1 of 3 complete
+Status: Executing
+Last activity: 2026-02-27 — Completed 30-01 (Vehicle Data Layer Types)
 
-Progress: [█████████████████████] 47/47 plans (100%)
+Progress: [####################] 48/61 plans (79%)
 
 ## Performance Metrics
 
@@ -32,96 +32,37 @@ Progress: [█████████████████████] 47/4
 - Estimated plans remaining: 0 (all phases complete)
 
 **v4.0:**
-- Total plans estimated: 12 (across 6 phases)
-- Completed: 2
-- Phase 24 Plan 01: 5min (2 tasks, 2 files)
-- Phase 24 Plan 02: 2min (2 tasks, 2 files)
+- Total plans completed: 12
+- Phase 24-29 all complete
 
 **v5.0:**
-- Total plans estimated: 9 (across 5 phases)
-- Completed: 7
-- Phase 19 Plan 01: 3min (2 tasks, 18 files)
-- Phase 20 Plan 01: 2min (2 tasks, 5 files)
-- Phase 20 Plan 02: 3min (2 tasks, 5 files)
-- Phase 21 Plan 01: 2min (2 tasks, 8 files)
-- Phase 21 Plan 02: 2min (2 tasks, 5 files)
-- Phase 22 Plan 01: 2min (2 tasks, 4 files)
-- Phase 22 Plan 02: 2min (2 tasks, 4 files)
-- Phase 25 Plan 01: 2min (1 task, 2 files)
-- Phase 25 Plan 02: 2min (2 tasks, 8 files)
-- Phase 26 Plan 01: 2min (1 task, 4 files)
-- Phase 26 Plan 02: 3min (2 tasks, 6 files)
-- Phase 26 Plan 03: 2min (2 tasks, 6 files)
-- Phase 27 Plan 01: 3min (2 tasks, 8 files)
-- Phase 27 Plan 02: 3min (2 tasks, 6 files)
-- Phase 28 Plan 01: 2min (2 tasks, 7 files)
-- Phase 29 Plan 01: 1min (2 tasks, 3 files)
-- Phase 29 Plan 02: 2min (2 tasks, 4 files)
+- Total plans completed: 7
+- Estimated plans remaining: 2 (Phase 23)
+
+**v6.0:**
+- Total plans estimated: 14 (across 6 phases)
+- Completed: 1
+- 30-01: 2min (Vehicle Data Layer Types)
 
 ## Accumulated Context
 
 ### Decisions
 
 - [v1.0]: CSS Modules + design tokens pattern works well
-- [v1.0]: Three-layer CSS cascade: tokens.css -> theme-rv.css -> global.css
 - [v2.0]: Single timeline source drives all visual state (no parallel timers)
 - [v3.0]: LifestyleContext section is self-contained (imports own data, no props from VDP)
-- [v3.0]: RouteCard uses CSS-only mini map with pseudo-element route line
 - [v4.0]: Client-side filter engine with ~80 sample listings (no backend)
-- [v4.0]: Figma SRP reference: frame 1:3997 (1762x9280px), 330px sidebar + 1272px content, 3-col card grid
-- [v4.0]: SRP depends on Phase 19 routing -- /search route must exist before SRP can replace placeholder
-- [v5.0]: react-router-dom with / (homepage), /search (SRP), /listing/:id (VDP)
-- [v4.0]: SRPListing is standalone interface (not extending ListingData -- too heavy for SRP cards)
-- [v4.0]: Builder pattern with lookup tables generates sample data from compact definitions
-- [v4.0]: Native history API (replaceState) for URL sync instead of react-router dependency
+- [v4.0]: SRPListing is standalone interface (not extending ListingData)
 - [v4.0]: Pure filter/sort functions in data layer, React hook as thin state wrapper
-- [v5.0]: Reuse existing components: Header, Footer, CrossPromotionsBar, ListingCard, etc.
-- [v5.0]: BrowserRouter (traditional) over createBrowserRouter for simplicity
+- [v5.0]: react-router-dom with / (homepage), /search (SRP), /listing/:id (VDP)
 - [v5.0]: Layout route pattern with AppLayout rendering shared chrome via Outlet
-- [v5.0]: VdpVariantContext default value allows Header to render safely on non-VDP pages
-- [v5.0]: CSS-only rotating placeholder with staggered animation-delay (no JS timers)
-- [v5.0]: Full-width hero outside .content container pattern
-- [v5.0]: DealerSpotlight hidden on mobile to preserve hero real estate
-- [v5.0]: Click-outside dismiss via mousedown listener + contains() check on container ref
-- [v5.0]: Seamless dropdown connection by flattening parent bottom corners when dropdown open
-- [v5.0]: Data-driven dropdown sections from typed static arrays in separate heroData.ts
-- [v5.0]: HomepageListingData picks minimal fields from SRPListing (single photo, not full array)
-- [v5.0]: Camping World selected as showcase dealer (most city coverage in sample data)
-- [v5.0]: ListingCarousel uses position:relative wrapper with absolute arrow buttons
-- [v5.0]: DealerShowcase rendered outside .content wrapper as full-width sibling for gray background
-- [v5.0]: FeaturedListings grid cards override card width via --homepage-card-width CSS custom property
-- [v5.0]: Split .content into two blocks around DealerShowcase for correct section ordering
-- [Phase 22]: Used Icon registry icons with circular tinted background as illustration placeholders for ownership cards
-- [Phase 22]: Data-driven tab panels: sellingPanels array drives both SegmentedButtons options and panel content
-- [Phase 22]: Unsplash stock photos for selling panel images matching dealerShowcase pattern
-- [Phase 25]: Used shield_check icon from registry for trusted partner badge (not inline SVG)
-- [Phase 25]: Carousel dots are visual-only (no navigation) per plan -- Phase 27 adds interaction
-- [Phase 25]: Heart toggle uses inline SVG (same pattern as HomepageListingCard) for consistent fill/stroke control
-- [Phase 25]: Used expand_more icon from registry for PAACard chevron (not inline SVG)
-- [Phase 25]: SponsoredShowcase title is configurable via prop with 'Native Summit Showcase' default
-- [Phase 25]: DealerAdCard CTA renders as anchor tag for proper link semantics
-- [Phase 26]: Used --rv-surface-variant for chip background (--surface-secondary does not exist in theme)
-- [Phase 26]: CollapsibleSection uses max-height CSS transition for smooth expand/collapse
-- [Phase 26]: FilterSidebar receives all state as props (does not own useSrpFilters hook)
-- [Phase 26]: Custom checkbox uses inline SVG checkmark for cross-browser consistency
-- [Phase 26]: MakeModelFilter hierarchical tree uses expandedMakes Set state with toggle function
-- [Phase 26]: "See all options" shows count of hidden items for UX clarity
-- [Phase 26]: Finance buying power simplified (downPayment + monthlyPayment * term, no interest calc)
-- [Phase 26]: Mobile overlay uses CSS display toggle via .open class (not React portal)
-- [Phase 26]: Sidebar always renders full DOM; CSS media queries control desktop vs mobile visibility
-- [Phase 27]: Added @app Vite/TypeScript alias for cross-directory imports (components/ importing from app/src/)
-- [Phase 27]: Subtitle uses webkit line-clamp for collapsed state with Show more/less toggle
-- [Phase 27]: Mobile filter button uses position:fixed at bottom center with box-shadow
-- [Phase 27]: AdSlot className override for full-width in interleaved grid sections
-- [Phase 27]: Pagination buildPageNumbers helper with always-show first/last page pattern
-- [Phase 27]: Page reset to 1 on filter/sort change via useEffect dependency
-- [Phase 28]: Underline-style text tabs for PopularSearches (not SegmentedButtons) matching Figma
-- [Phase 28]: Responsive grid breakpoints: 6col -> 4col -> 3col -> 2col for popular search links
-- [Phase 28]: Leaderboard ad placed outside .content container for full-width background styling
-- [Phase 29]: Breakpoints align with SearchResultsPage.module.css: 991px and 767px
-- [Phase 29]: Interleaved section margin reduced on mobile but grid-column span inherited from base styles
-- [Phase 29]: useIsMobile hook with matchMedia listener for responsive JS behavior
-- [Phase 29]: buildMobilePageNumbers shows [1]...[current]...[last] pattern (max 5 elements)
+- [v6.0]: Mock vehicle data layer -- static JSON, no real API (DataOne/NHTSA out of scope)
+- [v6.0]: Frontend-only tow calculations -- all compatibility math runs client-side
+- [v6.0]: Tow match as VDP section -- badge near price + expandable panel, not separate page
+- [v6.0]: SRP filter integration -- "Fits My Vehicle" uses existing client-side filter engine pattern
+- [v6.0]: TowVehicle uses 15 flat fields (no nested objects) for simplicity
+- [v6.0]: SRPListing keeps existing grossVehicleWeight alongside new gvwr for backward compat
+- [v6.0]: Motorhome types excluded from tow fields via MOTORHOME_TYPES set
 
 ### Pending Todos
 
@@ -129,10 +70,10 @@ None yet.
 
 ### Blockers/Concerns
 
-None -- Phase 21 complete
+None.
 
 ## Session Continuity
 
 Last session: 2026-02-27
-Stopped at: Completed 29-02-PLAN.md (SRP Carousel and Pagination Responsive)
+Stopped at: Completed 30-01-PLAN.md
 Resume file: None
