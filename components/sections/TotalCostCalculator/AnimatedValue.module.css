@@ -1,0 +1,36 @@
+.wrapper {
+  display: inline-flex;
+  align-items: baseline;
+  overflow: hidden;
+}
+
+.prefix {
+  display: inline;
+}
+
+.digitContainer {
+  display: inline-block;
+  overflow: hidden;
+  height: 1em;
+  position: relative;
+}
+
+.digitStrip {
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--animation-duration, 400ms) ease-out;
+}
+
+.digit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1em;
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .digitStrip {
+    transition: none;
+  }
+}

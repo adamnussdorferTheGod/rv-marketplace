@@ -932,4 +932,4 @@ Plans:
 | 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
 | 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete   | 2026-02-28 | - |
 | 50. Financing Calculator | 1/1 | Complete   | 2026-02-28 | - |
-| 51. Insurance, State Tips & Responsive Polish | v8.0 | 0/2 | Not started | - |
+| 51. Insurance, State Tips & Responsive Polish | 1/2 | In Progress|  | - |

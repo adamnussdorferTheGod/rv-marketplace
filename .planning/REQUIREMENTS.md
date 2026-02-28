@@ -51,13 +51,13 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 ### Insurance
 
-- [ ] **INS-01**: Insurance estimate section showing annual premium range (low/mid/high) by RV type and value
-- [ ] **INS-02**: Coverage type note and educational disclaimer ("Get a real quote from an RV insurer")
+- [x] **INS-01**: Insurance estimate section showing annual premium range (low/mid/high) by RV type and value
+- [x] **INS-02**: Coverage type note and educational disclaimer ("Get a real quote from an RV insurer")
 
 ### State Intelligence
 
-- [ ] **TIP-01**: State-specific tip callouts surface tax caps, no-tax advantages, trade-in credit rules, and RV-specific exemptions
-- [ ] **TIP-02**: Three callout types with distinct styling: info (neutral blue), savings (green), warning (amber)
+- [x] **TIP-01**: State-specific tip callouts surface tax caps, no-tax advantages, trade-in credit rules, and RV-specific exemptions
+- [x] **TIP-02**: Three callout types with distinct styling: info (neutral blue), savings (green), warning (amber)
 
 ### Mobile & Polish
 
@@ -148,10 +148,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FIN-04 | Phase 50 | Complete |
 | FIN-05 | Phase 50 | Complete |
 | FIN-06 | Phase 50 | Complete |
-| INS-01 | Phase 51 | Pending |
-| INS-02 | Phase 51 | Pending |
-| TIP-01 | Phase 51 | Pending |
-| TIP-02 | Phase 51 | Pending |
+| INS-01 | Phase 51 | Complete |
+| INS-02 | Phase 51 | Complete |
+| TIP-01 | Phase 51 | Complete |
+| TIP-02 | Phase 51 | Complete |
 | UX-01 | Phase 51 | Pending |
 | UX-02 | Phase 51 | Pending |
 | UX-03 | Phase 48 | Complete |

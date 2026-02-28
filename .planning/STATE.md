@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 ## Current Position
 
-Phase: 50 - Financing Calculator (COMPLETE)
-Plan: 1 of 1 complete in current phase
-Status: Phase Complete
-Last activity: 2026-02-28 — Completed 50-01 (Financing Calculator)
+Phase: 51 - Insurance, State Tips, Responsive Polish
+Plan: 1 of 2 complete in current phase
+Status: In Progress
+Last activity: 2026-02-28 — Completed 51-01 (Insurance & State Tips)
 
 ## Performance Metrics
 
@@ -31,8 +31,8 @@ Last activity: 2026-02-28 — Completed 50-01 (Financing Calculator)
 
 **v8.0:**
 - Total plans estimated: 10 (across 5 phases)
-- Completed: 7
-- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min
+- Completed: 8
+- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min, 51-01: 3min
 
 ## Accumulated Context
 
@@ -66,6 +66,9 @@ Last activity: 2026-02-28 — Completed 50-01 (Financing Calculator)
 - [50-01]: Lifted financing state to TotalCostCalculator so monthly teaser always uses real PMT, even when breakdown is closed
 - [50-01]: Down payment clamped to [0, listingPrice] range with $100 slider step for practical UX
 - [50-01]: Manual APR override clears when user clicks a credit tier, providing intuitive toggle behavior
+- [51-01]: Insurance rates as percentage of RV value with per-type minimums for educational estimates
+- [51-01]: StateTips uses data-tip-type attribute for variant styling (info/savings/warning)
+- [51-01]: Tips rendered after state selector and before summary card for immediate contextual feedback
 
 ### Pending Todos
 
@@ -82,5 +85,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 50-01-PLAN.md
+Stopped at: Completed 51-01-PLAN.md
 Resume file: None
