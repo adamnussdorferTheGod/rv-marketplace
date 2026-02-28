@@ -1,0 +1,135 @@
+.section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* State selector row */
+.stateRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.stateLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.stateSelect {
+  font: var(--font-body-2);
+  font-weight: 600;
+  color: var(--rv-primary);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  padding-right: var(--space-16);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23006836' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9L12 15L18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 12px;
+}
+
+/* Summary card */
+.summaryCard {
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  border: var(--border-light) solid var(--rv-border);
+}
+
+.summaryRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--space-12) var(--space-16);
+}
+
+.summaryLabel {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+}
+
+.summaryValue {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+}
+
+.summaryDivider {
+  height: 1px;
+  background: var(--rv-border);
+  margin: 0 var(--space-16);
+}
+
+.totalRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--space-16);
+  background: rgba(224, 237, 231, 0.5);
+}
+
+.totalLabel {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+}
+
+.totalValue {
+  font: var(--font-title-1);
+  color: var(--rv-primary);
+}
+
+.monthlyTeaser {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-align: center;
+  padding: var(--space-8) 0;
+  margin: 0;
+  background: rgba(224, 237, 231, 0.3);
+}
+
+/* Breakdown toggle */
+.breakdownToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-12);
+  background: transparent;
+  border: none;
+  color: var(--rv-primary);
+  font: var(--font-label-1-semibold);
+  cursor: pointer;
+}
+
+.breakdownToggle:hover {
+  text-decoration: underline;
+}
+
+.iconRotated {
+  transform: rotate(180deg);
+  transition: transform 200ms ease;
+}
+
+/* Breakdown placeholder -- Plan 48-02 fills this */
+.breakdownPlaceholder {
+}
+
+/* Mobile (max-width 767px) */
+@media (max-width: 767px) {
+  .summaryRow,
+  .totalRow {
+    padding: var(--space-8) var(--space-12);
+  }
+}

@@ -204,7 +204,7 @@ Plans:
 - [x] **Phase 15: Data Layer and Section Shell** - TypeScript interfaces, sample PNW/Airstream data, RV compatibility logic, section container with tab navigation
 - [x] **Phase 16: Destination Cards** - Campground cards with photos, drive times, ratings, compatibility badges, filter chips, expanded detail view, and desktop scroll layout
 - [x] **Phase 17: Route Cards** - Road trip route cards with mini map previews, suitability badges, constraint notes, key stops, and desktop scroll layout
-- [ ] **Phase 18: Mobile Polish** - Horizontal card scrolling with swipe gestures and overflowing tab chip scroll on mobile viewports
+- [x] **Phase 18: Mobile Polish** - Horizontal card scrolling with swipe gestures and overflowing tab chip scroll on mobile viewports (completed 2026-02-28)
 
 ## Phase Details
 
@@ -752,7 +752,7 @@ Plans:
 **Goal:** Users can interact with their shared co-shopping list through reaction buttons (Love/Maybe/Pass), per-listing comment threads, and a complete shared list panel with listing cards showing all co-shopping activity
 **Depends on:** Phase 36 (co-shopping data layer)
 **Requirements:** RXTN-01, RXTN-02, RXTN-03, RXTN-04, RXTN-05, CMNT-01, CMNT-02, CMNT-03, VIEW-02
-**Plans:** 2/2 plans complete
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 45-01-PLAN.md — ReactionBar (Love/Maybe/Pass) and CommentThread components with CoShoppingContext integration
@@ -899,7 +899,7 @@ Plans:
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 18. Mobile Polish | v3.0 | 0/1 | Not started | - |
+| 18. Mobile Polish | 1/1 | Complete   | 2026-02-28 | - |
 | 19. Routing & Homepage Shell | v5.0 | 1/1 | Complete | 2026-02-26 |
 | 20. Hero Banner & Search | v5.0 | 2/2 | Complete | 2026-02-26 |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 2/2 | Complete | 2026-02-26 |
@@ -928,7 +928,7 @@ Plans:
 | 44. Mobile Co-Shopping Experience | v7.0 | 0/2 | Not started | - |
 | 45. Co-Shopping Shared List UI | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
-| 47. State Tax & Fee Data Layer | 2/2 | Complete   | 2026-02-28 | - |
+| 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
 | 48. Calculator Shell & Core Display | v8.0 | 0/2 | Not started | - |
 | 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 0/2 | Not started | - |
 | 50. Financing Calculator | v8.0 | 0/2 | Not started | - |
