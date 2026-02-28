@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 ## Current Position
 
-Phase: 49 - Dealer Fees, Trade-in & Editable Inputs (COMPLETE)
-Plan: 2 of 2 complete in current phase
+Phase: 50 - Financing Calculator (COMPLETE)
+Plan: 1 of 1 complete in current phase
 Status: Phase Complete
-Last activity: 2026-02-28 — Completed 49-02 (Trade-In Value Estimator)
+Last activity: 2026-02-28 — Completed 50-01 (Financing Calculator)
 
 ## Performance Metrics
 
@@ -31,8 +31,8 @@ Last activity: 2026-02-28 — Completed 49-02 (Trade-In Value Estimator)
 
 **v8.0:**
 - Total plans estimated: 10 (across 5 phases)
-- Completed: 6
-- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min
+- Completed: 7
+- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min
 
 ## Accumulated Context
 
@@ -63,6 +63,9 @@ Last activity: 2026-02-28 — Completed 49-02 (Trade-In Value Estimator)
 - [49-02]: Simplified depreciation curve (35000 * 0.88^age) with make/condition multipliers for trade-in estimation
 - [49-02]: Yes/No toggle buttons for trade-in activation, tax savings computed by diffing tax with/without trade-in
 - [49-02]: Trade-in deduction shown in both summary bar and grand total block for visibility
+- [50-01]: Lifted financing state to TotalCostCalculator so monthly teaser always uses real PMT, even when breakdown is closed
+- [50-01]: Down payment clamped to [0, listingPrice] range with $100 slider step for practical UX
+- [50-01]: Manual APR override clears when user clicks a credit tier, providing intuitive toggle behavior
 
 ### Pending Todos
 
@@ -79,5 +82,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 49-02-PLAN.md
+Stopped at: Completed 50-01-PLAN.md
 Resume file: None

@@ -42,12 +42,12 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 ### Financing
 
-- [ ] **FIN-01**: Down payment input with slider and text field ($0 to listing price)
-- [ ] **FIN-02**: Loan term selector including RV-specific long terms (36, 48, 60, 72, 84, 120, 144, 180 months)
-- [ ] **FIN-03**: Credit tier selector (Excellent 5.99% / Good 7.49% / Fair 9.99% / Below Fair 12.49%) as friendly APR input
-- [ ] **FIN-04**: APR text input for manual override when user knows their rate
-- [ ] **FIN-05**: Amount financed defaults to out-the-door price minus down payment (tax + fees included in loan)
-- [ ] **FIN-06**: Displays monthly payment, total interest paid, and total cost of loan
+- [x] **FIN-01**: Down payment input with slider and text field ($0 to listing price)
+- [x] **FIN-02**: Loan term selector including RV-specific long terms (36, 48, 60, 72, 84, 120, 144, 180 months)
+- [x] **FIN-03**: Credit tier selector (Excellent 5.99% / Good 7.49% / Fair 9.99% / Below Fair 12.49%) as friendly APR input
+- [x] **FIN-04**: APR text input for manual override when user knows their rate
+- [x] **FIN-05**: Amount financed defaults to out-the-door price minus down payment (tax + fees included in loan)
+- [x] **FIN-06**: Displays monthly payment, total interest paid, and total cost of loan
 
 ### Insurance
 
@@ -142,12 +142,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TRAD-03 | Phase 49 | Complete |
 | TRAD-04 | Phase 49 | Complete |
 | TRAD-05 | Phase 49 | Complete |
-| FIN-01 | Phase 50 | Pending |
-| FIN-02 | Phase 50 | Pending |
-| FIN-03 | Phase 50 | Pending |
-| FIN-04 | Phase 50 | Pending |
-| FIN-05 | Phase 50 | Pending |
-| FIN-06 | Phase 50 | Pending |
+| FIN-01 | Phase 50 | Complete |
+| FIN-02 | Phase 50 | Complete |
+| FIN-03 | Phase 50 | Complete |
+| FIN-04 | Phase 50 | Complete |
+| FIN-05 | Phase 50 | Complete |
+| FIN-06 | Phase 50 | Complete |
 | INS-01 | Phase 51 | Pending |
 | INS-02 | Phase 51 | Pending |
 | TIP-01 | Phase 51 | Pending |
