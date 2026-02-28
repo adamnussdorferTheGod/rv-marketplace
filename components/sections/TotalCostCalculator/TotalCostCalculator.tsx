@@ -4,7 +4,11 @@ import { getStateTaxFees, STATE_LIST } from '../../../app/src/data/stateTaxDatab
 import { calculateSalesTax, calculateDmvFees } from '../../../app/src/data/stateTaxCalculations';
 import { calculateFinancingSummary, CREDIT_TIERS, DEFAULT_TERM, DEFAULT_CREDIT_TIER } from '../../../app/src/data/financingCalculations';
 import { getDealerFeeDefaults, type DealerFeeDefaults } from './dealerFeeDefaults';
+import { getInsuranceEstimate } from './insuranceEstimates';
+import { getStateTips } from './stateTipEngine';
 import CostBreakdown from './CostBreakdown';
+import InsuranceEstimate from './InsuranceEstimate';
+import StateTips from './StateTips';
 import FinancingSection from './FinancingSection';
 import styles from './TotalCostCalculator.module.css';
 
@@ -54,6 +58,8 @@ export default function TotalCostCalculator({
       ? parsedManualApr
       : (CREDIT_TIERS.find(t => t.id === selectedTierId)?.apr ?? 7.49);
 
+    const insuranceEstimate = getInsuranceEstimate(rvType ?? 'travel-trailer', currentPrice);
+
     if (!stateData) {
       const fallbackFinancing = calculateFinancingSummary({
         outTheDoorTotal: currentPrice,
@@ -71,6 +77,8 @@ export default function TotalCostCalculator({
         monthlyPayment: Math.round(fallbackFinancing.monthlyPayment),
         taxSavings: 0,
         financingSummary: fallbackFinancing,
+        insuranceEstimate,
+        stateTips: [] as ReturnType<typeof getStateTips>,
       };
     }
 
@@ -106,11 +114,12 @@ export default function TotalCostCalculator({
     });
 
     const monthly = Math.round(financingSummary.monthlyPayment);
+    const stateTips = getStateTips(stateData, currentPrice);
 
-    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly, taxSavings, financingSummary };
+    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly, taxSavings, financingSummary, insuranceEstimate, stateTips };
   }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides, tradeInEnabled, tradeInValue, downPayment, selectedTermMonths, selectedTierId, manualApr, isManualApr]);
 
-  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment, taxSavings, financingSummary } = computed;
+  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment, taxSavings, financingSummary, insuranceEstimate, stateTips } = computed;
 
   const handleDealerFeeChange = (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => {
     setDealerFeeOverrides(prev => ({ ...prev, [feeKey]: value }));
@@ -135,6 +144,9 @@ export default function TotalCostCalculator({
           ))}
         </select>
       </div>
+
+      {/* State-specific tips */}
+      <StateTips tips={stateTips} />
 
       {/* Summary bar */}
       <div className={styles.summaryCard}>
@@ -205,6 +217,7 @@ export default function TotalCostCalculator({
             onManualAprToggle={setIsManualApr}
             financingSummary={financingSummary}
           />
+          <InsuranceEstimate estimate={insuranceEstimate} />
         </>
       )}
     </div>
