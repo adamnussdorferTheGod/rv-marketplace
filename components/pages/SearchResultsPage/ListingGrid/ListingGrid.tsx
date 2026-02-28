@@ -1,7 +1,6 @@
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
 import SRPListingCard from '../SRPListingCard/SRPListingCard';
 import SponsoredShowcase from '../SponsoredShowcase/SponsoredShowcase';
-import PAACard from '../PAACard/PAACard';
 import AdSlot from '../../../ui/AdSlot/AdSlot';
 import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
 import SellRvCard from '../SellRvCard/SellRvCard';
@@ -18,11 +17,10 @@ interface ListingGridProps {
  * Interleaved content inserted between card rows.
  * Key = the row number AFTER which the content appears (1-indexed).
  */
-const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'ai_search' | 'paa'> = {
+const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'ai_search'> = {
   3: 'sponsored',
   5: 'ai_search',
   7: 'ad',
-  9: 'paa',
 };
 
 const CARDS_PER_ROW = 3;
@@ -109,15 +107,6 @@ export default function ListingGrid({
               height={250}
               label="Leaderboard Ad"
               className={styles.adSlotFull}
-            />
-          </div>,
-        );
-      } else if (interleavedType === 'paa') {
-        elements.push(
-          <div key="interleaved-paa" className={styles.interleavedSection}>
-            <PAACard
-              question="What size RV can I drive with a regular license?"
-              answer="In most states, you can drive a Class C motorhome or any towable RV (travel trailer, fifth wheel) with a regular driver's license. Class A motorhomes over 26,000 lbs may require a special license in some states."
             />
           </div>,
         );

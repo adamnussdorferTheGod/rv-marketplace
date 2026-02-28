@@ -14,8 +14,12 @@ export default function AppLayout() {
 
   return (
     <div className={styles.layout}>
-      <CrossPromotionsBar />
-      <Header />
+      <div className={styles.fullWidth}>
+        <CrossPromotionsBar />
+      </div>
+      <div className={styles.fullWidth}>
+        <Header />
+      </div>
       <main>
         <Outlet />
       </main>

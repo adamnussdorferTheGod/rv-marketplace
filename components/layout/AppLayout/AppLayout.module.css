@@ -4,3 +4,10 @@
   margin: 0 auto;
   background: var(--rv-surface);
 }
+
+.fullWidth {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
