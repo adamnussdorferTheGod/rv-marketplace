@@ -1,0 +1,156 @@
+/* ─── Container ────────────────────────────────────────────────────── */
+
+.container {
+  position: relative;
+  background: var(--rv-surface);
+  border-radius: 12px;
+  border: 1px solid var(--rv-border-low);
+  overflow: hidden;
+}
+
+/* ─── Close button ─────────────────────────────────────────────────── */
+
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.closeButton:hover {
+  background: var(--rv-border-low);
+}
+
+/* ─── Grid layout ──────────────────────────────────────────────────── */
+
+.grid {
+  display: grid;
+  grid-template-columns: 160px repeat(var(--column-count, 3), minmax(200px, 1fr));
+  overflow-x: auto;
+}
+
+/* ─── Column headers ───────────────────────────────────────────────── */
+
+.headerLabel {
+  /* Empty label column for the header row */
+  padding: 16px;
+}
+
+.headerCell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+}
+
+.headerPhoto {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.headerPhotoPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface-variant);
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--rv-on-surface);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.headerSubtitle {
+  font-size: 12px;
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Spec rows ────────────────────────────────────────────────────── */
+
+.specRow {
+  display: contents;
+}
+
+/* Zebra striping: odd rows (0-indexed, so index 1, 3, 5) get background */
+.specRow:nth-child(odd) .rowLabel,
+.specRow:nth-child(odd) .valueCell {
+  background: var(--rv-surface-variant);
+}
+
+.rowLabel {
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--rv-surface);
+}
+
+.valueCell {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--rv-on-surface);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.naValue {
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Price styling ────────────────────────────────────────────────── */
+
+.originalPrice {
+  text-decoration: line-through;
+  color: var(--rv-on-surface-variant);
+  font-size: 12px;
+}
+
+/* ─── Empty state ──────────────────────────────────────────────────── */
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px 24px;
+  color: var(--rv-on-surface-variant);
+}
+
+.emptyText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--rv-on-surface-variant);
+}

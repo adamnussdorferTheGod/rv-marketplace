@@ -709,11 +709,11 @@ Plans:
   3. Each co-shopper's reaction is displayed as a dedicated comparison row (e.g., "You: Love", "Sarah: Love") per listing
   4. A match status row shows "Yes" or "No" per listing, and if the user has a saved tow vehicle, a tow match verdict row shows the compatibility percentage and verdict
   5. Each column includes a comment count and a "View Listing" link that navigates to the VDP for that listing
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 42-01: CompareView page layout with column headers (photo, title), spec comparison rows, and responsive table structure
-- [ ] 42-02: Reaction rows, match status row, tow match integration, comment count, and View Listing links
+- [ ] 42-01-PLAN.md — CompareView component with column headers (photo, title) and spec comparison rows (price, length, weight, sleeps, slides, fresh water)
+- [ ] 42-02-PLAN.md — Reaction rows, match status row, tow match integration, comment count, View Listing links, and SharedListPanel wiring
 
 ### Phase 43: VDP & SRP Integration
 **Goal**: Co-shopping features are woven into the existing VDP and SRP pages so users encounter shared list functionality while naturally browsing
