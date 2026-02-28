@@ -14,12 +14,12 @@ export default function AiModeHeader({
   isMobile,
 }: AiModeHeaderProps) {
   const { closePanel, panelMode } = useAiMode();
-  const isFitcheck = panelMode !== 'plan';
+  const isFitcheck = panelMode === 'fitcheck';
   const isPlan = panelMode === 'plan';
 
-  const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'AI Mode';
+  const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'Ask a question';
   const showSparkles = true;
-  const useLargeStyle = isFitcheck;
+  const useLargeStyle = isFitcheck || panelMode === 'default';
 
   return (
     <div className={styles.header}>

@@ -1,9 +1,28 @@
 import { useState } from 'react';
-import Icon from '@components/ui/Icon/Icon';
 import styles from './SellRvCard.module.css';
+
+const YEARS = Array.from({ length: 30 }, (_, i) => String(2025 - i));
+const CATEGORIES = ['Motorhome', 'Travel Trailer', 'Fifth Wheel', 'Toy Hauler', 'Truck Camper', 'Pop-Up Camper', 'Park Model'];
+const MAKES = ['Airstream', 'Coachmen', 'Forest River', 'Jayco', 'Keystone', 'Newmar', 'Thor', 'Winnebago'];
+const MODELS: Record<string, string[]> = {
+  Airstream: ['Flying Cloud', 'Basecamp', 'Interstate', 'Classic'],
+  Coachmen: ['Catalina', 'Freelander', 'Leprechaun', 'Apex'],
+  'Forest River': ['Rockwood', 'Flagstaff', 'Cherokee', 'Salem'],
+  Jayco: ['Jay Flight', 'Jay Feather', 'Eagle', 'Greyhawk'],
+  Keystone: ['Passport', 'Cougar', 'Montana', 'Springdale'],
+  Newmar: ['Bay Star', 'Canyon Star', 'Dutch Star', 'King Aire'],
+  Thor: ['Four Winds', 'Chateau', 'Ace', 'Palazzo'],
+  Winnebago: ['Minnie', 'Vista', 'Solis', 'Travato'],
+};
 
 export default function SellRvCard() {
   const [mode, setMode] = useState<'selling' | 'trading'>('selling');
+  const [year, setYear] = useState('');
+  const [category, setCategory] = useState('');
+  const [make, setMake] = useState('');
+  const [model, setModel] = useState('');
+
+  const availableModels = make && MODELS[make] ? MODELS[make] : [];
 
   return (
     <div className={styles.card}>
@@ -30,35 +49,56 @@ export default function SellRvCard() {
 
       <div className={styles.fields}>
         <div className={styles.field}>
-          <div className={styles.fieldContent}>
-            <span className={styles.fieldLabel}>Year *</span>
-            <span className={styles.fieldValue}>2017</span>
-          </div>
-          <Icon name="expand_more" size={24} className={styles.fieldIcon} />
+          <select
+            className={styles.select}
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          >
+            <option value="" disabled>Year *</option>
+            {YEARS.map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
         </div>
         <div className={styles.field}>
-          <div className={styles.fieldContent}>
-            <span className={styles.fieldLabel}>Category *</span>
-            <span className={styles.fieldValue}>Motorhome</span>
-          </div>
-          <Icon name="expand_more" size={24} className={styles.fieldIcon} />
+          <select
+            className={styles.select}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="" disabled>Category *</option>
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
         </div>
         <div className={styles.field}>
-          <div className={styles.fieldContent}>
-            <span className={styles.fieldLabel}>Make *</span>
-            <span className={styles.fieldValue}>Airstream</span>
-          </div>
-          <Icon name="expand_more" size={24} className={styles.fieldIcon} />
+          <select
+            className={styles.select}
+            value={make}
+            onChange={(e) => { setMake(e.target.value); setModel(''); }}
+          >
+            <option value="" disabled>Make *</option>
+            {MAKES.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
         </div>
         <div className={styles.field}>
-          <div className={styles.fieldContent}>
-            <span className={styles.fieldLabel}>Model *</span>
-            <span className={styles.fieldValue}>Flying Cloud</span>
-          </div>
-          <Icon name="expand_more" size={24} className={styles.fieldIcon} />
+          <select
+            className={styles.select}
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+            disabled={!make}
+          >
+            <option value="" disabled>Model *</option>
+            {availableModels.map((m) => (
+              <option key={m} value={m}>{m}</option>
+            ))}
+          </select>
         </div>
         <button type="button" className={styles.cta}>
-          Sell online today
+          {mode === 'selling' ? 'Sell online today' : 'Get trade-in value'}
         </button>
       </div>
     </div>

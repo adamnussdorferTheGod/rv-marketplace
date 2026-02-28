@@ -326,7 +326,8 @@
   }
 
   .segmentedWrap {
-    width: 280px;
+    width: 240px;
+    top: -18px;
   }
 
   /* Mobile search bar: simple tap target that navigates to /search */
@@ -353,10 +354,13 @@
   .sellForm {
     flex-direction: column;
     gap: 12px;
+    align-items: stretch;
   }
 
   .sellFields {
     flex-direction: column;
+    width: 100%;
+    gap: 10px;
   }
 
   .sellForm > button {

@@ -4,20 +4,28 @@ import HomepageListingCard from '../HomepageListingCard/HomepageListingCard';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './FeaturedListings.module.css';
 
-const PAGE_SIZE = 10;
-const totalPages = Math.ceil(featuredListings.length / PAGE_SIZE);
+const DEFAULT_PAGE_SIZE = 10;
 
-export default function FeaturedListings() {
+interface FeaturedListingsProps {
+  maxItems?: number;
+  titleClassName?: string;
+}
+
+export default function FeaturedListings({ maxItems, titleClassName }: FeaturedListingsProps) {
   const [pageIndex, setPageIndex] = useState(0);
 
-  const start = pageIndex * PAGE_SIZE;
-  const pageListings = featuredListings.slice(start, start + PAGE_SIZE);
-  const showArrows = totalPages > 1;
+  const pageSize = maxItems ?? DEFAULT_PAGE_SIZE;
+  const allListings = maxItems ? featuredListings.slice(0, maxItems) : featuredListings;
+  const totalPages = Math.ceil(allListings.length / pageSize);
+
+  const start = pageIndex * pageSize;
+  const pageListings = allListings.slice(start, start + pageSize);
+  const showArrows = !maxItems && totalPages > 1;
 
   return (
     <section className={styles.section}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Featured listings</h2>
+        <h2 className={`${styles.title} ${titleClassName || ''}`.trim()}>Featured listings</h2>
         {showArrows && (
           <div className={styles.arrows}>
             <button

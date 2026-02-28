@@ -44,3 +44,17 @@
   position: relative;
   z-index: 1;
 }
+
+/* ─── Responsive ─── */
+
+@media (max-width: 767px) {
+  .track {
+    gap: var(--space-4);
+    padding: 3px;
+  }
+
+  .segment {
+    padding: 6px;
+    font-size: 13px;
+  }
+}
