@@ -65,6 +65,20 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
+function useIsMobile(breakpoint = 767) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 /* ── component ── */
 
 export default function HeroBanner() {
@@ -122,6 +136,7 @@ export default function HeroBanner() {
   const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
   const reducedMotion = usePrefersReducedMotion();
   const animateEntrance = !reducedMotion;
+  const isMobile = useIsMobile();
 
   const { suggestions, isLoadingAI, nlParseResult, activeIndex, setActiveIndex } =
     useSearchSuggestions(searchQuery);
@@ -230,6 +245,10 @@ export default function HeroBanner() {
   };
 
   const handleSearchFocus = () => {
+    if (isMobile) {
+      navigate('/search');
+      return;
+    }
     setIsDropdownOpen(true);
   };
 
@@ -337,6 +356,7 @@ export default function HeroBanner() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyDown={handleKeyDown}
                       onFocus={handleSearchFocus}
+                      readOnly={isMobile}
                       aria-label="Search RVs"
                       aria-expanded={isDropdownOpen}
                       aria-controls={hasSuggestions ? 'search-suggestions' : undefined}

@@ -70,7 +70,15 @@
 
 /* XS: <=767px */
 @media (max-width: 767px) {
+  .title {
+    font-size: 24px;
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .arrows {
+    display: none;
   }
 }

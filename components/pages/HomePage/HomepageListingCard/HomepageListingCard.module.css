@@ -125,3 +125,37 @@
   font: var(--font-label-2-semibold);
   color: var(--rv-on-surface);
 }
+
+/* ─── Responsive ─── */
+
+@media (max-width: 767px) {
+  .photoWrapper {
+    height: 140px;
+  }
+
+  .details {
+    gap: var(--space-4);
+  }
+
+  .title {
+    font-size: 13px;
+  }
+
+  .location {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 13px;
+  }
+
+  .favoriteBtn {
+    top: var(--space-8);
+    right: var(--space-8);
+  }
+
+  .tagBadge {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+}

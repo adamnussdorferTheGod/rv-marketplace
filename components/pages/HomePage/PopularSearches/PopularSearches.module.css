@@ -134,7 +134,12 @@
 
 @media (max-width: 767px) {
   .section {
-    margin-top: 48px;
+    margin-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .heading {
+    font-size: 24px;
   }
 
   .tabs {

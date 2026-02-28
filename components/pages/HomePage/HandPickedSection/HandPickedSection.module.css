@@ -110,7 +110,25 @@
     gap: var(--space-16);
   }
 
+  .chipRow {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    gap: var(--space-8);
+    scrollbar-width: none;
+  }
+
+  .chipRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chip {
+    padding: var(--space-8) var(--space-12);
+    font-size: 13px;
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-12);
   }
 }

@@ -247,6 +247,10 @@
     gap: var(--space-12);
   }
 
+  .dealerName {
+    font-size: 18px;
+  }
+
   .logoContainer {
     width: 80px;
     height: 56px;
@@ -258,5 +262,14 @@
 
   .cardsTrack {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cardPhoto {
+    height: 110px;
+  }
+
+  .cardDetails {
+    padding: var(--space-12);
+    gap: var(--space-4);
   }
 }
