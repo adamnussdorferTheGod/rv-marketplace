@@ -29,11 +29,11 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 
 ### Reactions
 
-- [ ] **RXTN-01**: Each co-shopper can react to each listing with Love, Maybe, or Pass via one tap on reaction icons
-- [ ] **RXTN-02**: Reactions are visible to all co-shoppers with name/avatar beside each reaction icon
-- [ ] **RXTN-03**: Reactions can be changed at any time by tapping a different icon
-- [ ] **RXTN-04**: Default state for unreviewed listings is "no reaction" (empty heart outline)
-- [ ] **RXTN-05**: Love renders as red filled heart, Maybe as amber outline, Pass as gray muted icon
+- [x] **RXTN-01**: Each co-shopper can react to each listing with Love, Maybe, or Pass via one tap on reaction icons
+- [x] **RXTN-02**: Reactions are visible to all co-shoppers with name/avatar beside each reaction icon
+- [x] **RXTN-03**: Reactions can be changed at any time by tapping a different icon
+- [x] **RXTN-04**: Default state for unreviewed listings is "no reaction" (empty heart outline)
+- [x] **RXTN-05**: Love renders as red filled heart, Maybe as amber outline, Pass as gray muted icon
 
 ### Match
 
@@ -45,9 +45,9 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 
 ### Comments
 
-- [ ] **CMNT-01**: Each listing on a shared list has its own comment thread
-- [ ] **CMNT-02**: User can post text comments with author name and timestamp displayed
-- [ ] **CMNT-03**: Comment count appears on shared list listing cards
+- [x] **CMNT-01**: Each listing on a shared list has its own comment thread
+- [x] **CMNT-02**: User can post text comments with author name and timestamp displayed
+- [x] **CMNT-03**: Comment count appears on shared list listing cards
 - [ ] **CMNT-04**: Comments persist even if the listing is removed from the list
 
 ### Shared List View
@@ -156,19 +156,19 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LIST-08 | Phase 37 | Pending |
 | LIST-09 | Phase 37 | Pending |
 | LIST-10 | Phase 37 | Pending |
-| RXTN-01 | Phase 38 | Pending |
-| RXTN-02 | Phase 38 | Pending |
-| RXTN-03 | Phase 38 | Pending |
-| RXTN-04 | Phase 38 | Pending |
-| RXTN-05 | Phase 38 | Pending |
+| RXTN-01 | Phase 38 | Complete |
+| RXTN-02 | Phase 38 | Complete |
+| RXTN-03 | Phase 38 | Complete |
+| RXTN-04 | Phase 38 | Complete |
+| RXTN-05 | Phase 38 | Complete |
 | MTCH-01 | Phase 39 | Pending |
 | MTCH-02 | Phase 39 | Pending |
 | MTCH-03 | Phase 39 | Pending |
 | MTCH-04 | Phase 39 | Pending |
 | MTCH-05 | Phase 39 | Pending |
-| CMNT-01 | Phase 40 | Pending |
-| CMNT-02 | Phase 40 | Pending |
-| CMNT-03 | Phase 40 | Pending |
+| CMNT-01 | Phase 40 | Complete |
+| CMNT-02 | Phase 40 | Complete |
+| CMNT-03 | Phase 40 | Complete |
 | CMNT-04 | Phase 40 | Pending |
 | VIEW-01 | Phase 41 | Pending |
 | VIEW-02 | Phase 41 | Pending |
