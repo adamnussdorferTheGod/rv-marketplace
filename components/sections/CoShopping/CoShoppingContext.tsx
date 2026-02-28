@@ -15,7 +15,7 @@ import type {
   ListMember,
   ReactionType,
 } from '../../../app/src/data/coShoppingTypes';
-import { DEMO_SHARED_STATE } from '../../../app/src/data/sampleCoShopping';
+import { sampleCoShoppingState } from '../../../app/src/data/sampleCoShopping';
 
 // ─── Reducer ────────────────────────────────────────────────────────
 
@@ -254,7 +254,7 @@ interface CoShoppingProviderProps {
 export function CoShoppingProvider({ children }: CoShoppingProviderProps) {
   const [state, dispatch] = useReducer(
     coShoppingReducer,
-    DEMO_SHARED_STATE,
+    sampleCoShoppingState,
   );
 
   // ── Action callbacks ──────────────────────────────────────────────
