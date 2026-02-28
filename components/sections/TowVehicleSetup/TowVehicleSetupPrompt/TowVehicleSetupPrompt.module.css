@@ -126,31 +126,7 @@
   color: var(--rv-on-surface);
 }
 
-/* ─── Vehicle row with silhouette ────────────────────────────────── */
-
-.vehicleThumb {
-  flex-shrink: 0;
-  width: 56px;
-}
-
-.matchVehicleRow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
-}
-
-.matchVehicleImg {
-  flex-shrink: 0;
-  width: 80px;
-}
-
-.matchVehicleName {
-  font: var(--font-label-2-semibold);
-  color: var(--rv-on-surface);
-  margin: 0;
-}
-
-.matchVehicleTrim {
+.matchVehicle {
   font: var(--font-body-2);
   color: var(--rv-on-surface-variant);
   margin: 0;

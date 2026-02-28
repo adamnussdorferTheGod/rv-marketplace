@@ -7,7 +7,6 @@ import {
 } from '../../../../app/src/data/towCompatibility';
 import type { TowCheckResult, TowVerdict } from '../../../../app/src/data/towTypes';
 import Icon from '@components/ui/Icon/Icon';
-import VehicleSilhouette from '../VehicleSilhouette';
 import styles from './TowVehicleSetupPrompt.module.css';
 
 // ─── Props ──────────────────────────────────────────────────────────
@@ -103,12 +102,14 @@ export default function TowVehicleSetupPrompt({ rvSpecs }: TowVehicleSetupPrompt
   if (!result) {
     return (
       <div className={styles.card}>
-        <VehicleSilhouette
-          make={savedVehicle.make}
-          model={savedVehicle.model}
-          className={styles.vehicleThumb}
-          color="var(--rv-on-surface-variant)"
-        />
+        <div className={styles.iconWrap}>
+          <img
+            src="/images/icons/car-pickup.svg"
+            alt=""
+            width={24}
+            height={24}
+          />
+        </div>
         <div className={styles.content}>
           <p className={styles.heading}>
             {savedVehicle.make} {savedVehicle.model}
@@ -145,23 +146,10 @@ export default function TowVehicleSetupPrompt({ rvSpecs }: TowVehicleSetupPrompt
         </button>
       </div>
 
-      {/* Vehicle with silhouette */}
-      <div className={styles.matchVehicleRow}>
-        <VehicleSilhouette
-          make={savedVehicle.make}
-          model={savedVehicle.model}
-          className={styles.matchVehicleImg}
-          color="var(--rv-on-surface-variant)"
-        />
-        <div>
-          <p className={styles.matchVehicleName}>
-            {savedVehicle.make} {savedVehicle.model}
-          </p>
-          <p className={styles.matchVehicleTrim}>
-            {savedVehicle.trim} · {savedVehicle.engine}
-          </p>
-        </div>
-      </div>
+      {/* Vehicle */}
+      <p className={styles.matchVehicle}>
+        {savedVehicle.make} {savedVehicle.model} {savedVehicle.trim}
+      </p>
 
       {/* Key checks */}
       <div className={styles.matchChecks}>
