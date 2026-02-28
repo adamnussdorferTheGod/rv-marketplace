@@ -19,6 +19,8 @@ import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import FeaturedListings from '../HomePage/FeaturedListings/FeaturedListings';
 import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
+import SharedListPanel from '../../sections/CoShopping/SharedListPanel/SharedListPanel';
+import { useCoShopping } from '../../sections/CoShopping/CoShoppingContext';
 import styles from './SearchResultsPage.module.css';
 
 const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
@@ -47,7 +49,11 @@ export default function SearchResultsPage() {
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
+  const [sharedListOpen, setSharedListOpen] = useState(false);
   const isMobile = useIsMobile();
+
+  const { lists } = useCoShopping();
+  const hasSharedLists = lists.length > 0;
 
   // Reset to page 1 whenever filters or sort change
   useEffect(() => {
@@ -154,6 +160,19 @@ export default function SearchResultsPage() {
                   </div>
                 )}
               </div>
+              {hasSharedLists && (
+                <button
+                  type="button"
+                  className={`${styles.sharedListToggle} ${sharedListOpen ? styles.sharedListToggleActive : ''}`}
+                  onClick={() => setSharedListOpen(!sharedListOpen)}
+                >
+                  <Icon name="group" size={20} />
+                  Shared List
+                  <span className={styles.sharedListBadge}>
+                    {lists[0].listings.length}
+                  </span>
+                </button>
+              )}
               <div className={styles.sortControlsDesktop}>
                 <SortControls sort={sort} onSortChange={setSort} />
               </div>
@@ -205,6 +224,28 @@ export default function SearchResultsPage() {
         onSortChange={setSort}
         onClose={() => setSortSheetOpen(false)}
       />
+
+      {sharedListOpen && (
+        <>
+          <div className={styles.sharedListBackdrop} onClick={() => setSharedListOpen(false)} />
+          <div className={styles.sharedListSidebar}>
+            <div className={styles.sharedListSidebarHeader}>
+              <span className={styles.sharedListSidebarTitle}>Shared List</span>
+              <button
+                type="button"
+                className={styles.sharedListCloseBtn}
+                onClick={() => setSharedListOpen(false)}
+                aria-label="Close shared list"
+              >
+                <Icon name="x_close" size={20} />
+              </button>
+            </div>
+            <div className={styles.sharedListSidebarBody}>
+              <SharedListPanel />
+            </div>
+          </div>
+        </>
+      )}
 
       <AiModePanel />
     </div>
