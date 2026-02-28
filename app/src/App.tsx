@@ -6,22 +6,25 @@ import VehicleDetailPage from '@components/pages/VehicleDetailPage/VehicleDetail
 import MobileSearchPage from '@components/pages/MobileSearchPage/MobileSearchPage';
 import NotFoundPage from '@components/pages/NotFoundPage/NotFoundPage';
 import { TowVehicleProvider } from '@components/sections/TowVehicleSetup/TowVehicleContext';
+import { CoShoppingProvider } from '@components/sections/CoShopping/CoShoppingContext';
 import { ROUTES } from './routes';
 
 function App() {
   return (
     <TowVehicleProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<AppLayout />}>
-            <Route path={ROUTES.HOME} element={<HomePage />} />
-            <Route path={ROUTES.SEARCH} element={<SearchResultsPage />} />
-            <Route path={ROUTES.MOBILE_SEARCH} element={<MobileSearchPage />} />
-            <Route path={ROUTES.LISTING} element={<VehicleDetailPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <CoShoppingProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<AppLayout />}>
+              <Route path={ROUTES.HOME} element={<HomePage />} />
+              <Route path={ROUTES.SEARCH} element={<SearchResultsPage />} />
+              <Route path={ROUTES.MOBILE_SEARCH} element={<MobileSearchPage />} />
+              <Route path={ROUTES.LISTING} element={<VehicleDetailPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CoShoppingProvider>
     </TowVehicleProvider>
   );
 }
