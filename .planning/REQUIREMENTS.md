@@ -53,7 +53,7 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 ### Shared List View
 
 - [ ] **VIEW-01**: Filter tabs display All, Matches, My Picks, and Partner's Picks with item counts
-- [ ] **VIEW-02**: Shared list cards show photo, title, price, location, specs, reactions from all co-shoppers, match indicator, comment count, and "added by" attribution
+- [x] **VIEW-02**: Shared list cards show photo, title, price, location, specs, reactions from all co-shoppers, match indicator, comment count, and "added by" attribution
 - [ ] **VIEW-03**: Sort by Most Recent available as default
 - [ ] **VIEW-04**: "Compare Matches" CTA appears when matches exist
 
@@ -171,7 +171,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CMNT-03 | Phase 40 | Complete |
 | CMNT-04 | Phase 40 | Pending |
 | VIEW-01 | Phase 41 | Pending |
-| VIEW-02 | Phase 41 | Pending |
+| VIEW-02 | Phase 41 | Complete |
 | VIEW-03 | Phase 41 | Pending |
 | VIEW-04 | Phase 41 | Pending |
 | CMPV-01 | Phase 42 | Pending |
