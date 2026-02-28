@@ -6,7 +6,6 @@ import styles from './ReactionBar.module.css';
 interface ReactionBarProps {
   listId: string;
   listingId: string;
-  showCoShopperReactions?: boolean;
   compact?: boolean;
 }
 
@@ -48,43 +47,15 @@ const REACTION_CONFIG: {
   },
 ];
 
-function getReactionColor(type: ReactionType): string {
-  switch (type) {
-    case 'love':
-      return '#D8202E';
-    case 'maybe':
-      return '#FA8131';
-    case 'pass':
-      return '#6E7072';
-    default:
-      return '#939598';
-  }
-}
-
-function getReactionIcon(type: ReactionType): string {
-  switch (type) {
-    case 'love':
-      return 'heart_filled';
-    case 'maybe':
-      return 'help_outline';
-    case 'pass':
-      return 'block';
-    default:
-      return 'favorite';
-  }
-}
-
 export default function ReactionBar({
   listId,
   listingId,
-  showCoShopperReactions = true,
   compact = false,
 }: ReactionBarProps) {
   const {
     setReaction,
     getReactionsForListing,
     currentUserId,
-    activeList,
   } = useCoShopping();
 
   const reactions = getReactionsForListing(listId, listingId);
@@ -93,74 +64,51 @@ export default function ReactionBar({
   );
   const currentType = currentUserReaction?.type ?? 'none';
 
-  const members = activeList?.members ?? [];
-  const otherMembers = members.filter((m) => m.id !== currentUserId);
+  // Count votes per reaction type
+  const voteCounts: Record<ReactionType, number> = {
+    love: 0,
+    maybe: 0,
+    pass: 0,
+    none: 0,
+  };
+  for (const r of reactions) {
+    if (r.type !== 'none') {
+      voteCounts[r.type]++;
+    }
+  }
 
   return (
-    <div className={`${styles.reactionBar} ${compact ? styles.compact : ''}`}>
-      <div className={styles.buttons}>
-        {REACTION_CONFIG.map((config) => {
-          const isActive = currentType === config.type;
-          const iconName = isActive ? config.activeIcon : config.inactiveIcon;
-          const iconColor = isActive ? config.activeColor : config.inactiveColor;
+    <div className={`${styles.buttons} ${compact ? styles.compact : ''}`}>
+      {REACTION_CONFIG.map((config) => {
+        const isActive = currentType === config.type;
+        const iconName = isActive ? config.activeIcon : config.inactiveIcon;
+        const iconColor = isActive ? config.activeColor : config.inactiveColor;
+        const count = voteCounts[config.type];
 
-          return (
-            <button
-              key={config.type}
-              type="button"
-              className={`${styles.reactionButton} ${isActive ? `${styles.reactionButtonActive} ${styles[config.styleKey]}` : ''}`}
-              onClick={() => setReaction(listId, listingId, config.type)}
-              aria-label={`${config.label} reaction`}
-              aria-pressed={isActive}
+        return (
+          <button
+            key={config.type}
+            type="button"
+            className={`${styles.reactionButton} ${isActive ? `${styles.active} ${styles[config.styleKey]}` : ''}`}
+            onClick={() => setReaction(listId, listingId, config.type)}
+            aria-label={`${config.label} reaction`}
+            aria-pressed={isActive}
+          >
+            <span style={{ color: iconColor }}>
+              <Icon name={iconName} size={compact ? 20 : 24} />
+            </span>
+            <span
+              className={styles.reactionLabel}
+              style={isActive ? { color: '#252526' } : undefined}
             >
-              <span style={{ color: iconColor }}>
-                <Icon name={iconName} size={compact ? 20 : 24} />
-              </span>
-              <span
-                className={styles.reactionLabel}
-                style={isActive ? { color: iconColor } : undefined}
-              >
-                {config.label}
-              </span>
-            </button>
-          );
-        })}
-      </div>
-
-      {showCoShopperReactions && otherMembers.length > 0 && (
-        <div className={styles.coShopperReactions}>
-          {otherMembers.map((member) => {
-            const memberReaction = reactions.find(
-              (r) => r.memberId === member.id,
-            );
-            const memberType = memberReaction?.type ?? 'none';
-            const hasReaction = memberType !== 'none';
-
-            return (
-              <div key={member.id} className={styles.coShopperRow}>
-                <div
-                  className={styles.avatar}
-                  style={{ backgroundColor: member.avatarColor }}
-                >
-                  {member.avatarInitials}
-                </div>
-                <span className={styles.coShopperName}>
-                  {member.displayName}
-                </span>
-                {hasReaction ? (
-                  <span style={{ color: getReactionColor(memberType) }}>
-                    <Icon name={getReactionIcon(memberType)} size={16} />
-                  </span>
-                ) : (
-                  <span className={styles.coShopperStatus}>
-                    Hasn't decided
-                  </span>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      )}
+              {config.label}
+            </span>
+            {count > 0 && (
+              <span className={styles.countBubble}>{count}</span>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 }

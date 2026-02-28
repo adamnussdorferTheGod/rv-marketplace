@@ -21,41 +21,15 @@ const formatPrice = (price: number): string =>
     maximumFractionDigits: 0,
   }).format(price);
 
-function relativeTime(isoDate: string): string {
-  const now = Date.now();
-  const then = new Date(isoDate).getTime();
-  const diffMs = now - then;
-  const diffMin = Math.floor(diffMs / 60_000);
-  const diffHours = Math.floor(diffMs / 3_600_000);
-  const diffDays = Math.floor(diffMs / 86_400_000);
-
-  if (diffMin < 1) return 'just now';
-  if (diffMin < 60) return `${diffMin} min ago`;
-  if (diffHours < 24) return `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
-  if (diffDays < 7) return `${diffDays} day${diffDays === 1 ? '' : 's'} ago`;
-
-  return new Date(isoDate).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-}
-
 export default function SharedListCard({
   listId,
   listingId,
   addedBy,
   addedAt,
 }: SharedListCardProps) {
-  const {
-    getCommentsForListing,
-    getReactionsForListing,
-    activeList,
-  } = useCoShopping();
-
+  const { getCommentsForListing } = useCoShopping();
   const [showComments, setShowComments] = useState(false);
 
-  // Look up the SRP listing by ID
   const listing = sampleSrpListings.find((l) => l.id === listingId);
 
   if (!listing) {
@@ -63,9 +37,6 @@ export default function SharedListCard({
       <div className={styles.card}>
         <div className={styles.content}>
           <p className={styles.title}>Listing not found</p>
-          <p className={styles.location}>
-            This listing may have been removed.
-          </p>
         </div>
       </div>
     );
@@ -73,30 +44,16 @@ export default function SharedListCard({
 
   const comments = getCommentsForListing(listId, listingId);
   const commentCount = comments.length;
-  const reactions = getReactionsForListing(listId, listingId);
-  const members = activeList?.members ?? [];
-
-  // Match indicator: all members have reacted "love"
-  const isMatch =
-    members.length > 0 &&
-    members.every((member) => {
-      const reaction = reactions.find((r) => r.memberId === member.id);
-      return reaction?.type === 'love';
-    });
-
-  // Look up who added this listing
-  const addedByMember = members.find((m) => m.id === addedBy);
-  const addedByName = addedByMember?.displayName ?? 'Unknown';
-
-  // Photo
   const photo = listing.photos?.[0];
-
-  // RV type label
   const rvTypeLabel = RV_TYPE_LABELS[listing.rvType] ?? listing.rvType;
+
+  // Subtitle: condition + type (capitalize condition)
+  const conditionLabel = listing.condition.charAt(0).toUpperCase() + listing.condition.slice(1);
+  const subtitle = [conditionLabel, rvTypeLabel].filter(Boolean).join(' \u2022 ');
 
   return (
     <div className={styles.card}>
-      {/* Photo area */}
+      {/* Photo */}
       <div className={styles.photoArea}>
         {photo ? (
           <img
@@ -109,65 +66,37 @@ export default function SharedListCard({
             <Icon name="directions_car" size={48} />
           </div>
         )}
-        {isMatch && (
-          <div className={styles.matchBadge}>
-            <Icon name="check_circle" size={16} />
-            <span>Match!</span>
-          </div>
-        )}
+        <div className={styles.favoriteIcon}>
+          <Icon name="favorite" size={32} />
+        </div>
       </div>
 
-      {/* Content area */}
+      {/* Content */}
       <div className={styles.content}>
+        <span className={styles.subtitle}>{subtitle}</span>
         <h3 className={styles.title}>{listing.title}</h3>
-
-        <div className={styles.priceRow}>
-          <span className={styles.price}>
-            {formatPrice(listing.currentPrice)}
-          </span>
-          {listing.originalPrice != null &&
-            listing.originalPrice !== listing.currentPrice && (
-              <span className={styles.priceOriginal}>
-                {formatPrice(listing.originalPrice)}
-              </span>
-            )}
-        </div>
-
-        <p className={styles.location}>
-          {listing.location.city}, {listing.location.state}
-        </p>
-
-        <div className={styles.keySpecs}>
-          <span>{rvTypeLabel}</span>
-          <span className={styles.specDivider}>&middot;</span>
-          <span>{listing.lengthFt} ft</span>
-          <span className={styles.specDivider}>&middot;</span>
-          <span>Sleeps {listing.sleepingCapacity}</span>
-        </div>
-
-        <p className={styles.addedBy}>
-          Added by {addedByName} &middot; {relativeTime(addedAt)}
-        </p>
+        <span className={styles.price}>{formatPrice(listing.currentPrice)}</span>
       </div>
 
-      {/* Reaction section */}
+      {/* Divider */}
+      <div className={styles.divider} />
+
+      {/* Reactions */}
       <div className={styles.reactionSection}>
         <ReactionBar listId={listId} listingId={listingId} />
       </div>
 
-      {/* Comment toggle */}
+      {/* Comments row */}
       <button
         type="button"
-        className={styles.commentToggle}
+        className={styles.commentRow}
         onClick={() => setShowComments((prev) => !prev)}
       >
-        <Icon name="sms" size={18} />
-        <span>
-          {commentCount} comment{commentCount !== 1 ? 's' : ''}
-        </span>
+        <Icon name="sms" size={20} />
+        <span>{commentCount} comment{commentCount !== 1 ? 's' : ''}</span>
       </button>
 
-      {/* Comment thread */}
+      {/* Comment thread (expandable) */}
       {showComments && (
         <div className={styles.commentSection}>
           <CommentThread listId={listId} listingId={listingId} />

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useCoShopping } from '../CoShoppingContext';
 import SharedListCard from '../SharedListCard/SharedListCard';
 import Icon from '../../../ui/Icon/Icon';
@@ -29,6 +30,12 @@ function relativeTime(isoDate: string): string {
 
 export default function SharedListPanel({ className }: SharedListPanelProps) {
   const { activeList, lists } = useCoShopping();
+  const [showInviteToast, setShowInviteToast] = useState(false);
+
+  const handleInvite = () => {
+    setShowInviteToast(true);
+    setTimeout(() => setShowInviteToast(false), 2500);
+  };
 
   // No lists at all
   if (lists.length === 0) {
@@ -90,7 +97,21 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
           <span className={styles.memberCount}>
             {members.length} member{members.length !== 1 ? 's' : ''}
           </span>
+          <button
+            className={styles.inviteButton}
+            onClick={handleInvite}
+            title="Invite member"
+          >
+            <Icon name="person_add" size={20} />
+            Invite
+          </button>
         </div>
+
+        {showInviteToast && (
+          <div className={styles.inviteToast}>
+            Invite link copied! (Coming soon)
+          </div>
+        )}
 
         <span className={styles.lastUpdated}>
           Updated {relativeTime(activeList.updatedAt)}
