@@ -22,8 +22,8 @@ function bedLabel(ft: number): string {
 }
 
 export default function WizardStepBed({ selections, onSelect }: WizardStepBedProps) {
-  const beds = (selections.year && selections.make && selections.model && selections.trim && selections.engine && selections.cab)
-    ? getAvailableBeds(selections.year, selections.make, selections.model, selections.trim, selections.engine, selections.cab)
+  const beds = (selections.make && selections.model && selections.trim && selections.engine && selections.cab)
+    ? getAvailableBeds(selections.make, selections.model, selections.trim, selections.engine, selections.cab)
     : [];
 
   const maxFt = Math.max(...beds.map(parseFeet), 1);

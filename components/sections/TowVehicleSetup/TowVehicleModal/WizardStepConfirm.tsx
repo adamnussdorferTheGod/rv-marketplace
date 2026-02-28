@@ -1,10 +1,12 @@
 import type { TowVehicle } from '../../../../app/src/data/towTypes';
 import { useTowVehicle } from '../TowVehicleContext';
+import Icon from '@components/ui/Icon/Icon';
 import Button from '@components/ui/Button/Button';
 import styles from './TowVehicleModal.module.css';
 
 interface WizardStepConfirmProps {
   vehicle: TowVehicle;
+  onBack: () => void;
 }
 
 interface SpecStat {
@@ -16,7 +18,7 @@ function formatWeight(lbs: number): string {
   return lbs.toLocaleString('en-US') + ' lbs';
 }
 
-export default function WizardStepConfirm({ vehicle }: WizardStepConfirmProps) {
+export default function WizardStepConfirm({ vehicle, onBack }: WizardStepConfirmProps) {
   const { saveVehicle } = useTowVehicle();
 
   const stats: SpecStat[] = [
@@ -50,14 +52,19 @@ export default function WizardStepConfirm({ vehicle }: WizardStepConfirmProps) {
         ))}
       </div>
 
-      <Button
-        variant="primary"
-        size="lg"
-        className={styles.saveBtn}
-        onClick={() => saveVehicle(vehicle)}
-      >
-        Save My Vehicle
-      </Button>
+      <div className={styles.buttonRow}>
+        <button type="button" className={styles.backBtnInline} onClick={onBack}>
+          <Icon name="chevron_left" size={18} />
+          Back
+        </button>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => saveVehicle(vehicle)}
+        >
+          Save My Vehicle
+        </Button>
+      </div>
     </div>
   );
 }

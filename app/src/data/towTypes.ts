@@ -61,4 +61,4 @@ export interface VINDecodeResult {
 
 // ─── YMMT selection levels ──────────────────────────────────────────
 
-export type YMMTLevel = 'year' | 'make' | 'model' | 'trim' | 'engine' | 'cab' | 'bed';
+export type YMMTLevel = 'make' | 'model' | 'trim' | 'engine' | 'cab' | 'bed';

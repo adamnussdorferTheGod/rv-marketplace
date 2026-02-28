@@ -6,33 +6,32 @@ import styles from './TowVehicleModal.module.css';
 // ─── Popular vehicles (quick-pick) ─────────────────────────────────
 
 interface PopularVehicle {
-  year: number;
   make: string;
   model: string;
 }
 
 const POPULAR_VEHICLES: PopularVehicle[] = [
-  { year: 2024, make: 'Ford', model: 'F-150' },
-  { year: 2024, make: 'Ram', model: '1500' },
-  { year: 2024, make: 'Chevrolet', model: 'Silverado 1500' },
-  { year: 2024, make: 'Toyota', model: 'Tundra' },
-  { year: 2024, make: 'GMC', model: 'Sierra 1500' },
-  { year: 2024, make: 'Ford', model: 'F-250' },
-  { year: 2024, make: 'Ram', model: '2500' },
-  { year: 2024, make: 'Toyota', model: 'Tacoma' },
-  { year: 2024, make: 'Jeep', model: 'Gladiator' },
-  { year: 2024, make: 'Chevrolet', model: 'Tahoe' },
+  { make: 'Ford', model: 'F-150' },
+  { make: 'Ram', model: '1500' },
+  { make: 'Chevrolet', model: 'Silverado 1500' },
+  { make: 'Toyota', model: 'Tundra' },
+  { make: 'GMC', model: 'Sierra 1500' },
+  { make: 'Ford', model: 'F-250' },
+  { make: 'Ram', model: '2500' },
+  { make: 'Toyota', model: 'Tacoma' },
+  { make: 'Jeep', model: 'Gladiator' },
+  { make: 'Chevrolet', model: 'Tahoe' },
 ];
 
 // ─── Component ──────────────────────────────────────────────────────
 
 interface WizardStepIntroProps {
-  onQuickPick: (year: number, make: string, model: string) => void;
-  onBrowseByYear: () => void;
+  onQuickPick: (make: string, model: string) => void;
+  onBrowseByMake: () => void;
   onSwitchToVIN: () => void;
 }
 
-export default function WizardStepIntro({ onQuickPick, onBrowseByYear, onSwitchToVIN }: WizardStepIntroProps) {
+export default function WizardStepIntro({ onQuickPick, onBrowseByMake, onSwitchToVIN }: WizardStepIntroProps) {
   const [search, setSearch] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -44,7 +43,7 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByYear, onSwitchT
     if (!search.trim()) return POPULAR_VEHICLES;
     const q = search.toLowerCase();
     return POPULAR_VEHICLES.filter(v =>
-      `${v.year} ${v.make} ${v.model}`.toLowerCase().includes(q) ||
+      `${v.make} ${v.model}`.toLowerCase().includes(q) ||
       v.make.toLowerCase().includes(q) ||
       v.model.toLowerCase().includes(q)
     );
@@ -84,10 +83,10 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByYear, onSwitchT
           <div className={styles.popularList}>
             {filteredPopular.map(v => (
               <button
-                key={`${v.year}-${v.make}-${v.model}`}
+                key={`${v.make}-${v.model}`}
                 type="button"
                 className={styles.popularRow}
-                onClick={() => onQuickPick(v.year, v.make, v.model)}
+                onClick={() => onQuickPick(v.make, v.model)}
               >
                 <BrandLogo make={v.make} size={32} />
                 <span className={styles.popularName}>
@@ -108,8 +107,8 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByYear, onSwitchT
 
       {/* Links */}
       <div className={styles.introLinks}>
-        <button type="button" className={styles.viewMoreLink} onClick={onBrowseByYear}>
-          Don't see yours? Browse by year
+        <button type="button" className={styles.viewMoreLink} onClick={onBrowseByMake}>
+          Don't see yours? Browse by make
         </button>
         <button type="button" className={styles.vinLink} onClick={onSwitchToVIN}>
           Have your VIN? Enter it instead

@@ -341,11 +341,11 @@
   gap: var(--space-8);
   padding: var(--space-16);
   background: var(--rv-surface);
-  border: 2px solid var(--rv-outline-variant);
+  border: 1px solid var(--rv-border-low);
   border-radius: 12px;
   cursor: pointer;
   text-align: left;
-  transition: border-color 150ms, background 150ms, box-shadow 150ms;
+  transition: border-color 150ms, background 150ms;
   animation: slideUp 0.3s ease-out both;
 }
 
@@ -357,7 +357,6 @@
 .trimCardSelected {
   border-color: var(--rv-primary);
   background: color-mix(in srgb, var(--rv-primary) 6%, var(--rv-surface));
-  box-shadow: 0 0 0 1px var(--rv-primary);
 }
 
 .trimTop {
@@ -452,11 +451,11 @@
   gap: var(--space-8);
   padding: var(--space-16);
   background: var(--rv-surface);
-  border: 2px solid var(--rv-border-low);
+  border: 1px solid var(--rv-border-low);
   border-radius: 12px;
   cursor: pointer;
   text-align: left;
-  transition: border-color 150ms, background 150ms, box-shadow 150ms;
+  transition: border-color 150ms, background 150ms;
   animation: slideUp 0.3s ease-out both;
 }
 
@@ -468,7 +467,6 @@
 .richCardSelected {
   border-color: var(--rv-primary);
   background: color-mix(in srgb, var(--rv-primary) 6%, var(--rv-surface));
-  box-shadow: 0 0 0 1px var(--rv-primary);
 }
 
 .richCardTop {
@@ -767,10 +765,40 @@
   color: var(--rv-on-surface);
 }
 
+.buttonRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin-top: var(--space-16);
+}
+
+.backBtnInline {
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 9999px;
+  border: 1px solid var(--rv-border);
+  background: var(--rv-surface);
+  color: var(--rv-on-surface);
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.backBtnInline:hover {
+  border-color: var(--rv-on-surface-variant);
+  background: var(--rv-surface-variant);
+}
+
 .continueBtn {
   height: 48px;
-  padding: 0 var(--space-32);
-  border-radius: var(--radius-base);
+  padding: 0 32px;
+  border-radius: 9999px;
   border: none;
   background: var(--rv-primary);
   color: #fff;
@@ -778,8 +806,7 @@
   font-size: 15px;
   cursor: pointer;
   transition: opacity 150ms;
-  align-self: flex-start;
-  margin-top: var(--space-8);
+  box-sizing: border-box;
 }
 
 .continueBtn:hover {

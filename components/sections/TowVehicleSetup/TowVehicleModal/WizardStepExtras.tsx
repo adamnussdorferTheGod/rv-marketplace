@@ -1,12 +1,39 @@
 import { useTowVehicle } from '../TowVehicleContext';
+import Icon from '@components/ui/Icon/Icon';
 import styles from './TowVehicleModal.module.css';
 
 interface WizardStepExtrasProps {
   onContinue: () => void;
+  onBack: () => void;
 }
 
-export default function WizardStepExtras({ onContinue }: WizardStepExtrasProps) {
+interface ExtraOption {
+  id: string;
+  title: string;
+  description: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+}
+
+export default function WizardStepExtras({ onContinue, onBack }: WizardStepExtrasProps) {
   const { hasTowPackage, hasWDH, setHasTowPackage, setHasWDH } = useTowVehicle();
+
+  const extras: ExtraOption[] = [
+    {
+      id: 'tow-package',
+      title: 'Tow package',
+      description: 'Factory-installed towing equipment (upgraded hitch, wiring, cooling)',
+      checked: hasTowPackage,
+      onChange: setHasTowPackage,
+    },
+    {
+      id: 'wdh',
+      title: 'Weight distribution hitch',
+      description: 'Levels the load between your truck and trailer axles',
+      checked: hasWDH,
+      onChange: setHasWDH,
+    },
+  ];
 
   return (
     <div className={styles.stepContent}>
@@ -15,45 +42,39 @@ export default function WizardStepExtras({ onContinue }: WizardStepExtrasProps) 
         These affect your tow capacity calculations
       </p>
 
-      <div className={styles.checkboxGroup}>
-        <label className={styles.checkboxLabel}>
-          <span className={`${styles.checkbox} ${hasTowPackage ? styles.checkboxChecked : ''}`}>
-            {hasTowPackage && (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M11.5 3.5L5.5 10L2.5 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            )}
-          </span>
-          <input
-            type="checkbox"
-            className={styles.checkboxInput}
-            checked={hasTowPackage}
-            onChange={e => setHasTowPackage(e.target.checked)}
-          />
-          <span className={styles.checkboxText}>My vehicle has a tow package</span>
-        </label>
-
-        <label className={styles.checkboxLabel}>
-          <span className={`${styles.checkbox} ${hasWDH ? styles.checkboxChecked : ''}`}>
-            {hasWDH && (
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M11.5 3.5L5.5 10L2.5 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            )}
-          </span>
-          <input
-            type="checkbox"
-            className={styles.checkboxInput}
-            checked={hasWDH}
-            onChange={e => setHasWDH(e.target.checked)}
-          />
-          <span className={styles.checkboxText}>I have a weight distribution hitch (WDH)</span>
-        </label>
+      <div className={styles.richList}>
+        {extras.map((extra, i) => (
+          <button
+            key={extra.id}
+            type="button"
+            className={`${styles.richCard} ${extra.checked ? styles.richCardSelected : ''}`}
+            onClick={() => extra.onChange(!extra.checked)}
+            style={{ animationDelay: `${i * 50}ms` }}
+          >
+            <div className={styles.richCardTop}>
+              <span className={styles.richCardTitle}>{extra.title}</span>
+              {extra.checked && (
+                <span className={styles.richCardCheck}>
+                  <Icon name="check" size={16} />
+                </span>
+              )}
+            </div>
+            <div className={styles.richCardMeta}>
+              <span>{extra.description}</span>
+            </div>
+          </button>
+        ))}
       </div>
 
-      <button type="button" className={styles.continueBtn} onClick={onContinue}>
-        Continue
-      </button>
+      <div className={styles.buttonRow}>
+        <button type="button" className={styles.backBtnInline} onClick={onBack}>
+          <Icon name="chevron_left" size={18} />
+          Back
+        </button>
+        <button type="button" className={styles.continueBtn} onClick={onContinue}>
+          Continue
+        </button>
+      </div>
     </div>
   );
 }

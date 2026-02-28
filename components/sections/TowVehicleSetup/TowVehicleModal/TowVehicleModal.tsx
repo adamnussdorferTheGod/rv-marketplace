@@ -5,7 +5,6 @@ import { useTowVehicle } from '../TowVehicleContext';
 import { useWizardSteps } from './useWizardSteps';
 import type { YMMTLevel } from '../../../../app/src/data/towTypes';
 import WizardStepIntro from './WizardStepIntro';
-import WizardStepYear from './WizardStepYear';
 import WizardStepMake from './WizardStepMake';
 import WizardStepModel from './WizardStepModel';
 import WizardStepTrim from './WizardStepTrim';
@@ -81,15 +80,8 @@ export default function TowVehicleModal() {
         return (
           <WizardStepIntro
             onQuickPick={wizard.quickPick}
-            onBrowseByYear={wizard.goToYear}
+            onBrowseByMake={wizard.goToMake}
             onSwitchToVIN={wizard.switchToVIN}
-          />
-        );
-      case 'year':
-        return (
-          <WizardStepYear
-            selections={wizard.selections}
-            onSelect={handleSelectOption('year')}
           />
         );
       case 'make':
@@ -113,9 +105,9 @@ export default function TowVehicleModal() {
           />
         );
       case 'extras':
-        return <WizardStepExtras onContinue={wizard.goNext} />;
+        return <WizardStepExtras onContinue={wizard.goNext} onBack={wizard.goBack} />;
       case 'confirm':
-        return wizard.resolvedVehicle ? <WizardStepConfirm vehicle={wizard.resolvedVehicle} /> : null;
+        return wizard.resolvedVehicle ? <WizardStepConfirm vehicle={wizard.resolvedVehicle} onBack={wizard.goBack} /> : null;
       default:
         return null;
     }

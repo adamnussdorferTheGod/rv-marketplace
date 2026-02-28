@@ -28,8 +28,8 @@ function DotScale({ filled }: { filled: number }) {
 }
 
 export default function WizardStepTrim({ selections, onSelect }: WizardStepTrimProps) {
-  const summaries = (selections.year && selections.make && selections.model)
-    ? getTrimSummaries(selections.year, selections.make, selections.model)
+  const summaries = (selections.make && selections.model)
+    ? getTrimSummaries(selections.make, selections.model)
     : [];
 
   const globalMax = Math.max(...summaries.map(s => s.maxTow), 1);

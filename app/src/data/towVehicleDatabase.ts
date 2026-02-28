@@ -397,44 +397,41 @@ export const TOW_VEHICLE_DATABASE: TowVehicle[] = [
 // ─── YMMT Cascading Lookup Functions ────────────────────────────────
 
 /** Returns sorted unique model years available in the database */
-export function getAvailableYears(): number[] {
-  const years = new Set(TOW_VEHICLE_DATABASE.map((v) => v.year));
-  return [...years].sort((a, b) => b - a);
-}
-
-/** Returns makes available for a given year */
-export function getAvailableMakes(year: number): string[] {
-  const makes = new Set(
-    TOW_VEHICLE_DATABASE.filter((v) => v.year === year).map((v) => v.make),
-  );
+/** Returns all makes across all years */
+export function getAvailableMakes(): string[] {
+  const makes = new Set(TOW_VEHICLE_DATABASE.map((v) => v.make));
   return [...makes].sort();
 }
 
-/** Returns models available for a given year and make */
-export function getAvailableModels(year: number, make: string): string[] {
+/** Returns models available for a given make (across all years) */
+export function getAvailableModels(make: string): string[] {
   const models = new Set(
     TOW_VEHICLE_DATABASE
-      .filter((v) => v.year === year && v.make === make)
+      .filter((v) => v.make === make)
       .map((v) => v.model),
   );
   return [...models].sort();
 }
 
-/** Returns trims available for a given year, make, and model */
-export function getAvailableTrims(year: number, make: string, model: string): string[] {
+/** Returns trims available for a given make and model (across all years) */
+export function getAvailableTrims(make: string, model: string): string[] {
   const trims = new Set(
     TOW_VEHICLE_DATABASE
-      .filter((v) => v.year === year && v.make === make && v.model === model)
+      .filter((v) => v.make === make && v.model === model)
       .map((v) => v.trim),
   );
   return [...trims].sort();
 }
 
-/** Returns trim summary with tow capacity range for a given year, make, model */
-export function getTrimSummaries(year: number, make: string, model: string): { trim: string; maxTow: number; engineCount: number }[] {
+/** Returns trim summary with tow capacity range for a given make, model (uses latest year data) */
+export function getTrimSummaries(make: string, model: string): { trim: string; maxTow: number; engineCount: number }[] {
+  // Use latest year entries for each trim
   const trimMap = new Map<string, { maxTow: number; engines: Set<string> }>();
+  const latestYear = Math.max(
+    ...TOW_VEHICLE_DATABASE.filter((v) => v.make === make && v.model === model).map((v) => v.year),
+  );
   for (const v of TOW_VEHICLE_DATABASE) {
-    if (v.year !== year || v.make !== make || v.model !== model) continue;
+    if (v.make !== make || v.model !== model || v.year !== latestYear) continue;
     const entry = trimMap.get(v.trim);
     if (entry) {
       if (v.maxTow > entry.maxTow) entry.maxTow = v.maxTow;
@@ -448,25 +445,28 @@ export function getTrimSummaries(year: number, make: string, model: string): { t
     .sort((a, b) => a.maxTow - b.maxTow);
 }
 
-/** Returns engines available for a given year, make, model, and trim */
+/** Returns engines available for a given make, model, and trim (across all years) */
 export function getAvailableEngines(
-  year: number, make: string, model: string, trim: string,
+  make: string, model: string, trim: string,
 ): string[] {
   const engines = new Set(
     TOW_VEHICLE_DATABASE
-      .filter((v) => v.year === year && v.make === make && v.model === model && v.trim === trim)
+      .filter((v) => v.make === make && v.model === model && v.trim === trim)
       .map((v) => v.engine),
   );
   return [...engines].sort();
 }
 
-/** Returns engine summaries with max tow for a given year, make, model, trim */
+/** Returns engine summaries with max tow for a given make, model, trim (uses latest year data) */
 export function getEngineSummaries(
-  year: number, make: string, model: string, trim: string,
+  make: string, model: string, trim: string,
 ): { engine: string; maxTow: number }[] {
+  const latestYear = Math.max(
+    ...TOW_VEHICLE_DATABASE.filter((v) => v.make === make && v.model === model && v.trim === trim).map((v) => v.year),
+  );
   const map = new Map<string, number>();
   for (const v of TOW_VEHICLE_DATABASE) {
-    if (v.year !== year || v.make !== make || v.model !== model || v.trim !== trim) continue;
+    if (v.make !== make || v.model !== model || v.trim !== trim || v.year !== latestYear) continue;
     const cur = map.get(v.engine) ?? 0;
     if (v.maxTow > cur) map.set(v.engine, v.maxTow);
   }
@@ -475,14 +475,14 @@ export function getEngineSummaries(
     .sort((a, b) => b.maxTow - a.maxTow);
 }
 
-/** Returns cab options available for a given year, make, model, trim, and engine */
+/** Returns cab options available for a given make, model, trim, and engine (across all years) */
 export function getAvailableCabs(
-  year: number, make: string, model: string, trim: string, engine: string,
+  make: string, model: string, trim: string, engine: string,
 ): string[] {
   const cabs = new Set(
     TOW_VEHICLE_DATABASE
       .filter(
-        (v) => v.year === year && v.make === make && v.model === model
+        (v) => v.make === make && v.model === model
           && v.trim === trim && v.engine === engine,
       )
       .map((v) => v.cab),
@@ -490,15 +490,15 @@ export function getAvailableCabs(
   return [...cabs].sort();
 }
 
-/** Returns bed options available for a given year, make, model, trim, engine, and cab */
+/** Returns bed options available for a given make, model, trim, engine, and cab (across all years) */
 export function getAvailableBeds(
-  year: number, make: string, model: string, trim: string,
+  make: string, model: string, trim: string,
   engine: string, cab: string,
 ): string[] {
   const beds = new Set(
     TOW_VEHICLE_DATABASE
       .filter(
-        (v) => v.year === year && v.make === make && v.model === model
+        (v) => v.make === make && v.model === model
           && v.trim === trim && v.engine === engine && v.cab === cab,
       )
       .map((v) => v.bed),
@@ -506,15 +506,18 @@ export function getAvailableBeds(
   return [...beds].sort();
 }
 
-/** Returns exact vehicle match for full YMMT selection, or null if not found */
+/** Returns vehicle match for selection, preferring latest year. Returns null if not found */
 export function getVehicle(
-  year: number, make: string, model: string, trim: string,
+  make: string, model: string, trim: string,
   engine: string, cab: string, bed: string,
 ): TowVehicle | null {
-  return TOW_VEHICLE_DATABASE.find(
-    (v) => v.year === year && v.make === make && v.model === model
+  const matches = TOW_VEHICLE_DATABASE.filter(
+    (v) => v.make === make && v.model === model
       && v.trim === trim && v.engine === engine && v.cab === cab && v.bed === bed,
-  ) ?? null;
+  );
+  if (matches.length === 0) return null;
+  // Return latest year
+  return matches.sort((a, b) => b.year - a.year)[0];
 }
 
 // ─── Utility lookups ────────────────────────────────────────────────

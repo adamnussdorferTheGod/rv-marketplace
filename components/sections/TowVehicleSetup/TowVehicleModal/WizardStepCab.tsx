@@ -26,8 +26,8 @@ function getCabInfo(cab: string) {
 }
 
 export default function WizardStepCab({ selections, onSelect }: WizardStepCabProps) {
-  const cabs = (selections.year && selections.make && selections.model && selections.trim && selections.engine)
-    ? getAvailableCabs(selections.year, selections.make, selections.model, selections.trim, selections.engine)
+  const cabs = (selections.make && selections.model && selections.trim && selections.engine)
+    ? getAvailableCabs(selections.make, selections.model, selections.trim, selections.engine)
     : [];
 
   return (

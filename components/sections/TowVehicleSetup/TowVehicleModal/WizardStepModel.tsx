@@ -9,8 +9,8 @@ interface WizardStepModelProps {
 }
 
 export default function WizardStepModel({ selections, onSelect }: WizardStepModelProps) {
-  const models = (selections.year && selections.make)
-    ? getAvailableModels(selections.year, selections.make)
+  const models = selections.make
+    ? getAvailableModels(selections.make)
     : [];
 
   return (

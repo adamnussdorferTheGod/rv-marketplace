@@ -1,7 +1,6 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { TowVehicle, YMMTLevel } from '../../../../app/src/data/towTypes';
 import {
-  getAvailableYears,
   getAvailableMakes,
   getAvailableModels,
   getAvailableTrims,
@@ -14,13 +13,12 @@ import {
 // ─── Types ──────────────────────────────────────────────────────────
 
 export type WizardStepId =
-  | 'intro' | 'year' | 'make' | 'model' | 'trim' | 'engine' | 'cab' | 'bed'
+  | 'intro' | 'make' | 'model' | 'trim' | 'engine' | 'cab' | 'bed'
   | 'vin' | 'extras' | 'confirm';
 
 export type WizardPath = 'ymmt' | 'vin';
 
 export interface Selections {
-  year: number | null;
   make: string | null;
   model: string | null;
   trim: string | null;
@@ -29,12 +27,12 @@ export interface Selections {
   bed: string | null;
 }
 
-const YMMT_STEPS: WizardStepId[] = ['intro', 'year', 'make', 'model', 'trim', 'engine', 'cab', 'bed', 'extras', 'confirm'];
+const YMMT_STEPS: WizardStepId[] = ['intro', 'make', 'model', 'trim', 'engine', 'cab', 'bed', 'extras', 'confirm'];
 const VIN_STEPS: WizardStepId[] = ['vin', 'extras', 'confirm'];
-const YMMT_LEVELS: YMMTLevel[] = ['year', 'make', 'model', 'trim', 'engine', 'cab', 'bed'];
+const YMMT_LEVELS: YMMTLevel[] = ['make', 'model', 'trim', 'engine', 'cab', 'bed'];
 
 const EMPTY_SELECTIONS: Selections = {
-  year: null, make: null, model: null, trim: null,
+  make: null, model: null, trim: null,
   engine: null, cab: null, bed: null,
 };
 
@@ -42,30 +40,23 @@ const EMPTY_SELECTIONS: Selections = {
 
 function getOptionsForLevel(level: YMMTLevel, sel: Selections): string[] {
   switch (level) {
-    case 'year': return getAvailableYears().map(String);
-    case 'make': return sel.year ? getAvailableMakes(sel.year) : [];
-    case 'model': return (sel.year && sel.make) ? getAvailableModels(sel.year, sel.make) : [];
-    case 'trim': return (sel.year && sel.make && sel.model) ? getAvailableTrims(sel.year, sel.make, sel.model) : [];
-    case 'engine': return (sel.year && sel.make && sel.model && sel.trim) ? getAvailableEngines(sel.year, sel.make, sel.model, sel.trim) : [];
-    case 'cab': return (sel.year && sel.make && sel.model && sel.trim && sel.engine) ? getAvailableCabs(sel.year, sel.make, sel.model, sel.trim, sel.engine) : [];
-    case 'bed': return (sel.year && sel.make && sel.model && sel.trim && sel.engine && sel.cab) ? getAvailableBeds(sel.year, sel.make, sel.model, sel.trim, sel.engine, sel.cab) : [];
+    case 'make': return getAvailableMakes();
+    case 'model': return sel.make ? getAvailableModels(sel.make) : [];
+    case 'trim': return (sel.make && sel.model) ? getAvailableTrims(sel.make, sel.model) : [];
+    case 'engine': return (sel.make && sel.model && sel.trim) ? getAvailableEngines(sel.make, sel.model, sel.trim) : [];
+    case 'cab': return (sel.make && sel.model && sel.trim && sel.engine) ? getAvailableCabs(sel.make, sel.model, sel.trim, sel.engine) : [];
+    case 'bed': return (sel.make && sel.model && sel.trim && sel.engine && sel.cab) ? getAvailableBeds(sel.make, sel.model, sel.trim, sel.engine, sel.cab) : [];
   }
 }
 
 function applySelection(sel: Selections, level: YMMTLevel, value: string): Selections {
   const next = { ...sel };
-  if (level === 'year') {
-    next.year = Number(value);
-    next.make = null; next.model = null; next.trim = null;
-    next.engine = null; next.cab = null; next.bed = null;
-  } else {
-    next[level] = value;
-    // Clear downstream
-    const idx = YMMT_LEVELS.indexOf(level);
-    for (let i = idx + 1; i < YMMT_LEVELS.length; i++) {
-      const k = YMMT_LEVELS[i];
-      (next as Record<string, unknown>)[k] = null;
-    }
+  next[level] = value;
+  // Clear downstream
+  const idx = YMMT_LEVELS.indexOf(level);
+  for (let i = idx + 1; i < YMMT_LEVELS.length; i++) {
+    const k = YMMT_LEVELS[i];
+    (next as Record<string, unknown>)[k] = null;
   }
   return next;
 }
@@ -101,9 +92,9 @@ export interface UseWizardStepsReturn {
   selections: Selections;
   resolvedVehicle: TowVehicle | null;
   selectOption: (level: YMMTLevel, value: string) => void;
-  quickPick: (year: number, make: string, model: string) => void;
+  quickPick: (make: string, model: string) => void;
   goBack: () => void;
-  goToYear: () => void;
+  goToMake: () => void;
   goNext: () => void;
   switchToVIN: () => void;
   switchToYMMT: () => void;
@@ -125,9 +116,9 @@ export function useWizardSteps(): UseWizardStepsReturn {
   // Resolve vehicle from selections or VIN
   const resolvedVehicle = useMemo(() => {
     if (path === 'vin') return vinVehicle;
-    const { year, make, model, trim, engine, cab, bed } = selections;
-    if (year && make && model && trim && engine && cab && bed) {
-      return getVehicle(year, make, model, trim, engine, cab, bed);
+    const { make, model, trim, engine, cab, bed } = selections;
+    if (make && model && trim && engine && cab && bed) {
+      return getVehicle(make, model, trim, engine, cab, bed);
     }
     return null;
   }, [path, selections, vinVehicle]);
@@ -151,12 +142,12 @@ export function useWizardSteps(): UseWizardStepsReturn {
     }
   }, [selections]);
 
-  /** Quick-pick a popular vehicle (year+make+model), auto-skip to next needed step */
-  const quickPick = useCallback((year: number, make: string, model: string) => {
-    let sel: Selections = { ...EMPTY_SELECTIONS, year, make, model };
+  /** Quick-pick a popular vehicle (make+model), auto-skip to next needed step */
+  const quickPick = useCallback((make: string, model: string) => {
+    let sel: Selections = { ...EMPTY_SELECTIONS, make, model };
 
     // Auto-fill from model level onward (trim, engine, cab, bed)
-    const modelIdx = YMMT_LEVELS.indexOf('model'); // 2
+    const modelIdx = YMMT_LEVELS.indexOf('model'); // 1
     const { selections: autoFilled, lastFilledIdx } = autoFillSingleOptions(sel, modelIdx);
     sel = autoFilled;
 
@@ -221,9 +212,9 @@ export function useWizardSteps(): UseWizardStepsReturn {
     return partial;
   }
 
-  const goToYear = useCallback(() => {
+  const goToMake = useCallback(() => {
     setDirection(1);
-    setCurrentStepIndex(YMMT_STEPS.indexOf('year'));
+    setCurrentStepIndex(YMMT_STEPS.indexOf('make'));
   }, []);
 
   const goNext = useCallback(() => {
@@ -273,7 +264,7 @@ export function useWizardSteps(): UseWizardStepsReturn {
     selectOption,
     quickPick,
     goBack,
-    goToYear,
+    goToMake,
     goNext,
     switchToVIN,
     switchToYMMT,

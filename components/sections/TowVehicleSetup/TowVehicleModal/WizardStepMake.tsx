@@ -9,7 +9,7 @@ interface WizardStepMakeProps {
 }
 
 export default function WizardStepMake({ selections, onSelect }: WizardStepMakeProps) {
-  const makes = selections.year ? getAvailableMakes(selections.year) : [];
+  const makes = getAvailableMakes();
 
   return (
     <div className={styles.stepContent}>

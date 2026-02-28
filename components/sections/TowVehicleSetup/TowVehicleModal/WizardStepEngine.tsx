@@ -29,8 +29,8 @@ function formatTow(lbs: number) {
 }
 
 export default function WizardStepEngine({ selections, onSelect }: WizardStepEngineProps) {
-  const summaries = (selections.year && selections.make && selections.model && selections.trim)
-    ? getEngineSummaries(selections.year, selections.make, selections.model, selections.trim)
+  const summaries = (selections.make && selections.model && selections.trim)
+    ? getEngineSummaries(selections.make, selections.model, selections.trim)
     : [];
 
   const bestTow = summaries.length > 0 ? summaries[0].maxTow : 0;
