@@ -1,0 +1,276 @@
+/* Full-screen mobile search page */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--color-white);
+}
+
+/* ─── Top bar with back button ─── */
+.topBar {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 var(--space-16);
+  border-bottom: 1px solid var(--rv-border-low);
+  flex-shrink: 0;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--rv-on-surface);
+  padding: 0;
+}
+
+.backButton:active {
+  background: var(--rv-surface-variant);
+}
+
+/* ─── Content area ─── */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+  padding: var(--space-24) var(--space-16) var(--space-32);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── Search input pill ─── */
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 56px;
+  border: 1px solid #d5d5d5;
+  border-radius: var(--radius-full);
+  padding: var(--space-4) var(--space-16);
+  background: var(--color-white);
+  flex-shrink: 0;
+}
+
+.searchBar:focus-within {
+  border-color: #006836;
+  box-shadow: 0 2px 12px rgba(0, 104, 54, 0.1);
+}
+
+.sparkleIcon {
+  color: #006836;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  width: 100%;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+  line-height: 1.4;
+}
+
+.searchInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--rv-on-surface-variant);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+/* ─── Suggestions list ─── */
+.suggestions {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestionGroup + .suggestionGroup {
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--rv-border-low);
+  padding-top: var(--space-8);
+}
+
+.categoryHeader {
+  font: var(--font-label-3);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--rv-on-surface-variant);
+  padding: var(--space-8) 0;
+}
+
+.suggestionRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) 0;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+}
+
+.suggestionRow:active {
+  background: var(--rv-surface-variant);
+  margin: 0 calc(-1 * var(--space-16));
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+  width: calc(100% + var(--space-32));
+}
+
+.suggestionIcon {
+  flex-shrink: 0;
+  color: var(--rv-on-surface-variant);
+  display: flex;
+  align-items: center;
+}
+
+.suggestionLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.highlight {
+  background: none;
+  color: var(--rv-primary);
+  font: var(--font-label-2-semibold);
+}
+
+.suggestionCount {
+  flex-shrink: 0;
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Browse sections ─── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.sectionHeading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* RV types — horizontal scroll */
+.typeScroll {
+  display: flex;
+  gap: var(--space-12);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 calc(-1 * var(--space-16));
+  padding: 0 var(--space-16);
+}
+
+.typeScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.typeCard {
+  flex-shrink: 0;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  border-radius: var(--radius-base);
+  background: var(--rv-surface-variant);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+}
+
+.typeCard:active {
+  opacity: 0.8;
+}
+
+.typeLabel {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.typeImage {
+  width: 100%;
+  height: 70px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Chips (popular searches, popular makes) */
+.chipWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--rv-border);
+  background: var(--color-white);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chip:active {
+  background: var(--rv-surface-variant);
+}
+
+/* AI loading */
+.aiLoading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) 0;
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

@@ -246,7 +246,7 @@ export default function HeroBanner() {
 
   const handleSearchFocus = () => {
     if (isMobile) {
-      navigate('/search');
+      navigate('/mobile-search');
       return;
     }
     setIsDropdownOpen(true);
