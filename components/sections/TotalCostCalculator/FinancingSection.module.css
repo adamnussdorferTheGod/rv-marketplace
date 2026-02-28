@@ -1,0 +1,286 @@
+.financingSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16) 0;
+  border-top: var(--border-light) solid var(--rv-border);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.sectionLabel {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+}
+
+/* Down Payment Slider + Input */
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.rangeInput {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--rv-border-low);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.rangeInput::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.rangeInput::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rv-border-low);
+}
+
+.rangeInput::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rv-border-low);
+}
+
+.downPaymentInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.dollarPrefix {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+}
+
+.downPaymentInput {
+  width: 100px;
+  text-align: right;
+  border: none;
+  border-bottom: 2px solid var(--rv-border-low);
+  background: transparent;
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  padding: var(--space-4) 0;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.downPaymentInput:focus {
+  border-bottom-color: var(--rv-primary);
+}
+
+.downPaymentPercent {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Loan Term Pills */
+.termPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.termPill {
+  padding: var(--space-8) var(--space-16);
+  border-radius: 999px;
+  border: 1px solid var(--rv-border);
+  background: transparent;
+  cursor: pointer;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  transition: all 150ms ease;
+}
+
+.termPill:hover {
+  border-color: var(--rv-primary);
+  color: var(--rv-primary);
+}
+
+.termPillActive {
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border-color: var(--rv-primary);
+  font-weight: 600;
+}
+
+.termPillActive:hover {
+  color: var(--rv-on-primary);
+}
+
+/* Credit Tier List */
+.creditTierList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.creditTierOption {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-12);
+  border-radius: var(--radius-base);
+  border: none;
+  border-left: 3px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  transition: all 150ms ease;
+}
+
+.creditTierOption:hover {
+  background: rgba(224, 237, 231, 0.2);
+}
+
+.creditTierOptionActive {
+  border-left-color: var(--rv-primary);
+  background: rgba(224, 237, 231, 0.3);
+  font-weight: 600;
+}
+
+.creditTierOptionDimmed {
+  opacity: 0.5;
+}
+
+/* Manual APR */
+.manualAprRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-top: var(--space-4);
+}
+
+.manualAprToggle {
+  color: var(--rv-primary);
+  font: var(--font-body-2);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.manualAprToggle:hover {
+  opacity: 0.8;
+}
+
+.manualAprInputWrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.manualAprInput {
+  width: 80px;
+  border: none;
+  border-bottom: 2px solid var(--rv-border-low);
+  background: transparent;
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  padding: var(--space-4) 0;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.manualAprInput:focus {
+  border-bottom-color: var(--rv-primary);
+}
+
+.aprSuffix {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+}
+
+/* Results */
+.resultsDivider {
+  height: 1px;
+  background: var(--rv-border);
+  margin: var(--space-8) 0;
+}
+
+.resultsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.resultsHeading {
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.resultRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-8) 0;
+}
+
+.resultLabel {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+}
+
+.resultValue {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+}
+
+.monthlyPaymentValue {
+  font: var(--font-title-1);
+  color: var(--rv-primary);
+}
+
+/* Mobile (max-width 767px) */
+@media (max-width: 767px) {
+  .termPill {
+    padding: var(--space-4) var(--space-12);
+    font-size: 13px;
+  }
+
+  .downPaymentInput {
+    width: 80px;
+  }
+
+  .resultRow {
+    padding: var(--space-4) 0;
+  }
+}

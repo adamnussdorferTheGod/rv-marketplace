@@ -34,11 +34,11 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 ### Trade-In
 
-- [ ] **TRAD-01**: Trade-in toggle (Yes/No) that expands/collapses trade-in input section
-- [ ] **TRAD-02**: YMMT selector (Year/Make/Model/Condition) with automated value range estimate (low/mid/high)
-- [ ] **TRAD-03**: User can override estimated trade-in value with manual dollar input
-- [ ] **TRAD-04**: Trade-in tax credit savings displayed prominently in credit states with dollar amount saved
-- [ ] **TRAD-05**: Warning callout shown in non-credit states (CA, DC, HI, KY, VA) explaining tax is on full price
+- [x] **TRAD-01**: Trade-in toggle (Yes/No) that expands/collapses trade-in input section
+- [x] **TRAD-02**: YMMT selector (Year/Make/Model/Condition) with automated value range estimate (low/mid/high)
+- [x] **TRAD-03**: User can override estimated trade-in value with manual dollar input
+- [x] **TRAD-04**: Trade-in tax credit savings displayed prominently in credit states with dollar amount saved
+- [x] **TRAD-05**: Warning callout shown in non-credit states (CA, DC, HI, KY, VA) explaining tax is on full price
 
 ### Financing
 
@@ -137,11 +137,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FEE-02 | Phase 47 | Complete |
 | FEE-03 | Phase 48 | Complete |
 | FEE-04 | Phase 49 | Complete |
-| TRAD-01 | Phase 49 | Pending |
-| TRAD-02 | Phase 49 | Pending |
-| TRAD-03 | Phase 49 | Pending |
-| TRAD-04 | Phase 49 | Pending |
-| TRAD-05 | Phase 49 | Pending |
+| TRAD-01 | Phase 49 | Complete |
+| TRAD-02 | Phase 49 | Complete |
+| TRAD-03 | Phase 49 | Complete |
+| TRAD-04 | Phase 49 | Complete |
+| TRAD-05 | Phase 49 | Complete |
 | FIN-01 | Phase 50 | Pending |
 | FIN-02 | Phase 50 | Pending |
 | FIN-03 | Phase 50 | Pending |

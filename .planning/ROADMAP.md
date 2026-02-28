@@ -785,7 +785,7 @@ Plans:
 
 - [x] **Phase 47: State Tax & Fee Data Layer** - Static JSON database for all 50 states + DC with tax rates, DMV fees, registration models, dealer fee defaults, trade-in credit rules, and doc fee caps (completed 2026-02-28)
 - [x] **Phase 48: Calculator Shell & Core Display** - TotalCostCalculator section replacing LoanCalculator, summary bar with out-the-door total, state selector, expandable full breakdown, real-time recalculation (completed 2026-02-28)
-- [ ] **Phase 49: Dealer Fees, Trade-In & Editable Inputs** - Editable dealer fee line items, trade-in toggle with YMMT/condition selector, value estimation, trade-in tax credit display, non-credit state warnings
+- [x] **Phase 49: Dealer Fees, Trade-In & Editable Inputs** - Editable dealer fee line items, trade-in toggle with YMMT/condition selector, value estimation, trade-in tax credit display, non-credit state warnings (completed 2026-02-28)
 - [ ] **Phase 50: Financing Calculator** - Down payment slider, loan term selector (36-180 mo), credit tier/APR input, amount financed from out-the-door total, monthly payment and total interest display
 - [ ] **Phase 51: Insurance, State Tips & Responsive Polish** - Insurance estimate by RV type, state-specific tip callouts with info/savings/warning styling, responsive stacking, value animations, legal disclaimer
 
@@ -930,6 +930,6 @@ Plans:
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
 | 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
 | 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
-| 49. Dealer Fees, Trade-In & Editable Inputs | 1/2 | In Progress|  | - |
+| 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete   | 2026-02-28 | - |
 | 50. Financing Calculator | v8.0 | 0/1 | Not started | - |
 | 51. Insurance, State Tips & Responsive Polish | v8.0 | 0/2 | Not started | - |
