@@ -514,12 +514,12 @@ Plans:
   3. User can enter a VIN in an alternative input and see the decoded vehicle with auto-populated specs identical to the YMMT selection result
   4. User can save the selected vehicle to app state (React context or equivalent) and the saved vehicle persists across page navigations between VDP, SRP, and homepage
   5. The setup form includes tow package and weight distribution hitch checkboxes, and is accessible from a VDP prompt, an SRP filter prompt, and a dedicated entry point
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 31-01: TowVehicleContext provider with save/load/clear actions and cross-page state persistence
-- [ ] 31-02: YMMT cascading dropdown selector component with filtered options at each level
-- [ ] 31-03: VIN entry input, spec display panel, tow package/WDH checkboxes, and save flow
+- [ ] 31-01-PLAN.md — TowVehicleContext provider with save/load/clear actions and App.tsx wiring
+- [ ] 31-02-PLAN.md — YMMT cascading dropdown, VIN entry, spec display panel, and setup form with tabs/checkboxes
+- [ ] 31-03-PLAN.md — Modal overlay, entry point prompts on VDP and SRP, toast notification, and wiring
 
 ### Phase 32: VDP Tow Match Display
 **Goal**: Users with a saved tow vehicle see a clear compatibility verdict on the VDP with detailed breakdown of how their truck matches the RV
@@ -622,8 +622,8 @@ Plans:
 | 27. SRP Page Assembly | v4.0 | 2/2 | Complete | 2026-02-27 |
 | 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
 | 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
-| 30. Vehicle Data Layer | 3/3 | Complete   | 2026-02-28 | - |
-| 31. Tow Vehicle Setup | v6.0 | 0/3 | Not started | - |
+| 30. Vehicle Data Layer | 3/3 | Complete    | 2026-02-28 | - |
+| 31. Tow Vehicle Setup | 1/3 | In Progress|  | - |
 | 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
 | 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |

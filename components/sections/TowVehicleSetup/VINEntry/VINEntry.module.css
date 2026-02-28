@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.inputRow {
+  display: flex;
+  gap: var(--space-8);
+  align-items: stretch;
+}
+
+.vinInput {
+  flex: 1;
+  height: 44px;
+  padding: 0 var(--space-12);
+  background: var(--rv-surface);
+  color: var(--rv-on-surface);
+  border: var(--border-light) solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  font: var(--font-body-2);
+  font-family: 'Courier New', Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: border-color 0.15s ease;
+}
+
+.vinInput::placeholder {
+  font-family: var(--font-family);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--rv-on-surface-variant);
+}
+
+.vinInput:hover {
+  border-color: var(--rv-border);
+}
+
+.vinInput:focus {
+  outline: none;
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px rgba(0, 104, 54, 0.12);
+}
+
+.decodeButton {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.errorMessage {
+  font: var(--font-body-2);
+  color: var(--color-red-200);
+  margin: 0;
+}
+
+.hint {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Confirmation card ────────────────────────── */
+
+.confirmationCard {
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  animation: slideIn 0.25s ease-out;
+}
+
+.confirmationHeader {
+  margin-bottom: var(--space-12);
+}
+
+.vehicleTitle {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.vehicleEngine {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: var(--space-4) 0 0;
+}
+
+.confirmationSpecs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.specItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.specLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.specValue {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.tryAgainLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font: var(--font-link-2);
+  color: var(--rv-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.tryAgainLink:hover {
+  color: var(--rv-primary-dark);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

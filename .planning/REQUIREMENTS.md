@@ -23,7 +23,7 @@ Requirements for Tow Vehicle Match milestone. Each maps to roadmap phases.
 - [ ] **VSTP-01**: User can select tow vehicle via cascading Year/Make/Model/Trim/Engine/Cab/Bed dropdowns where each selection filters the next
 - [ ] **VSTP-02**: After selecting a full configuration, vehicle tow specs display below the form (max towing, payload, tongue weight, GCWR, hitch class, wheelbase)
 - [ ] **VSTP-03**: User can enter a VIN and see decoded vehicle with auto-populated specs
-- [ ] **VSTP-04**: User can save selected vehicle to profile (persists in app state across page navigations)
+- [x] **VSTP-04**: User can save selected vehicle to profile (persists in app state across page navigations)
 - [ ] **VSTP-05**: "My Tow Vehicle" setup is accessible from a VDP prompt, SRP filter prompt, and a dedicated profile entry point
 - [ ] **VSTP-06**: Tow package and weight distribution hitch checkboxes appear on the setup form
 
@@ -118,7 +118,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VSTP-01 | Phase 31 | Pending |
 | VSTP-02 | Phase 31 | Pending |
 | VSTP-03 | Phase 31 | Pending |
-| VSTP-04 | Phase 31 | Pending |
+| VSTP-04 | Phase 31 | Complete |
 | VSTP-05 | Phase 31 | Pending |
 | VSTP-06 | Phase 31 | Pending |
 | VDPM-01 | Phase 32 | Pending |
