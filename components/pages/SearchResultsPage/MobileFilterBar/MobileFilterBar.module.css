@@ -43,19 +43,15 @@
     opacity: 0.9;
   }
 
-  .heartBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: auto;
-    padding: 0;
-    border: none;
-    background: none;
-    color: var(--rv-on-surface);
-    cursor: pointer;
+  /* Saved RVs pill — red accent */
+  .savedPill {
+    border-color: #E53935;
+    color: #E53935;
+    gap: 4px;
+    padding: 8px 12px;
   }
 
-  .heartBtn:hover {
-    color: var(--rv-primary);
+  .savedPill:hover {
+    background: rgba(229, 57, 53, 0.06);
   }
 }

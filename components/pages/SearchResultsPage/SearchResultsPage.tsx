@@ -179,6 +179,8 @@ export default function SearchResultsPage() {
               sort={sort}
               onFilterClick={() => setSidebarOpen(true)}
               onSortClick={() => setSortSheetOpen(true)}
+              savedCount={activeList?.listings.length ?? 0}
+              onSavedClick={() => setSharedListOpen(true)}
             />
 
             <FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
