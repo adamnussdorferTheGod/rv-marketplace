@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 36-co-shopping-data-layer
-Plan: 1 of 2
-Status: Executing
-Last activity: 2026-02-28 — Completed 36-01 (co-shopping types)
+Plan: 2 of 2
+Status: Phase Complete
+Last activity: 2026-02-28 — Completed 36-02 (co-shopping context & sample data)
 
-Progress: [####################] 54/78 plans (69%)
+Progress: [####################] 55/78 plans (71%)
 
 ## Performance Metrics
 
@@ -46,8 +46,8 @@ Progress: [####################] 54/78 plans (69%)
 
 **v7.0:**
 - Total plans estimated: 17 (across 9 phases)
-- Completed: 1
-- 36-01: 1min
+- Completed: 2
+- 36-01: 1min, 36-02: 2min
 
 ## Accumulated Context
 
@@ -64,6 +64,8 @@ Progress: [####################] 54/78 plans (69%)
 - [v7.0]: WebSocket simulation -- mock real-time with state updates, no actual server
 - [v7.0]: Registration gate as UI-only -- invite flow deferred, mock co-shopper pre-populated
 - [36-01]: String ID loose coupling for co-shopping types -- no SRPListing import, reference by ID only
+- [36-02]: CoShoppingProvider inside TowVehicleProvider, outside BrowserRouter for route-independent access
+- [36-02]: Action callbacks auto-inject currentUserId for cleaner consumer API
 
 ### Pending Todos
 
@@ -76,5 +78,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 36-01-PLAN.md
+Stopped at: Completed 36-02-PLAN.md (Phase 36 complete)
 Resume file: None

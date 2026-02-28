@@ -10,9 +10,9 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 ### Data Layer
 
 - [x] **CDAT-01**: TypeScript interfaces define SharedList, ListMember, SharedListing, Reaction, and Comment shapes matching the spec's state model
-- [ ] **CDAT-02**: CoShoppingContext provider manages shared list state (lists, active list, reactions, comments) with persistence across page navigations
-- [ ] **CDAT-03**: Sample shared list with pre-populated listings, reactions, and comments for the Airstream Flying Cloud and other sample listings
-- [ ] **CDAT-04**: Mock co-shopper user (e.g., "Sarah") with display name and avatar for demo purposes
+- [x] **CDAT-02**: CoShoppingContext provider manages shared list state (lists, active list, reactions, comments) with persistence across page navigations
+- [x] **CDAT-03**: Sample shared list with pre-populated listings, reactions, and comments for the Airstream Flying Cloud and other sample listings
+- [x] **CDAT-04**: Mock co-shopper user (e.g., "Sarah") with display name and avatar for demo purposes
 
 ### Shared Lists
 
@@ -143,9 +143,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | CDAT-01 | Phase 36 | Complete |
-| CDAT-02 | Phase 36 | Pending |
-| CDAT-03 | Phase 36 | Pending |
-| CDAT-04 | Phase 36 | Pending |
+| CDAT-02 | Phase 36 | Complete |
+| CDAT-03 | Phase 36 | Complete |
+| CDAT-04 | Phase 36 | Complete |
 | LIST-01 | Phase 37 | Pending |
 | LIST-02 | Phase 37 | Pending |
 | LIST-03 | Phase 37 | Pending |
