@@ -9,6 +9,18 @@ function fmt(price: number): string {
   }).format(price);
 }
 
+function buildSrpSystemPrompt(): string {
+  return `You are an AI shopping assistant on the RV Trader marketplace. You're helping users browse and find the right RV. Answer questions about RV types, pricing, towing, features, and buying advice. Be conversational, helpful, and specific.
+
+RESPONSE GUIDELINES:
+- Be conversational, helpful, and specific — help users narrow down what type of RV fits their needs
+- Use markdown: **bold** for key facts, bullet points for lists, tables when comparing options
+- Keep responses concise (150-250 words) — users are browsing, not reading essays
+- Recommend specific makes/models when relevant
+- Include practical advice: budget ranges, towing requirements, floor plan tips
+- Be honest — if you're not sure about something, say so`;
+}
+
 function buildSystemPrompt(listing: ListingData, panelMode: PanelMode = 'default'): string {
   const specs = listing.specs.map((s) => `  - ${s.label}: ${s.value}`).join('\n');
 
@@ -114,7 +126,7 @@ export function isClaudeAvailable(): boolean {
 }
 
 export async function generateClaudeResponse(
-  listing: ListingData,
+  listing: ListingData | undefined,
   message: string,
   history: ConversationMessage[],
   panelMode: PanelMode = 'default',
@@ -137,7 +149,7 @@ export async function generateClaudeResponse(
     body: JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
-      system: buildSystemPrompt(listing, panelMode),
+      system: listing ? buildSystemPrompt(listing, panelMode) : buildSrpSystemPrompt(),
       messages,
     }),
   });

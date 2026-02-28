@@ -54,10 +54,13 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
           <div className={styles.welcomeIcon}>
             <Icon name="sparkles" size={32} />
           </div>
-          <h3 className={styles.welcomeTitle}>Explore this listing with AI</h3>
+          <h3 className={styles.welcomeTitle}>
+            {listingTitle ? 'Explore this listing with AI' : 'Ask anything about RVs'}
+          </h3>
           <p className={styles.welcomeBody}>
-            Ask me anything about this RV — pricing, specs, towing
-            requirements, comparisons, and more.
+            {listingTitle
+              ? 'Ask me anything about this RV — pricing, specs, towing requirements, comparisons, and more.'
+              : 'Get instant answers about RV types, pricing, towing, buying tips, and more.'}
           </p>
           <SuggestedPrompts
             prompts={suggestedPrompts}

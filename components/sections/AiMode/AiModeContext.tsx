@@ -16,7 +16,7 @@ import { generateInitialPrompts, generateFollowUpPrompts } from './generatePromp
 const AiModeContext = createContext<AiModeContextValue | null>(null);
 
 interface AiModeProviderProps {
-  listing: ListingData;
+  listing?: ListingData;
   children: ReactNode;
 }
 

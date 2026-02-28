@@ -17,6 +17,8 @@ import AdSlot from '@components/ui/AdSlot/AdSlot';
 import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import FeaturedListings from '../HomePage/FeaturedListings/FeaturedListings';
+import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
+import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import styles from './SearchResultsPage.module.css';
 
 const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
@@ -80,6 +82,7 @@ export default function SearchResultsPage() {
     : 'New and used RVs for sale';
 
   return (
+    <AiModeProvider>
     <div className={styles.searchResultsPage}>
       <div className={styles.leaderboardAd}>
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
@@ -202,6 +205,9 @@ export default function SearchResultsPage() {
         onSortChange={setSort}
         onClose={() => setSortSheetOpen(false)}
       />
+
+      <AiModePanel />
     </div>
+    </AiModeProvider>
   );
 }

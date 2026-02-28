@@ -6,6 +6,7 @@ import AdSlot from '../../../ui/AdSlot/AdSlot';
 import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
 import SellRvCard from '../SellRvCard/SellRvCard';
 import SellRvPromoCard from '../SellRvPromoCard/SellRvPromoCard';
+import AiSearchCard from '../AiSearchCard/AiSearchCard';
 import styles from './ListingGrid.module.css';
 
 interface ListingGridProps {
@@ -17,9 +18,10 @@ interface ListingGridProps {
  * Interleaved content inserted between card rows.
  * Key = the row number AFTER which the content appears (1-indexed).
  */
-const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'paa'> = {
+const INTERLEAVED_CONTENT: Record<number, 'sponsored' | 'ad' | 'ai_search' | 'paa'> = {
   3: 'sponsored',
-  6: 'ad',
+  5: 'ai_search',
+  7: 'ad',
   9: 'paa',
 };
 
@@ -91,6 +93,12 @@ export default function ListingGrid({
               dealerName="Native Summit RV"
               dealerDescription="Premium RV dealership with over 200 new and pre-owned units"
             />
+          </div>,
+        );
+      } else if (interleavedType === 'ai_search') {
+        elements.push(
+          <div key="interleaved-ai-search" className={styles.interleavedSection}>
+            <AiSearchCard />
           </div>,
         );
       } else if (interleavedType === 'ad') {
