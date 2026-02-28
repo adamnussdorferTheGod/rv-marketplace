@@ -1,9 +1,12 @@
-/* InviteModal — co-shopping invite overlay */
+/* ==========================================================================
+   InviteModal — co-shopping invite overlay
+   Uses TIDE 2.0 tokens + Select input patterns
+   ========================================================================== */
 
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--rv-overlay-light);
   z-index: 1002;
   display: flex;
   align-items: center;
@@ -15,7 +18,7 @@
 .modal {
   background: var(--rv-surface);
   border-radius: var(--radius-lg);
-  padding: var(--space-24) var(--space-24) var(--space-24);
+  padding: var(--space-32);
   max-width: 440px;
   width: 100%;
   position: relative;
@@ -43,10 +46,11 @@
   opacity: 1;
 }
 
-/* Header */
+/* ── Header ────────────────────────────────────────────────────────── */
+
 .header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-24);
 }
 
 .iconWrap {
@@ -58,13 +62,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
+  margin: 0 auto var(--space-12);
 }
 
 .heading {
   font: var(--font-headline-2);
   color: var(--rv-on-surface);
-  margin: 0 0 6px;
+  margin: 0 0 var(--space-4);
 }
 
 .subtext {
@@ -75,35 +79,36 @@
 
 .subtext strong {
   color: var(--rv-on-surface);
+  font-weight: 600;
 }
 
-/* Members */
+/* ── Members ───────────────────────────────────────────────────────── */
+
 .membersSection {
-  margin-bottom: 16px;
+  margin-bottom: var(--space-16);
 }
 
 .membersLabel {
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: var(--space-8);
 }
 
 .memberChips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .memberChip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 4px 10px 4px 4px;
+  padding: var(--space-4) 10px var(--space-4) var(--space-4);
   background: var(--rv-surface-variant);
   border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 500;
+  font: var(--font-label-3);
   color: var(--rv-on-surface);
 }
 
@@ -116,7 +121,7 @@
   justify-content: center;
   font-size: 11px;
   font-weight: 600;
-  color: white;
+  color: var(--color-white);
   flex-shrink: 0;
 }
 
@@ -127,18 +132,20 @@
   object-fit: cover;
 }
 
-/* Divider */
+/* ── Divider ───────────────────────────────────────────────────────── */
+
 .divider {
   height: 1px;
   background: var(--rv-border-low);
-  margin: 16px 0;
+  margin: var(--space-16) 0;
 }
 
-/* Sections */
+/* ── Section layout ────────────────────────────────────────────────── */
+
 .section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-8);
 }
 
 .sectionLabel {
@@ -147,15 +154,16 @@
 }
 
 .sectionHint {
-  font-size: 12px;
+  font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
   margin: 0;
 }
 
-/* Link row */
+/* ── Link row — read-only field matching Select DS input ───────────── */
+
 .linkRow {
   display: flex;
-  gap: 8px;
+  gap: var(--space-8);
   align-items: stretch;
 }
 
@@ -163,61 +171,32 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 12px;
+  gap: var(--space-8);
+  height: 48px;
+  padding: 0 var(--space-16);
   background: var(--rv-surface-variant);
-  border: 1px solid var(--rv-border-low);
+  border: var(--border-light) solid var(--rv-border);
   border-radius: var(--radius-base);
   color: var(--rv-on-surface-variant);
-  min-height: 40px;
   overflow: hidden;
 }
 
 .linkText {
-  font-size: 13px;
+  font: var(--font-label-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .copyBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 16px;
-  font: var(--font-button-2);
-  font-family: inherit;
-  color: var(--rv-on-primary);
-  background: var(--rv-primary);
-  border: none;
-  border-radius: var(--radius-base);
-  cursor: pointer;
-  white-space: nowrap;
-  min-height: 40px;
-  transition: background 150ms, transform 100ms;
+  flex-shrink: 0;
 }
 
-.copyBtn:hover {
-  background: var(--rv-primary-dark);
-}
+/* ── Email row — editable field matching Select DS input ────────────── */
 
-.copyBtn:active {
-  transform: scale(0.97);
-}
-
-.copyBtnCopied {
-  background: var(--color-green-200);
-}
-
-.copyBtnCopied:hover {
-  background: var(--color-green-200);
-}
-
-/* Email row */
 .emailRow {
   display: flex;
-  gap: 8px;
+  gap: var(--space-8);
   align-items: stretch;
 }
 
@@ -225,30 +204,40 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 12px;
-  background: var(--rv-surface);
-  border: 1px solid var(--rv-border-low);
+  gap: var(--space-8);
+  height: 48px;
+  padding: 0 var(--space-16);
+  background: var(--color-white);
+  border: var(--border-light) solid var(--rv-border);
   border-radius: var(--radius-base);
   color: var(--rv-on-surface-variant);
-  min-height: 40px;
-  transition: border-color 150ms;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.emailFieldWrap:hover {
+  border-color: var(--rv-border-high);
 }
 
 .emailFieldWrap:focus-within {
   border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px rgba(0, 104, 54, 0.12);
 }
 
 .emailFieldError {
   border-color: var(--color-red-200);
 }
 
+.emailFieldError:focus-within {
+  border-color: var(--color-red-200);
+  box-shadow: 0 0 0 2px rgba(216, 32, 46, 0.12);
+}
+
 .emailInput {
   flex: 1;
   border: none;
   background: none;
-  font: var(--font-body-2);
-  font-family: inherit;
+  font: var(--font-label-1);
+  font-family: var(--font-family);
   color: var(--rv-on-surface);
   outline: none;
   min-width: 0;
@@ -256,23 +245,25 @@
 
 .emailInput::placeholder {
   color: var(--rv-on-surface-variant);
-  opacity: 0.6;
 }
 
+/* ── Feedback text ─────────────────────────────────────────────────── */
+
 .errorText {
-  font-size: 12px;
+  font: var(--font-label-3);
   color: var(--color-red-200);
   margin: 0;
 }
 
 .successText {
-  font-size: 12px;
-  color: var(--color-green-200);
-  font-weight: 500;
+  font: var(--font-label-3);
+  color: var(--color-green-300);
+  font-weight: 600;
   margin: 0;
 }
 
-/* Animations */
+/* ── Animations ────────────────────────────────────────────────────── */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -283,10 +274,11 @@
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Mobile */
+/* ── Mobile ────────────────────────────────────────────────────────── */
+
 @media (max-width: 480px) {
   .modal {
-    padding: var(--space-16);
+    padding: var(--space-24) var(--space-16);
     max-width: 100%;
     margin: 0 var(--space-8);
   }
@@ -298,5 +290,9 @@
 
   .copyBtn {
     width: 100%;
+  }
+
+  .emailFieldWrap {
+    height: 48px;
   }
 }

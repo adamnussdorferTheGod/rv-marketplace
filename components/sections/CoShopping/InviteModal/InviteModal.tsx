@@ -122,23 +122,18 @@ export default function InviteModal({ listName, members, onClose, onInviteSent }
           <label className={styles.sectionLabel}>Share link</label>
           <div className={styles.linkRow}>
             <div className={styles.linkField}>
-              <Icon name="link" size={16} />
+              <Icon name="link" size={18} />
               <span className={styles.linkText}>{shareLink}</span>
             </div>
-            <button
-              className={`${styles.copyBtn} ${linkCopied ? styles.copyBtnCopied : ''}`}
+            <Button
+              variant={linkCopied ? 'primary' : 'secondary'}
+              size="sm"
               onClick={handleCopyLink}
-              type="button"
+              leadingIcon={linkCopied ? 'check' : undefined}
+              className={styles.copyBtn}
             >
-              {linkCopied ? (
-                <>
-                  <Icon name="check" size={16} />
-                  Copied
-                </>
-              ) : (
-                'Copy link'
-              )}
-            </button>
+              {linkCopied ? 'Copied' : 'Copy link'}
+            </Button>
           </div>
           <p className={styles.sectionHint}>Anyone with this link can join your list</p>
         </div>
