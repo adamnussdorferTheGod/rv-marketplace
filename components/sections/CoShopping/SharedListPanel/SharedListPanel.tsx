@@ -4,6 +4,7 @@ import { MOCK_USER_SARAH } from '../../../../app/src/data/sampleCoShopping';
 import SharedListCard from '../SharedListCard/SharedListCard';
 import SavedRVsAuthGate from '../SavedRVsAuthGate/SavedRVsAuthGate';
 import CompareView from '../CompareView/CompareView';
+import InviteModal from '../InviteModal/InviteModal';
 import SegmentedButtons from '../../../ui/SegmentedButtons/SegmentedButtons';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SharedListPanel.module.css';
@@ -39,7 +40,7 @@ const FREE_SAVE_LIMIT = 3;
 
 export default function SharedListPanel({ className, onTabChange }: SharedListPanelProps) {
   const { activeList, lists, addMember, getReactionsForListing } = useCoShopping();
-  const [showInviteToast, setShowInviteToast] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const [activeTab, setActiveTab] = useState<PanelTab>('list');
 
   const handleTabChange = (tab: PanelTab) => {
@@ -49,12 +50,14 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
   };
 
   const handleInvite = () => {
+    setShowInviteModal(true);
+  };
+
+  const handleInviteSent = (email: string) => {
     // Demo: add Sarah as a member to show the shared state
     if (activeList && activeList.members.length < 2) {
       addMember(activeList.id, MOCK_USER_SARAH);
     }
-    setShowInviteToast(true);
-    setTimeout(() => setShowInviteToast(false), 2500);
   };
 
   // No lists at all
@@ -136,10 +139,13 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
           </div>
         </button>
 
-        {showInviteToast && (
-          <div className={styles.inviteToast}>
-            Sarah has been added! (Demo)
-          </div>
+        {showInviteModal && activeList && (
+          <InviteModal
+            listName={activeList.name}
+            members={activeList.members}
+            onClose={() => setShowInviteModal(false)}
+            onInviteSent={handleInviteSent}
+          />
         )}
 
         {/* Compact cards for solo mode */}
@@ -211,10 +217,13 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
           </button>
         </div>
 
-        {showInviteToast && (
-          <div className={styles.inviteToast}>
-            Invite link copied! (Coming soon)
-          </div>
+        {showInviteModal && activeList && (
+          <InviteModal
+            listName={activeList.name}
+            members={activeList.members}
+            onClose={() => setShowInviteModal(false)}
+            onInviteSent={handleInviteSent}
+          />
         )}
 
         <span className={styles.lastUpdated}>
