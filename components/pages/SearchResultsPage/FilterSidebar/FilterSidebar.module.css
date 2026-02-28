@@ -136,7 +136,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-8);
-  border: 1px solid transparent;
+  border: 1px solid #d5d5d5;
   border-radius: var(--radius-full);
   padding: var(--space-4) var(--space-32) var(--space-4) var(--space-16);
   height: 56px;
@@ -169,12 +169,14 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  animation: searchBorderShimmer 3s linear infinite;
+  animation: searchBorderShimmer 1s linear 1 forwards;
+  opacity: 1;
 }
 
 @keyframes searchBorderShimmer {
-  0% { --search-shimmer-angle: 0deg; }
-  100% { --search-shimmer-angle: 360deg; }
+  0% { --search-shimmer-angle: 0deg; opacity: 1; }
+  80% { --search-shimmer-angle: 288deg; opacity: 1; }
+  100% { --search-shimmer-angle: 360deg; opacity: 0; }
 }
 
 .searchPanelExpanded .searchContainer {
