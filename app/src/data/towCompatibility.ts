@@ -25,8 +25,8 @@ const DEFAULT_ACCESSORY_WEIGHT = 50;
 const HITCH_CLASS_CAPACITY: Record<HitchClass, number> = {
   I: 2000,
   II: 3500,
-  III: 6000,
-  IV: 10000,
+  III: 8000,
+  IV: 12000,
   V: 18000,
 };
 
@@ -43,8 +43,8 @@ const HITCH_CLASS_RANK: Record<HitchClass, number> = {
 function determineRequiredHitchClass(gvwr: number): HitchClass {
   if (gvwr <= 2000) return 'I';
   if (gvwr <= 3500) return 'II';
-  if (gvwr <= 6000) return 'III';
-  if (gvwr <= 10000) return 'IV';
+  if (gvwr <= 8000) return 'III';
+  if (gvwr <= 12000) return 'IV';
   return 'V';
 }
 

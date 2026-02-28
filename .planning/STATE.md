@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 ## Current Position
 
 Phase: 51 - Insurance, State Tips, Responsive Polish
-Plan: 1 of 2 complete in current phase
-Status: In Progress
-Last activity: 2026-02-28 — Completed 51-01 (Insurance & State Tips)
+Plan: 2 of 2 complete in current phase
+Status: Complete
+Last activity: 2026-02-28 — Completed 51-02 (Responsive Polish)
 
 ## Performance Metrics
 
@@ -31,8 +31,8 @@ Last activity: 2026-02-28 — Completed 51-01 (Insurance & State Tips)
 
 **v8.0:**
 - Total plans estimated: 10 (across 5 phases)
-- Completed: 8
-- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min, 51-01: 3min
+- Completed: 9
+- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min, 51-01: 3min, 51-02: 3min
 
 ## Accumulated Context
 
@@ -69,6 +69,9 @@ Last activity: 2026-02-28 — Completed 51-01 (Insurance & State Tips)
 - [51-01]: Insurance rates as percentage of RV value with per-type minimums for educational estimates
 - [51-01]: StateTips uses data-tip-type attribute for variant styling (info/savings/warning)
 - [51-01]: Tips rendered after state selector and before summary card for immediate contextual feedback
+- [51-02]: Digit strip uses CSS translateY transition for smooth odometer roll between character positions
+- [51-02]: matchMedia listener for mobile detection in CostBreakdown, not window resize
+- [51-02]: Accordion sections default to collapsed on mobile, always open on desktop
 
 ### Pending Todos
 
@@ -85,5 +88,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 51-01-PLAN.md
+Stopped at: Completed 51-02-PLAN.md
 Resume file: None

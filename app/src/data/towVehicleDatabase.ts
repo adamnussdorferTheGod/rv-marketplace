@@ -2,7 +2,7 @@ import type { TowVehicle, HitchClass } from './towTypes.ts';
 
 // ─── Static tow vehicle database ────────────────────────────────────
 //
-// 55 truck/SUV configurations with realistic tow specs sourced from
+// 93 truck/SUV configurations with realistic tow specs sourced from
 // manufacturer tow guides. Covers half-ton, heavy-duty, mid-size
 // trucks and full-size SUVs from 2022-2024.
 
@@ -391,6 +391,232 @@ export const TOW_VEHICLE_DATABASE: TowVehicle[] = [
     engine: '2.4L Turbo', cab: 'SUV', bed: 'N/A',
     maxTow: 5000, maxTongue: 500, payload: 1340, gcwr: 12000,
     curbWeight: 4635, wheelbase: 110, hitchClass: 'III' as HitchClass, hasTowPackage: false,
+  },
+
+  // ─── Nissan Titan (2024) ──────────────────────────────────────────
+  {
+    year: 2024, make: 'Nissan', model: 'Titan', trim: 'SV',
+    engine: '5.6L V8', cab: 'Crew Cab', bed: '5.5 ft',
+    maxTow: 9310, maxTongue: 931, payload: 1580, gcwr: 15930,
+    curbWeight: 5540, wheelbase: 140, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Nissan', model: 'Titan', trim: 'SV',
+    engine: '5.6L V8', cab: 'Crew Cab', bed: '6.5 ft',
+    maxTow: 9370, maxTongue: 937, payload: 1640, gcwr: 16020,
+    curbWeight: 5490, wheelbase: 152, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Nissan', model: 'Titan', trim: 'PRO-4X',
+    engine: '5.6L V8', cab: 'Crew Cab', bed: '5.5 ft',
+    maxTow: 9320, maxTongue: 932, payload: 1680, gcwr: 16100,
+    curbWeight: 5620, wheelbase: 140, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Nissan Frontier (2024) ───────────────────────────────────────
+  {
+    year: 2024, make: 'Nissan', model: 'Frontier', trim: 'SV',
+    engine: '3.8L V6', cab: 'Crew Cab', bed: '5 ft',
+    maxTow: 6720, maxTongue: 672, payload: 1230, gcwr: 12140,
+    curbWeight: 4590, wheelbase: 126, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Nissan', model: 'Frontier', trim: 'PRO-4X',
+    engine: '3.8L V6', cab: 'Crew Cab', bed: '5 ft',
+    maxTow: 6600, maxTongue: 660, payload: 1170, gcwr: 12000,
+    curbWeight: 4710, wheelbase: 126, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Nissan Armada (2024) ─────────────────────────────────────────
+  {
+    year: 2024, make: 'Nissan', model: 'Armada', trim: 'SL',
+    engine: '5.6L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8500, maxTongue: 850, payload: 1560, gcwr: 15740,
+    curbWeight: 5680, wheelbase: 122, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Nissan', model: 'Armada', trim: 'Platinum',
+    engine: '5.6L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8500, maxTongue: 850, payload: 1480, gcwr: 15660,
+    curbWeight: 5780, wheelbase: 122, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Chevrolet Suburban (2024) ────────────────────────────────────
+  {
+    year: 2024, make: 'Chevrolet', model: 'Suburban', trim: 'LT',
+    engine: '5.3L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8300, maxTongue: 830, payload: 1730, gcwr: 15800,
+    curbWeight: 5700, wheelbase: 134, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Chevrolet', model: 'Suburban', trim: 'Z71',
+    engine: '5.3L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8000, maxTongue: 800, payload: 1610, gcwr: 15500,
+    curbWeight: 5810, wheelbase: 134, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Chevrolet', model: 'Suburban', trim: 'RST',
+    engine: '5.3L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8100, maxTongue: 810, payload: 1570, gcwr: 15600,
+    curbWeight: 5830, wheelbase: 134, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Chevrolet Colorado (2024) ────────────────────────────────────
+  {
+    year: 2024, make: 'Chevrolet', model: 'Colorado', trim: 'LT',
+    engine: '2.7L Turbo', cab: 'Crew Cab', bed: 'Short',
+    maxTow: 7700, maxTongue: 770, payload: 1460, gcwr: 13300,
+    curbWeight: 4390, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Chevrolet', model: 'Colorado', trim: 'Z71',
+    engine: '2.7L Turbo', cab: 'Crew Cab', bed: 'Short',
+    maxTow: 7700, maxTongue: 770, payload: 1300, gcwr: 13200,
+    curbWeight: 4510, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── GMC Sierra 2500HD (2024) ─────────────────────────────────────
+  {
+    year: 2024, make: 'GMC', model: 'Sierra 2500HD', trim: 'SLT',
+    engine: '6.6L V8', cab: 'Crew Cab', bed: 'Standard',
+    maxTow: 14500, maxTongue: 1812, payload: 3540, gcwr: 23500,
+    curbWeight: 6380, wheelbase: 159, hitchClass: 'IV' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'GMC', model: 'Sierra 2500HD', trim: 'SLT',
+    engine: '6.6L Duramax Diesel', cab: 'Crew Cab', bed: 'Standard',
+    maxTow: 18500, maxTongue: 2312, payload: 3080, gcwr: 28300,
+    curbWeight: 6990, wheelbase: 159, hitchClass: 'IV' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'GMC', model: 'Sierra 2500HD', trim: 'Denali',
+    engine: '6.6L V8', cab: 'Crew Cab', bed: 'Standard',
+    maxTow: 14500, maxTongue: 1812, payload: 3260, gcwr: 23200,
+    curbWeight: 6600, wheelbase: 159, hitchClass: 'IV' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'GMC', model: 'Sierra 2500HD', trim: 'Denali',
+    engine: '6.6L Duramax Diesel', cab: 'Crew Cab', bed: 'Standard',
+    maxTow: 18500, maxTongue: 2312, payload: 2940, gcwr: 28000,
+    curbWeight: 7210, wheelbase: 159, hitchClass: 'V' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── GMC Yukon (2024) ─────────────────────────────────────────────
+  {
+    year: 2024, make: 'GMC', model: 'Yukon', trim: 'SLT',
+    engine: '5.3L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8100, maxTongue: 810, payload: 1580, gcwr: 15200,
+    curbWeight: 5710, wheelbase: 120, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'GMC', model: 'Yukon', trim: 'Denali',
+    engine: '6.2L V8', cab: 'SUV', bed: 'N/A',
+    maxTow: 8400, maxTongue: 840, payload: 1440, gcwr: 15600,
+    curbWeight: 5920, wheelbase: 120, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── GMC Canyon (2024) ────────────────────────────────────────────
+  {
+    year: 2024, make: 'GMC', model: 'Canyon', trim: 'Elevation',
+    engine: '2.7L Turbo', cab: 'Crew Cab', bed: 'Short',
+    maxTow: 7700, maxTongue: 770, payload: 1460, gcwr: 13300,
+    curbWeight: 4410, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'GMC', model: 'Canyon', trim: 'AT4',
+    engine: '2.7L Turbo', cab: 'Crew Cab', bed: 'Short',
+    maxTow: 7700, maxTongue: 770, payload: 1380, gcwr: 13200,
+    curbWeight: 4530, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Toyota Sequoia (2024) ────────────────────────────────────────
+  {
+    year: 2024, make: 'Toyota', model: 'Sequoia', trim: 'SR5',
+    engine: 'i-FORCE MAX Hybrid', cab: 'SUV', bed: 'N/A',
+    maxTow: 9520, maxTongue: 952, payload: 1415, gcwr: 16800,
+    curbWeight: 5885, wheelbase: 122, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Toyota', model: 'Sequoia', trim: 'Limited',
+    engine: 'i-FORCE MAX Hybrid', cab: 'SUV', bed: 'N/A',
+    maxTow: 9200, maxTongue: 920, payload: 1310, gcwr: 16500,
+    curbWeight: 6000, wheelbase: 122, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Toyota', model: 'Sequoia', trim: 'TRD Pro',
+    engine: 'i-FORCE MAX Hybrid', cab: 'SUV', bed: 'N/A',
+    maxTow: 9000, maxTongue: 900, payload: 1225, gcwr: 16300,
+    curbWeight: 6130, wheelbase: 122, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Jeep Grand Cherokee (2024) ───────────────────────────────────
+  {
+    year: 2024, make: 'Jeep', model: 'Grand Cherokee', trim: 'Limited',
+    engine: '3.6L V6', cab: 'SUV', bed: 'N/A',
+    maxTow: 6200, maxTongue: 620, payload: 1370, gcwr: 11700,
+    curbWeight: 4470, wheelbase: 116, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Jeep', model: 'Grand Cherokee', trim: 'Overland',
+    engine: '3.6L V6', cab: 'SUV', bed: 'N/A',
+    maxTow: 6200, maxTongue: 620, payload: 1220, gcwr: 11500,
+    curbWeight: 4620, wheelbase: 116, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Jeep Wagoneer (2024) ─────────────────────────────────────────
+  {
+    year: 2024, make: 'Jeep', model: 'Wagoneer', trim: 'Series I',
+    engine: '3.0L Hurricane I6', cab: 'SUV', bed: 'N/A',
+    maxTow: 10000, maxTongue: 1000, payload: 1570, gcwr: 17200,
+    curbWeight: 5960, wheelbase: 123, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Jeep', model: 'Wagoneer', trim: 'Series II',
+    engine: '3.0L Hurricane I6', cab: 'SUV', bed: 'N/A',
+    maxTow: 9850, maxTongue: 985, payload: 1470, gcwr: 17000,
+    curbWeight: 6080, wheelbase: 123, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+
+  // ─── Honda Ridgeline (2024) ───────────────────────────────────────
+  {
+    year: 2024, make: 'Honda', model: 'Ridgeline', trim: 'Sport',
+    engine: '3.5L V6', cab: 'Crew Cab', bed: '5.3 ft',
+    maxTow: 5000, maxTongue: 500, payload: 1480, gcwr: 10100,
+    curbWeight: 4365, wheelbase: 125, hitchClass: 'III' as HitchClass, hasTowPackage: false,
+  },
+  {
+    year: 2024, make: 'Honda', model: 'Ridgeline', trim: 'RTL',
+    engine: '3.5L V6', cab: 'Crew Cab', bed: '5.3 ft',
+    maxTow: 5000, maxTongue: 500, payload: 1430, gcwr: 10050,
+    curbWeight: 4420, wheelbase: 125, hitchClass: 'III' as HitchClass, hasTowPackage: false,
+  },
+
+  // ─── Honda Pilot (2024) ───────────────────────────────────────────
+  {
+    year: 2024, make: 'Honda', model: 'Pilot', trim: 'EX-L',
+    engine: '3.5L V6', cab: 'SUV', bed: 'N/A',
+    maxTow: 5000, maxTongue: 500, payload: 1400, gcwr: 10060,
+    curbWeight: 4310, wheelbase: 111, hitchClass: 'III' as HitchClass, hasTowPackage: false,
+  },
+  {
+    year: 2024, make: 'Honda', model: 'Pilot', trim: 'TrailSport',
+    engine: '3.5L V6', cab: 'SUV', bed: 'N/A',
+    maxTow: 5000, maxTongue: 500, payload: 1315, gcwr: 10000,
+    curbWeight: 4435, wheelbase: 111, hitchClass: 'III' as HitchClass, hasTowPackage: false,
+  },
+
+  // ─── Ford Ranger (2024) ───────────────────────────────────────────
+  {
+    year: 2024, make: 'Ford', model: 'Ranger', trim: 'XLT',
+    engine: '2.3L EcoBoost', cab: 'SuperCrew', bed: '5 ft',
+    maxTow: 7500, maxTongue: 750, payload: 1560, gcwr: 13100,
+    curbWeight: 4360, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
+  },
+  {
+    year: 2024, make: 'Ford', model: 'Ranger', trim: 'Lariat',
+    engine: '2.3L EcoBoost', cab: 'SuperCrew', bed: '5 ft',
+    maxTow: 7500, maxTongue: 750, payload: 1500, gcwr: 13050,
+    curbWeight: 4450, wheelbase: 131, hitchClass: 'III' as HitchClass, hasTowPackage: true,
   },
 ];
 

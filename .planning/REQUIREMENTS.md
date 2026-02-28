@@ -61,8 +61,8 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 ### Mobile & Polish
 
-- [ ] **UX-01**: Responsive layout — inputs stack single-column on mobile, breakdown sections as collapsible accordions
-- [ ] **UX-02**: Numeric values animate on recalculation with odometer-style counter roll
+- [x] **UX-01**: Responsive layout — inputs stack single-column on mobile, breakdown sections as collapsible accordions
+- [x] **UX-02**: Numeric values animate on recalculation with odometer-style counter roll
 - [x] **UX-03**: Legal disclaimer at bottom: "Cost estimates are calculated using publicly available state tax rates..."
 
 ## Future Requirements
@@ -152,8 +152,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INS-02 | Phase 51 | Complete |
 | TIP-01 | Phase 51 | Complete |
 | TIP-02 | Phase 51 | Complete |
-| UX-01 | Phase 51 | Pending |
-| UX-02 | Phase 51 | Pending |
+| UX-01 | Phase 51 | Complete |
+| UX-02 | Phase 51 | Complete |
 | UX-03 | Phase 48 | Complete |
 
 **Coverage:**

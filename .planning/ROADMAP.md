@@ -787,7 +787,7 @@ Plans:
 - [x] **Phase 48: Calculator Shell & Core Display** - TotalCostCalculator section replacing LoanCalculator, summary bar with out-the-door total, state selector, expandable full breakdown, real-time recalculation (completed 2026-02-28)
 - [x] **Phase 49: Dealer Fees, Trade-In & Editable Inputs** - Editable dealer fee line items, trade-in toggle with YMMT/condition selector, value estimation, trade-in tax credit display, non-credit state warnings (completed 2026-02-28)
 - [x] **Phase 50: Financing Calculator** - Down payment slider, loan term selector (36-180 mo), credit tier/APR input, amount financed from out-the-door total, monthly payment and total interest display (completed 2026-02-28)
-- [ ] **Phase 51: Insurance, State Tips & Responsive Polish** - Insurance estimate by RV type, state-specific tip callouts with info/savings/warning styling, responsive stacking, value animations, legal disclaimer
+- [x] **Phase 51: Insurance, State Tips & Responsive Polish** - Insurance estimate by RV type, state-specific tip callouts with info/savings/warning styling, responsive stacking, value animations, legal disclaimer (completed 2026-02-28)
 
 ### Phase 47: State Tax & Fee Data Layer
 **Goal**: A complete, typed state-by-state tax and fee database exists as static JSON so all downstream calculator phases can look up any state's tax rate, DMV fees, registration model, dealer fee defaults, and trade-in credit rules without building UI
@@ -932,4 +932,4 @@ Plans:
 | 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
 | 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete   | 2026-02-28 | - |
 | 50. Financing Calculator | 1/1 | Complete   | 2026-02-28 | - |
-| 51. Insurance, State Tips & Responsive Polish | 1/2 | In Progress|  | - |
+| 51. Insurance, State Tips & Responsive Polish | 2/2 | Complete   | 2026-02-28 | - |

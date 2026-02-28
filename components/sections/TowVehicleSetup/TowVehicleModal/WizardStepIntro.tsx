@@ -19,6 +19,9 @@ const POPULAR_KEYS = new Set([
   'Toyota|Tacoma',
   'Jeep|Gladiator',
   'Chevrolet|Tahoe',
+  'Nissan|Titan',
+  'Chevrolet|Suburban',
+  'Toyota|Sequoia',
 ]);
 
 const POPULAR_VEHICLES = ALL_VEHICLES.filter(v => POPULAR_KEYS.has(`${v.make}|${v.model}`));
