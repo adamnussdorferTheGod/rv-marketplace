@@ -107,6 +107,31 @@
   color: var(--rv-on-surface-variant);
 }
 
+/* Compare Matches CTA button */
+.compareButton {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: white;
+  background: var(--rv-primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.compareButton:hover {
+  opacity: 0.9;
+}
+
+/* Inline CompareView container */
+.compareSection {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 /* Card list */
 .cardList {
   display: flex;

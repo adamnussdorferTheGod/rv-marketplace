@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useCoShopping } from '../CoShoppingContext';
 import { MOCK_USER_SARAH } from '../../../../app/src/data/sampleCoShopping';
 import SharedListCard from '../SharedListCard/SharedListCard';
 import SavedRVsAuthGate from '../SavedRVsAuthGate/SavedRVsAuthGate';
+import CompareView from '../CompareView/CompareView';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SharedListPanel.module.css';
 
@@ -33,8 +34,9 @@ function relativeTime(isoDate: string): string {
 const FREE_SAVE_LIMIT = 3;
 
 export default function SharedListPanel({ className }: SharedListPanelProps) {
-  const { activeList, lists, addMember } = useCoShopping();
+  const { activeList, lists, addMember, getReactionsForListing } = useCoShopping();
   const [showInviteToast, setShowInviteToast] = useState(false);
+  const [showCompare, setShowCompare] = useState(false);
 
   const handleInvite = () => {
     // Demo: add Sarah as a member to show the shared state
@@ -83,6 +85,42 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
     (a, b) =>
       new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime(),
   );
+
+  // ─── Match detection for Compare button ──────────────────────────
+  const { matchedIds, hasRealMatches } = useMemo(() => {
+    if (!isShared) return { matchedIds: [] as string[], hasRealMatches: false };
+
+    // Find listings where ALL members reacted with "love"
+    const loveMatches = activeList.listings
+      .filter((sl) => {
+        const reactions = getReactionsForListing(activeList.id, sl.listingId);
+        return members.every((m) => {
+          const r = reactions.find((rx) => rx.memberId === m.id);
+          return r?.type === 'love';
+        });
+      })
+      .map((sl) => sl.listingId);
+
+    if (loveMatches.length > 0) {
+      return { matchedIds: loveMatches.slice(0, 3), hasRealMatches: true };
+    }
+
+    // Fallback: top 3 most-reacted listings (non-"none" reactions, descending)
+    const reactedListings = activeList.listings
+      .map((sl) => {
+        const reactions = getReactionsForListing(activeList.id, sl.listingId);
+        const nonNoneCount = reactions.filter((r) => r.type !== 'none').length;
+        return { listingId: sl.listingId, count: nonNoneCount };
+      })
+      .filter((item) => item.count > 0)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3)
+      .map((item) => item.listingId);
+
+    return { matchedIds: reactedListings, hasRealMatches: false };
+  }, [isShared, activeList, members, getReactionsForListing]);
+
+  const showCompareButton = isShared && matchedIds.length > 0;
 
   // ─── Empty state: no listings saved ────────────────────────────────
   if (sortedListings.length === 0) {
@@ -199,7 +237,30 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
         <span className={styles.lastUpdated}>
           Updated {relativeTime(activeList.updatedAt)}
         </span>
+
+        {showCompareButton && (
+          <button
+            type="button"
+            className={styles.compareButton}
+            onClick={() => setShowCompare((prev) => !prev)}
+          >
+            {hasRealMatches
+              ? `Compare Matches (${matchedIds.length})`
+              : `Compare Top Picks (${matchedIds.length})`}
+          </button>
+        )}
       </div>
+
+      {/* Inline CompareView */}
+      {showCompare && showCompareButton && (
+        <div className={styles.compareSection}>
+          <CompareView
+            listId={activeList.id}
+            listingIds={matchedIds}
+            onClose={() => setShowCompare(false)}
+          />
+        </div>
+      )}
 
       {/* Full cards with reactions and comments */}
       <div className={styles.cardList}>
