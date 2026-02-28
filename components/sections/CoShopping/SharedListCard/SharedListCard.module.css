@@ -121,15 +121,15 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 13px 16px 12px;
+  padding: 14px 16px 12px;
   border: none;
   border-top: 1px solid #e4e4e5;
   background: none;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
   color: #6e7072;
-  line-height: 19.6px;
+  line-height: 16.8px;
   font-family: inherit;
   text-align: left;
 }
