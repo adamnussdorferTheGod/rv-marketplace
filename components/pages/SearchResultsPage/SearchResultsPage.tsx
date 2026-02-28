@@ -233,7 +233,7 @@ export default function SearchResultsPage() {
                 onClick={() => setSharedListOpen(false)}
                 aria-label="Close saved RVs"
               >
-                <Icon name="x_close" size={20} />
+                <Icon name="x_close" size={24} />
               </button>
             </div>
             <div className={styles.sharedListSidebarBody}>

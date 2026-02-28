@@ -93,12 +93,12 @@ const demoListings: SharedListing[] = [
 const demoReactions: Reaction[] = [
   { memberId: 'user-you', listingId: listingIds[0], type: 'love', updatedAt: '2026-02-21T12:00:00Z' },
   { memberId: 'user-sarah', listingId: listingIds[0], type: 'love', updatedAt: '2026-02-21T18:30:00Z' },
-  { memberId: 'user-you', listingId: listingIds[1], type: 'maybe', updatedAt: '2026-02-22T16:00:00Z' },
+  { memberId: 'user-you', listingId: listingIds[1], type: 'love', updatedAt: '2026-02-22T16:00:00Z' },
   { memberId: 'user-sarah', listingId: listingIds[1], type: 'love', updatedAt: '2026-02-22T20:15:00Z' },
   { memberId: 'user-you', listingId: listingIds[2], type: 'love', updatedAt: '2026-02-23T11:30:00Z' },
   { memberId: 'user-sarah', listingId: listingIds[2], type: 'love', updatedAt: '2026-02-23T19:00:00Z' },
   { memberId: 'user-you', listingId: listingIds[3], type: 'pass', updatedAt: '2026-02-24T17:45:00Z' },
-  { memberId: 'user-sarah', listingId: listingIds[3], type: 'maybe', updatedAt: '2026-02-25T08:00:00Z' },
+  { memberId: 'user-sarah', listingId: listingIds[3], type: 'pass', updatedAt: '2026-02-25T08:00:00Z' },
   { memberId: 'user-you', listingId: listingIds[4], type: 'love', updatedAt: '2026-02-25T13:00:00Z' },
   { memberId: 'user-sarah', listingId: listingIds[4], type: 'love', updatedAt: '2026-02-25T14:00:00Z' },
 ];

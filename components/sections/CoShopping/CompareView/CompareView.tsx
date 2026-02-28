@@ -44,11 +44,10 @@ const formatSleeps = (capacity: number | null | undefined): string =>
 // ─── Reaction display config ────────────────────────────────────────
 
 const REACTION_CONFIG: Record<
-  Exclude<ReactionType, 'none'>,
+  Exclude<ReactionType, 'none' | 'maybe'>,
   { icon: string; color: string; label: string }
 > = {
   love: { icon: 'heart_filled', color: 'var(--color-red-500)', label: 'Love' },
-  maybe: { icon: 'help_outline', color: 'var(--color-amber-500)', label: 'Maybe' },
   pass: { icon: 'block', color: 'var(--rv-on-surface-variant)', label: 'Pass' },
 };
 
@@ -230,7 +229,7 @@ export default function CompareView({ listId, listingIds, onClose }: CompareView
                 const memberReaction = reactions.find((r) => r.memberId === member.id);
                 const reactionType = memberReaction?.type;
 
-                if (!reactionType || reactionType === 'none') {
+                if (!reactionType || reactionType === 'none' || reactionType === 'maybe') {
                   return (
                     <div key={listing.id} className={`${styles.valueCell} ${styles.naValue}`}>
                       —

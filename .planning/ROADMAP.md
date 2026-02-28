@@ -753,7 +753,7 @@ Plans:
 **Goal:** Users can interact with their shared co-shopping list through reaction buttons (Love/Maybe/Pass), per-listing comment threads, and a complete shared list panel with listing cards showing all co-shopping activity
 **Depends on:** Phase 36 (co-shopping data layer)
 **Requirements:** RXTN-01, RXTN-02, RXTN-03, RXTN-04, RXTN-05, CMNT-01, CMNT-02, CMNT-03, VIEW-02
-**Plans:** 1/1 plans complete
+**Plans:** 2/2 plans complete
 
 Plans:
 - [ ] 45-01-PLAN.md — ReactionBar (Love/Maybe/Pass) and CommentThread components with CoShoppingContext integration
@@ -900,7 +900,7 @@ Plans:
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 18. Mobile Polish | 1/1 | Complete   | 2026-02-28 | - |
+| 18. Mobile Polish | 2/2 | Complete   | 2026-02-28 | - |
 | 19. Routing & Homepage Shell | v5.0 | 1/1 | Complete | 2026-02-26 |
 | 20. Hero Banner & Search | v5.0 | 2/2 | Complete | 2026-02-26 |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 2/2 | Complete | 2026-02-26 |

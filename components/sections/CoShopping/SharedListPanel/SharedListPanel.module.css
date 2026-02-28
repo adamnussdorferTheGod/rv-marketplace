@@ -12,8 +12,6 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding-bottom: 16px;
-  border-bottom: 2px solid var(--rv-border-low);
 }
 
 .listName {
@@ -59,11 +57,14 @@
 }
 
 .memberCount {
-  font-size: 13px;
-  color: var(--rv-on-surface-variant);
+  font-size: 14px;
+  font-weight: 600;
+  color: #6e7072;
   margin-left: 8px;
+  line-height: 19.6px;
 }
 
+/* Invite — pill button matching Figma */
 .inviteButton {
   margin-left: auto;
   display: inline-flex;
@@ -72,16 +73,18 @@
   padding: 8px 16px;
   font-size: 14px;
   font-weight: 600;
+  font-family: inherit;
   color: #252526;
   background: white;
   border: 1px solid #939598;
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.15s;
+  line-height: 19.6px;
 }
 
 .inviteButton:hover {
-  background: var(--rv-surface-secondary, #f5f5f5);
+  background: #f5f5f5;
 }
 
 .inviteToast {
@@ -104,32 +107,26 @@
 
 .lastUpdated {
   font-size: 12px;
-  color: var(--rv-on-surface-variant);
+  font-weight: 500;
+  color: #6e7072;
+  line-height: 16.8px;
 }
 
-/* Compare Matches CTA button */
-.compareButton {
+/* Divider between header info and segmented control */
+.headerDivider {
+  height: 1px;
+  background: #e4e4e5;
+  margin: 4px 0;
+}
+
+/* Segmented control override for panel context */
+.segmentedControl {
   width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  color: white;
-  background: var(--rv-primary);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.compareButton:hover {
-  opacity: 0.9;
 }
 
 /* Inline CompareView container */
 .compareSection {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin: 0;
 }
 
 /* Card list */

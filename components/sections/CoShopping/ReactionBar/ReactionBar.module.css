@@ -37,15 +37,6 @@
   background: #e0ede7;
 }
 
-.maybe {
-  border-color: #fa8131;
-  background: #fff3e0;
-}
-
-.maybe:hover {
-  background: #fff3e0;
-}
-
 .pass {
   border-color: #82131C;
   background: #fde8e8;
@@ -86,10 +77,6 @@
 
 .love .countBubble {
   background: #006836;
-}
-
-.maybe .countBubble {
-  background: #EC5B3E;
 }
 
 .pass .countBubble {

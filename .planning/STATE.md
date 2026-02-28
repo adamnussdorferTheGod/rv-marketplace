@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 ## Current Position
 
-Phase: 48 - Calculator Shell & Core Display
+Phase: 18 - Mobile Polish
 Plan: 2 of 2 complete in current phase
 Status: Phase Complete
-Last activity: 2026-02-28 — Completed 48-02 (Cost Breakdown Panel)
+Last activity: 2026-02-28 — Completed 18-02 (Restore LifestyleContext Tab Bar)
 
 ## Performance Metrics
 
@@ -55,6 +55,8 @@ Last activity: 2026-02-28 — Completed 48-02 (Cost Breakdown Panel)
 - [48-01]: Extract state code from location prop by splitting on ', ' and taking last 2 chars
 - [48-02]: CostBreakdown is a pure display component -- all computation stays in TotalCostCalculator useMemo
 - [48-02]: Null-guard rendering: CostBreakdown only renders when taxResult, dmvResult, dealerFees are non-null
+- [18-02]: Restored tab bar from pre-regression state (commit b1626a1) rather than reimplementing
+- [18-02]: Tab bar uses overflow-x auto with scrollbar-width none for hidden horizontal scroll on mobile
 
 ### Pending Todos
 
@@ -71,5 +73,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 48-02-PLAN.md
+Stopped at: Completed 18-02-PLAN.md
 Resume file: None

@@ -4,8 +4,11 @@ import { MOCK_USER_SARAH } from '../../../../app/src/data/sampleCoShopping';
 import SharedListCard from '../SharedListCard/SharedListCard';
 import SavedRVsAuthGate from '../SavedRVsAuthGate/SavedRVsAuthGate';
 import CompareView from '../CompareView/CompareView';
+import SegmentedButtons from '../../../ui/SegmentedButtons/SegmentedButtons';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SharedListPanel.module.css';
+
+type PanelTab = 'list' | 'compare';
 
 interface SharedListPanelProps {
   className?: string;
@@ -36,7 +39,7 @@ const FREE_SAVE_LIMIT = 3;
 export default function SharedListPanel({ className }: SharedListPanelProps) {
   const { activeList, lists, addMember, getReactionsForListing } = useCoShopping();
   const [showInviteToast, setShowInviteToast] = useState(false);
-  const [showCompare, setShowCompare] = useState(false);
+  const [activeTab, setActiveTab] = useState<PanelTab>('list');
 
   const handleInvite = () => {
     // Demo: add Sarah as a member to show the shared state
@@ -120,7 +123,10 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
     return { matchedIds: reactedListings, hasRealMatches: false };
   }, [isShared, activeList, members, getReactionsForListing]);
 
-  const showCompareButton = isShared && matchedIds.length > 0;
+  const TAB_OPTIONS: { value: PanelTab; label: string }[] = [
+    { value: 'list', label: 'List' },
+    { value: 'compare', label: 'Compare' },
+  ];
 
   // ─── Empty state: no listings saved ────────────────────────────────
   if (sortedListings.length === 0) {
@@ -219,12 +225,13 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
             {members.length} member{members.length !== 1 ? 's' : ''}
           </span>
           <button
+            type="button"
             className={styles.inviteButton}
             onClick={handleInvite}
             title="Invite member"
           >
             <Icon name="person_add" size={20} />
-            Invite
+            <span>Invite</span>
           </button>
         </div>
 
@@ -238,56 +245,56 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
           Updated {relativeTime(activeList.updatedAt)}
         </span>
 
-        {showCompareButton && (
-          <button
-            type="button"
-            className={styles.compareButton}
-            onClick={() => setShowCompare((prev) => !prev)}
-          >
-            {hasRealMatches
-              ? `Compare Matches (${matchedIds.length})`
-              : `Compare Top Picks (${matchedIds.length})`}
-          </button>
-        )}
+        <div className={styles.headerDivider} />
+
+        <SegmentedButtons
+          options={TAB_OPTIONS}
+          selected={activeTab}
+          onChange={setActiveTab}
+          className={styles.segmentedControl}
+        />
       </div>
 
-      {/* Inline CompareView */}
-      {showCompare && showCompareButton && (
+      {/* Compare view */}
+      {activeTab === 'compare' && matchedIds.length > 0 && (
         <div className={styles.compareSection}>
           <CompareView
             listId={activeList.id}
             listingIds={matchedIds}
-            onClose={() => setShowCompare(false)}
           />
         </div>
       )}
 
-      {/* Full cards with reactions and comments */}
-      <div className={styles.cardList}>
-        {sortedListings.slice(0, FREE_SAVE_LIMIT).map((sl) => (
-          <SharedListCard
-            key={sl.listingId}
-            listId={activeList.id}
-            listingId={sl.listingId}
-            addedBy={sl.addedBy}
-            addedAt={sl.addedAt}
-          />
-        ))}
-      </div>
+      {/* List view — cards with reactions and comments */}
+      {activeTab === 'list' && (
+        <>
+          <div className={styles.cardList}>
+            {sortedListings.slice(0, FREE_SAVE_LIMIT).map((sl) => (
+              <SharedListCard
+                key={sl.listingId}
+                listId={activeList.id}
+                listingId={sl.listingId}
+                addedBy={sl.addedBy}
+                addedAt={sl.addedAt}
+              />
+            ))}
+          </div>
 
-      {/* Auth gate with blurred overflow cards */}
-      {sortedListings.length >= FREE_SAVE_LIMIT && (
-        <SavedRVsAuthGate>
-          {sortedListings.slice(FREE_SAVE_LIMIT).map((sl) => (
-            <SharedListCard
-              key={sl.listingId}
-              listId={activeList.id}
-              listingId={sl.listingId}
-              addedBy={sl.addedBy}
-              addedAt={sl.addedAt}
-            />
-          ))}
-        </SavedRVsAuthGate>
+          {/* Auth gate with blurred overflow cards */}
+          {sortedListings.length >= FREE_SAVE_LIMIT && (
+            <SavedRVsAuthGate>
+              {sortedListings.slice(FREE_SAVE_LIMIT).map((sl) => (
+                <SharedListCard
+                  key={sl.listingId}
+                  listId={activeList.id}
+                  listingId={sl.listingId}
+                  addedBy={sl.addedBy}
+                  addedAt={sl.addedAt}
+                />
+              ))}
+            </SavedRVsAuthGate>
+          )}
+        </>
       )}
     </div>
   );

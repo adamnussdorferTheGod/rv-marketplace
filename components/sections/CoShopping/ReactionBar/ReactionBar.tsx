@@ -28,15 +28,6 @@ const REACTION_CONFIG: {
     styleKey: 'love',
   },
   {
-    type: 'maybe',
-    label: 'Maybe',
-    activeIcon: 'help_outline',
-    inactiveIcon: 'help_outline',
-    activeColor: '#FA8131',
-    inactiveColor: '#939598',
-    styleKey: 'maybe',
-  },
-  {
     type: 'pass',
     label: 'Pass',
     activeIcon: 'block',
