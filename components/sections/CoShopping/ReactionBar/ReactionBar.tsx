@@ -23,7 +23,7 @@ const REACTION_CONFIG: {
     label: 'Love',
     activeIcon: 'heart_filled',
     inactiveIcon: 'favorite',
-    activeColor: '#D8202E',
+    activeColor: '#006836',
     inactiveColor: '#939598',
     styleKey: 'love',
   },
@@ -41,7 +41,7 @@ const REACTION_CONFIG: {
     label: 'Pass',
     activeIcon: 'block',
     inactiveIcon: 'block',
-    activeColor: '#6E7072',
+    activeColor: '#82131C',
     inactiveColor: '#C9CACB',
     styleKey: 'pass',
   },
@@ -56,7 +56,10 @@ export default function ReactionBar({
     setReaction,
     getReactionsForListing,
     currentUserId,
+    activeList,
   } = useCoShopping();
+
+  const members = activeList?.members ?? [];
 
   const reactions = getReactionsForListing(listId, listingId);
   const currentUserReaction = reactions.find(
@@ -84,6 +87,10 @@ export default function ReactionBar({
         const iconName = isActive ? config.activeIcon : config.inactiveIcon;
         const iconColor = isActive ? config.activeColor : config.inactiveColor;
         const count = voteCounts[config.type];
+        const reactors = reactions
+          .filter((r) => r.type === config.type)
+          .map((r) => members.find((m) => m.id === r.memberId))
+          .filter(Boolean);
 
         return (
           <button
@@ -104,7 +111,26 @@ export default function ReactionBar({
               {config.label}
             </span>
             {count > 0 && (
-              <span className={styles.countBubble}>{count}</span>
+              <span className={styles.countWrap}>
+                <span className={styles.countBubble}>{count}</span>
+                <span className={styles.countTooltip}>
+                  {reactors.map((member) => (
+                    <span key={member!.id} className={styles.tooltipRow}>
+                      <span
+                        className={styles.tooltipAvatar}
+                        style={member!.avatarUrl ? undefined : { backgroundColor: member!.avatarColor }}
+                      >
+                        {member!.avatarUrl ? (
+                          <img src={member!.avatarUrl} alt={member!.displayName} className={styles.tooltipAvatarImg} />
+                        ) : (
+                          member!.avatarInitials
+                        )}
+                      </span>
+                      <span className={styles.tooltipName}>{member!.displayName}</span>
+                    </span>
+                  ))}
+                </span>
+              </span>
             )}
           </button>
         );

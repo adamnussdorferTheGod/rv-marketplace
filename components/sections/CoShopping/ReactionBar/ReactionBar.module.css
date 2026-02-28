@@ -29,7 +29,7 @@
 .active {}
 
 .love {
-  border-color: #d8202e;
+  border-color: #006836;
   background: #e0ede7;
 }
 
@@ -47,12 +47,12 @@
 }
 
 .pass {
-  border-color: #6e7072;
-  background: #f0f0f0;
+  border-color: #82131C;
+  background: #fde8e8;
 }
 
 .pass:hover {
-  background: #f0f0f0;
+  background: #fde8e8;
 }
 
 .reactionLabel {
@@ -62,21 +62,103 @@
   line-height: 16.8px;
 }
 
-/* Count bubble — blue circle, positioned top-right of button */
-.countBubble {
+/* Count wrapper — anchor for bubble + tooltip */
+.countWrap {
   position: absolute;
   top: -8px;
   right: -4px;
+}
+
+/* Count bubble */
+.countBubble {
+  display: block;
   min-width: 18px;
   height: 18px;
   border-radius: 100px;
-  background: #3870e9;
+  background: #939598;
   color: white;
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
   text-align: center;
   padding: 0 4px;
+}
+
+.love .countBubble {
+  background: #006836;
+}
+
+.maybe .countBubble {
+  background: #EC5B3E;
+}
+
+.pass .countBubble {
+  background: #82131C;
+}
+
+/* Tooltip — hidden by default, shown on hover */
+.countTooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 50%;
+  transform: translateX(50%);
+  background: #252526;
+  border-radius: 8px;
+  padding: 8px 12px;
+  flex-direction: column;
+  gap: 6px;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.countTooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  transform: translateX(50%);
+  border: 5px solid transparent;
+  border-top-color: #252526;
+}
+
+.countWrap:hover .countTooltip {
+  display: flex;
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltipAvatar {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: white;
+  overflow: hidden;
+}
+
+.tooltipAvatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tooltipName {
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+  line-height: 1;
 }
 
 /* Compact variant */

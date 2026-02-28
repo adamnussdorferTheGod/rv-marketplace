@@ -87,10 +87,14 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
               <div
                 key={member.id}
                 className={styles.memberAvatar}
-                style={{ backgroundColor: member.avatarColor }}
+                style={member.avatarUrl ? undefined : { backgroundColor: member.avatarColor }}
                 title={member.displayName}
               >
-                {member.avatarInitials}
+                {member.avatarUrl ? (
+                  <img src={member.avatarUrl} alt={member.displayName} className={styles.avatarImg} />
+                ) : (
+                  member.avatarInitials
+                )}
               </div>
             ))}
           </div>

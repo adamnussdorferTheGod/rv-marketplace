@@ -9,8 +9,9 @@ export type ReactionType = 'love' | 'maybe' | 'pass' | 'none';
 export interface ListMember {
   id: string;              // Unique member identifier (e.g. "user-1", "user-sarah")
   displayName: string;     // Display name (e.g. "You", "Sarah")
-  avatarColor: string;     // Hex color for avatar circle (e.g. "#4CAF50")
-  avatarInitials: string;  // 1-2 letter initials (e.g. "Y", "SB")
+  avatarColor: string;     // Hex color for avatar circle fallback (e.g. "#4CAF50")
+  avatarInitials: string;  // 1-2 letter initials fallback (e.g. "Y", "SB")
+  avatarUrl?: string;      // Profile photo URL (takes priority over color/initials)
   isOwner: boolean;        // List creator flag
 }
 

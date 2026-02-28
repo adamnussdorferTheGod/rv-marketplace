@@ -116,11 +116,15 @@ export default function CommentThread({
                 <div key={comment.id} className={styles.comment}>
                   <div
                     className={styles.commentAvatar}
-                    style={{
+                    style={author?.avatarUrl ? undefined : {
                       backgroundColor: author?.avatarColor ?? '#939598',
                     }}
                   >
-                    {author?.avatarInitials ?? '?'}
+                    {author?.avatarUrl ? (
+                      <img src={author.avatarUrl} alt={author.displayName} className={styles.avatarImg} />
+                    ) : (
+                      author?.avatarInitials ?? '?'
+                    )}
                   </div>
                   <div className={styles.commentContent}>
                     <div className={styles.commentMeta}>
@@ -142,9 +146,13 @@ export default function CommentThread({
             {currentMember && (
               <div
                 className={styles.inputAvatar}
-                style={{ backgroundColor: currentMember.avatarColor }}
+                style={currentMember.avatarUrl ? undefined : { backgroundColor: currentMember.avatarColor }}
               >
-                {currentMember.avatarInitials}
+                {currentMember.avatarUrl ? (
+                  <img src={currentMember.avatarUrl} alt={currentMember.displayName} className={styles.avatarImg} />
+                ) : (
+                  currentMember.avatarInitials
+                )}
               </div>
             )}
             <input

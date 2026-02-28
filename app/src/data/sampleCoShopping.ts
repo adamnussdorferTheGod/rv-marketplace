@@ -15,6 +15,7 @@ export const MOCK_USER_YOU: ListMember = {
   displayName: 'You',
   avatarColor: '#4CAF50',
   avatarInitials: 'Y',
+  avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=faces',
   isOwner: true,
 };
 
@@ -23,6 +24,7 @@ export const MOCK_USER_SARAH: ListMember = {
   displayName: 'Sarah',
   avatarColor: '#E91E63',
   avatarInitials: 'SB',
+  avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop&crop=faces',
   isOwner: false,
 };
 

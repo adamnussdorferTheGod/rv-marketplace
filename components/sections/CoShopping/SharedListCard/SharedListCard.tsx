@@ -66,9 +66,6 @@ export default function SharedListCard({
             <Icon name="directions_car" size={48} />
           </div>
         )}
-        <div className={styles.favoriteIcon}>
-          <Icon name="favorite" size={32} />
-        </div>
       </div>
 
       {/* Content */}
