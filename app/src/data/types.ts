@@ -192,4 +192,9 @@ export interface ListingData {
   // Engagement
   viewerCount: number;
   engagement: ListingEngagement;
+
+  // Tow compatibility
+  gvwr?: number;                                        // Gross Vehicle Weight Rating in lbs
+  tongueWeight?: number;                                // Tongue/pin weight in lbs
+  hitchType?: 'bumper-pull' | 'fifth-wheel' | 'gooseneck';
 }

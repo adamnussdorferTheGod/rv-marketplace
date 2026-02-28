@@ -59,6 +59,10 @@ export interface SRPListing {
   fuelType: FuelType;
   floorPlan: string | null;
   grossVehicleWeight: number | null;
+  // Tow compatibility (GVWR is the standard term; grossVehicleWeight kept for backward compat)
+  gvwr?: number;
+  tongueWeight?: number;
+  hitchType?: 'bumper-pull' | 'fifth-wheel' | 'gooseneck';
   mileage: number | null;
   daysOnSite: number;
   isTrustedPartner: boolean;

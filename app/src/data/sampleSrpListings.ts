@@ -131,6 +131,49 @@ function buildPhotos(index: number, title: string, count: number): ListingImage[
   return photos;
 }
 
+// ─── Tow weight helpers ─────────────────────────────────────────────
+
+// Motorhome types are self-propelled and not towable -- omit tow fields
+const MOTORHOME_TYPES: ReadonlySet<RVType> = new Set(['class-a', 'class-b', 'class-c']);
+
+/**
+ * Compute tongue weight as a percentage of GVWR based on RV type.
+ * Uses the midpoint of realistic percentage ranges.
+ */
+function computeTongueWeight(gvwr: number, rvType: RVType, index: number): number {
+  // Use index to add deterministic variation within the realistic range
+  const variation = ((index * 7) % 5) / 100; // 0-0.04 variation
+  switch (rvType) {
+    case 'fifth-wheel':
+      return Math.round(gvwr * (0.18 + variation)); // 18-22% typical for fifth wheels
+    case 'toy-hauler':
+      // Heavier toy haulers are often fifth-wheel style
+      return Math.round(gvwr * (0.14 + variation)); // 14-18% for toy haulers
+    case 'pop-up':
+      return Math.round(gvwr * (0.11 + variation)); // 11-15% for pop-ups
+    case 'travel-trailer':
+    default:
+      return Math.round(gvwr * (0.11 + variation)); // 11-15% for travel trailers
+  }
+}
+
+/**
+ * Determine hitch type based on RV type and GVWR.
+ */
+function determineHitchType(rvType: RVType, gvwr: number): 'bumper-pull' | 'fifth-wheel' | 'gooseneck' {
+  switch (rvType) {
+    case 'fifth-wheel':
+      return 'fifth-wheel';
+    case 'toy-hauler':
+      // Heavier toy haulers (>12000 lbs) are typically fifth-wheel
+      return gvwr > 12000 ? 'fifth-wheel' : 'bumper-pull';
+    case 'travel-trailer':
+    case 'pop-up':
+    default:
+      return 'bumper-pull';
+  }
+}
+
 // ─── Deterministic helpers ───────────────────────────────────────────
 
 function findDealerForCity(city: string): DealerDef {
@@ -355,6 +398,16 @@ function buildListing(index: number, def: ListingDef): SRPListing {
   const id = `srp-${String(index + 1).padStart(3, '0')}`;
   const title = `${def.year} ${modelDef.make} ${modelDef.model} ${trim}`;
 
+  // Compute tow compatibility fields for towable types only
+  const isTowable = !MOTORHOME_TYPES.has(def.rvType) && def.gvw != null;
+  const towFields = isTowable
+    ? {
+        gvwr: def.gvw!,
+        tongueWeight: computeTongueWeight(def.gvw!, def.rvType, index),
+        hitchType: determineHitchType(def.rvType, def.gvw!) as 'bumper-pull' | 'fifth-wheel' | 'gooseneck',
+      }
+    : {};
+
   return {
     id,
     title,
@@ -391,6 +444,7 @@ function buildListing(index: number, def: ListingDef): SRPListing {
     fuelType: def.fuelType,
     floorPlan: def.floorPlan,
     grossVehicleWeight: def.gvw,
+    ...towFields,
     mileage: def.mileage,
     daysOnSite: def.daysOnSite,
     isTrustedPartner: dealer.isTrustedPartner,

@@ -223,4 +223,9 @@ export const sampleListing: ListingData = {
     viewCount: 332,
     saveCount: 64,
   },
+
+  // Tow compatibility (2024 Airstream Flying Cloud 25RB real-world specs)
+  gvwr: 7300,
+  tongueWeight: 780,
+  hitchType: 'bumper-pull',
 };
