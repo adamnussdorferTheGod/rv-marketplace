@@ -7,6 +7,7 @@ interface CommentThreadProps {
   listId: string;
   listingId: string;
   collapsed?: boolean;
+  hideHeader?: boolean;
   maxVisible?: number;
 }
 
@@ -35,6 +36,7 @@ export default function CommentThread({
   listId,
   listingId,
   collapsed: initialCollapsed = false,
+  hideHeader = false,
   maxVisible,
 }: CommentThreadProps) {
   const {
@@ -83,19 +85,21 @@ export default function CommentThread({
     <div
       className={`${styles.commentThread} ${isCollapsed ? styles.collapsed : ''}`}
     >
-      <button
-        type="button"
-        className={styles.header}
-        onClick={() => setIsCollapsed((prev) => !prev)}
-        aria-expanded={!isCollapsed}
-      >
-        <span className={styles.headerIcon}>
-          <Icon name="sms" size={18} />
-        </span>
-        <span className={styles.commentCount}>
-          {commentCount} comment{commentCount !== 1 ? 's' : ''}
-        </span>
-      </button>
+      {!hideHeader && (
+        <button
+          type="button"
+          className={styles.header}
+          onClick={() => setIsCollapsed((prev) => !prev)}
+          aria-expanded={!isCollapsed}
+        >
+          <span className={styles.headerIcon}>
+            <Icon name="sms" size={18} />
+          </span>
+          <span className={styles.commentCount}>
+            {commentCount} comment{commentCount !== 1 ? 's' : ''}
+          </span>
+        </button>
+      )}
 
       {!isCollapsed && (
         <>

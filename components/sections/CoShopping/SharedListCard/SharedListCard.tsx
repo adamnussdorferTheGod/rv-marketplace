@@ -107,7 +107,7 @@ export default function SharedListCard({
 
           {showComments && (
             <div className={styles.commentSection}>
-              <CommentThread listId={listId} listingId={listingId} />
+              <CommentThread listId={listId} listingId={listingId} hideHeader />
             </div>
           )}
         </>
