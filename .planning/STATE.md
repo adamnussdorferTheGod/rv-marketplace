@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 31-tow-vehicle-setup
-Plan: 01 of 03
+Plan: 02 of 03
 Status: Executing
-Last activity: 2026-02-28 — Completed 31-01 (TowVehicle Context)
+Last activity: 2026-02-28 — Completed 31-02 (Core UI Components)
 
-Progress: [####################] 51/61 plans (84%)
+Progress: [####################] 52/61 plans (85%)
 
 ## Performance Metrics
 
@@ -46,6 +46,7 @@ Progress: [####################] 51/61 plans (84%)
 - 30-02: 3min (Vehicle Database and VIN Decoder)
 - 30-03: 2min (Tow Compatibility Algorithm)
 - 31-01: 1min (TowVehicle Context Provider)
+- 31-02: 2min (Core UI Components)
 
 ## Accumulated Context
 
@@ -73,6 +74,8 @@ Progress: [####################] 51/61 plans (84%)
 - [v6.0]: Pure algorithm pattern -- no side effects, typed inputs/outputs, consumed by UI phases
 - [v6.0]: Session-only tow vehicle persistence -- no localStorage, resets on refresh
 - [v6.0]: TowVehicleProvider wraps BrowserRouter so context persists across route navigations
+- [v6.0]: Auto-select fires one level at a time via useEffect to allow cascade propagation
+- [v6.0]: Custom checkboxes use visually-hidden native input + styled span for accessibility
 
 ### Pending Todos
 
@@ -85,5 +88,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 31-01-PLAN.md
+Stopped at: Completed 31-02-PLAN.md
 Resume file: None
