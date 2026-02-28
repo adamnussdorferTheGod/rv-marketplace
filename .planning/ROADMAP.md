@@ -262,10 +262,11 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. Destination and route cards render in horizontally scrollable rows on mobile with native swipe gesture support (no custom scroll logic needed -- CSS overflow-x with snap points)
   2. Tab chips scroll horizontally when they overflow the mobile viewport, allowing access to all tabs without wrapping to a second row
-**Plans**: 1 plan
+**Plans**: 2 plans
 
 Plans:
-- [ ] 18-01-PLAN.md — Mobile horizontal scroll for cards and tab chips with CSS scroll snap
+- [x] 18-01-PLAN.md — Mobile horizontal scroll for cards and tab chips with CSS scroll snap
+- [ ] 18-02-PLAN.md — Gap closure: restore tab bar and RoutesTab rendering stripped by c68160f regression
 
 ## v5.0 Homepage
 
@@ -814,11 +815,11 @@ Plans:
   3. A state selector dropdown defaults to the listing's location state and shows "Based on registering in [State]" attribution; changing the state recalculates all values immediately
   4. Clicking "See full breakdown" expands an itemized view with sections for Purchase Price, Taxes, DMV Fees, Dealer Fees, and Grand Total -- each showing line items with dollar amounts
   5. A legal disclaimer appears at the bottom: "Cost estimates are calculated using publicly available state tax rates and are for informational purposes only"
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 48-01: TotalCostCalculator component shell, summary bar, state selector, and VDP integration (replacing LoanCalculator)
-- [ ] 48-02: Expandable breakdown panel with itemized sections (purchase price, taxes, DMV fees, dealer fees, grand total) and legal disclaimer
+- [ ] 48-01-PLAN.md — TotalCostCalculator component shell, summary bar, state selector, dealer fee defaults, and VDP integration (replacing LoanCalculator)
+- [ ] 48-02-PLAN.md — Expandable breakdown panel with itemized sections (purchase price, taxes, DMV fees, dealer fees, grand total) and legal disclaimer
 
 ### Phase 49: Dealer Fees, Trade-In & Editable Inputs
 **Goal**: Users can customize dealer fees by editing individual line items, add a trade-in vehicle to reduce their out-the-door cost, and see trade-in tax credit savings in states that allow them
@@ -929,7 +930,7 @@ Plans:
 | 45. Co-Shopping Shared List UI | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
 | 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
-| 48. Calculator Shell & Core Display | v8.0 | 0/2 | Not started | - |
+| 48. Calculator Shell & Core Display | 1/2 | In Progress|  | - |
 | 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 0/2 | Not started | - |
 | 50. Financing Calculator | v8.0 | 0/2 | Not started | - |
 | 51. Insurance, State Tips & Responsive Polish | v8.0 | 0/2 | Not started | - |

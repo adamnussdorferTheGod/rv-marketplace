@@ -9,11 +9,11 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 ### Calculator Core
 
-- [ ] **CALC-01**: TotalCostCalculator section replaces existing LoanCalculator on VDP in the same position
-- [ ] **CALC-02**: Calculator shows summary view: listing price + est. tax & fees = out-the-door total with est. monthly payment
-- [ ] **CALC-03**: State selector dropdown defaults to listing location state, recalculates all values on change
-- [ ] **CALC-04**: "Based on registering in [State]" attribution shown beneath totals
-- [ ] **CALC-05**: All calculated values update in real-time as any input changes (no submit button)
+- [x] **CALC-01**: TotalCostCalculator section replaces existing LoanCalculator on VDP in the same position
+- [x] **CALC-02**: Calculator shows summary view: listing price + est. tax & fees = out-the-door total with est. monthly payment
+- [x] **CALC-03**: State selector dropdown defaults to listing location state, recalculates all values on change
+- [x] **CALC-04**: "Based on registering in [State]" attribution shown beneath totals
+- [x] **CALC-05**: All calculated values update in real-time as any input changes (no submit button)
 - [ ] **CALC-06**: Expandable full breakdown with itemized sections: Purchase Price, Taxes, DMV Fees, Dealer Fees, Financing, Insurance, Grand Total
 
 ### State Tax Data
@@ -29,7 +29,7 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 - [x] **FEE-01**: Per-state DMV fees displayed: title fee, registration fee, plate/tab fee from static data
 - [x] **FEE-02**: Registration fee calculation supports flat, weight-based (using GVWR), and value-based models per state
-- [ ] **FEE-03**: Dealer fee defaults by RV type (travel trailer, fifth wheel, Class A/B/C, pop-up, truck camper) with state doc fee caps enforced
+- [x] **FEE-03**: Dealer fee defaults by RV type (travel trailer, fifth wheel, Class A/B/C, pop-up, truck camper) with state doc fee caps enforced
 - [ ] **FEE-04**: Dealer fees editable per line item with inline edit interaction (click to edit, blur/enter to commit)
 
 ### Trade-In
@@ -121,11 +121,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CALC-01 | Phase 48 | Pending |
-| CALC-02 | Phase 48 | Pending |
-| CALC-03 | Phase 48 | Pending |
-| CALC-04 | Phase 48 | Pending |
-| CALC-05 | Phase 48 | Pending |
+| CALC-01 | Phase 48 | Complete |
+| CALC-02 | Phase 48 | Complete |
+| CALC-03 | Phase 48 | Complete |
+| CALC-04 | Phase 48 | Complete |
+| CALC-05 | Phase 48 | Complete |
 | CALC-06 | Phase 48 | Pending |
 | TAX-01 | Phase 47 | Complete |
 | TAX-02 | Phase 47 | Complete |
@@ -135,7 +135,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TAX-06 | Phase 47 | Complete |
 | FEE-01 | Phase 47 | Complete |
 | FEE-02 | Phase 47 | Complete |
-| FEE-03 | Phase 48 | Pending |
+| FEE-03 | Phase 48 | Complete |
 | FEE-04 | Phase 49 | Pending |
 | TRAD-01 | Phase 49 | Pending |
 | TRAD-02 | Phase 49 | Pending |
