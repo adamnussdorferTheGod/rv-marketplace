@@ -5,21 +5,24 @@ import SearchResultsPage from '@components/pages/SearchResultsPage/SearchResults
 import VehicleDetailPage from '@components/pages/VehicleDetailPage/VehicleDetailPage';
 import MobileSearchPage from '@components/pages/MobileSearchPage/MobileSearchPage';
 import NotFoundPage from '@components/pages/NotFoundPage/NotFoundPage';
+import { TowVehicleProvider } from '@components/sections/TowVehicleSetup/TowVehicleContext';
 import { ROUTES } from './routes';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path={ROUTES.HOME} element={<HomePage />} />
-          <Route path={ROUTES.SEARCH} element={<SearchResultsPage />} />
-          <Route path={ROUTES.MOBILE_SEARCH} element={<MobileSearchPage />} />
-          <Route path={ROUTES.LISTING} element={<VehicleDetailPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <TowVehicleProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<AppLayout />}>
+            <Route path={ROUTES.HOME} element={<HomePage />} />
+            <Route path={ROUTES.SEARCH} element={<SearchResultsPage />} />
+            <Route path={ROUTES.MOBILE_SEARCH} element={<MobileSearchPage />} />
+            <Route path={ROUTES.LISTING} element={<VehicleDetailPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </TowVehicleProvider>
   );
 }
 
