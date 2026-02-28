@@ -8,6 +8,7 @@
 - [ ] **v4.0 Search Results Page** - Phases 24-29 (planned)
 - [ ] **v5.0 Homepage** - Phases 19-23 (planned)
 - [ ] **v6.0 Tow Vehicle Match** - Phases 30-35 (planned)
+- [ ] **v7.0 Co-Shopping & Shared Lists** - Phases 36-44 (planned)
 
 ## Phases
 
@@ -481,7 +482,7 @@ Plans:
 **Reused components:** Button, Icon, ActionChip, Divider, CollapsibleSection, existing SRP filter sidebar, existing VDP left column
 
 - [x] **Phase 30: Vehicle Data Layer** - TypeScript tow vehicle types, static JSON vehicle database (~50 trucks/SUVs), YMMT cascading data, mock VIN decoder, RV listing weight augmentation, and 6-check compatibility algorithm (completed 2026-02-28)
-- [ ] **Phase 31: Tow Vehicle Setup** - YMMT cascading dropdown selector, VIN entry with auto-populated specs, spec display panel, tow package/WDH checkboxes, save vehicle to app state, accessible from VDP/SRP/profile
+- [x] **Phase 31: Tow Vehicle Setup** - YMMT cascading dropdown selector, VIN entry with auto-populated specs, spec display panel, tow package/WDH checkboxes, save vehicle to app state, accessible from VDP/SRP/profile (completed 2026-02-28)
 - [ ] **Phase 32: VDP Tow Match Display** - Tow match badge near price (green/yellow/red), expandable 6-check breakdown panel, capacity bar visualization, itemized payload breakdown, contextual recommendations, and disclaimer
 - [ ] **Phase 33: VDP Prompts & Education** - "Add your tow vehicle" prompt for users without a saved vehicle, glossary tooltips on technical terms, and conversational verdict summary
 - [ ] **Phase 34: SRP Tow Filter & Badges** - "Fits My Vehicle" filter in sidebar with match level selector, listing exclusion logic, mini tow badges on SRP cards, no-vehicle prompt, and motorhome exclusion
@@ -581,6 +582,170 @@ Plans:
 Plans:
 - [ ] 35-01: ReverseMatch component with minimum requirements display and compatible vehicle list, VDP integration
 
+## v7.0 Co-Shopping & Shared Lists
+
+**Milestone Goal:** Transform RV Trader from a single-player browsing experience into a multi-player decision platform where buyers can invite a partner or co-buyer to a shared RV shortlist with reactions, comments, match indicators, and side-by-side comparison.
+
+**Dependencies:** Phase 9 (VDP complete), Phase 29 (SRP complete)
+
+**Reused components:** Button, Icon, ActionChip, Divider, SRPListingCard, existing VDP save flow, existing SRP card grid
+
+**Constraints:**
+- Frontend-only: All co-shopping state in React context (no real backend)
+- Mock co-shopper: Pre-populated "Sarah" user for demo (no real auth/invite)
+- WebSocket simulation: Mock real-time with state updates (no actual server)
+
+- [ ] **Phase 36: Co-Shopping Data Layer** - TypeScript interfaces for shared lists, reactions, comments; CoShoppingContext provider; sample shared list data; mock co-shopper user
+- [ ] **Phase 37: Shared List Management** - Create/rename/delete lists, add/remove members, add/remove listings, list limits enforcement, duplicate prevention
+- [ ] **Phase 38: Reactions System** - Love/Maybe/Pass reaction icons on shared list listings, reaction visibility across co-shoppers, reaction state changes, visual styling
+- [ ] **Phase 39: Match Detection & Celebration** - Match algorithm when all co-shoppers Love, match indicator on cards, match count in header, match removal animation, confetti celebration
+- [ ] **Phase 40: Comments & Discussion** - Per-listing comment threads, author attribution with timestamps, comment count on cards, comment persistence
+- [ ] **Phase 41: Shared List View & Filtering** - List view page with filter tabs (All/Matches/My Picks/Partner's Picks), full-detail list cards, sort by recent, Compare CTA
+- [ ] **Phase 42: Compare Matches View** - Side-by-side comparison table for matched listings, spec rows, reaction rows, tow match integration, view listing links
+- [ ] **Phase 43: VDP & SRP Integration** - VDP save button dropdown with shared list options, SRP reaction badges on saved listings, list name attribution
+- [ ] **Phase 44: Mobile Co-Shopping Experience** - Swipe reactions with tilt animation, card stack layout, bottom sheet comments, sticky header
+
+### Phase 36: Co-Shopping Data Layer
+**Goal**: The entire co-shopping state model is established -- typed data shapes, centralized context provider, populated sample data, and a mock co-shopper user -- so all downstream phases consume from a single source of truth
+**Depends on**: Phase 9 (VDP listing data exists), Phase 24 (SRP listing data exists)
+**Requirements**: CDAT-01, CDAT-02, CDAT-03, CDAT-04
+**Success Criteria** (what must be TRUE):
+  1. TypeScript interfaces define SharedList, ListMember, SharedListing, Reaction (love/maybe/pass/none), and Comment shapes with all fields from the spec (IDs, timestamps, author attribution, reaction state)
+  2. A CoShoppingContext provider with useReducer manages shared list state (lists array, active list ID, reactions map, comments map) and exposes actions (createList, addListing, setReaction, addComment, etc.) via a useCoShopping hook
+  3. A pre-populated sample shared list named "Our RV Shortlist" contains 4-5 existing sample listings with reactions and comments already applied, providing an immediate demo experience on first load
+  4. A mock co-shopper user "Sarah" exists with display name, avatar color/initials, and member ID, and the current user defaults to "You" with distinct visual identity
+**Plans**: TBD
+
+Plans:
+- [ ] 36-01: TypeScript interfaces for co-shopping data model (SharedList, ListMember, SharedListing, Reaction, Comment)
+- [ ] 36-02: CoShoppingContext provider with useReducer, actions, useCoShopping hook, sample data, and mock users
+
+### Phase 37: Shared List Management
+**Goal**: Users can create, organize, and manage shared lists with full CRUD operations on lists, members, and listings
+**Depends on**: Phase 36 (co-shopping context and types exist)
+**Requirements**: LIST-01, LIST-02, LIST-03, LIST-04, LIST-05, LIST-06, LIST-07, LIST-08, LIST-09, LIST-10
+**Success Criteria** (what must be TRUE):
+  1. User can create a named shared list from a "My Lists" section, and the list header displays the list name, member avatars (colored circles with initials), match count, and "last updated" timestamp
+  2. List creator can rename the list via inline edit, remove members (with their reactions/comments preserved as "[Name] (left)"), and delete the entire list with a confirmation modal
+  3. Maximum limits are enforced: 4 co-shoppers per list shows an error when exceeded, 5 lists per account shows an error when exceeded
+  4. User can add listings to a shared list with duplicate prevention (existing listing pulses to highlight rather than adding again), and remove listings with a confirmation showing who added it and their reaction
+  5. Any member can leave a list voluntarily, and their contributions remain attributed to "[Name] (left)"
+**Plans**: TBD
+
+Plans:
+- [ ] 37-01: MyLists page shell, CreateListModal, SharedListHeader with member avatars and match count
+- [ ] 37-02: List CRUD operations (rename, delete with modal), member management (remove, leave), limit enforcement
+- [ ] 37-03: Add/remove listings with duplicate prevention (pulse highlight) and removal confirmation
+
+### Phase 38: Reactions System
+**Goal**: Co-shoppers can express their opinion on each shared listing through intuitive one-tap reactions visible to everyone on the list
+**Depends on**: Phase 36 (co-shopping context exists), Phase 37 (listings exist on shared lists)
+**Requirements**: RXTN-01, RXTN-02, RXTN-03, RXTN-04, RXTN-05
+**Success Criteria** (what must be TRUE):
+  1. Each shared listing displays three reaction icons (Love, Maybe, Pass) that the current user can tap to set their reaction with a single click
+  2. Each co-shopper's reaction is visible on the listing with their name/avatar beside the reaction icon they chose, so all members can see each other's opinions at a glance
+  3. Reactions can be changed at any time by tapping a different icon, and the previous reaction is immediately replaced
+  4. Unreviewed listings show an empty heart outline as the default state (no reaction), clearly distinguishing "hasn't decided yet" from "active reaction"
+  5. Love renders as a red filled heart, Maybe as an amber outlined icon, and Pass as a gray muted icon, with consistent color and icon treatment across all views
+**Plans**: TBD
+
+Plans:
+- [ ] 38-01: ReactionBar component with Love/Maybe/Pass icons, tap-to-react, visual states (red/amber/gray), and empty default
+- [ ] 38-02: Co-shopper reaction display with name/avatar beside icons, reaction change behavior, and context integration
+
+### Phase 39: Match Detection & Celebration
+**Goal**: When all co-shoppers agree a listing is a favorite, the app surfaces this consensus with a clear match indicator and a celebratory moment
+**Depends on**: Phase 38 (reactions exist)
+**Requirements**: MTCH-01, MTCH-02, MTCH-03, MTCH-04, MTCH-05
+**Success Criteria** (what must be TRUE):
+  1. When all co-shoppers on a list react with Love to the same listing, an "It's a Match!" indicator appears on that listing's card with distinctive visual treatment (badge, glow, or border)
+  2. The shared list header displays a running match count (e.g., "2 Matches") that updates in real time as reactions change
+  3. The Matches filter tab (built in Phase 41) correctly identifies and filters to only matched listings based on the match detection logic
+  4. If any co-shopper changes their reaction away from Love, the match indicator is removed with a subtle fade animation
+  5. The first time a match occurs on a list, a confetti celebration animation plays for approximately 2 seconds
+**Plans**: TBD
+
+Plans:
+- [ ] 39-01: Match detection logic, MatchIndicator component on listing cards, match count in list header
+- [ ] 39-02: Match removal with fade animation, first-match confetti celebration (CSS/canvas particles, 2s duration)
+
+### Phase 40: Comments & Discussion
+**Goal**: Co-shoppers can have focused discussions about specific listings through threaded comments with clear author attribution
+**Depends on**: Phase 36 (co-shopping context exists), Phase 37 (listings exist on shared lists)
+**Requirements**: CMNT-01, CMNT-02, CMNT-03, CMNT-04
+**Success Criteria** (what must be TRUE):
+  1. Each listing on a shared list has its own comment thread accessible by tapping a comment icon or "View comments" link on the listing card
+  2. Users can post text comments that display with author name, avatar, and timestamp (e.g., "Sarah - 2 hours ago")
+  3. A comment count badge appears on shared list listing cards showing the number of comments (e.g., "3 comments"), updating when new comments are added
+  4. Comments persist even if the listing is removed from the shared list, preserving the discussion history
+**Plans**: TBD
+
+Plans:
+- [ ] 40-01: CommentThread component with comment list, author attribution, timestamps, and text input
+- [ ] 40-02: Comment count badge on listing cards, persistence logic, and context integration
+
+### Phase 41: Shared List View & Filtering
+**Goal**: Users can browse their shared list with rich listing cards and filter by consensus to quickly find matches, personal picks, or partner picks
+**Depends on**: Phase 37 (list management exists), Phase 38 (reactions exist), Phase 39 (match detection exists), Phase 40 (comments exist)
+**Requirements**: VIEW-01, VIEW-02, VIEW-03, VIEW-04
+**Success Criteria** (what must be TRUE):
+  1. Filter tabs display All, Matches, My Picks, and Partner's Picks with item counts in each tab (e.g., "All (12)", "Matches (2)")
+  2. Shared list cards show listing photo, title, price, location, key specs, reactions from all co-shoppers, match indicator (if matched), comment count, and "added by [Name]" attribution
+  3. Listings are sorted by most recently added as the default sort order
+  4. A "Compare Matches" CTA button appears when at least one match exists, providing a gateway to the comparison view
+**Plans**: TBD
+
+Plans:
+- [ ] 41-01: SharedListView page with filter tabs (All/Matches/My Picks/Partner's Picks), item counts, and tab switching logic
+- [ ] 41-02: SharedListingCard component with full detail (photo, price, specs, reactions, match indicator, comments, attribution), sort by recent, and Compare Matches CTA
+
+### Phase 42: Compare Matches View
+**Goal**: Users can evaluate their top-matched listings side by side with specs, reactions, and tow compatibility in a structured comparison table
+**Depends on**: Phase 39 (matches exist), Phase 41 (list view exists)
+**Requirements**: CMPV-01, CMPV-02, CMPV-03, CMPV-04, CMPV-05, CMPV-06
+**Success Criteria** (what must be TRUE):
+  1. A side-by-side comparison table displays up to 3 matched or top-reacted listings as columns, with a photo and title header per column
+  2. Comparison rows include price, length, weight, sleeps, slides, and fresh water capacity with values aligned across columns for easy scanning
+  3. Each co-shopper's reaction is displayed as a dedicated comparison row (e.g., "You: Love", "Sarah: Love") per listing
+  4. A match status row shows "Yes" or "No" per listing, and if the user has a saved tow vehicle, a tow match verdict row shows the compatibility percentage and verdict
+  5. Each column includes a comment count and a "View Listing" link that navigates to the VDP for that listing
+**Plans**: TBD
+
+Plans:
+- [ ] 42-01: CompareView page layout with column headers (photo, title), spec comparison rows, and responsive table structure
+- [ ] 42-02: Reaction rows, match status row, tow match integration, comment count, and View Listing links
+
+### Phase 43: VDP & SRP Integration
+**Goal**: Co-shopping features are woven into the existing VDP and SRP pages so users encounter shared list functionality while naturally browsing
+**Depends on**: Phase 36 (co-shopping context exists), Phase 37 (list management exists), Phase 38 (reactions exist)
+**Requirements**: VDPI-01, VDPI-02, VDPI-03, CSRP-01, CSRP-02, CSRP-03
+**Success Criteria** (what must be TRUE):
+  1. When active shared lists exist, the VDP save button shows a dropdown with "Save to [List Name]" options for each shared list, plus a private "Save to My Favorites" option
+  2. If the current listing already exists on a shared list, the VDP shows co-shoppers' reactions (e.g., "Sarah: Love") near the save button area
+  3. On the SRP, listings that are already on a shared list display co-shopper reaction badges on their cards showing each member's reaction icon
+  4. SRP cards for recognized listings show a "Co-shopper reactions" badge area with each co-shopper's reaction icon and a match indicator if matched
+  5. Recognized SRP listings display "On your list: [List Name]" text attribution below the reaction badges
+**Plans**: TBD
+
+Plans:
+- [ ] 43-01: VDP SaveButton dropdown with shared list options, My Favorites option, and co-shopper reaction display
+- [ ] 43-02: SRP co-shopping badges on listing cards (reaction icons, match indicator, list name attribution)
+
+### Phase 44: Mobile Co-Shopping Experience
+**Goal**: The co-shopping experience is optimized for mobile with gesture-based interactions and space-efficient layouts
+**Depends on**: Phase 38 (reactions exist), Phase 40 (comments exist), Phase 41 (list view exists)
+**Requirements**: MOBL-01, MOBL-02, MOBL-03, MOBL-04
+**Success Criteria** (what must be TRUE):
+  1. On mobile, users can swipe right for Love, left for Pass, and up for Maybe on shared list cards, with tilt animation and colored overlay (red/gray/amber) indicating the reaction before release
+  2. The shared list view on mobile renders listings as full-width cards in a vertical stack layout (no multi-column grid)
+  3. Tapping the comment icon on a mobile listing card opens the comment thread in a bottom sheet overlay with the text input auto-focused for immediate typing
+  4. A sticky header appears on scroll showing the list name, member count, and match count, collapsing from the full list header
+**Plans**: TBD
+
+Plans:
+- [ ] 44-01: SwipeReaction component with gesture detection (right/left/up), tilt animation, colored overlay, and reaction dispatch
+- [ ] 44-02: Mobile card stack layout, bottom sheet comment thread, and sticky header on scroll
+
 ## Progress
 
 **Execution Order:**
@@ -590,6 +755,7 @@ Plans:
 - v5.0 (Phases 19-23): Phases 19-22 complete, 23 remaining
 - v4.0 (Phases 24-29): Complete
 - v6.0 (Phases 30-35): 30 -> 31 -> 32 -> 33, and 30 -> 31 -> 34 (Phases 32/33 and 34 can run in parallel after 31; Phase 35 only needs 30)
+- v7.0 (Phases 36-44): 36 -> 37 -> 38 -> 39 -> 40 -> 41 -> 42, and 36 -> 37 -> 43, and 38+40+41 -> 44
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -622,9 +788,18 @@ Plans:
 | 27. SRP Page Assembly | v4.0 | 2/2 | Complete | 2026-02-27 |
 | 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
 | 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
-| 30. Vehicle Data Layer | 3/3 | Complete    | 2026-02-28 | - |
-| 31. Tow Vehicle Setup | 2/3 | In Progress|  | - |
+| 30. Vehicle Data Layer | v6.0 | 3/3 | Complete | 2026-02-28 |
+| 31. Tow Vehicle Setup | v6.0 | 3/3 | Complete | 2026-02-28 |
 | 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
 | 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |
 | 35. Reverse Match | v6.0 | 0/1 | Not started | - |
+| 36. Co-Shopping Data Layer | v7.0 | 0/2 | Not started | - |
+| 37. Shared List Management | v7.0 | 0/3 | Not started | - |
+| 38. Reactions System | v7.0 | 0/2 | Not started | - |
+| 39. Match Detection & Celebration | v7.0 | 0/2 | Not started | - |
+| 40. Comments & Discussion | v7.0 | 0/2 | Not started | - |
+| 41. Shared List View & Filtering | v7.0 | 0/2 | Not started | - |
+| 42. Compare Matches View | v7.0 | 0/2 | Not started | - |
+| 43. VDP & SRP Integration | v7.0 | 0/2 | Not started | - |
+| 44. Mobile Co-Shopping Experience | v7.0 | 0/2 | Not started | - |
