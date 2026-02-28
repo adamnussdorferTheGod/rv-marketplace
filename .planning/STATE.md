@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-27)
 ## Current Position
 
 Phase: 36-co-shopping-data-layer
-Plan: 0 of 2
-Status: Ready to plan
-Last activity: 2026-02-27 — v7.0 roadmap created (Phases 36-44)
+Plan: 1 of 2
+Status: Executing
+Last activity: 2026-02-28 — Completed 36-01 (co-shopping types)
 
-Progress: [####################] 53/78 plans (68%)
+Progress: [####################] 54/78 plans (69%)
 
 ## Performance Metrics
 
@@ -46,7 +46,8 @@ Progress: [####################] 53/78 plans (68%)
 
 **v7.0:**
 - Total plans estimated: 17 (across 9 phases)
-- Completed: 0
+- Completed: 1
+- 36-01: 1min
 
 ## Accumulated Context
 
@@ -62,6 +63,7 @@ Progress: [####################] 53/78 plans (68%)
 - [v7.0]: Co-shopping mock data layer -- shared lists, reactions, comments in React context
 - [v7.0]: WebSocket simulation -- mock real-time with state updates, no actual server
 - [v7.0]: Registration gate as UI-only -- invite flow deferred, mock co-shopper pre-populated
+- [36-01]: String ID loose coupling for co-shopping types -- no SRPListing import, reference by ID only
 
 ### Pending Todos
 
@@ -74,5 +76,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 31-03-PLAN.md (Phase 31 complete, all 3 plans done)
+Stopped at: Completed 36-01-PLAN.md
 Resume file: None

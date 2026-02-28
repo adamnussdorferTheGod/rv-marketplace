@@ -1,91 +1,124 @@
-# Requirements: RV Marketplace — v6.0 Tow Vehicle Match
+# Requirements: RV Marketplace — v7.0 Co-Shopping & Shared Lists
 
 **Defined:** 2026-02-27
 **Core Value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
 
-## v6.0 Requirements
+## v7.0 Requirements
 
-Requirements for Tow Vehicle Match milestone. Each maps to roadmap phases.
+Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phases.
 
-### Vehicle Data & Algorithm
+### Data Layer
 
-- [x] **VDAT-01**: TypeScript interfaces define tow vehicle shape (year, make, model, trim, engine, cab, bed, maxTow, maxTongue, payload, gcwr, curbWeight, wheelbase, hitchClass, hasTowPackage)
-- [x] **VDAT-02**: Static JSON vehicle database contains ~50 popular truck/SUV configurations with full tow specs (Ford F-150, Ram 1500, Chevy Silverado, Toyota Tundra, etc.)
-- [x] **VDAT-03**: YMMT cascading data supports year → make → model → trim → engine → cab → bed filtering
-- [x] **VDAT-04**: Mock VIN decoder maps sample VINs to vehicle configurations from the database
-- [x] **VDAT-05**: RV listing data is augmented with GVWR, tongue weight, and hitch type fields (populated for sample listings)
-- [x] **VDAT-06**: Tow compatibility algorithm evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) and returns per-check status + overall verdict
-- [x] **VDAT-07**: Algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR)
-- [x] **VDAT-08**: Overall verdict is "good" (all green), "marginal" (any yellow, none red), or "not_recommended" (any red)
+- [x] **CDAT-01**: TypeScript interfaces define SharedList, ListMember, SharedListing, Reaction, and Comment shapes matching the spec's state model
+- [ ] **CDAT-02**: CoShoppingContext provider manages shared list state (lists, active list, reactions, comments) with persistence across page navigations
+- [ ] **CDAT-03**: Sample shared list with pre-populated listings, reactions, and comments for the Airstream Flying Cloud and other sample listings
+- [ ] **CDAT-04**: Mock co-shopper user (e.g., "Sarah") with display name and avatar for demo purposes
 
-### Vehicle Setup
+### Shared Lists
 
-- [ ] **VSTP-01**: User can select tow vehicle via cascading Year/Make/Model/Trim/Engine/Cab/Bed dropdowns where each selection filters the next
-- [ ] **VSTP-02**: After selecting a full configuration, vehicle tow specs display below the form (max towing, payload, tongue weight, GCWR, hitch class, wheelbase)
-- [ ] **VSTP-03**: User can enter a VIN and see decoded vehicle with auto-populated specs
-- [x] **VSTP-04**: User can save selected vehicle to profile (persists in app state across page navigations)
-- [ ] **VSTP-05**: "My Tow Vehicle" setup is accessible from a VDP prompt, SRP filter prompt, and a dedicated profile entry point
-- [ ] **VSTP-06**: Tow package and weight distribution hitch checkboxes appear on the setup form
+- [ ] **LIST-01**: User can create a named shared list from a "My Lists" section
+- [ ] **LIST-02**: Shared list header displays list name, member avatars, match count, and last updated timestamp
+- [ ] **LIST-03**: List creator can rename the shared list
+- [ ] **LIST-04**: List creator can remove members from the list
+- [ ] **LIST-05**: Any member can leave a list (reactions and comments preserved, attributed to "[Name] (left)")
+- [ ] **LIST-06**: List creator can delete the list with confirmation modal
+- [ ] **LIST-07**: Maximum 4 co-shoppers per list enforced with error message
+- [ ] **LIST-08**: Maximum 5 shared lists per account enforced with error message
+- [ ] **LIST-09**: User can add listings to a shared list with duplicate prevention (pulse highlight on existing)
+- [ ] **LIST-10**: User can remove listings from a shared list with confirmation showing who added it and their reaction
 
-### VDP Tow Match
+### Reactions
 
-- [ ] **VDPM-01**: When user has a saved vehicle and views a towable listing, a tow match badge appears near the price showing green/yellow/red verdict
-- [ ] **VDPM-02**: Badge text reads "Good Match", "Marginal Match", or "Not Recommended" with "for your [Year Make Model]"
-- [ ] **VDPM-03**: Clicking the badge expands a detailed breakdown panel showing all 6 compatibility checks with RV value, vehicle value, and status
-- [ ] **VDPM-04**: A capacity bar shows percentage of tow capacity used, color-coded green (<75%), yellow (75-90%), red (>90%)
-- [ ] **VDPM-05**: An itemized payload breakdown shows tongue weight, passengers, accessories, and remaining payload with the math visible
-- [ ] **VDPM-06**: Contextual recommendations appear below the breakdown (WDH recommended, brake controller, tire pressure)
-- [ ] **VDPM-07**: A disclaimer appears at the bottom of every tow match view noting manufacturer ratings and advising scale verification
-- [ ] **VDPM-08**: When user has no saved vehicle, a prompt appears: "What's your tow vehicle? Add it to see if this RV is a match" with CTA to setup
+- [ ] **RXTN-01**: Each co-shopper can react to each listing with Love, Maybe, or Pass via one tap on reaction icons
+- [ ] **RXTN-02**: Reactions are visible to all co-shoppers with name/avatar beside each reaction icon
+- [ ] **RXTN-03**: Reactions can be changed at any time by tapping a different icon
+- [ ] **RXTN-04**: Default state for unreviewed listings is "no reaction" (empty heart outline)
+- [ ] **RXTN-05**: Love renders as red filled heart, Maybe as amber outline, Pass as gray muted icon
 
-### SRP Integration
+### Match
 
-- [ ] **SRPI-01**: "Fits My Vehicle" filter appears in the SRP filter sidebar when user has a saved vehicle
-- [ ] **SRPI-02**: Filter shows active vehicle name, key specs, and "Change vehicle" link
-- [ ] **SRPI-03**: Filter has match level options: "All matches" (good + marginal) and "Good matches only" (10% margin)
-- [ ] **SRPI-04**: When filter is active, listings exceeding vehicle capacity are excluded from results
-- [ ] **SRPI-05**: Each SRP listing card shows a mini tow badge with verdict and capacity percentage when the filter is active
-- [ ] **SRPI-06**: When user has no vehicle and tries to enable the filter, a prompt appears to add their tow vehicle
-- [ ] **SRPI-07**: Non-towable RV types (motorhomes) are unaffected by the tow filter
+- [ ] **MTCH-01**: "It's a Match!" indicator appears on listing card when all co-shoppers react Love
+- [ ] **MTCH-02**: Match count is displayed in the shared list header
+- [ ] **MTCH-03**: Matches tab in the list view filters to show only matched listings
+- [ ] **MTCH-04**: If any co-shopper changes away from Love, match is removed with subtle fade animation
+- [ ] **MTCH-05**: First match on a list triggers a confetti celebration animation (2s duration)
 
-### Reverse Match
+### Comments
 
-- [ ] **RVRM-01**: VDP shows a "What Can Tow This?" section listing minimum tow requirements for the current RV
-- [ ] **RVRM-02**: The section displays minimum tow capacity, payload, and hitch class needed (with 10% safety margin)
-- [ ] **RVRM-03**: A list of popular compatible vehicles shows verdict and capacity percentage for each
+- [ ] **CMNT-01**: Each listing on a shared list has its own comment thread
+- [ ] **CMNT-02**: User can post text comments with author name and timestamp displayed
+- [ ] **CMNT-03**: Comment count appears on shared list listing cards
+- [ ] **CMNT-04**: Comments persist even if the listing is removed from the list
 
-### Education & UX
+### Shared List View
 
-- [ ] **EDUC-01**: Technical terms (GVWR, tongue weight, payload, GCWR, hitch class, wheelbase ratio, WDH) have hover/tap tooltip definitions in plain language
-- [ ] **EDUC-02**: A "What this means" summary paragraph explains the overall verdict in conversational language specific to the user's vehicle and the RV
+- [ ] **VIEW-01**: Filter tabs display All, Matches, My Picks, and Partner's Picks with item counts
+- [ ] **VIEW-02**: Shared list cards show photo, title, price, location, specs, reactions from all co-shoppers, match indicator, comment count, and "added by" attribution
+- [ ] **VIEW-03**: Sort by Most Recent available as default
+- [ ] **VIEW-04**: "Compare Matches" CTA appears when matches exist
+
+### Compare View
+
+- [ ] **CMPV-01**: Side-by-side comparison table shows matched or top-reacted listings (up to 3)
+- [ ] **CMPV-02**: Comparison includes price, length, weight, sleeps, slides, fresh water capacity
+- [ ] **CMPV-03**: Each co-shopper's reaction displayed as a comparison row
+- [ ] **CMPV-04**: Match status (Yes/No) displayed as a row
+- [ ] **CMPV-05**: Tow Match verdict and capacity percentage shown if user has a saved tow vehicle
+- [ ] **CMPV-06**: Comment count and "View Listing" links per column
+
+### VDP Integration
+
+- [ ] **VDPI-01**: When active shared lists exist, VDP save button shows dropdown with "Save to [List Name]" options
+- [ ] **VDPI-02**: Dropdown includes private "Save to My Favorites" option alongside shared list options
+- [ ] **VDPI-03**: VDP shows co-shopper's reaction if they've already reacted to this listing on a shared list
+
+### SRP Co-Shopping
+
+- [ ] **CSRP-01**: Listings already on a shared list show co-shopper reaction badges on SRP cards
+- [ ] **CSRP-02**: Badge shows each co-shopper's reaction icon and match indicator
+- [ ] **CSRP-03**: "On your list: [List Name]" text appears on recognized listings
+
+### Mobile
+
+- [ ] **MOBL-01**: Swipe reactions on mobile: right for Love, left for Pass, up for Maybe with tilt animation and colored overlay
+- [ ] **MOBL-02**: Full-width card stack layout on mobile shared list view
+- [ ] **MOBL-03**: Comment thread opens in bottom sheet on mobile with auto-focused input
+- [ ] **MOBL-04**: Sticky header on scroll shows list name, member count, and match count
 
 ## Future Requirements
 
 Deferred to future milestone. Tracked but not in current roadmap.
 
-### Vehicle Setup Enhancements
+### Invite & Onboarding
 
-- **VSTP-07**: Manual entry fallback for users who know ratings from door jamb sticker
-- **VSTP-08**: Multiple saved vehicles (up to 3) with active vehicle switcher
-- **VSTP-09**: VIN camera scanner on mobile for quick input
+- **INVT-01**: Invite co-shoppers via email with branded one-click join link
+- **INVT-02**: Invite co-shoppers via SMS with join link
+- **INVT-03**: Copy shareable invite link for any channel
+- **INVT-04**: Include current saved listings when creating shared list
+- **INVT-05**: Co-shopping onboarding tooltip sequence for first-time users
 
-### VDP Enhancements
+### Engagement
 
-- **VDPM-09**: Adjustable passenger and cargo weights in payload breakdown
-- **VDPM-10**: Weight distribution hitch toggle adjusts effective capacity calculations
+- **ENGM-01**: Nudge co-shopper button with 24hr rate limiting
+- **ENGM-02**: "Sarah hasn't seen this yet" indicator on unreviewed listings
+- **ENGM-03**: Weekly digest email summarizing list activity
+- **ENGM-04**: Price change notifications on shared list items
+- **ENGM-05**: Listing sold/removed notifications
 
-### SRP Enhancements
+### Advanced Features
 
-- **SRPI-08**: "Best match for my vehicle" sort option (lowest capacity usage first)
-- **SRPI-09**: Listings missing RV weight specs show "Specs incomplete — verify compatibility" badge
+- **ADVN-01**: Private notes per listing (visible only to author, dotted border, lock icon)
+- **ADVN-02**: Photo tagging on listing photos (pin markers with annotation popover)
+- **ADVN-03**: Photo comments (attach images to comments)
+- **ADVN-04**: Blind vote mode (hide reactions until all members vote)
+- **ADVN-05**: Ranking mode (drag-to-reorder listings)
+- **ADVN-06**: AI-generated shared preference summary
 
-### Platform Features (P2)
+### Real-Time & Notifications
 
-- **PLAT-01**: Tow match email alerts for new compatible listings
-- **PLAT-02**: Side-by-side tow comparison of two RVs against same vehicle
-- **PLAT-03**: Tow vehicle recommendation engine
-- **PLAT-04**: Dealer dashboard with tow match analytics
-- **PLAT-05**: Truck camper payload-only variant
+- **RTNE-01**: WebSocket real-time sync for reactions, comments, and new listings
+- **RTNE-02**: Push notifications for match created, comment posted, listing added
+- **RTNE-03**: In-app notification center for co-shopping events
 
 ## Out of Scope
 
@@ -93,13 +126,15 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Real vehicle data API (DataOne, NHTSA) | Frontend-only constraint — mock data with static JSON |
-| Real VIN decode service | Mock decoder with sample VINs mapping to database entries |
-| User authentication / real persistence | UI-only state — no backend, no login |
-| Tow match for AI Mode / FitCheck integration | Separate feature system, add later |
-| Route/Lifestyle Context tow integration | Depends on v3.0 completion, add later |
+| Real backend / API server | Frontend-only constraint — all state in React context |
+| User authentication / login | UI-only demo — mock users, no real auth |
+| Real WebSocket server | Mock real-time with state updates — no server |
+| Real push notifications | In-app toasts only — no notification service |
+| Email/SMS delivery | Invite flow deferred — mock co-shopper pre-populated |
+| Agent/advisor list access | Privacy concerns, defer to future |
+| List activity in search ranking | Feedback loop risk, defer to future |
+| Real-time chat between co-shoppers | High complexity, not core to co-shopping value |
 | Mobile-first responsive design | Desktop-first consistent with all milestones |
-| Real-time calculation updates | Static data, no server-side computation |
 
 ## Traceability
 
@@ -107,46 +142,60 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VDAT-01 | Phase 30 | Complete |
-| VDAT-02 | Phase 30 | Complete |
-| VDAT-03 | Phase 30 | Complete |
-| VDAT-04 | Phase 30 | Complete |
-| VDAT-05 | Phase 30 | Complete |
-| VDAT-06 | Phase 30 | Complete |
-| VDAT-07 | Phase 30 | Complete |
-| VDAT-08 | Phase 30 | Complete |
-| VSTP-01 | Phase 31 | Pending |
-| VSTP-02 | Phase 31 | Pending |
-| VSTP-03 | Phase 31 | Pending |
-| VSTP-04 | Phase 31 | Complete |
-| VSTP-05 | Phase 31 | Pending |
-| VSTP-06 | Phase 31 | Pending |
-| VDPM-01 | Phase 32 | Pending |
-| VDPM-02 | Phase 32 | Pending |
-| VDPM-03 | Phase 32 | Pending |
-| VDPM-04 | Phase 32 | Pending |
-| VDPM-05 | Phase 32 | Pending |
-| VDPM-06 | Phase 32 | Pending |
-| VDPM-07 | Phase 32 | Pending |
-| VDPM-08 | Phase 33 | Pending |
-| SRPI-01 | Phase 34 | Pending |
-| SRPI-02 | Phase 34 | Pending |
-| SRPI-03 | Phase 34 | Pending |
-| SRPI-04 | Phase 34 | Pending |
-| SRPI-05 | Phase 34 | Pending |
-| SRPI-06 | Phase 34 | Pending |
-| SRPI-07 | Phase 34 | Pending |
-| RVRM-01 | Phase 35 | Pending |
-| RVRM-02 | Phase 35 | Pending |
-| RVRM-03 | Phase 35 | Pending |
-| EDUC-01 | Phase 33 | Pending |
-| EDUC-02 | Phase 33 | Pending |
+| CDAT-01 | Phase 36 | Complete |
+| CDAT-02 | Phase 36 | Pending |
+| CDAT-03 | Phase 36 | Pending |
+| CDAT-04 | Phase 36 | Pending |
+| LIST-01 | Phase 37 | Pending |
+| LIST-02 | Phase 37 | Pending |
+| LIST-03 | Phase 37 | Pending |
+| LIST-04 | Phase 37 | Pending |
+| LIST-05 | Phase 37 | Pending |
+| LIST-06 | Phase 37 | Pending |
+| LIST-07 | Phase 37 | Pending |
+| LIST-08 | Phase 37 | Pending |
+| LIST-09 | Phase 37 | Pending |
+| LIST-10 | Phase 37 | Pending |
+| RXTN-01 | Phase 38 | Pending |
+| RXTN-02 | Phase 38 | Pending |
+| RXTN-03 | Phase 38 | Pending |
+| RXTN-04 | Phase 38 | Pending |
+| RXTN-05 | Phase 38 | Pending |
+| MTCH-01 | Phase 39 | Pending |
+| MTCH-02 | Phase 39 | Pending |
+| MTCH-03 | Phase 39 | Pending |
+| MTCH-04 | Phase 39 | Pending |
+| MTCH-05 | Phase 39 | Pending |
+| CMNT-01 | Phase 40 | Pending |
+| CMNT-02 | Phase 40 | Pending |
+| CMNT-03 | Phase 40 | Pending |
+| CMNT-04 | Phase 40 | Pending |
+| VIEW-01 | Phase 41 | Pending |
+| VIEW-02 | Phase 41 | Pending |
+| VIEW-03 | Phase 41 | Pending |
+| VIEW-04 | Phase 41 | Pending |
+| CMPV-01 | Phase 42 | Pending |
+| CMPV-02 | Phase 42 | Pending |
+| CMPV-03 | Phase 42 | Pending |
+| CMPV-04 | Phase 42 | Pending |
+| CMPV-05 | Phase 42 | Pending |
+| CMPV-06 | Phase 42 | Pending |
+| VDPI-01 | Phase 43 | Pending |
+| VDPI-02 | Phase 43 | Pending |
+| VDPI-03 | Phase 43 | Pending |
+| CSRP-01 | Phase 43 | Pending |
+| CSRP-02 | Phase 43 | Pending |
+| CSRP-03 | Phase 43 | Pending |
+| MOBL-01 | Phase 44 | Pending |
+| MOBL-02 | Phase 44 | Pending |
+| MOBL-03 | Phase 44 | Pending |
+| MOBL-04 | Phase 44 | Pending |
 
 **Coverage:**
-- v6.0 requirements: 34 total
-- Mapped to phases: 34
+- v7.0 requirements: 48 total
+- Mapped to phases: 48
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-27*
-*Last updated: 2026-02-27 after roadmap creation*
+*Last updated: 2026-02-27 after roadmap creation (traceability populated)*

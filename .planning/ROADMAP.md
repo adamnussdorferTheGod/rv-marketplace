@@ -614,11 +614,11 @@ Plans:
   2. A CoShoppingContext provider with useReducer manages shared list state (lists array, active list ID, reactions map, comments map) and exposes actions (createList, addListing, setReaction, addComment, etc.) via a useCoShopping hook
   3. A pre-populated sample shared list named "Our RV Shortlist" contains 4-5 existing sample listings with reactions and comments already applied, providing an immediate demo experience on first load
   4. A mock co-shopper user "Sarah" exists with display name, avatar color/initials, and member ID, and the current user defaults to "You" with distinct visual identity
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 36-01: TypeScript interfaces for co-shopping data model (SharedList, ListMember, SharedListing, Reaction, Comment)
-- [ ] 36-02: CoShoppingContext provider with useReducer, actions, useCoShopping hook, sample data, and mock users
+- [ ] 36-01-PLAN.md — TypeScript interfaces and reducer types for co-shopping data model (SharedList, ListMember, SharedListing, Reaction, Comment, CoShoppingState, CoShoppingAction)
+- [ ] 36-02-PLAN.md — CoShoppingContext provider with useReducer, sample data with mock users and pre-populated shared list, App.tsx wiring
 
 ### Phase 37: Shared List Management
 **Goal**: Users can create, organize, and manage shared lists with full CRUD operations on lists, members, and listings
@@ -794,7 +794,7 @@ Plans:
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
 | 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |
 | 35. Reverse Match | v6.0 | 0/1 | Not started | - |
-| 36. Co-Shopping Data Layer | v7.0 | 0/2 | Not started | - |
+| 36. Co-Shopping Data Layer | 1/2 | In Progress|  | - |
 | 37. Shared List Management | v7.0 | 0/3 | Not started | - |
 | 38. Reactions System | v7.0 | 0/2 | Not started | - |
 | 39. Match Detection & Celebration | v7.0 | 0/2 | Not started | - |
