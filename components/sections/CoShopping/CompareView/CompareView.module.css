@@ -3,24 +3,26 @@
 .container {
   display: flex;
   flex-direction: column;
+  overflow-x: auto;
 }
 
 /* ─── Column headers — horizontally scrollable photo cards ─────────── */
 
 .columnsRow {
   display: flex;
-  overflow-x: auto;
   border: 1px solid #e4e4e5;
   border-radius: 0;
+  min-width: fit-content;
 }
 
 .columnCard {
   flex: 0 0 auto;
-  width: calc(50% - 0.5px);
-  min-width: 170px;
+  width: 180px;
   background: white;
   border-right: 1px solid #e4e4e5;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .columnCard:last-child {
@@ -29,14 +31,15 @@
 
 .columnPhoto {
   width: 100%;
-  height: 150px;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center 70%;
   display: block;
 }
 
 .columnPhotoPlaceholder {
   width: 100%;
-  height: 150px;
+  aspect-ratio: 4 / 3;
   background: #f5f5f5;
   display: flex;
   align-items: center;
@@ -49,6 +52,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 16px;
+  flex: 1;
 }
 
 .columnTitle {
@@ -81,7 +85,7 @@
   font-family: inherit;
   text-decoration: none;
   cursor: pointer;
-  margin-top: 8px;
+  margin-top: auto;
   align-self: flex-start;
 }
 
@@ -89,52 +93,38 @@
   background: #f5f5f5;
 }
 
-/* ─── Accordion row header ─────────────────────────────────────────── */
+/* ─── Spec row — label above value cells ──────────────────────────── */
 
-.accordionHeader {
+.specRow {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-bottom: 8px;
+  border-top: 1px solid #e4e4e5;
+  min-width: fit-content;
+  background: #f5f5f5;
 }
 
-.accordionDivider {
-  height: 1px;
-  background: #e4e4e5;
-  margin: 8px 0 0;
-}
-
-.accordionLabelRow {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.accordionLabel {
-  flex: 1;
-  font-size: 16px;
+.specLabel {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding: 12px 20px 4px;
+  font-size: 14px;
   font-weight: 600;
   color: #252526;
   line-height: 24px;
-}
-
-.accordionChevron {
-  flex-shrink: 0;
-  color: #252526;
+  width: fit-content;
 }
 
 /* ─── Value row — cells under each column ──────────────────────────── */
 
 .valueRow {
   display: flex;
-  border-top: 1px solid #e4e4e5;
 }
 
 .valueCell {
   flex: 0 0 auto;
-  width: calc(50% - 0.5px);
-  min-width: 170px;
-  padding: 16px;
+  width: 180px;
+  padding: 16px 12px;
   background: white;
   border-right: 1px solid #e4e4e5;
   font-size: 16px;

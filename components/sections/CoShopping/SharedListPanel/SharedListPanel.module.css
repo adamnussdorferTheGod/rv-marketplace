@@ -124,9 +124,9 @@
   width: 100%;
 }
 
-/* Inline CompareView container */
+/* Inline CompareView container — full bleed to sidebar edges */
 .compareSection {
-  margin: 0;
+  margin: 0 -20px;
 }
 
 /* Card list */

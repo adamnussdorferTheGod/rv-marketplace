@@ -69,7 +69,6 @@ export default function CompareView({ listId, listingIds }: CompareViewProps) {
 
   // Look up listings from sample data
   const listings = listingIds
-    .slice(0, 3)
     .map((id) => sampleSrpListings.find((l) => l.id === id))
     .filter((l): l is SRPListing => l != null);
 
@@ -131,16 +130,8 @@ export default function CompareView({ listId, listingIds }: CompareViewProps) {
 
       {/* ── Spec rows ────────────────────────────────────────── */}
       {specRows.map((row) => (
-        <div key={row.label}>
-          <div className={styles.accordionHeader}>
-            <div className={styles.accordionDivider} />
-            <div className={styles.accordionLabelRow}>
-              <span className={styles.accordionLabel}>{row.label}</span>
-              <span className={styles.accordionChevron}>
-                <Icon name="expand_less" size={24} />
-              </span>
-            </div>
-          </div>
+        <div key={row.label} className={styles.specRow}>
+          <div className={styles.specLabel}>{row.label}</div>
           <div className={styles.valueRow}>
             {listings.map((listing) => {
               const value = row.getValue(listing);
@@ -159,16 +150,8 @@ export default function CompareView({ listId, listingIds }: CompareViewProps) {
 
       {/* ── Reaction rows (per member) ───────────────────────── */}
       {members.map((member) => (
-        <div key={`reaction-${member.id}`}>
-          <div className={styles.accordionHeader}>
-            <div className={styles.accordionDivider} />
-            <div className={styles.accordionLabelRow}>
-              <span className={styles.accordionLabel}>{member.displayName}</span>
-              <span className={styles.accordionChevron}>
-                <Icon name="expand_less" size={24} />
-              </span>
-            </div>
-          </div>
+        <div key={`reaction-${member.id}`} className={styles.specRow}>
+          <div className={styles.specLabel}>{member.displayName}</div>
           <div className={styles.valueRow}>
             {listings.map((listing) => {
               const reactions = getReactionsForListing(listId, listing.id);
@@ -205,16 +188,8 @@ export default function CompareView({ listId, listingIds }: CompareViewProps) {
 
       {/* ── Match row ────────────────────────────────────────── */}
       {members.length > 0 && (
-        <div>
-          <div className={styles.accordionHeader}>
-            <div className={styles.accordionDivider} />
-            <div className={styles.accordionLabelRow}>
-              <span className={styles.accordionLabel}>Match</span>
-              <span className={styles.accordionChevron}>
-                <Icon name="expand_less" size={24} />
-              </span>
-            </div>
-          </div>
+        <div className={styles.specRow}>
+          <div className={styles.specLabel}>Match</div>
           <div className={styles.valueRow}>
             {listings.map((listing) => {
               const reactions = getReactionsForListing(listId, listing.id);

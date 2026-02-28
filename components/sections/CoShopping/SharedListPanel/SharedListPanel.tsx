@@ -105,7 +105,7 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
       .map((sl) => sl.listingId);
 
     if (loveMatches.length > 0) {
-      return { matchedIds: loveMatches.slice(0, 3), hasRealMatches: true };
+      return { matchedIds: loveMatches.slice(0, 5), hasRealMatches: true };
     }
 
     // Fallback: top 3 most-reacted listings (non-"none" reactions, descending)
@@ -117,7 +117,7 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
       })
       .filter((item) => item.count > 0)
       .sort((a, b) => b.count - a.count)
-      .slice(0, 3)
+      .slice(0, 5)
       .map((item) => item.listingId);
 
     return { matchedIds: reactedListings, hasRealMatches: false };
