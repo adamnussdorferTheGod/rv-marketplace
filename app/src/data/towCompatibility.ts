@@ -240,3 +240,76 @@ export function calculateTowCompatibility(
     recommendations,
   };
 }
+
+// ─── Convenience helpers ──────────────────────────────────────────
+
+const TOWABLE_TYPES = new Set([
+  'travel-trailer',
+  'fifth-wheel',
+  'toy-hauler',
+  'pop-up',
+]);
+
+/**
+ * Returns true for towable RV types; false for motorhomes (class-a/b/c).
+ * Used by the SRP filter to exclude motorhomes from tow matching.
+ */
+export function isTowableType(rvType: string): boolean {
+  return TOWABLE_TYPES.has(rvType);
+}
+
+/** Human-readable label for a tow verdict. */
+export function getVerdictLabel(verdict: TowVerdict): string {
+  switch (verdict) {
+    case 'good':
+      return 'Good Match';
+    case 'marginal':
+      return 'Marginal Match';
+    case 'not_recommended':
+      return 'Not Recommended';
+  }
+}
+
+/** Hex color for a tow verdict. */
+export function getVerdictColor(verdict: TowVerdict): string {
+  switch (verdict) {
+    case 'good':
+      return '#22c55e';
+    case 'marginal':
+      return '#eab308';
+    case 'not_recommended':
+      return '#ef4444';
+  }
+}
+
+/**
+ * Minimum tow vehicle requirements for a given RV (with 10% safety margin).
+ * Used by the reverse match feature to filter compatible vehicles.
+ */
+export function getMinimumRequirements(rv: TowableRVSpecs): {
+  minTowCapacity: number;
+  minPayload: number;
+  minHitchClass: HitchClass;
+} {
+  const tongueWeight =
+    rv.tongueWeight ?? Math.round(rv.gvwr * DEFAULT_TONGUE_WEIGHT_PERCENT);
+
+  let minHitchClass = determineRequiredHitchClass(rv.gvwr);
+  if (
+    rv.hitchType === 'fifth-wheel' ||
+    rv.hitchType === 'gooseneck'
+  ) {
+    if (HITCH_CLASS_RANK[minHitchClass] < HITCH_CLASS_RANK['IV']) {
+      minHitchClass = 'IV';
+    }
+  }
+
+  return {
+    minTowCapacity: Math.ceil(rv.gvwr * 1.1),
+    minPayload: Math.ceil(
+      (tongueWeight + DEFAULT_PASSENGER_WEIGHT + DEFAULT_ACCESSORY_WEIGHT) *
+        1.1,
+    ),
+    minHitchClass,
+  };
+}
