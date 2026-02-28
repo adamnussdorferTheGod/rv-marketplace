@@ -1,5 +1,6 @@
 import type { SalesTaxResult, DmvFeeResult, FeeItem } from '../../../app/src/data/stateTaxTypes';
 import type { DealerFeeDefaults } from './dealerFeeDefaults';
+import EditableFeeRow from './EditableFeeRow';
 import styles from './CostBreakdown.module.css';
 
 interface CostBreakdownProps {
@@ -9,6 +10,8 @@ interface CostBreakdownProps {
   dealerFees: DealerFeeDefaults;
   outTheDoorTotal: number;
   stateName: string;
+  onDealerFeeChange?: (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => void;
+  docFeeCap?: number | null;
 }
 
 function formatCurrency(value: number): string {
@@ -21,6 +24,8 @@ export default function CostBreakdown({
   dmvResult,
   dealerFees,
   outTheDoorTotal,
+  onDealerFeeChange,
+  docFeeCap,
 }: CostBreakdownProps) {
   return (
     <div className={styles.breakdown}>
@@ -104,18 +109,10 @@ export default function CostBreakdown({
       {/* -- Dealer Fees -- */}
       <div className={styles.sectionBlock}>
         <h3 className={styles.sectionTitle}>Dealer Fees</h3>
-        <div className={styles.lineItem}>
-          <span>Doc fee</span>
-          <span>${formatCurrency(dealerFees.docFee)}</span>
-        </div>
-        <div className={styles.lineItem}>
-          <span>Prep fee</span>
-          <span>${formatCurrency(dealerFees.prepFee)}</span>
-        </div>
-        <div className={styles.lineItem}>
-          <span>Admin fee</span>
-          <span>${formatCurrency(dealerFees.adminFee)}</span>
-        </div>
+        <p className={styles.editHint}>Click any fee to edit</p>
+        <EditableFeeRow label="Doc fee" value={dealerFees.docFee} onChange={(v) => onDealerFeeChange?.('docFee', v)} max={docFeeCap} />
+        <EditableFeeRow label="Prep fee" value={dealerFees.prepFee} onChange={(v) => onDealerFeeChange?.('prepFee', v)} />
+        <EditableFeeRow label="Admin fee" value={dealerFees.adminFee} onChange={(v) => onDealerFeeChange?.('adminFee', v)} />
         <div className={styles.subtotalRow}>
           <span>Dealer fee subtotal</span>
           <span>${formatCurrency(dealerFees.totalDealerFees)}</span>

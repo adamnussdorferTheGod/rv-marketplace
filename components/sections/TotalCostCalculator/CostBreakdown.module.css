@@ -31,6 +31,13 @@
   color: var(--rv-on-surface);
 }
 
+.editHint {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  font-style: italic;
+  margin: 0 0 var(--space-4) 0;
+}
+
 .lineNote {
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);

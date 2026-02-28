@@ -1,0 +1,32 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-4) 0;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.valueDisplay {
+  cursor: pointer;
+  position: relative;
+}
+
+.valueDisplay:hover {
+  border-bottom: 1px dashed var(--rv-primary);
+  color: var(--rv-primary);
+}
+
+.editInput {
+  text-align: right;
+  width: 80px;
+  font: var(--font-body-2);
+  border: 1px solid var(--rv-primary);
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+  outline: none;
+}
+
+.editInput:focus {
+  box-shadow: 0 0 0 2px rgba(0, 104, 54, 0.2);
+}
