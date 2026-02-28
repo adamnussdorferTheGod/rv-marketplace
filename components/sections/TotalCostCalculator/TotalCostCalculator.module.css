@@ -140,6 +140,20 @@
 
 /* Mobile (max-width 767px) */
 @media (max-width: 767px) {
+  .heading {
+    font-size: 18px;
+  }
+
+  .stateRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .stateSelect {
+    width: 100%;
+  }
+
   .summaryRow,
   .totalRow {
     padding: var(--space-8) var(--space-12);

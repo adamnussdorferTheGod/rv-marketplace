@@ -6,6 +6,7 @@ import { calculateFinancingSummary, CREDIT_TIERS, DEFAULT_TERM, DEFAULT_CREDIT_T
 import { getDealerFeeDefaults, type DealerFeeDefaults } from './dealerFeeDefaults';
 import { getInsuranceEstimate } from './insuranceEstimates';
 import { getStateTips } from './stateTipEngine';
+import AnimatedValue from './AnimatedValue';
 import CostBreakdown from './CostBreakdown';
 import InsuranceEstimate from './InsuranceEstimate';
 import StateTips from './StateTips';
@@ -156,7 +157,7 @@ export default function TotalCostCalculator({
         </div>
         <div className={styles.summaryRow}>
           <span className={styles.summaryLabel}>Est. tax & fees</span>
-          <span className={styles.summaryValue}>+${formatCurrency(totalTaxAndFees)}</span>
+          <span className={styles.summaryValue}>+<AnimatedValue value={totalTaxAndFees} /></span>
         </div>
         {tradeInEnabled && tradeInValue > 0 && (
           <div className={styles.summaryRow}>
@@ -167,9 +168,9 @@ export default function TotalCostCalculator({
         <div className={styles.summaryDivider} />
         <div className={styles.totalRow}>
           <span className={styles.totalLabel}>Out-the-door total</span>
-          <span className={styles.totalValue}>${formatCurrency(outTheDoorTotal)}</span>
+          <span className={styles.totalValue}><AnimatedValue value={outTheDoorTotal} /></span>
         </div>
-        <p className={styles.monthlyTeaser}>Est. ${formatCurrency(monthlyPayment)}/mo*</p>
+        <p className={styles.monthlyTeaser}>Est. <AnimatedValue value={monthlyPayment} />/mo*</p>
         <p className={styles.financingNote}>* Based on your financing terms below</p>
       </div>
 
