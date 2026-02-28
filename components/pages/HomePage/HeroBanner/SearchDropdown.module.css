@@ -77,7 +77,7 @@
   flex: 1;
   min-height: 0;
   object-fit: contain;
-  object-position: center center;
+  object-position: center bottom;
   display: block;
 }
 
