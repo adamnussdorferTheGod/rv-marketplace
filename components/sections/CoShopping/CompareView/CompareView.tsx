@@ -1,6 +1,17 @@
+import { Link } from 'react-router-dom';
 import { sampleSrpListings } from '../../../../app/src/data/sampleSrpListings';
+import {
+  calculateTowCompatibility,
+  isTowableType,
+  getVerdictLabel,
+  getVerdictColor,
+} from '../../../../app/src/data/towCompatibility';
+import { listingPath } from '../../../../app/src/routes';
 import { RV_TYPE_LABELS } from '../../../../app/src/data/srpTypes';
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
+import type { ReactionType } from '../../../../app/src/data/coShoppingTypes';
+import { useCoShopping } from '../CoShoppingContext';
+import { useTowVehicle } from '../../TowVehicleSetup/TowVehicleContext';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './CompareView.module.css';
 
@@ -29,6 +40,17 @@ const formatLength = (ft: number | null | undefined): string =>
 
 const formatSleeps = (capacity: number | null | undefined): string =>
   capacity ? `${capacity}` : 'N/A';
+
+// ─── Reaction display config ────────────────────────────────────────
+
+const REACTION_CONFIG: Record<
+  Exclude<ReactionType, 'none'>,
+  { icon: string; color: string; label: string }
+> = {
+  love: { icon: 'heart_filled', color: 'var(--color-red-500)', label: 'Love' },
+  maybe: { icon: 'help_outline', color: 'var(--color-amber-500)', label: 'Maybe' },
+  pass: { icon: 'block', color: 'var(--rv-on-surface-variant)', label: 'Pass' },
+};
 
 // ─── Spec row definitions ────────────────────────────────────────────
 
@@ -74,12 +96,18 @@ const specRows: SpecRow[] = [
 
 // ─── Component ───────────────────────────────────────────────────────
 
-export default function CompareView({ listId: _listId, listingIds, onClose }: CompareViewProps) {
+export default function CompareView({ listId, listingIds, onClose }: CompareViewProps) {
+  const { getReactionsForListing, getCommentsForListing, activeList } = useCoShopping();
+  const { savedVehicle } = useTowVehicle();
+
   // Look up listings from sample data
   const listings = listingIds
     .slice(0, 3)
     .map((id) => sampleSrpListings.find((l) => l.id === id))
     .filter((l): l is SRPListing => l != null);
+
+  // Get members from the active list
+  const members = activeList?.id === listId ? activeList.members : [];
 
   // ── Empty state ──────────────────────────────────────────────────
   if (listings.length === 0) {
@@ -104,6 +132,9 @@ export default function CompareView({ listId: _listId, listingIds, onClose }: Co
   }
 
   const columnCount = listings.length;
+
+  // Track row index for continued zebra striping from spec rows
+  let rowIndex = specRows.length;
 
   return (
     <div className={styles.container}>
@@ -141,7 +172,7 @@ export default function CompareView({ listId: _listId, listingIds, onClose }: Co
                 />
               ) : (
                 <div className={styles.headerPhotoPlaceholder}>
-                  <Icon name="directions_car" size={48} />
+                  <Icon name="rv_type" size={48} />
                 </div>
               )}
               <h3 className={styles.headerTitle}>{listing.title}</h3>
@@ -151,11 +182,11 @@ export default function CompareView({ listId: _listId, listingIds, onClose }: Co
         })}
 
         {/* ── Spec rows ───────────────────────────────────────── */}
-        {specRows.map((row, rowIndex) => (
+        {specRows.map((row, specIdx) => (
           <div
             key={row.label}
             className={styles.specRow}
-            style={{ '--row-index': rowIndex } as React.CSSProperties}
+            style={{ '--row-index': specIdx } as React.CSSProperties}
           >
             <div className={styles.rowLabel}>{row.label}</div>
             {listings.map((listing) => {
@@ -183,6 +214,175 @@ export default function CompareView({ listId: _listId, listingIds, onClose }: Co
             })}
           </div>
         ))}
+
+        {/* ── Reaction rows (per member) ──────────────────────── */}
+        {members.map((member) => {
+          const currentRowIndex = rowIndex++;
+          return (
+            <div
+              key={`reaction-${member.id}`}
+              className={styles.specRow}
+              style={{ '--row-index': currentRowIndex } as React.CSSProperties}
+            >
+              <div className={styles.rowLabel}>{member.displayName}</div>
+              {listings.map((listing) => {
+                const reactions = getReactionsForListing(listId, listing.id);
+                const memberReaction = reactions.find((r) => r.memberId === member.id);
+                const reactionType = memberReaction?.type;
+
+                if (!reactionType || reactionType === 'none') {
+                  return (
+                    <div key={listing.id} className={`${styles.valueCell} ${styles.naValue}`}>
+                      —
+                    </div>
+                  );
+                }
+
+                const config = REACTION_CONFIG[reactionType];
+                return (
+                  <div key={listing.id} className={styles.valueCell}>
+                    <span className={styles.reactionIcon} style={{ color: config.color }}>
+                      <Icon name={config.icon} size={16} />
+                      {config.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+
+        {/* ── Match status row ────────────────────────────────── */}
+        {members.length > 0 && (() => {
+          const matchRowIndex = rowIndex++;
+          return (
+            <div
+              className={styles.specRow}
+              style={{ '--row-index': matchRowIndex } as React.CSSProperties}
+            >
+              <div className={styles.rowLabel}>Match</div>
+              {listings.map((listing) => {
+                const reactions = getReactionsForListing(listId, listing.id);
+                const allLove =
+                  members.length > 0 &&
+                  members.every((m) => {
+                    const r = reactions.find((rx) => rx.memberId === m.id);
+                    return r?.type === 'love';
+                  });
+
+                return (
+                  <div key={listing.id} className={styles.valueCell}>
+                    {allLove ? (
+                      <span className={styles.matchYes}>
+                        <Icon name="heart_filled" size={14} /> Yes
+                      </span>
+                    ) : (
+                      <span>No</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
+
+        {/* ── Tow match row ───────────────────────────────────── */}
+        {(() => {
+          const towRowIndex = rowIndex++;
+          return (
+            <div
+              className={styles.specRow}
+              style={{ '--row-index': towRowIndex } as React.CSSProperties}
+            >
+              <div className={styles.rowLabel}>Tow Match</div>
+              {listings.map((listing) => {
+                // Motorhome / non-towable
+                if (!isTowableType(listing.rvType)) {
+                  return (
+                    <div key={listing.id} className={`${styles.valueCell} ${styles.naValue}`}>
+                      N/A
+                    </div>
+                  );
+                }
+
+                // No saved vehicle
+                if (!savedVehicle) {
+                  return (
+                    <div key={listing.id} className={`${styles.valueCell} ${styles.naValue}`}>
+                      Add vehicle
+                    </div>
+                  );
+                }
+
+                const result = calculateTowCompatibility(savedVehicle, {
+                  gvwr: listing.gvwr ?? listing.grossVehicleWeight ?? 0,
+                  tongueWeight: listing.tongueWeight,
+                  hitchType: listing.hitchType,
+                  lengthFt: listing.lengthFt,
+                });
+
+                const verdictLabel = getVerdictLabel(result.verdict);
+                const verdictColor = getVerdictColor(result.verdict);
+                const capacityPercent = Math.round(result.checks.towWeight.percentUsed);
+
+                return (
+                  <div key={listing.id} className={styles.valueCell}>
+                    <span className={styles.towVerdict} style={{ color: verdictColor }}>
+                      {verdictLabel}
+                    </span>
+                    <span className={styles.towCapacity}>{capacityPercent}% capacity</span>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
+
+        {/* ── Comment count row ───────────────────────────────── */}
+        {(() => {
+          const commentRowIndex = rowIndex++;
+          return (
+            <div
+              className={styles.specRow}
+              style={{ '--row-index': commentRowIndex } as React.CSSProperties}
+            >
+              <div className={styles.rowLabel}>Comments</div>
+              {listings.map((listing) => {
+                const comments = getCommentsForListing(listId, listing.id);
+                const count = comments.length;
+
+                return (
+                  <div key={listing.id} className={styles.valueCell}>
+                    <span className={styles.commentCell}>
+                      <Icon name="sms" size={16} />
+                      {count} comment{count !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })()}
+
+        {/* ── View Listing link row ───────────────────────────── */}
+        {(() => {
+          const linkRowIndex = rowIndex++;
+          return (
+            <div
+              className={styles.specRow}
+              style={{ '--row-index': linkRowIndex } as React.CSSProperties}
+            >
+              <div className={styles.rowLabel} />
+              {listings.map((listing) => (
+                <div key={listing.id} className={styles.valueCell}>
+                  <Link to={listingPath(listing.id)} className={styles.viewLink}>
+                    View Listing
+                  </Link>
+                </div>
+              ))}
+            </div>
+          );
+        })()}
       </div>
     </div>
   );

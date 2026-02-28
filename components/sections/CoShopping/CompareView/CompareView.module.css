@@ -154,3 +154,58 @@
   font-size: 14px;
   color: var(--rv-on-surface-variant);
 }
+
+/* ─── Reaction icon cell ──────────────────────────────────────────── */
+
+.reactionIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ─── Match status ────────────────────────────────────────────────── */
+
+.matchYes {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-green-300);
+  font-weight: 600;
+}
+
+/* ─── Tow match ───────────────────────────────────────────────────── */
+
+.towVerdict {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.towCapacity {
+  font-size: 12px;
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Comment cell ────────────────────────────────────────────────── */
+
+.commentCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--rv-on-surface);
+}
+
+/* ─── View Listing link ───────────────────────────────────────────── */
+
+.viewLink {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--rv-primary);
+  text-decoration: none;
+}
+
+.viewLink:hover {
+  text-decoration: underline;
+}

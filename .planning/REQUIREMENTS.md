@@ -59,8 +59,8 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 
 ### Compare View
 
-- [ ] **CMPV-01**: Side-by-side comparison table shows matched or top-reacted listings (up to 3)
-- [ ] **CMPV-02**: Comparison includes price, length, weight, sleeps, slides, fresh water capacity
+- [x] **CMPV-01**: Side-by-side comparison table shows matched or top-reacted listings (up to 3)
+- [x] **CMPV-02**: Comparison includes price, length, weight, sleeps, slides, fresh water capacity
 - [ ] **CMPV-03**: Each co-shopper's reaction displayed as a comparison row
 - [ ] **CMPV-04**: Match status (Yes/No) displayed as a row
 - [ ] **CMPV-05**: Tow Match verdict and capacity percentage shown if user has a saved tow vehicle
@@ -174,8 +174,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VIEW-02 | Phase 41 | Complete |
 | VIEW-03 | Phase 41 | Pending |
 | VIEW-04 | Phase 41 | Pending |
-| CMPV-01 | Phase 42 | Pending |
-| CMPV-02 | Phase 42 | Pending |
+| CMPV-01 | Phase 42 | Complete |
+| CMPV-02 | Phase 42 | Complete |
 | CMPV-03 | Phase 42 | Pending |
 | CMPV-04 | Phase 42 | Pending |
 | CMPV-05 | Phase 42 | Pending |

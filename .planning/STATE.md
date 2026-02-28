@@ -5,16 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-02-27)
 
 **Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v7.0 Co-Shopping & Shared Lists
+**Current focus:** v8.0 Total Cost Calculator
 
 ## Current Position
 
-Phase: 46-wire-sharedlistpanel-into-srp-page-as-togglable-sidebar
-Plan: 1 of 1 (COMPLETE)
-Status: Phase Complete
-Last activity: 2026-02-28 — Completed 46-01 (Wire SharedListPanel into SRP sidebar)
-
-Progress: [####################] 58/78 plans (74%)
+Phase: 42-compare-matches-view
+Plan: 01 complete, 02 remaining
+Status: Executing phase 42
+Last activity: 2026-02-28 — Completed 42-01-PLAN.md
 
 ## Performance Metrics
 
@@ -49,6 +47,9 @@ Progress: [####################] 58/78 plans (74%)
 - Completed: 5
 - 36-01: 1min, 36-02: 2min, 45-01: 2min, 45-02: 2min, 46-01: 3min
 
+**Phase 42 (compare-matches-view):**
+- 42-01: 1min (1 task, 2 files)
+
 ## Accumulated Context
 
 ### Decisions
@@ -71,6 +72,8 @@ Progress: [####################] 58/78 plans (74%)
 - [45-02]: Used color-green-300 for match badge text -- color-green-700 does not exist in TIDE 2.0 tokens
 - [45-02]: Inline relativeTime helper duplicated across co-shopping components rather than extracting shared utility -- keeps components self-contained
 - [46-01]: Toggle button placed between headerLeft and sortControls in SRP header row for natural desktop placement
+- [Phase 42]: CSS custom property --column-count for dynamic grid columns instead of hardcoded 3-column layout
+- [Phase 42]: Spec rows as typed array of {label, getValue} for declarative extensibility
 
 ### Pending Todos
 
@@ -88,5 +91,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 46-01-PLAN.md (Phase 46 complete)
+Stopped at: Completed 42-01-PLAN.md
 Resume file: None
