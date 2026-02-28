@@ -1,32 +1,53 @@
-.backdrop {
+/* ─── Full-screen wizard overlay ─────────────────────────────────── */
+
+.wizard {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
   z-index: 1000;
+  background: var(--rv-surface);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-16);
+  flex-direction: column;
   animation: fadeIn 200ms ease-out;
 }
 
-.modal {
-  background: var(--rv-surface);
-  border-radius: 16px;
-  padding: 32px;
-  max-width: 560px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  animation: scaleIn 250ms ease-out;
+/* ─── Header ─────────────────────────────────────────────────────── */
+
+.header {
+  flex-shrink: 0;
+  padding: var(--space-12) var(--space-16) 0;
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-12);
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--rv-on-surface);
+  opacity: 0.7;
+  border-radius: var(--radius-sm);
+  font: var(--font-body-2);
+  transition: opacity 150ms;
+}
+
+.backBtn:hover {
+  opacity: 1;
+}
+
+.backBtnHidden {
+  visibility: hidden;
 }
 
 .closeBtn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   background: none;
   border: none;
   cursor: pointer;
@@ -44,20 +65,761 @@
   opacity: 1;
 }
 
-.heading {
+/* ─── Progress bar (centered, not full-width) ────────────────────── */
+
+.progressWrap {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-8);
+}
+
+.progressTrack {
+  width: 100%;
+  max-width: 400px;
+  height: 4px;
+  background: var(--rv-outline-variant);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--rv-primary);
+  border-radius: 2px;
+  transition: width 300ms ease-out;
+}
+
+/* ─── Content area ───────────────────────────────────────────────── */
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-16) var(--space-16) var(--space-32);
+}
+
+.contentInner {
+  width: 100%;
+  max-width: 520px;
+  position: relative;
+}
+
+/* ─── Step content ───────────────────────────────────────────────── */
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.stepHeading {
   font-size: 24px;
   font-weight: 700;
   color: var(--rv-on-surface);
-  margin: 0 0 8px;
+  margin: 0;
   line-height: 1.2;
 }
 
-.subtitle {
+.stepHeadingCenter {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--rv-on-surface);
+  margin: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.stepSubtext {
   font-size: 15px;
   color: var(--rv-on-surface-variant);
-  margin: 0 0 24px;
+  margin: 0;
   line-height: 1.4;
 }
+
+.stepSubtextCenter {
+  font-size: 15px;
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* ─── Section labels ─────────────────────────────────────────────── */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.sectionLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.sectionLabelNormal {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Search bar (pill style, matching site pattern) ────────────── */
+
+.wizardSearchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  height: 52px;
+  border: 1px solid var(--rv-outline-variant);
+  border-radius: var(--radius-full, 999px);
+  padding: var(--space-4) var(--space-16);
+  background: var(--rv-surface);
+  color: var(--rv-on-surface-variant);
+  transition: border-color 150ms, box-shadow 150ms;
+}
+
+.wizardSearchBar:focus-within {
+  border-color: var(--rv-primary);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--rv-primary) 10%, transparent);
+}
+
+.wizardSearchInput {
+  border: none;
+  outline: none;
+  background: transparent;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  width: 100%;
+}
+
+.wizardSearchInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.wizardSearchClear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-full, 999px);
+  cursor: pointer;
+  color: var(--rv-on-surface-variant);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.wizardSearchClear:hover {
+  background: var(--rv-outline-variant);
+}
+
+.noResults {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  text-align: center;
+  padding: var(--space-16) 0;
+  margin: 0;
+}
+
+/* ─── Popular vehicles list ──────────────────────────────────────── */
+
+.popularList {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rv-outline-variant);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.popularRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rv-outline-variant);
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms;
+}
+
+.popularRow:last-child {
+  border-bottom: none;
+}
+
+.popularRow:hover {
+  background: color-mix(in srgb, var(--rv-primary) 5%, var(--rv-surface));
+}
+
+.brandBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.popularName {
+  flex: 1;
+  font: var(--font-body-1);
+  font-weight: 500;
+  color: var(--rv-on-surface);
+}
+
+.popularChevron {
+  color: var(--rv-on-surface-variant);
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+/* ─── Make list with logos ────────────────────────────────────────── */
+
+.makeList {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--rv-outline-variant);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.makeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-16);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rv-outline-variant);
+  cursor: pointer;
+  text-align: left;
+  transition: background 120ms;
+}
+
+.makeRow:last-child {
+  border-bottom: none;
+}
+
+.makeRow:hover {
+  background: color-mix(in srgb, var(--rv-primary) 5%, var(--rv-surface));
+}
+
+.makeRowSelected {
+  background: color-mix(in srgb, var(--rv-primary) 10%, var(--rv-surface));
+}
+
+.makeName {
+  flex: 1;
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  font-size: 16px;
+}
+
+/* ─── Trim level cards ──────────────────────────────────────────── */
+
+.trimList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.trimCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-outline-variant);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 150ms, background 150ms, box-shadow 150ms;
+  animation: slideUp 0.3s ease-out both;
+}
+
+.trimCard:hover {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 4%, var(--rv-surface));
+}
+
+.trimCardSelected {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 6%, var(--rv-surface));
+  box-shadow: 0 0 0 1px var(--rv-primary);
+}
+
+.trimTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trimName {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+}
+
+.trimCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full, 999px);
+  background: var(--rv-primary);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.trimMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.trimTowLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.trimDot {
+  color: var(--rv-on-surface-variant);
+  opacity: 0.4;
+}
+
+.trimEngines {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.trimDotRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.dotScale {
+  display: flex;
+  gap: 4px;
+}
+
+.dotFilled {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rv-primary);
+}
+
+.dotEmpty {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: none;
+  border: 1.5px solid var(--rv-primary);
+  box-sizing: border-box;
+}
+
+.trimDotLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  opacity: 0.7;
+}
+
+/* ─── Rich vertical cards (engine, cab, bed) ────────────────────── */
+
+.richList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.richCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-16);
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-border-low);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 150ms, background 150ms, box-shadow 150ms;
+  animation: slideUp 0.3s ease-out both;
+}
+
+.richCard:hover {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 4%, var(--rv-surface));
+}
+
+.richCardSelected {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 6%, var(--rv-surface));
+  box-shadow: 0 0 0 1px var(--rv-primary);
+}
+
+.richCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.richCardTopRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.richCardTitle {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+}
+
+.richCardCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full, 999px);
+  background: var(--rv-primary);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.richCardMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.richCardDot {
+  opacity: 0.4;
+}
+
+.richCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.richCardBadge {
+  font: var(--font-label-3);
+  font-weight: 600;
+  color: var(--rv-primary);
+  background: var(--rv-surface-accent);
+  padding: 2px 8px;
+  border-radius: var(--radius-full, 999px);
+}
+
+/* ─── Bed length bar ────────────────────────────────────────────── */
+
+.bedLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+}
+
+.bedBarTrack {
+  height: 6px;
+  background: var(--rv-border-low);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bedBarFill {
+  height: 100%;
+  background: var(--rv-primary);
+  border-radius: 3px;
+  transition: width 400ms ease-out;
+  opacity: 0.5;
+}
+
+/* ─── View more link ─────────────────────────────────────────────── */
+
+.viewMoreLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--rv-primary);
+  font: var(--font-body-2);
+  font-weight: 500;
+  padding: var(--space-4) 0;
+  text-align: center;
+  transition: opacity 150ms;
+}
+
+.viewMoreLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ─── Intro links ────────────────────────────────────────────────── */
+
+.introLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ─── Option grid (YMMT cards) ───────────────────────────────────── */
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--space-12);
+}
+
+/* ─── VIN link ───────────────────────────────────────────────────── */
+
+.vinLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--rv-primary);
+  font: var(--font-body-2);
+  padding: 4px 0;
+  text-align: center;
+  transition: opacity 150ms;
+}
+
+.vinLink:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ─── VIN entry ──────────────────────────────────────────────────── */
+
+.vinInputRow {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.vinInput {
+  flex: 1;
+  height: 48px;
+  border: 2px solid var(--rv-outline-variant);
+  border-radius: var(--radius-base);
+  padding: 0 var(--space-12);
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--rv-on-surface);
+  background: var(--rv-surface);
+  transition: border-color 150ms;
+}
+
+.vinInput:focus {
+  outline: none;
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--rv-primary) 20%, transparent);
+}
+
+.vinInput::placeholder {
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: inherit;
+  color: var(--rv-on-surface-variant);
+  opacity: 0.6;
+}
+
+.vinDecodeBtn {
+  height: 48px;
+  padding: 0 var(--space-20);
+  border-radius: var(--radius-base);
+  border: none;
+  background: var(--rv-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 150ms;
+  white-space: nowrap;
+}
+
+.vinDecodeBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.vinDecodeBtn:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+.vinError {
+  color: var(--color-red-200, #dc3545);
+  font-size: 14px;
+  margin: 0;
+}
+
+.vinConfirmCard {
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  animation: slideUp 0.25s ease-out;
+}
+
+.vinVehicleName {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0 0 4px;
+}
+
+.vinVehicleDetail {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.vinActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  align-items: flex-start;
+}
+
+.vinContinueBtn {
+  height: 48px;
+  padding: 0 var(--space-32);
+  border-radius: var(--radius-base);
+  border: none;
+  background: var(--rv-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 150ms;
+}
+
+.vinContinueBtn:hover {
+  opacity: 0.9;
+}
+
+/* ─── Checkbox group (Extras step) ───────────────────────────────── */
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  cursor: pointer;
+  padding: var(--space-12) var(--space-16);
+  border: 2px solid var(--rv-outline-variant);
+  border-radius: 12px;
+  transition: border-color 150ms, background 150ms;
+}
+
+.checkboxLabel:hover {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 4%, var(--rv-surface));
+}
+
+.checkboxInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--rv-outline-variant);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 150ms, border-color 150ms;
+  color: #fff;
+}
+
+.checkboxChecked {
+  background: var(--rv-primary);
+  border-color: var(--rv-primary);
+}
+
+.checkboxText {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+}
+
+.continueBtn {
+  height: 48px;
+  padding: 0 var(--space-32);
+  border-radius: var(--radius-base);
+  border: none;
+  background: var(--rv-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: opacity 150ms;
+  align-self: flex-start;
+  margin-top: var(--space-8);
+}
+
+.continueBtn:hover {
+  opacity: 0.9;
+}
+
+/* ─── Spec grid (Confirm step) ───────────────────────────────────── */
+
+.specGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-8);
+}
+
+.specCard {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-base);
+  padding: var(--space-12);
+  animation: slideUp 0.3s ease-out both;
+}
+
+.specLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.specValue {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+}
+
+.saveBtn {
+  width: 100%;
+}
+
+/* ─── Toast ──────────────────────────────────────────────────────── */
 
 .toast {
   position: fixed;
@@ -75,14 +837,22 @@
   pointer-events: none;
 }
 
+/* ─── Keyframes ──────────────────────────────────────────────────── */
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideUpFade {
@@ -101,5 +871,31 @@
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .optionGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .specGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stepHeading,
+  .stepHeadingCenter {
+    font-size: 20px;
+  }
+
+  .vinInputRow {
+    flex-direction: column;
+  }
+
+  .progressTrack {
+    width: 100%;
+    max-width: 280px;
   }
 }

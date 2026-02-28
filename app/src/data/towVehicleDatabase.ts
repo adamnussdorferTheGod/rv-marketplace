@@ -430,6 +430,24 @@ export function getAvailableTrims(year: number, make: string, model: string): st
   return [...trims].sort();
 }
 
+/** Returns trim summary with tow capacity range for a given year, make, model */
+export function getTrimSummaries(year: number, make: string, model: string): { trim: string; maxTow: number; engineCount: number }[] {
+  const trimMap = new Map<string, { maxTow: number; engines: Set<string> }>();
+  for (const v of TOW_VEHICLE_DATABASE) {
+    if (v.year !== year || v.make !== make || v.model !== model) continue;
+    const entry = trimMap.get(v.trim);
+    if (entry) {
+      if (v.maxTow > entry.maxTow) entry.maxTow = v.maxTow;
+      entry.engines.add(v.engine);
+    } else {
+      trimMap.set(v.trim, { maxTow: v.maxTow, engines: new Set([v.engine]) });
+    }
+  }
+  return [...trimMap.entries()]
+    .map(([trim, data]) => ({ trim, maxTow: data.maxTow, engineCount: data.engines.size }))
+    .sort((a, b) => a.maxTow - b.maxTow);
+}
+
 /** Returns engines available for a given year, make, model, and trim */
 export function getAvailableEngines(
   year: number, make: string, model: string, trim: string,
@@ -440,6 +458,21 @@ export function getAvailableEngines(
       .map((v) => v.engine),
   );
   return [...engines].sort();
+}
+
+/** Returns engine summaries with max tow for a given year, make, model, trim */
+export function getEngineSummaries(
+  year: number, make: string, model: string, trim: string,
+): { engine: string; maxTow: number }[] {
+  const map = new Map<string, number>();
+  for (const v of TOW_VEHICLE_DATABASE) {
+    if (v.year !== year || v.make !== make || v.model !== model || v.trim !== trim) continue;
+    const cur = map.get(v.engine) ?? 0;
+    if (v.maxTow > cur) map.set(v.engine, v.maxTow);
+  }
+  return [...map.entries()]
+    .map(([engine, maxTow]) => ({ engine, maxTow }))
+    .sort((a, b) => b.maxTow - a.maxTow);
 }
 
 /** Returns cab options available for a given year, make, model, trim, and engine */

@@ -1,0 +1,32 @@
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-outline-variant);
+  border-radius: 12px;
+  padding: var(--space-12) var(--space-16);
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms, transform 100ms;
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  text-align: center;
+  min-height: 52px;
+  user-select: none;
+}
+
+.card:hover {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 6%, var(--rv-surface));
+  transform: scale(1.02);
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+.cardSelected {
+  border-color: var(--rv-primary);
+  background: color-mix(in srgb, var(--rv-primary) 10%, var(--rv-surface));
+}
