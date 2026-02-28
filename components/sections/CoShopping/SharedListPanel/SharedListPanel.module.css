@@ -131,3 +131,55 @@
   margin-bottom: 12px;
   opacity: 0.3;
 }
+
+.emptyTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  margin: 0 0 8px;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: var(--rv-on-surface-variant);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Solo state: invite CTA card */
+.inviteCta {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--color-blue-50, #e3f2fd);
+  border: 1px dashed var(--color-blue-300, #90caf9);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  color: var(--color-blue-800, #1565c0);
+  transition: background 0.15s;
+}
+
+.inviteCta:hover {
+  background: var(--color-blue-100, #bbdefb);
+}
+
+.inviteCtaText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inviteCtaTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-blue-900, #0d47a1);
+}
+
+.inviteCtaDescription {
+  font-size: 13px;
+  color: var(--color-blue-700, #1976d2);
+  line-height: 1.4;
+}

@@ -1,0 +1,109 @@
+/* Clipped content with gradient fade */
+.outer {
+  position: relative;
+}
+
+.gatedContent {
+  position: relative;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.85) 60%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Auth card below the fade */
+.card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-32) var(--space-24);
+  background: var(--rv-surface);
+  box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.08);
+  clip-path: inset(-20px 0 0 0);
+  animation: fadeIn 300ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.heading {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-8);
+}
+
+.subtext {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-24);
+  max-width: 300px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  width: 100%;
+  max-width: 260px;
+}
+
+.authButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--space-8);
+  padding: 12px 24px;
+  background: var(--rv-surface);
+  border: 2px solid var(--rv-primary);
+  border-radius: var(--radius-full);
+  color: var(--rv-primary);
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 150ms, color 150ms, border-color 150ms;
+}
+
+.authButton:hover {
+  background: var(--rv-surface-variant);
+}
+
+.authButton:active {
+  opacity: 0.85;
+}
+
+.terms {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface);
+  margin: var(--space-24) 0 0;
+  max-width: 260px;
+}
+
+.terms a {
+  color: var(--rv-on-surface);
+  text-decoration: underline;
+}
+
+.terms a:hover {
+  color: var(--rv-primary);
+}

@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
 import { listingPath } from '../../../../app/src/routes';
+import { useCoShopping } from '../../../sections/CoShopping/CoShoppingContext';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SRPListingCard.module.css';
 
@@ -18,7 +18,8 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 export default function SRPListingCard({ listing }: SRPListingCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isListingOnAnyList, toggleListingOnActiveList } = useCoShopping();
+  const isFavorite = isListingOnAnyList(listing.id);
 
   const maxDots = 5;
   const dotCount = Math.min(listing.photos.length, maxDots);
@@ -73,7 +74,7 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsFavorite(!isFavorite);
+            toggleListingOnActiveList(listing.id);
           }}
           aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
         >

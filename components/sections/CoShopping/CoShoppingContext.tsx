@@ -233,6 +233,7 @@ interface CoShoppingContextValue {
   addComment: (listId: string, listingId: string, text: string) => void;
   addMember: (listId: string, member: ListMember) => void;
   removeMember: (listId: string, memberId: string) => void;
+  toggleListingOnActiveList: (listingId: string) => void;
   // Helpers
   getReactionsForListing: (listId: string, listingId: string) => Reaction[];
   getCommentsForListing: (listId: string, listingId: string) => Comment[];
@@ -346,6 +347,28 @@ export function CoShoppingProvider({ children }: CoShoppingProviderProps) {
     [dispatch],
   );
 
+  // ── Toggle listing on active list ────────────────────────────────
+
+  const toggleListingOnActiveList = useCallback(
+    (listingId: string) => {
+      // Find if listing is already on any list
+      const existingList = state.lists.find((l) =>
+        l.listings.some((sl) => sl.listingId === listingId),
+      );
+      if (existingList) {
+        dispatch({ type: 'REMOVE_LISTING', listId: existingList.id, listingId });
+      } else if (state.activeListId) {
+        dispatch({
+          type: 'ADD_LISTING',
+          listId: state.activeListId,
+          listingId,
+          addedBy: state.currentUserId,
+        });
+      }
+    },
+    [state.lists, state.activeListId, state.currentUserId],
+  );
+
   // ── Helper callbacks ──────────────────────────────────────────────
 
   const getReactionsForListing = useCallback(
@@ -409,6 +432,7 @@ export function CoShoppingProvider({ children }: CoShoppingProviderProps) {
       addComment,
       addMember,
       removeMember,
+      toggleListingOnActiveList,
       getReactionsForListing,
       getCommentsForListing,
       getListForListing,
@@ -427,6 +451,7 @@ export function CoShoppingProvider({ children }: CoShoppingProviderProps) {
       addComment,
       addMember,
       removeMember,
+      toggleListingOnActiveList,
       getReactionsForListing,
       getCommentsForListing,
       getListForListing,

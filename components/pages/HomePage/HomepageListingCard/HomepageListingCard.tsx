@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { listingPath } from '../../../../app/src/routes';
 import type { HomepageListingData } from '../../../../app/src/data/homepageData';
+import { useCoShopping } from '../../../sections/CoShopping/CoShoppingContext';
 import styles from './HomepageListingCard.module.css';
 
 interface HomepageListingCardProps {
@@ -17,7 +17,8 @@ const TAG_COLORS: Record<string, string> = {
 };
 
 export default function HomepageListingCard({ listing }: HomepageListingCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isListingOnAnyList, toggleListingOnActiveList } = useCoShopping();
+  const isFavorite = isListingOnAnyList(listing.id);
   const location = listing.dealer.distanceMiles
     ? `${listing.dealer.city}, ${listing.dealer.state} \u00b7 ${listing.dealer.distanceMiles} miles away`
     : `${listing.dealer.city}, ${listing.dealer.state}`;
@@ -45,7 +46,7 @@ export default function HomepageListingCard({ listing }: HomepageListingCardProp
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            setIsFavorite(!isFavorite);
+            toggleListingOnActiveList(listing.id);
           }}
           aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
         >

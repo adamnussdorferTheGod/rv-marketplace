@@ -12,6 +12,7 @@ interface SharedListCardProps {
   listingId: string;
   addedBy: string;
   addedAt: string;
+  compact?: boolean;
 }
 
 const formatPrice = (price: number): string =>
@@ -26,8 +27,9 @@ export default function SharedListCard({
   listingId,
   addedBy,
   addedAt,
+  compact,
 }: SharedListCardProps) {
-  const { getCommentsForListing } = useCoShopping();
+  const { getCommentsForListing, removeListing } = useCoShopping();
   const [showComments, setShowComments] = useState(false);
 
   const listing = sampleSrpListings.find((l) => l.id === listingId);
@@ -47,57 +49,68 @@ export default function SharedListCard({
   const photo = listing.photos?.[0];
   const rvTypeLabel = RV_TYPE_LABELS[listing.rvType] ?? listing.rvType;
 
-  // Subtitle: condition + type (capitalize condition)
   const conditionLabel = listing.condition.charAt(0).toUpperCase() + listing.condition.slice(1);
   const subtitle = [conditionLabel, rvTypeLabel].filter(Boolean).join(' \u2022 ');
 
   return (
     <div className={styles.card}>
-      {/* Photo */}
-      <div className={styles.photoArea}>
-        {photo ? (
-          <img
-            className={styles.photo}
-            src={photo.url}
-            alt={photo.alt}
-          />
-        ) : (
-          <div className={styles.photoPlaceholder}>
-            <Icon name="directions_car" size={48} />
-          </div>
-        )}
-      </div>
+      {/* Top row: photo left, content right */}
+      <div className={styles.topRow}>
+        <div className={styles.photoArea}>
+          {photo ? (
+            <img
+              className={styles.photo}
+              src={photo.url}
+              alt={photo.alt}
+            />
+          ) : (
+            <div className={styles.photoPlaceholder}>
+              <Icon name="directions_car" size={48} />
+            </div>
+          )}
 
-      {/* Content */}
-      <div className={styles.content}>
-        <span className={styles.subtitle}>{subtitle}</span>
-        <h3 className={styles.title}>{listing.title}</h3>
-        <span className={styles.price}>{formatPrice(listing.currentPrice)}</span>
-      </div>
-
-      {/* Divider */}
-      <div className={styles.divider} />
-
-      {/* Reactions */}
-      <div className={styles.reactionSection}>
-        <ReactionBar listId={listId} listingId={listingId} />
-      </div>
-
-      {/* Comments row */}
-      <button
-        type="button"
-        className={styles.commentRow}
-        onClick={() => setShowComments((prev) => !prev)}
-      >
-        <Icon name="sms" size={20} />
-        <span>{commentCount} comment{commentCount !== 1 ? 's' : ''}</span>
-      </button>
-
-      {/* Comment thread (expandable) */}
-      {showComments && (
-        <div className={styles.commentSection}>
-          <CommentThread listId={listId} listingId={listingId} />
+          {/* Remove button */}
+          <button
+            type="button"
+            className={styles.removeButton}
+            onClick={() => removeListing(listId, listingId)}
+            aria-label="Remove from list"
+          >
+            <Icon name="x_close" size={16} />
+          </button>
         </div>
+
+        <div className={styles.content}>
+          <span className={styles.subtitle}>{subtitle}</span>
+          <h3 className={styles.title}>{listing.title}</h3>
+          <span className={styles.price}>{formatPrice(listing.currentPrice)}</span>
+        </div>
+      </div>
+
+      {/* Full mode: divider, reactions, comments */}
+      {!compact && (
+        <>
+          <div className={styles.divider} />
+
+          <div className={styles.reactionSection}>
+            <ReactionBar listId={listId} listingId={listingId} />
+          </div>
+
+          <button
+            type="button"
+            className={styles.commentRow}
+            onClick={() => setShowComments((prev) => !prev)}
+          >
+            <Icon name="sms" size={20} />
+            <span>{commentCount} comment{commentCount !== 1 ? 's' : ''}</span>
+          </button>
+
+          {showComments && (
+            <div className={styles.commentSection}>
+              <CommentThread listId={listId} listingId={listingId} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );

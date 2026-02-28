@@ -52,8 +52,7 @@ export default function SearchResultsPage() {
   const [sharedListOpen, setSharedListOpen] = useState(false);
   const isMobile = useIsMobile();
 
-  const { lists } = useCoShopping();
-  const hasSharedLists = lists.length > 0;
+  const { activeList } = useCoShopping();
 
   // Reset to page 1 whenever filters or sort change
   useEffect(() => {
@@ -156,19 +155,19 @@ export default function SearchResultsPage() {
                   </div>
                 )}
               </div>
-              {hasSharedLists && (
-                <button
-                  type="button"
-                  className={`${styles.sharedListToggle} ${sharedListOpen ? styles.sharedListToggleActive : ''}`}
-                  onClick={() => setSharedListOpen(!sharedListOpen)}
-                >
-                  <Icon name="group" size={20} />
-                  Shared List
+              <button
+                type="button"
+                className={`${styles.sharedListToggle} ${sharedListOpen ? styles.sharedListToggleActive : ''}`}
+                onClick={() => setSharedListOpen(!sharedListOpen)}
+              >
+                <Icon name="favorite" size={20} />
+                Saved RVs
+                {activeList && activeList.listings.length > 0 && (
                   <span className={styles.sharedListBadge}>
-                    {lists[0].listings.length}
+                    {activeList.listings.length}
                   </span>
-                </button>
-              )}
+                )}
+              </button>
               <div className={styles.sortControlsDesktop}>
                 <SortControls sort={sort} onSortChange={setSort} />
               </div>
@@ -225,12 +224,12 @@ export default function SearchResultsPage() {
           <div className={styles.sharedListBackdrop} onClick={() => setSharedListOpen(false)} />
           <div className={styles.sharedListSidebar}>
             <div className={styles.sharedListSidebarHeader}>
-              <span className={styles.sharedListSidebarTitle}>Shared List</span>
+              <span className={styles.sharedListSidebarTitle}>Saved RVs</span>
               <button
                 type="button"
                 className={styles.sharedListCloseBtn}
                 onClick={() => setSharedListOpen(false)}
-                aria-label="Close shared list"
+                aria-label="Close saved RVs"
               >
                 <Icon name="x_close" size={20} />
               </button>
