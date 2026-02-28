@@ -1,124 +1,105 @@
-# Requirements: RV Marketplace — v7.0 Co-Shopping & Shared Lists
+# Requirements: RV Marketplace — v8.0 Total Cost Calculator
 
-**Defined:** 2026-02-27
+**Defined:** 2026-02-28
 **Core Value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
 
-## v7.0 Requirements
+## v8.0 Requirements
 
-Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phases.
+Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalculator VDP section with a comprehensive, real-time purchase cost estimator.
 
-### Data Layer
+### Calculator Core
 
-- [x] **CDAT-01**: TypeScript interfaces define SharedList, ListMember, SharedListing, Reaction, and Comment shapes matching the spec's state model
-- [x] **CDAT-02**: CoShoppingContext provider manages shared list state (lists, active list, reactions, comments) with persistence across page navigations
-- [x] **CDAT-03**: Sample shared list with pre-populated listings, reactions, and comments for the Airstream Flying Cloud and other sample listings
-- [x] **CDAT-04**: Mock co-shopper user (e.g., "Sarah") with display name and avatar for demo purposes
+- [ ] **CALC-01**: TotalCostCalculator section replaces existing LoanCalculator on VDP in the same position
+- [ ] **CALC-02**: Calculator shows summary view: listing price + est. tax & fees = out-the-door total with est. monthly payment
+- [ ] **CALC-03**: State selector dropdown defaults to listing location state, recalculates all values on change
+- [ ] **CALC-04**: "Based on registering in [State]" attribution shown beneath totals
+- [ ] **CALC-05**: All calculated values update in real-time as any input changes (no submit button)
+- [ ] **CALC-06**: Expandable full breakdown with itemized sections: Purchase Price, Taxes, DMV Fees, Dealer Fees, Financing, Insurance, Grand Total
 
-### Shared Lists
+### State Tax Data
 
-- [ ] **LIST-01**: User can create a named shared list from a "My Lists" section
-- [ ] **LIST-02**: Shared list header displays list name, member avatars, match count, and last updated timestamp
-- [ ] **LIST-03**: List creator can rename the shared list
-- [ ] **LIST-04**: List creator can remove members from the list
-- [ ] **LIST-05**: Any member can leave a list (reactions and comments preserved, attributed to "[Name] (left)")
-- [ ] **LIST-06**: List creator can delete the list with confirmation modal
-- [ ] **LIST-07**: Maximum 4 co-shoppers per list enforced with error message
-- [ ] **LIST-08**: Maximum 5 shared lists per account enforced with error message
-- [ ] **LIST-09**: User can add listings to a shared list with duplicate prevention (pulse highlight on existing)
-- [ ] **LIST-10**: User can remove listings from a shared list with confirmation showing who added it and their reaction
+- [x] **TAX-01**: Static JSON database with tax rates, fees, and rules for all 50 states + DC
+- [x] **TAX-02**: State sales tax rate + average local tax rate per state with combined calculation on taxable amount
+- [x] **TAX-03**: Tax cap states handled correctly (SC capped at $300 total, NC 3% capped at $2,000)
+- [x] **TAX-04**: No-tax states display $0 with state-specific explanatory notes (AK local tax possible, DE 4.25% doc fee, MT $0, NH permit fees, OR 0.5% use tax)
+- [x] **TAX-05**: RV-specific tax rules applied where applicable (MD no tax on RVs >7 years, CT tiered 6.35%/<$50K and 7.75%/>$50K, GA 6.6% one-time TAVT, OK $20+3.25%, FL county surtax on first $5K only)
+- [x] **TAX-06**: Trade-in tax credit correctly reduces taxable amount in ~42 states, full price taxed in CA, DC, HI, KY, VA
 
-### Reactions
+### DMV & Dealer Fees
 
-- [x] **RXTN-01**: Each co-shopper can react to each listing with Love, Maybe, or Pass via one tap on reaction icons
-- [x] **RXTN-02**: Reactions are visible to all co-shoppers with name/avatar beside each reaction icon
-- [x] **RXTN-03**: Reactions can be changed at any time by tapping a different icon
-- [x] **RXTN-04**: Default state for unreviewed listings is "no reaction" (empty heart outline)
-- [x] **RXTN-05**: Love renders as red filled heart, Maybe as amber outline, Pass as gray muted icon
+- [x] **FEE-01**: Per-state DMV fees displayed: title fee, registration fee, plate/tab fee from static data
+- [x] **FEE-02**: Registration fee calculation supports flat, weight-based (using GVWR), and value-based models per state
+- [ ] **FEE-03**: Dealer fee defaults by RV type (travel trailer, fifth wheel, Class A/B/C, pop-up, truck camper) with state doc fee caps enforced
+- [ ] **FEE-04**: Dealer fees editable per line item with inline edit interaction (click to edit, blur/enter to commit)
 
-### Match
+### Trade-In
 
-- [ ] **MTCH-01**: "It's a Match!" indicator appears on listing card when all co-shoppers react Love
-- [ ] **MTCH-02**: Match count is displayed in the shared list header
-- [ ] **MTCH-03**: Matches tab in the list view filters to show only matched listings
-- [ ] **MTCH-04**: If any co-shopper changes away from Love, match is removed with subtle fade animation
-- [ ] **MTCH-05**: First match on a list triggers a confetti celebration animation (2s duration)
+- [ ] **TRAD-01**: Trade-in toggle (Yes/No) that expands/collapses trade-in input section
+- [ ] **TRAD-02**: YMMT selector (Year/Make/Model/Condition) with automated value range estimate (low/mid/high)
+- [ ] **TRAD-03**: User can override estimated trade-in value with manual dollar input
+- [ ] **TRAD-04**: Trade-in tax credit savings displayed prominently in credit states with dollar amount saved
+- [ ] **TRAD-05**: Warning callout shown in non-credit states (CA, DC, HI, KY, VA) explaining tax is on full price
 
-### Comments
+### Financing
 
-- [x] **CMNT-01**: Each listing on a shared list has its own comment thread
-- [x] **CMNT-02**: User can post text comments with author name and timestamp displayed
-- [x] **CMNT-03**: Comment count appears on shared list listing cards
-- [ ] **CMNT-04**: Comments persist even if the listing is removed from the list
+- [ ] **FIN-01**: Down payment input with slider and text field ($0 to listing price)
+- [ ] **FIN-02**: Loan term selector including RV-specific long terms (36, 48, 60, 72, 84, 120, 144, 180 months)
+- [ ] **FIN-03**: Credit tier selector (Excellent 5.99% / Good 7.49% / Fair 9.99% / Below Fair 12.49%) as friendly APR input
+- [ ] **FIN-04**: APR text input for manual override when user knows their rate
+- [ ] **FIN-05**: Amount financed defaults to out-the-door price minus down payment (tax + fees included in loan)
+- [ ] **FIN-06**: Displays monthly payment, total interest paid, and total cost of loan
 
-### Shared List View
+### Insurance
 
-- [ ] **VIEW-01**: Filter tabs display All, Matches, My Picks, and Partner's Picks with item counts
-- [x] **VIEW-02**: Shared list cards show photo, title, price, location, specs, reactions from all co-shoppers, match indicator, comment count, and "added by" attribution
-- [ ] **VIEW-03**: Sort by Most Recent available as default
-- [ ] **VIEW-04**: "Compare Matches" CTA appears when matches exist
+- [ ] **INS-01**: Insurance estimate section showing annual premium range (low/mid/high) by RV type and value
+- [ ] **INS-02**: Coverage type note and educational disclaimer ("Get a real quote from an RV insurer")
 
-### Compare View
+### State Intelligence
 
-- [x] **CMPV-01**: Side-by-side comparison table shows matched or top-reacted listings (up to 3)
-- [x] **CMPV-02**: Comparison includes price, length, weight, sleeps, slides, fresh water capacity
-- [ ] **CMPV-03**: Each co-shopper's reaction displayed as a comparison row
-- [ ] **CMPV-04**: Match status (Yes/No) displayed as a row
-- [ ] **CMPV-05**: Tow Match verdict and capacity percentage shown if user has a saved tow vehicle
-- [ ] **CMPV-06**: Comment count and "View Listing" links per column
+- [ ] **TIP-01**: State-specific tip callouts surface tax caps, no-tax advantages, trade-in credit rules, and RV-specific exemptions
+- [ ] **TIP-02**: Three callout types with distinct styling: info (neutral blue), savings (green), warning (amber)
 
-### VDP Integration
+### Mobile & Polish
 
-- [ ] **VDPI-01**: When active shared lists exist, VDP save button shows dropdown with "Save to [List Name]" options
-- [ ] **VDPI-02**: Dropdown includes private "Save to My Favorites" option alongside shared list options
-- [ ] **VDPI-03**: VDP shows co-shopper's reaction if they've already reacted to this listing on a shared list
-
-### SRP Co-Shopping
-
-- [x] **CSRP-01**: Listings already on a shared list show co-shopper reaction badges on SRP cards
-- [ ] **CSRP-02**: Badge shows each co-shopper's reaction icon and match indicator
-- [ ] **CSRP-03**: "On your list: [List Name]" text appears on recognized listings
-
-### Mobile
-
-- [ ] **MOBL-01**: Swipe reactions on mobile: right for Love, left for Pass, up for Maybe with tilt animation and colored overlay
-- [ ] **MOBL-02**: Full-width card stack layout on mobile shared list view
-- [ ] **MOBL-03**: Comment thread opens in bottom sheet on mobile with auto-focused input
-- [ ] **MOBL-04**: Sticky header on scroll shows list name, member count, and match count
+- [ ] **UX-01**: Responsive layout — inputs stack single-column on mobile, breakdown sections as collapsible accordions
+- [ ] **UX-02**: Numeric values animate on recalculation with odometer-style counter roll
+- [ ] **UX-03**: Legal disclaimer at bottom: "Cost estimates are calculated using publicly available state tax rates..."
 
 ## Future Requirements
 
 Deferred to future milestone. Tracked but not in current roadmap.
 
-### Invite & Onboarding
+### Save & Share
 
-- **INVT-01**: Invite co-shoppers via email with branded one-click join link
-- **INVT-02**: Invite co-shoppers via SMS with join link
-- **INVT-03**: Copy shareable invite link for any channel
-- **INVT-04**: Include current saved listings when creating shared list
-- **INVT-05**: Co-shopping onboarding tooltip sequence for first-time users
+- **SAVE-01**: Save full estimate to user account (auth required)
+- **SAVE-02**: Saved estimates update automatically when listing price changes, with notification
+- **SAVE-03**: Share estimate as link or image card for co-shopping
+- **SAVE-04**: Print-friendly / PDF version of full breakdown
 
-### Engagement
+### Enhanced Location
 
-- **ENGM-01**: Nudge co-shopper button with 24hr rate limiting
-- **ENGM-02**: "Sarah hasn't seen this yet" indicator on unreviewed listings
-- **ENGM-03**: Weekly digest email summarizing list activity
-- **ENGM-04**: Price change notifications on shared list items
-- **ENGM-05**: Listing sold/removed notifications
+- **ELOC-01**: Zip code-level local tax rates via Avalara or TaxJar API
+- **ELOC-02**: "What if I register in [State]?" -- quick 2-3 state side-by-side comparison
+- **ELOC-03**: Multi-state purchase advisory (buy in listing state, register in home state)
 
-### Advanced Features
+### Revenue Integrations
 
-- **ADVN-01**: Private notes per listing (visible only to author, dotted border, lock icon)
-- **ADVN-02**: Photo tagging on listing photos (pin markers with annotation popover)
-- **ADVN-03**: Photo comments (attach images to comments)
-- **ADVN-04**: Blind vote mode (hide reactions until all members vote)
-- **ADVN-05**: Ranking mode (drag-to-reorder listings)
-- **ADVN-06**: AI-generated shared preference summary
+- **REVN-01**: "Get pre-qualified" CTA with financing partner integration
+- **REVN-02**: "Get an actual quote" CTA with insurance partner (Progressive, Good Sam, Roamly)
+- **REVN-03**: Dealer-specific fee data ingestion from RV Trader dealer portal
 
-### Real-Time & Notifications
+### Additional Line Items
 
-- **RTNE-01**: WebSocket real-time sync for reactions, comments, and new listings
-- **RTNE-02**: Push notifications for match created, comment posted, listing added
-- **RTNE-03**: In-app notification center for co-shopping events
+- **ADDL-01**: Transport/delivery cost estimate for out-of-state purchases (per-mile rate x distance)
+- **ADDL-02**: GAP insurance estimate as optional line item
+- **ADDL-03**: Extended warranty cost range as optional line item
+- **ADDL-04**: Annual cost projection (registration renewal, insurance, maintenance by year)
+
+### Advanced
+
+- **ADVN-01**: Side-by-side total cost comparison of 2 listings
+- **ADVN-02**: Cost calculator data feeds into Walk-In Deal Kit PDF
+- **ADVN-03**: Mobile sticky summary bar at bottom of VDP with tap-to-expand
 
 ## Out of Scope
 
@@ -126,15 +107,13 @@ Explicitly excluded. Documented to prevent scope creep.
 
 | Feature | Reason |
 |---------|--------|
-| Real backend / API server | Frontend-only constraint — all state in React context |
-| User authentication / login | UI-only demo — mock users, no real auth |
-| Real WebSocket server | Mock real-time with state updates — no server |
-| Real push notifications | In-app toasts only — no notification service |
-| Email/SMS delivery | Invite flow deferred — mock co-shopper pre-populated |
-| Agent/advisor list access | Privacy concerns, defer to future |
-| List activity in search ranking | Feedback loop risk, defer to future |
-| Real-time chat between co-shoppers | High complexity, not core to co-shopping value |
-| Mobile-first responsive design | Desktop-first consistent with all milestones |
+| Real API calls for tax data | Frontend-only constraint -- static JSON database |
+| Zip code-level tax granularity | State averages sufficient for v8.0, Avalara/TaxJar deferred |
+| Real financing pre-qualification | No lending partner integration -- credit tier defaults only |
+| Real insurance quotes | Educational estimate only -- no insurer API |
+| Dealer-specific fee data | Industry averages only -- dealer portal integration deferred |
+| Backend persistence | All state in React -- no saved estimates server-side |
+| Real user location detection | No geolocation API -- listing state as default |
 
 ## Traceability
 
@@ -142,60 +121,46 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| CDAT-01 | Phase 36 | Complete |
-| CDAT-02 | Phase 36 | Complete |
-| CDAT-03 | Phase 36 | Complete |
-| CDAT-04 | Phase 36 | Complete |
-| LIST-01 | Phase 37 | Pending |
-| LIST-02 | Phase 37 | Pending |
-| LIST-03 | Phase 37 | Pending |
-| LIST-04 | Phase 37 | Pending |
-| LIST-05 | Phase 37 | Pending |
-| LIST-06 | Phase 37 | Pending |
-| LIST-07 | Phase 37 | Pending |
-| LIST-08 | Phase 37 | Pending |
-| LIST-09 | Phase 37 | Pending |
-| LIST-10 | Phase 37 | Pending |
-| RXTN-01 | Phase 38 | Complete |
-| RXTN-02 | Phase 38 | Complete |
-| RXTN-03 | Phase 38 | Complete |
-| RXTN-04 | Phase 38 | Complete |
-| RXTN-05 | Phase 38 | Complete |
-| MTCH-01 | Phase 39 | Pending |
-| MTCH-02 | Phase 39 | Pending |
-| MTCH-03 | Phase 39 | Pending |
-| MTCH-04 | Phase 39 | Pending |
-| MTCH-05 | Phase 39 | Pending |
-| CMNT-01 | Phase 40 | Complete |
-| CMNT-02 | Phase 40 | Complete |
-| CMNT-03 | Phase 40 | Complete |
-| CMNT-04 | Phase 40 | Pending |
-| VIEW-01 | Phase 41 | Pending |
-| VIEW-02 | Phase 41 | Complete |
-| VIEW-03 | Phase 41 | Pending |
-| VIEW-04 | Phase 41 | Pending |
-| CMPV-01 | Phase 42 | Complete |
-| CMPV-02 | Phase 42 | Complete |
-| CMPV-03 | Phase 42 | Pending |
-| CMPV-04 | Phase 42 | Pending |
-| CMPV-05 | Phase 42 | Pending |
-| CMPV-06 | Phase 42 | Pending |
-| VDPI-01 | Phase 43 | Pending |
-| VDPI-02 | Phase 43 | Pending |
-| VDPI-03 | Phase 43 | Pending |
-| CSRP-01 | Phase 43 | Complete |
-| CSRP-02 | Phase 43 | Pending |
-| CSRP-03 | Phase 43 | Pending |
-| MOBL-01 | Phase 44 | Pending |
-| MOBL-02 | Phase 44 | Pending |
-| MOBL-03 | Phase 44 | Pending |
-| MOBL-04 | Phase 44 | Pending |
+| CALC-01 | Phase 48 | Pending |
+| CALC-02 | Phase 48 | Pending |
+| CALC-03 | Phase 48 | Pending |
+| CALC-04 | Phase 48 | Pending |
+| CALC-05 | Phase 48 | Pending |
+| CALC-06 | Phase 48 | Pending |
+| TAX-01 | Phase 47 | Complete |
+| TAX-02 | Phase 47 | Complete |
+| TAX-03 | Phase 47 | Complete |
+| TAX-04 | Phase 47 | Complete |
+| TAX-05 | Phase 47 | Complete |
+| TAX-06 | Phase 47 | Complete |
+| FEE-01 | Phase 47 | Complete |
+| FEE-02 | Phase 47 | Complete |
+| FEE-03 | Phase 48 | Pending |
+| FEE-04 | Phase 49 | Pending |
+| TRAD-01 | Phase 49 | Pending |
+| TRAD-02 | Phase 49 | Pending |
+| TRAD-03 | Phase 49 | Pending |
+| TRAD-04 | Phase 49 | Pending |
+| TRAD-05 | Phase 49 | Pending |
+| FIN-01 | Phase 50 | Pending |
+| FIN-02 | Phase 50 | Pending |
+| FIN-03 | Phase 50 | Pending |
+| FIN-04 | Phase 50 | Pending |
+| FIN-05 | Phase 50 | Pending |
+| FIN-06 | Phase 50 | Pending |
+| INS-01 | Phase 51 | Pending |
+| INS-02 | Phase 51 | Pending |
+| TIP-01 | Phase 51 | Pending |
+| TIP-02 | Phase 51 | Pending |
+| UX-01 | Phase 51 | Pending |
+| UX-02 | Phase 51 | Pending |
+| UX-03 | Phase 48 | Pending |
 
 **Coverage:**
-- v7.0 requirements: 48 total
-- Mapped to phases: 48
+- v8.0 requirements: 34 total
+- Mapped to phases: 34
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-02-27*
-*Last updated: 2026-02-27 after roadmap creation (traceability populated)*
+*Requirements defined: 2026-02-28*
+*Last updated: 2026-02-28 after roadmap creation*

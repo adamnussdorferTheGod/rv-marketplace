@@ -8,7 +8,8 @@
 - [ ] **v4.0 Search Results Page** - Phases 24-29 (planned)
 - [ ] **v5.0 Homepage** - Phases 19-23 (planned)
 - [ ] **v6.0 Tow Vehicle Match** - Phases 30-35 (planned)
-- [ ] **v7.0 Co-Shopping & Shared Lists** - Phases 36-44 (planned)
+- [ ] **v7.0 Co-Shopping & Shared Lists** - Phases 36-46 (planned)
+- [ ] **v8.0 Total Cost Calculator** - Phases 47-51 (planned)
 
 ## Phases
 
@@ -746,6 +747,127 @@ Plans:
 - [ ] 44-01: SwipeReaction component with gesture detection (right/left/up), tilt animation, colored overlay, and reaction dispatch
 - [ ] 44-02: Mobile card stack layout, bottom sheet comment thread, and sticky header on scroll
 
+### Phase 45: Co-Shopping shared list UI with reaction buttons and comment thread
+
+**Goal:** Users can interact with their shared co-shopping list through reaction buttons (Love/Maybe/Pass), per-listing comment threads, and a complete shared list panel with listing cards showing all co-shopping activity
+**Depends on:** Phase 36 (co-shopping data layer)
+**Requirements:** RXTN-01, RXTN-02, RXTN-03, RXTN-04, RXTN-05, CMNT-01, CMNT-02, CMNT-03, VIEW-02
+**Plans:** 2/2 plans complete
+
+Plans:
+- [ ] 45-01-PLAN.md — ReactionBar (Love/Maybe/Pass) and CommentThread components with CoShoppingContext integration
+- [ ] 45-02-PLAN.md — SharedListCard with embedded reactions/comments and SharedListPanel container with header and card list
+
+### Phase 46: Wire SharedListPanel into SRP page as togglable sidebar
+
+**Goal:** Users can open their shared co-shopping list as a slide-in sidebar while browsing search results, toggled via a button in the SRP header
+**Depends on:** Phase 45
+**Requirements:** CSRP-01
+**Plans:** 1/1 plans complete
+
+Plans:
+- [ ] 46-01-PLAN.md — Add co-shopping toggle button to SRP header and wire SharedListPanel as slide-in right sidebar overlay
+
+## v8.0 Total Cost Calculator
+
+**Milestone Goal:** Replace the existing LoanCalculator VDP section with a comprehensive, location-aware purchase cost estimator that shows buyers the real out-the-door price -- including state-specific sales tax, DMV fees, dealer fees, trade-in credit, financing costs, and insurance estimates -- all calculated client-side from a curated per-state database.
+
+**Dependencies:** Phase 9 (VDP complete with existing LoanCalculator section)
+
+**Reused components:** Button, Icon, Divider, existing VDP left column layout, design tokens
+
+**Constraints:**
+- Frontend-only: All calculations from static JSON (no tax API, no financing partner, no insurance API)
+- State-average tax rates (no zip code granularity)
+- Trade-in values are simplified estimates (not KBB)
+- Insurance is educational range only (not real quotes)
+
+- [ ] **Phase 47: State Tax & Fee Data Layer** - Static JSON database for all 50 states + DC with tax rates, DMV fees, registration models, dealer fee defaults, trade-in credit rules, and doc fee caps
+- [ ] **Phase 48: Calculator Shell & Core Display** - TotalCostCalculator section replacing LoanCalculator, summary bar with out-the-door total, state selector, expandable full breakdown, real-time recalculation
+- [ ] **Phase 49: Dealer Fees, Trade-In & Editable Inputs** - Editable dealer fee line items, trade-in toggle with YMMT/condition selector, value estimation, trade-in tax credit display, non-credit state warnings
+- [ ] **Phase 50: Financing Calculator** - Down payment slider, loan term selector (36-180 mo), credit tier/APR input, amount financed from out-the-door total, monthly payment and total interest display
+- [ ] **Phase 51: Insurance, State Tips & Responsive Polish** - Insurance estimate by RV type, state-specific tip callouts with info/savings/warning styling, responsive stacking, value animations, legal disclaimer
+
+### Phase 47: State Tax & Fee Data Layer
+**Goal**: A complete, typed state-by-state tax and fee database exists as static JSON so all downstream calculator phases can look up any state's tax rate, DMV fees, registration model, dealer fee defaults, and trade-in credit rules without building UI
+**Depends on**: Phase 9 (VDP listing data exists with price and RV type)
+**Requirements**: TAX-01, TAX-02, TAX-03, TAX-04, TAX-05, TAX-06, FEE-01, FEE-02
+**Success Criteria** (what must be TRUE):
+  1. A static JSON file contains tax and fee data for all 50 states + DC, and TypeScript interfaces define the shape (state code, sales tax rate, average local rate, tax caps, no-tax rules, RV-specific rules, trade-in credit eligibility, DMV fees, registration model)
+  2. Tax cap states produce correct results: SC caps total tax at $300, NC applies 3% capped at $2,000 -- verifiable by calling the calculation with a $100K RV price
+  3. No-tax states return $0 sales tax with state-specific notes (AK possible local tax, DE 4.25% doc fee, MT $0, NH permit fees, OR 0.5% use tax)
+  4. RV-specific rules calculate correctly: MD no tax on RVs over 7 years old, CT tiered rates (6.35% under $50K / 7.75% over $50K), GA one-time 6.6% TAVT, OK $20 + 3.25% excise, FL county surtax on first $5K only
+  5. Per-state DMV fees (title, registration, plate/tab) are retrievable, with registration supporting flat, weight-based (using GVWR), and value-based calculation models depending on the state
+**Plans**: 2 plans
+
+Plans:
+- [ ] 47-01-PLAN.md — TypeScript interfaces for state tax/fee data and TDD pure calculation functions (sales tax, DMV fees, registration)
+- [ ] 47-02-PLAN.md — Static JSON database for all 50 states + DC with tax rates, caps, rules, DMV fees, and trade-in credit eligibility
+
+### Phase 48: Calculator Shell & Core Display
+**Goal**: The TotalCostCalculator section appears on the VDP in place of the old LoanCalculator, showing a summary bar with the out-the-door total and an expandable full breakdown that recalculates when the user changes state
+**Depends on**: Phase 47 (state data and calculation functions exist)
+**Requirements**: CALC-01, CALC-02, CALC-03, CALC-04, CALC-05, CALC-06, FEE-03, UX-03
+**Success Criteria** (what must be TRUE):
+  1. The TotalCostCalculator section renders in the VDP left column in the same position where LoanCalculator previously appeared, and the old LoanCalculator is removed
+  2. A summary bar displays: listing price + estimated tax & fees = out-the-door total, with an estimated monthly payment teaser below
+  3. A state selector dropdown defaults to the listing's location state and shows "Based on registering in [State]" attribution; changing the state recalculates all values immediately
+  4. Clicking "See full breakdown" expands an itemized view with sections for Purchase Price, Taxes, DMV Fees, Dealer Fees, and Grand Total -- each showing line items with dollar amounts
+  5. A legal disclaimer appears at the bottom: "Cost estimates are calculated using publicly available state tax rates and are for informational purposes only"
+**Plans**: TBD
+
+Plans:
+- [ ] 48-01: TotalCostCalculator component shell, summary bar, state selector, and VDP integration (replacing LoanCalculator)
+- [ ] 48-02: Expandable breakdown panel with itemized sections (purchase price, taxes, DMV fees, dealer fees, grand total) and legal disclaimer
+
+### Phase 49: Dealer Fees, Trade-In & Editable Inputs
+**Goal**: Users can customize dealer fees by editing individual line items, add a trade-in vehicle to reduce their out-the-door cost, and see trade-in tax credit savings in states that allow them
+**Depends on**: Phase 48 (calculator shell and breakdown exist)
+**Requirements**: FEE-04, TRAD-01, TRAD-02, TRAD-03, TRAD-04, TRAD-05
+**Success Criteria** (what must be TRUE):
+  1. Dealer fee line items (doc fee, prep fee, etc.) are individually editable -- clicking a value switches it to an inline text input, and pressing Enter or clicking away commits the new value and recalculates the total
+  2. A trade-in toggle (Yes/No) appears in the breakdown; selecting "Yes" expands a trade-in input section with Year/Make/Model/Condition selectors that produce a low/mid/high value range estimate
+  3. The user can override the estimated trade-in value by typing a custom dollar amount, and the override replaces the estimate in all calculations
+  4. In trade-in credit states (~42 states), the trade-in value reduces the taxable amount and a prominent callout shows "Trade-in tax credit: saving you $X in taxes"
+  5. In non-credit states (CA, DC, HI, KY, VA), a warning callout explains that sales tax applies to the full purchase price regardless of trade-in
+**Plans**: TBD
+
+Plans:
+- [ ] 49-01: Editable dealer fee line items with inline edit interaction and doc fee cap enforcement
+- [ ] 49-02: Trade-in toggle, YMMT/condition selector, value estimation, manual override, tax credit display, and non-credit state warning
+
+### Phase 50: Financing Calculator
+**Goal**: Users can configure loan terms and see how financing changes their monthly payment, with the amount financed correctly including tax and fees in the loan by default
+**Depends on**: Phase 48 (out-the-door total exists for amount financed calculation)
+**Requirements**: FIN-01, FIN-02, FIN-03, FIN-04, FIN-05, FIN-06
+**Success Criteria** (what must be TRUE):
+  1. A down payment input with both a draggable slider and text field lets the user set any amount from $0 to the listing price, with the slider and text field staying in sync
+  2. A loan term selector offers RV-specific terms (36, 48, 60, 72, 84, 120, 144, 180 months) and selecting a term recalculates the monthly payment immediately
+  3. A credit tier selector (Excellent 5.99% / Good 7.49% / Fair 9.99% / Below Fair 12.49%) provides a friendly APR input, with a text field for manual APR override when the user knows their exact rate
+  4. The amount financed defaults to the out-the-door price (including tax and fees) minus the down payment, correctly updating when any upstream value changes
+  5. The financing section displays monthly payment, total interest paid over the life of the loan, and total cost of the loan (principal + interest), all recalculating in real time
+**Plans**: TBD
+
+Plans:
+- [ ] 50-01: Down payment slider/input, loan term selector, credit tier selector with manual APR override
+- [ ] 50-02: Amount financed calculation, monthly payment formula, total interest/cost display, and integration with calculator totals
+
+### Phase 51: Insurance, State Tips & Responsive Polish
+**Goal**: Users see an educational insurance cost estimate, receive contextual tips about their selected state's tax advantages or gotchas, and the entire calculator works well on mobile
+**Depends on**: Phase 48 (calculator shell exists), Phase 47 (state data includes tip-worthy rules)
+**Requirements**: INS-01, INS-02, TIP-01, TIP-02, UX-01, UX-02
+**Success Criteria** (what must be TRUE):
+  1. An insurance estimate section shows an annual premium range (low/mid/high) based on the RV type and value, with a coverage type note and educational disclaimer ("Estimates only -- get a real quote from an RV insurer")
+  2. State-specific tip callouts appear contextually: tax cap savings in SC/NC, no-tax advantages in MT/NH/OR/DE/AK, trade-in credit rules, and RV-specific exemptions (MD age exemption, CT tiered rates)
+  3. Tips use three distinct visual styles: info (neutral blue) for general facts, savings (green) for money-saving opportunities, and warning (amber) for gotchas or limitations
+  4. On mobile viewports, calculator inputs stack into a single column and breakdown sections render as collapsible accordions to conserve vertical space
+  5. Numeric values animate with an odometer-style counter roll when recalculating, providing visual feedback that values have changed
+**Plans**: TBD
+
+Plans:
+- [ ] 51-01: Insurance estimate section with premium range by RV type/value, coverage note, and educational disclaimer
+- [ ] 51-02: State-specific tip callouts with info/savings/warning styling, responsive single-column stacking, collapsible accordions, and value animation
+
 ## Progress
 
 **Execution Order:**
@@ -755,7 +877,8 @@ Plans:
 - v5.0 (Phases 19-23): Phases 19-22 complete, 23 remaining
 - v4.0 (Phases 24-29): Complete
 - v6.0 (Phases 30-35): 30 -> 31 -> 32 -> 33, and 30 -> 31 -> 34 (Phases 32/33 and 34 can run in parallel after 31; Phase 35 only needs 30)
-- v7.0 (Phases 36-44): 36 -> 37 -> 38 -> 39 -> 40 -> 41 -> 42, and 36 -> 37 -> 43, and 38+40+41 -> 44
+- v7.0 (Phases 36-46): 36 -> 37 -> 38 -> 39 -> 40 -> 41 -> 42, and 36 -> 37 -> 43, and 38+40+41 -> 44
+- v8.0 (Phases 47-51): 47 -> 48 -> 49, 48 -> 50, 48 -> 51 (Phases 49, 50, 51 can run in parallel after 48; Phase 47 is foundation for all)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -789,38 +912,24 @@ Plans:
 | 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
 | 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
 | 30. Vehicle Data Layer | v6.0 | 3/3 | Complete | 2026-02-28 |
-| 31. Tow Vehicle Setup | v6.0 | Complete    | 2026-02-28 | 2026-02-28 |
+| 31. Tow Vehicle Setup | v6.0 | Complete | 2026-02-28 | 2026-02-28 |
 | 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
 | 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |
 | 35. Reverse Match | v6.0 | 0/1 | Not started | - |
-| 36. Co-Shopping Data Layer | 2/2 | Complete    | 2026-02-28 | - |
+| 36. Co-Shopping Data Layer | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 37. Shared List Management | v7.0 | 0/3 | Not started | - |
 | 38. Reactions System | v7.0 | 0/2 | Not started | - |
 | 39. Match Detection & Celebration | v7.0 | 0/2 | Not started | - |
 | 40. Comments & Discussion | v7.0 | 0/2 | Not started | - |
 | 41. Shared List View & Filtering | v7.0 | 0/2 | Not started | - |
-| 42. Compare Matches View | 2/2 | Complete   | 2026-02-28 | - |
+| 42. Compare Matches View | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 43. VDP & SRP Integration | v7.0 | 0/2 | Not started | - |
 | 44. Mobile Co-Shopping Experience | v7.0 | 0/2 | Not started | - |
-
-### Phase 45: Co-Shopping shared list UI with reaction buttons and comment thread
-
-**Goal:** Users can interact with their shared co-shopping list through reaction buttons (Love/Maybe/Pass), per-listing comment threads, and a complete shared list panel with listing cards showing all co-shopping activity
-**Depends on:** Phase 36 (co-shopping data layer)
-**Requirements:** RXTN-01, RXTN-02, RXTN-03, RXTN-04, RXTN-05, CMNT-01, CMNT-02, CMNT-03, VIEW-02
-**Plans:** 2/2 plans complete
-
-Plans:
-- [ ] 45-01-PLAN.md — ReactionBar (Love/Maybe/Pass) and CommentThread components with CoShoppingContext integration
-- [ ] 45-02-PLAN.md — SharedListCard with embedded reactions/comments and SharedListPanel container with header and card list
-
-### Phase 46: Wire SharedListPanel into SRP page as togglable sidebar
-
-**Goal:** Users can open their shared co-shopping list as a slide-in sidebar while browsing search results, toggled via a button in the SRP header
-**Depends on:** Phase 45
-**Requirements:** CSRP-01
-**Plans:** 1/1 plans complete
-
-Plans:
-- [ ] 46-01-PLAN.md — Add co-shopping toggle button to SRP header and wire SharedListPanel as slide-in right sidebar overlay
+| 45. Co-Shopping Shared List UI | v7.0 | 2/2 | Complete | 2026-02-28 |
+| 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
+| 47. State Tax & Fee Data Layer | 1/2 | In Progress|  | - |
+| 48. Calculator Shell & Core Display | v8.0 | 0/2 | Not started | - |
+| 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 0/2 | Not started | - |
+| 50. Financing Calculator | v8.0 | 0/2 | Not started | - |
+| 51. Insurance, State Tips & Responsive Polish | v8.0 | 0/2 | Not started | - |
