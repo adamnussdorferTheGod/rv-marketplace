@@ -122,10 +122,6 @@
   transition: transform 200ms ease;
 }
 
-/* Breakdown placeholder -- Plan 48-02 fills this */
-.breakdownPlaceholder {
-}
-
 /* Mobile (max-width 767px) */
 @media (max-width: 767px) {
   .summaryRow,

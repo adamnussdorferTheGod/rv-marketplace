@@ -3,6 +3,7 @@ import Icon from '@components/ui/Icon/Icon';
 import { getStateTaxFees, STATE_LIST } from '../../../app/src/data/stateTaxDatabase';
 import { calculateSalesTax, calculateDmvFees } from '../../../app/src/data/stateTaxCalculations';
 import { getDealerFeeDefaults } from './dealerFeeDefaults';
+import CostBreakdown from './CostBreakdown';
 import styles from './TotalCostCalculator.module.css';
 
 interface TotalCostCalculatorProps {
@@ -32,11 +33,11 @@ export default function TotalCostCalculator({
   const [selectedState, setSelectedState] = useState(defaultState);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
 
-  const { totalTaxAndFees, outTheDoorTotal, monthlyPayment } = useMemo(() => {
+  const computed = useMemo(() => {
     const stateData = getStateTaxFees(selectedState);
 
     if (!stateData) {
-      return { totalTaxAndFees: 0, outTheDoorTotal: currentPrice, monthlyPayment: Math.round(currentPrice / 180) };
+      return { stateData: null, taxResult: null, dmvResult: null, dealerFees: null, totalTaxAndFees: 0, outTheDoorTotal: currentPrice, monthlyPayment: Math.round(currentPrice / 180) };
     }
 
     const taxResult = calculateSalesTax(stateData, { listingPrice: currentPrice, tradeInValue: 0 });
@@ -47,8 +48,10 @@ export default function TotalCostCalculator({
     const total = currentPrice + fees;
     const monthly = Math.round(total / 180);
 
-    return { totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly };
+    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly };
   }, [selectedState, currentPrice, gvwr, rvType]);
+
+  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment } = computed;
 
   return (
     <div className={styles.section}>
@@ -88,20 +91,25 @@ export default function TotalCostCalculator({
         <p className={styles.monthlyTeaser}>Est. ${formatCurrency(monthlyPayment)}/mo</p>
       </div>
 
-      {/* Breakdown toggle -- expanded content rendered in Plan 48-02 */}
+      {/* Breakdown toggle */}
       <button
         className={styles.breakdownToggle}
         onClick={() => setBreakdownOpen(!breakdownOpen)}
       >
-        <span>See full breakdown</span>
+        <span>{breakdownOpen ? 'Hide breakdown' : 'See full breakdown'}</span>
         <Icon name="expand_more" size={20} className={breakdownOpen ? styles.iconRotated : ''} />
       </button>
 
-      {/* Breakdown slot -- Plan 48-02 will add CostBreakdown here */}
-      {breakdownOpen && (
-        <div className={styles.breakdownPlaceholder}>
-          {/* Will be replaced by CostBreakdown in 48-02 */}
-        </div>
+      {/* Itemized cost breakdown */}
+      {breakdownOpen && taxResult && dmvResult && dealerFees && (
+        <CostBreakdown
+          listingPrice={currentPrice}
+          taxResult={taxResult}
+          dmvResult={dmvResult}
+          dealerFees={dealerFees}
+          outTheDoorTotal={outTheDoorTotal}
+          stateName={stateData?.stateName ?? selectedState}
+        />
       )}
     </div>
   );
