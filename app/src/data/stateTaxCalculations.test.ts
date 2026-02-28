@@ -5,6 +5,7 @@ import {
   calculateDmvFees,
 } from './stateTaxCalculations.ts';
 import type { StateTaxFees, SalesTaxInput, DmvFeeInput } from './stateTaxTypes.ts';
+import { STATE_TAX_DATABASE, getStateTaxFees, STATE_LIST } from './stateTaxDatabase.ts';
 
 // ─── Test fixture factory ──────────────────────────────────────────
 
@@ -477,5 +478,229 @@ describe('calculateDmvFees', () => {
     // registration should be 0 since no gvwr
     expect(result.registrationFee).toBe(0);
     expect(result.notes.some((n) => n.includes('GVWR') || n.includes('weight'))).toBe(true);
+  });
+});
+
+// ====================================================================
+// Integration tests: real state data
+// ====================================================================
+
+describe('integration: real state data', () => {
+  // ── Database completeness ───────────────────────────────────────
+
+  it('contains all 51 entries (50 states + DC)', () => {
+    expect(Object.keys(STATE_TAX_DATABASE).length).toBe(51);
+  });
+
+  it('every entry has a non-empty stateName and stateCode', () => {
+    for (const entry of Object.values(STATE_TAX_DATABASE)) {
+      expect(entry.stateName.length).toBeGreaterThan(0);
+      expect(entry.stateCode.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('every stateCode is exactly 2 uppercase letters', () => {
+    for (const entry of Object.values(STATE_TAX_DATABASE)) {
+      expect(entry.stateCode).toMatch(/^[A-Z]{2}$/);
+    }
+  });
+
+  it('every entry has stateSalesTaxRate >= 0', () => {
+    for (const entry of Object.values(STATE_TAX_DATABASE)) {
+      expect(entry.stateSalesTaxRate).toBeGreaterThanOrEqual(0);
+    }
+  });
+
+  // ── Tax cap verification with real data ─────────────────────────
+
+  it('SC real data: $100K RV -> totalTax capped at $300', () => {
+    const sc = STATE_TAX_DATABASE['SC'];
+    const result = calculateSalesTax(sc, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.totalTax).toBeLessThanOrEqual(300);
+    expect(result.totalTax).toBe(300);
+  });
+
+  it('NC real data: $100K RV -> totalTax capped at $2,000', () => {
+    const nc = STATE_TAX_DATABASE['NC'];
+    const result = calculateSalesTax(nc, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.totalTax).toBeLessThanOrEqual(2000);
+    expect(result.totalTax).toBe(2000);
+  });
+
+  it('NC real data: $50K RV -> totalTax = $1,500 (3% under cap)', () => {
+    const nc = STATE_TAX_DATABASE['NC'];
+    const result = calculateSalesTax(nc, { listingPrice: 50_000, tradeInValue: 0 });
+    expect(result.totalTax).toBe(1500);
+  });
+
+  // ── No-tax state verification with real data ────────────────────
+
+  it.each(['AK', 'DE', 'MT', 'NH', 'OR'])('%s real data: $100K RV -> totalTax = $0', (code) => {
+    const state = STATE_TAX_DATABASE[code];
+    const result = calculateSalesTax(state, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.totalTax).toBe(0);
+  });
+
+  it('AK notes mention local tax', () => {
+    const ak = STATE_TAX_DATABASE['AK'];
+    const result = calculateSalesTax(ak, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.notes.some((n) => n.toLowerCase().includes('local tax'))).toBe(true);
+  });
+
+  it('DE notes mention 4.25% or document fee', () => {
+    const de = STATE_TAX_DATABASE['DE'];
+    const result = calculateSalesTax(de, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(
+      result.notes.some((n) => n.includes('4.25%') || n.toLowerCase().includes('doc')),
+    ).toBe(true);
+  });
+
+  it('OR notes mention 0.5% or use tax', () => {
+    const or = STATE_TAX_DATABASE['OR'];
+    const result = calculateSalesTax(or, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(
+      result.notes.some((n) => n.includes('0.5%') || n.toLowerCase().includes('use tax')),
+    ).toBe(true);
+  });
+
+  // ── RV-specific verification with real data ─────────────────────
+
+  it('MD real data: rvAge=8 -> totalTax = $0', () => {
+    const md = STATE_TAX_DATABASE['MD'];
+    const result = calculateSalesTax(md, { listingPrice: 100_000, tradeInValue: 0, rvAge: 8 });
+    expect(result.totalTax).toBe(0);
+  });
+
+  it('MD real data: rvAge=5 -> totalTax > $0', () => {
+    const md = STATE_TAX_DATABASE['MD'];
+    const result = calculateSalesTax(md, { listingPrice: 100_000, tradeInValue: 0, rvAge: 5 });
+    expect(result.totalTax).toBeGreaterThan(0);
+  });
+
+  it('CT real data: $40K RV -> effective rate ~6.35%', () => {
+    const ct = STATE_TAX_DATABASE['CT'];
+    const result = calculateSalesTax(ct, { listingPrice: 40_000, tradeInValue: 0 });
+    expect(result.effectiveRate).toBeCloseTo(0.0635, 4);
+  });
+
+  it('CT real data: $60K RV -> effective rate ~7.75%', () => {
+    const ct = STATE_TAX_DATABASE['CT'];
+    const result = calculateSalesTax(ct, { listingPrice: 60_000, tradeInValue: 0 });
+    expect(result.effectiveRate).toBeCloseTo(0.0775, 4);
+  });
+
+  it('GA real data: $100K RV -> totalTax = $6,600 (6.6% TAVT)', () => {
+    const ga = STATE_TAX_DATABASE['GA'];
+    const result = calculateSalesTax(ga, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.totalTax).toBe(6600);
+  });
+
+  it('OK real data: $100K RV -> totalTax = $3,270 ($20 + 3.25%)', () => {
+    const ok = STATE_TAX_DATABASE['OK'];
+    const result = calculateSalesTax(ok, { listingPrice: 100_000, tradeInValue: 0 });
+    expect(result.totalTax).toBe(3270);
+  });
+
+  it('FL real data: $100K RV -> county surtax only on first $5K', () => {
+    const fl = STATE_TAX_DATABASE['FL'];
+    const result = calculateSalesTax(fl, { listingPrice: 100_000, tradeInValue: 0 });
+    // State: 100000 * 0.06 = 6000
+    // Local surtax: min(100000, 5000) * avgLocalRate
+    const expectedLocal = Math.round(5000 * fl.avgLocalTaxRate * 100) / 100;
+    expect(result.stateTax).toBe(6000);
+    expect(result.localTax).toBe(expectedLocal);
+    expect(result.totalTax).toBe(6000 + expectedLocal);
+  });
+
+  // ── Trade-in credit verification with real data ─────────────────
+
+  it('TX real data: $100K with $20K trade-in -> taxableAmount = $80K', () => {
+    const tx = STATE_TAX_DATABASE['TX'];
+    const result = calculateSalesTax(tx, { listingPrice: 100_000, tradeInValue: 20_000 });
+    expect(result.taxableAmount).toBe(80_000);
+  });
+
+  it('CA real data: $100K with $20K trade-in -> taxableAmount = $100K (no credit)', () => {
+    const ca = STATE_TAX_DATABASE['CA'];
+    const result = calculateSalesTax(ca, { listingPrice: 100_000, tradeInValue: 20_000 });
+    expect(result.taxableAmount).toBe(100_000);
+  });
+
+  it('MI real data: $100K with $15K trade-in -> taxableAmount = $89K (credit capped at $11K)', () => {
+    const mi = STATE_TAX_DATABASE['MI'];
+    const result = calculateSalesTax(mi, { listingPrice: 100_000, tradeInValue: 15_000 });
+    expect(result.taxableAmount).toBe(89_000);
+  });
+
+  // ── DMV fee verification with real data ─────────────────────────
+
+  it('TX real data (flat): DMV fees sum correctly and > $0', () => {
+    const tx = STATE_TAX_DATABASE['TX'];
+    const result = calculateDmvFees(tx, { listingPrice: 100_000 });
+    expect(result.totalDmvFees).toBeGreaterThan(0);
+    const expectedTotal =
+      result.titleFee +
+      result.registrationFee +
+      result.plateFee +
+      result.emissionsInspectionFee +
+      result.otherFees.reduce((sum, f) => sum + f.amount, 0);
+    expect(result.totalDmvFees).toBe(expectedTotal);
+  });
+
+  it('FL real data (weight): DMV fees sum correctly with GVWR', () => {
+    const fl = STATE_TAX_DATABASE['FL'];
+    const result = calculateDmvFees(fl, { listingPrice: 100_000, gvwr: 8000 });
+    expect(result.totalDmvFees).toBeGreaterThan(0);
+    const expectedTotal =
+      result.titleFee +
+      result.registrationFee +
+      result.plateFee +
+      result.emissionsInspectionFee +
+      result.otherFees.reduce((sum, f) => sum + f.amount, 0);
+    expect(result.totalDmvFees).toBe(expectedTotal);
+  });
+
+  it('VA real data (value): DMV fees sum correctly for $100K RV', () => {
+    const va = STATE_TAX_DATABASE['VA'];
+    const result = calculateDmvFees(va, { listingPrice: 100_000 });
+    expect(result.totalDmvFees).toBeGreaterThan(0);
+    // Registration should be based on value rate
+    expect(result.registrationFee).toBe(Math.round(100_000 * va.registrationValueRate! * 100) / 100);
+    const expectedTotal =
+      result.titleFee +
+      result.registrationFee +
+      result.plateFee +
+      result.emissionsInspectionFee +
+      result.otherFees.reduce((sum, f) => sum + f.amount, 0);
+    expect(result.totalDmvFees).toBe(expectedTotal);
+  });
+
+  // ── Lookup helper ───────────────────────────────────────────────
+
+  it('getStateTaxFees("TX") returns Texas entry', () => {
+    const tx = getStateTaxFees('TX');
+    expect(tx).toBeDefined();
+    expect(tx!.stateName).toBe('Texas');
+  });
+
+  it('getStateTaxFees("tx") returns Texas entry (case insensitive)', () => {
+    const tx = getStateTaxFees('tx');
+    expect(tx).toBeDefined();
+    expect(tx!.stateName).toBe('Texas');
+  });
+
+  it('getStateTaxFees("XX") returns undefined', () => {
+    expect(getStateTaxFees('XX')).toBeUndefined();
+  });
+
+  it('STATE_LIST has 51 entries sorted alphabetically by name', () => {
+    expect(STATE_LIST.length).toBe(51);
+    // Verify sorted: each name should be <= the next
+    for (let i = 1; i < STATE_LIST.length; i++) {
+      expect(STATE_LIST[i - 1].name.localeCompare(STATE_LIST[i].name)).toBeLessThanOrEqual(0);
+    }
+    // First should be Alabama, last Wyoming
+    expect(STATE_LIST[0].name).toBe('Alabama');
+    expect(STATE_LIST[STATE_LIST.length - 1].name).toBe('Wyoming');
   });
 });
