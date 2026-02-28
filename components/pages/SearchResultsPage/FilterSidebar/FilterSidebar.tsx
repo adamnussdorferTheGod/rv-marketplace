@@ -10,6 +10,7 @@ import RVTypeFilter from './RVTypeFilter';
 import MakeModelFilter from './MakeModelFilter';
 import PriceFilter from './PriceFilter';
 import AdditionalFilters from './AdditionalFilters';
+import TowVehicleSetupPrompt from '@components/sections/TowVehicleSetup/TowVehicleSetupPrompt/TowVehicleSetupPrompt';
 import styles from './FilterSidebar.module.css';
 
 interface FilterSidebarProps {
@@ -375,6 +376,11 @@ export default function FilterSidebar({
           setFilter={setFilter}
           toggleArrayFilter={toggleArrayFilter}
         />
+
+        {/* 10. Tow Vehicle setup prompt */}
+        <CollapsibleSection title="Tow Vehicle">
+          <TowVehicleSetupPrompt />
+        </CollapsibleSection>
       </div>
 
       {/* Mobile overlay footer */}

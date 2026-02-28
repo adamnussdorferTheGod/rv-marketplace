@@ -22,6 +22,7 @@ import DealerContactCard from '@components/sections/DealerContactCard/DealerCont
 import SimilarListings from '@components/sections/SimilarListings/SimilarListings';
 import RelatedCategories from '@components/sections/RelatedCategories/RelatedCategories';
 import InsuranceAccessories from '@components/sections/InsuranceAccessories/InsuranceAccessories';
+import TowVehicleSetupPrompt from '@components/sections/TowVehicleSetup/TowVehicleSetupPrompt/TowVehicleSetupPrompt';
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
@@ -96,6 +97,7 @@ function VehicleDetailPageContent() {
                 />
                 <Divider />
                 <FeaturesAndSpecs specs={sampleListing.specs} />
+                <TowVehicleSetupPrompt />
                 <Divider />
                 <Description description={sampleListing.description} />
                 <Divider />
