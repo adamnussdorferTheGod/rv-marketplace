@@ -1,140 +1,177 @@
 /* ─── Container ────────────────────────────────────────────────────── */
 
 .container {
-  position: relative;
-  background: var(--rv-surface);
-  border-radius: 12px;
-  border: 1px solid var(--rv-border-low);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Column headers — horizontally scrollable photo cards ─────────── */
+
+.columnsRow {
+  display: flex;
+  overflow-x: auto;
+  border: 1px solid #e4e4e5;
+  border-radius: 0;
+}
+
+.columnCard {
+  flex: 0 0 auto;
+  width: calc(50% - 0.5px);
+  min-width: 170px;
+  background: white;
+  border-right: 1px solid #e4e4e5;
   overflow: hidden;
 }
 
-/* ─── Close button ─────────────────────────────────────────────────── */
+.columnCard:last-child {
+  border-right: none;
+}
 
-.closeButton {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 2;
+.columnPhoto {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.columnPhotoPlaceholder {
+  width: 100%;
+  height: 150px;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 50%;
-  background: var(--rv-surface-variant);
-  color: var(--rv-on-surface);
-  cursor: pointer;
-  transition: background 0.15s ease;
+  color: #939598;
 }
 
-.closeButton:hover {
-  background: var(--rv-border-low);
-}
-
-/* ─── Grid layout ──────────────────────────────────────────────────── */
-
-.grid {
-  display: grid;
-  grid-template-columns: 160px repeat(var(--column-count, 3), minmax(200px, 1fr));
-  overflow-x: auto;
-}
-
-/* ─── Column headers ───────────────────────────────────────────────── */
-
-.headerLabel {
-  /* Empty label column for the header row */
+.columnInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   padding: 16px;
 }
 
-.headerCell {
+.columnTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  line-height: 19.6px;
+  margin: 0;
+}
+
+.columnSubtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: black;
+  line-height: 19.6px;
+}
+
+.viewListingBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border: 1px solid #939598;
+  border-radius: 999px;
+  background: white;
+  color: #252526;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 19.6px;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 8px;
+  align-self: flex-start;
+}
+
+.viewListingBtn:hover {
+  background: #f5f5f5;
+}
+
+/* ─── Accordion row header ─────────────────────────────────────────── */
+
+.accordionHeader {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 16px;
+  padding-bottom: 8px;
 }
 
-.headerPhoto {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
+.accordionDivider {
+  height: 1px;
+  background: #e4e4e5;
+  margin: 8px 0 0;
 }
 
-.headerPhotoPlaceholder {
+.accordionLabelRow {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 180px;
-  border-radius: 8px;
-  background: var(--rv-surface-variant);
-  color: var(--rv-on-surface-variant);
+  gap: 32px;
 }
 
-.headerTitle {
-  margin: 0;
-  font-size: 14px;
+.accordionLabel {
+  flex: 1;
+  font-size: 16px;
   font-weight: 600;
-  line-height: 1.3;
-  color: var(--rv-on-surface);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  color: #252526;
+  line-height: 24px;
 }
 
-.headerSubtitle {
-  font-size: 12px;
-  color: var(--rv-on-surface-variant);
+.accordionChevron {
+  flex-shrink: 0;
+  color: #252526;
 }
 
-/* ─── Spec rows ────────────────────────────────────────────────────── */
+/* ─── Value row — cells under each column ──────────────────────────── */
 
-.specRow {
-  display: contents;
-}
-
-/* Zebra striping: odd rows (0-indexed, so index 1, 3, 5) get background */
-.specRow:nth-child(odd) .rowLabel,
-.specRow:nth-child(odd) .valueCell {
-  background: var(--rv-surface-variant);
-}
-
-.rowLabel {
-  padding: 12px 16px;
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--rv-on-surface-variant);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.valueRow {
   display: flex;
-  align-items: center;
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background: var(--rv-surface);
+  border-top: 1px solid #e4e4e5;
 }
 
 .valueCell {
-  padding: 12px 16px;
-  font-size: 14px;
-  color: var(--rv-on-surface);
+  flex: 0 0 auto;
+  width: calc(50% - 0.5px);
+  min-width: 170px;
+  padding: 16px;
+  background: white;
+  border-right: 1px solid #e4e4e5;
+  font-size: 16px;
+  font-weight: 400;
+  color: #252526;
+  line-height: 24px;
+  text-align: center;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.valueCell:last-child {
+  border-right: none;
 }
 
 .naValue {
-  color: var(--rv-on-surface-variant);
+  color: #939598;
 }
 
-/* ─── Price styling ────────────────────────────────────────────────── */
+/* ─── Reaction icon (green heart) ──────────────────────────────────── */
 
-.originalPrice {
-  text-decoration: line-through;
-  color: var(--rv-on-surface-variant);
-  font-size: 12px;
+.reactionHeart {
+  color: #006836;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Match check icon ─────────────────────────────────────────────── */
+
+.matchCheck {
+  color: #252526;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ─── Empty state ──────────────────────────────────────────────────── */
@@ -153,59 +190,4 @@
   margin: 0;
   font-size: 14px;
   color: var(--rv-on-surface-variant);
-}
-
-/* ─── Reaction icon cell ──────────────────────────────────────────── */
-
-.reactionIcon {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-/* ─── Match status ────────────────────────────────────────────────── */
-
-.matchYes {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--color-green-300);
-  font-weight: 600;
-}
-
-/* ─── Tow match ───────────────────────────────────────────────────── */
-
-.towVerdict {
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.towCapacity {
-  font-size: 12px;
-  color: var(--rv-on-surface-variant);
-}
-
-/* ─── Comment cell ────────────────────────────────────────────────── */
-
-.commentCell {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--rv-on-surface);
-}
-
-/* ─── View Listing link ───────────────────────────────────────────── */
-
-.viewLink {
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--rv-primary);
-  text-decoration: none;
-}
-
-.viewLink:hover {
-  text-decoration: underline;
 }
