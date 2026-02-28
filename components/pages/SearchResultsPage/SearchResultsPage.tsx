@@ -50,6 +50,7 @@ export default function SearchResultsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
   const [sharedListOpen, setSharedListOpen] = useState(false);
+  const [compareListingCount, setCompareListingCount] = useState(0);
   const isMobile = useIsMobile();
 
   const { activeList } = useCoShopping();
@@ -224,7 +225,10 @@ export default function SearchResultsPage() {
       {sharedListOpen && (
         <>
           <div className={styles.sharedListBackdrop} onClick={() => setSharedListOpen(false)} />
-          <div className={styles.sharedListSidebar}>
+          <div
+            className={styles.sharedListSidebar}
+            style={compareListingCount > 0 ? { width: Math.min(Math.max(compareListingCount * 180 + 40, 480), 960) } : undefined}
+          >
             <div className={styles.sharedListSidebarHeader}>
               <span className={styles.sharedListSidebarTitle}>Saved RVs</span>
               <button
@@ -237,7 +241,7 @@ export default function SearchResultsPage() {
               </button>
             </div>
             <div className={styles.sharedListSidebarBody}>
-              <SharedListPanel />
+              <SharedListPanel onTabChange={(tab, count) => setCompareListingCount(tab === 'compare' ? count : 0)} />
             </div>
           </div>
         </>

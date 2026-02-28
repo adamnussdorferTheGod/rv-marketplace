@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useCoShopping } from '../CoShoppingContext';
 import { MOCK_USER_SARAH } from '../../../../app/src/data/sampleCoShopping';
 import SharedListCard from '../SharedListCard/SharedListCard';
@@ -12,6 +12,7 @@ type PanelTab = 'list' | 'compare';
 
 interface SharedListPanelProps {
   className?: string;
+  onTabChange?: (tab: 'list' | 'compare', listingCount: number) => void;
 }
 
 function relativeTime(isoDate: string): string {
@@ -36,10 +37,16 @@ function relativeTime(isoDate: string): string {
 
 const FREE_SAVE_LIMIT = 3;
 
-export default function SharedListPanel({ className }: SharedListPanelProps) {
+export default function SharedListPanel({ className, onTabChange }: SharedListPanelProps) {
   const { activeList, lists, addMember, getReactionsForListing } = useCoShopping();
   const [showInviteToast, setShowInviteToast] = useState(false);
   const [activeTab, setActiveTab] = useState<PanelTab>('list');
+
+  const handleTabChange = (tab: PanelTab) => {
+    setActiveTab(tab);
+    const count = activeList?.listings.length ?? 0;
+    onTabChange?.(tab, count);
+  };
 
   const handleInvite = () => {
     // Demo: add Sarah as a member to show the shared state
@@ -89,39 +96,8 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
       new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime(),
   );
 
-  // ─── Match detection for Compare button ──────────────────────────
-  const { matchedIds, hasRealMatches } = useMemo(() => {
-    if (!isShared) return { matchedIds: [] as string[], hasRealMatches: false };
-
-    // Find listings where ALL members reacted with "love"
-    const loveMatches = activeList.listings
-      .filter((sl) => {
-        const reactions = getReactionsForListing(activeList.id, sl.listingId);
-        return members.every((m) => {
-          const r = reactions.find((rx) => rx.memberId === m.id);
-          return r?.type === 'love';
-        });
-      })
-      .map((sl) => sl.listingId);
-
-    if (loveMatches.length > 0) {
-      return { matchedIds: loveMatches.slice(0, 5), hasRealMatches: true };
-    }
-
-    // Fallback: top 3 most-reacted listings (non-"none" reactions, descending)
-    const reactedListings = activeList.listings
-      .map((sl) => {
-        const reactions = getReactionsForListing(activeList.id, sl.listingId);
-        const nonNoneCount = reactions.filter((r) => r.type !== 'none').length;
-        return { listingId: sl.listingId, count: nonNoneCount };
-      })
-      .filter((item) => item.count > 0)
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 5)
-      .map((item) => item.listingId);
-
-    return { matchedIds: reactedListings, hasRealMatches: false };
-  }, [isShared, activeList, members, getReactionsForListing]);
+  // All listing IDs for compare view (same order as list tab)
+  const allListingIds = sortedListings.map((sl) => sl.listingId);
 
   const TAB_OPTIONS: { value: PanelTab; label: string }[] = [
     { value: 'list', label: 'List' },
@@ -250,17 +226,17 @@ export default function SharedListPanel({ className }: SharedListPanelProps) {
         <SegmentedButtons
           options={TAB_OPTIONS}
           selected={activeTab}
-          onChange={setActiveTab}
+          onChange={handleTabChange}
           className={styles.segmentedControl}
         />
       </div>
 
       {/* Compare view */}
-      {activeTab === 'compare' && matchedIds.length > 0 && (
+      {activeTab === 'compare' && allListingIds.length > 0 && (
         <div className={styles.compareSection}>
           <CompareView
             listId={activeList.id}
-            listingIds={matchedIds}
+            listingIds={allListingIds}
           />
         </div>
       )}
