@@ -44,9 +44,14 @@
 
 /* ──────────── Mobile (< 768px) ──────────── */
 @media (max-width: 767px) {
-  /* Scroll track: smaller cards for peek-ahead effect */
   .scrollTrack {
     scroll-padding-left: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollTrack::-webkit-scrollbar {
+    display: none;
   }
 
   .scrollTrack > * {
