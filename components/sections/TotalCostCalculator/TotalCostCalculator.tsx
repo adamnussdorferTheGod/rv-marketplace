@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { getStateTaxFees, STATE_LIST } from '../../../app/src/data/stateTaxDatabase';
 import { calculateSalesTax, calculateDmvFees } from '../../../app/src/data/stateTaxCalculations';
-import { getDealerFeeDefaults } from './dealerFeeDefaults';
+import { getDealerFeeDefaults, type DealerFeeDefaults } from './dealerFeeDefaults';
 import CostBreakdown from './CostBreakdown';
 import styles from './TotalCostCalculator.module.css';
 
@@ -32,6 +32,7 @@ export default function TotalCostCalculator({
   const defaultState = extractStateCode(location);
   const [selectedState, setSelectedState] = useState(defaultState);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
+  const [dealerFeeOverrides, setDealerFeeOverrides] = useState<Partial<Record<'docFee' | 'prepFee' | 'adminFee', number>>>({});
 
   const computed = useMemo(() => {
     const stateData = getStateTaxFees(selectedState);
@@ -42,16 +43,31 @@ export default function TotalCostCalculator({
 
     const taxResult = calculateSalesTax(stateData, { listingPrice: currentPrice, tradeInValue: 0 });
     const dmvResult = calculateDmvFees(stateData, { listingPrice: currentPrice, gvwr });
-    const dealerFees = getDealerFeeDefaults(rvType ?? 'travel-trailer', stateData.docFeeCap);
+    const baseFees = getDealerFeeDefaults(rvType ?? 'travel-trailer', stateData.docFeeCap);
+
+    const docFee = dealerFeeOverrides.docFee ?? baseFees.docFee;
+    const prepFee = dealerFeeOverrides.prepFee ?? baseFees.prepFee;
+    const adminFee = dealerFeeOverrides.adminFee ?? baseFees.adminFee;
+    const clampedDocFee = stateData.docFeeCap != null ? Math.min(docFee, stateData.docFeeCap) : docFee;
+    const dealerFees: DealerFeeDefaults = {
+      docFee: clampedDocFee,
+      prepFee,
+      adminFee,
+      totalDealerFees: clampedDocFee + prepFee + adminFee,
+    };
 
     const fees = taxResult.totalTax + dmvResult.totalDmvFees + dealerFees.totalDealerFees;
     const total = currentPrice + fees;
     const monthly = Math.round(total / 180);
 
     return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly };
-  }, [selectedState, currentPrice, gvwr, rvType]);
+  }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides]);
 
   const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment } = computed;
+
+  const handleDealerFeeChange = (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => {
+    setDealerFeeOverrides(prev => ({ ...prev, [feeKey]: value }));
+  };
 
   return (
     <div className={styles.section}>
@@ -62,7 +78,7 @@ export default function TotalCostCalculator({
         <label className={styles.stateLabel}>Based on registering in</label>
         <select
           value={selectedState}
-          onChange={(e) => setSelectedState(e.target.value)}
+          onChange={(e) => { setSelectedState(e.target.value); setDealerFeeOverrides({}); }}
           className={styles.stateSelect}
         >
           {STATE_LIST.map((s) => (
@@ -109,6 +125,8 @@ export default function TotalCostCalculator({
           dealerFees={dealerFees}
           outTheDoorTotal={outTheDoorTotal}
           stateName={stateData?.stateName ?? selectedState}
+          onDealerFeeChange={handleDealerFeeChange}
+          docFeeCap={stateData?.docFeeCap ?? null}
         />
       )}
     </div>
