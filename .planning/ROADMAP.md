@@ -814,3 +814,13 @@ Plans:
 Plans:
 - [ ] 45-01-PLAN.md — ReactionBar (Love/Maybe/Pass) and CommentThread components with CoShoppingContext integration
 - [ ] 45-02-PLAN.md — SharedListCard with embedded reactions/comments and SharedListPanel container with header and card list
+
+### Phase 46: Wire SharedListPanel into SRP page as togglable sidebar
+
+**Goal:** Users can open their shared co-shopping list as a slide-in sidebar while browsing search results, toggled via a button in the SRP header
+**Depends on:** Phase 45
+**Requirements:** CSRP-01
+**Plans:** 1/1 plans complete
+
+Plans:
+- [ ] 46-01-PLAN.md — Add co-shopping toggle button to SRP header and wire SharedListPanel as slide-in right sidebar overlay

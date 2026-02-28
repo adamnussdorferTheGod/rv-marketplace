@@ -74,7 +74,7 @@ Requirements for Co-Shopping & Shared Lists milestone. Each maps to roadmap phas
 
 ### SRP Co-Shopping
 
-- [ ] **CSRP-01**: Listings already on a shared list show co-shopper reaction badges on SRP cards
+- [x] **CSRP-01**: Listings already on a shared list show co-shopper reaction badges on SRP cards
 - [ ] **CSRP-02**: Badge shows each co-shopper's reaction icon and match indicator
 - [ ] **CSRP-03**: "On your list: [List Name]" text appears on recognized listings
 
@@ -183,7 +183,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VDPI-01 | Phase 43 | Pending |
 | VDPI-02 | Phase 43 | Pending |
 | VDPI-03 | Phase 43 | Pending |
-| CSRP-01 | Phase 43 | Pending |
+| CSRP-01 | Phase 43 | Complete |
 | CSRP-02 | Phase 43 | Pending |
 | CSRP-03 | Phase 43 | Pending |
 | MOBL-01 | Phase 44 | Pending |

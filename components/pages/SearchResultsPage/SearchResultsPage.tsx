@@ -67,10 +67,6 @@ export default function SearchResultsPage() {
     currentPage * RESULTS_PER_PAGE,
   );
 
-  // Sponsored/featured listings for interleaved showcase
-  const sponsoredListings = results
-    .filter((l) => l.isSponsored || l.isFeatured)
-    .slice(0, 5);
 
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
@@ -191,7 +187,6 @@ export default function SearchResultsPage() {
 
             <ListingGrid
               listings={paginatedResults}
-              sponsoredListings={sponsoredListings}
             />
 
             <Pagination
