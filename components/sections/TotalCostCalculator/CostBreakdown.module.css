@@ -62,6 +62,17 @@
   margin-top: var(--space-8);
 }
 
+.tradeInDeduction {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--space-8);
+  margin-bottom: var(--space-8);
+  border-bottom: var(--border-light) dashed var(--rv-border);
+  font: var(--font-label-2-semibold);
+  color: var(--rv-primary);
+}
+
 .grandTotalRow {
   display: flex;
   justify-content: space-between;

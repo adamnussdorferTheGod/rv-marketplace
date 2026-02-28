@@ -65,6 +65,12 @@
   color: var(--rv-on-surface);
 }
 
+.tradeInValue {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-primary);
+}
+
 .summaryDivider {
   height: 1px;
   background: var(--rv-border);

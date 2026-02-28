@@ -1,6 +1,7 @@
 import type { SalesTaxResult, DmvFeeResult, FeeItem } from '../../../app/src/data/stateTaxTypes';
 import type { DealerFeeDefaults } from './dealerFeeDefaults';
 import EditableFeeRow from './EditableFeeRow';
+import TradeInSection from './TradeInSection';
 import styles from './CostBreakdown.module.css';
 
 interface CostBreakdownProps {
@@ -12,6 +13,13 @@ interface CostBreakdownProps {
   stateName: string;
   onDealerFeeChange?: (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => void;
   docFeeCap?: number | null;
+  tradeInEnabled: boolean;
+  onTradeInToggle: (enabled: boolean) => void;
+  onTradeInValueChange: (value: number) => void;
+  tradeInValue: number;
+  tradeInCredit: boolean;
+  tradeInCreditNote: string | null;
+  taxSavings: number;
 }
 
 function formatCurrency(value: number): string {
@@ -24,8 +32,16 @@ export default function CostBreakdown({
   dmvResult,
   dealerFees,
   outTheDoorTotal,
+  stateName,
   onDealerFeeChange,
   docFeeCap,
+  tradeInEnabled,
+  onTradeInToggle,
+  onTradeInValueChange,
+  tradeInValue,
+  tradeInCredit,
+  tradeInCreditNote,
+  taxSavings,
 }: CostBreakdownProps) {
   return (
     <div className={styles.breakdown}>
@@ -119,8 +135,25 @@ export default function CostBreakdown({
         </div>
       </div>
 
+      {/* -- Trade-In -- */}
+      <TradeInSection
+        tradeInEnabled={tradeInEnabled}
+        onToggle={onTradeInToggle}
+        onValueChange={onTradeInValueChange}
+        tradeInCredit={tradeInCredit}
+        tradeInCreditNote={tradeInCreditNote}
+        stateName={stateName}
+        taxSavings={taxSavings}
+      />
+
       {/* -- Grand Total -- */}
       <div className={styles.grandTotalBlock}>
+        {tradeInEnabled && tradeInValue > 0 && (
+          <div className={styles.tradeInDeduction}>
+            <span>Trade-in deduction</span>
+            <span>-${formatCurrency(tradeInValue)}</span>
+          </div>
+        )}
         <div className={styles.grandTotalRow}>
           <span>Estimated out-the-door total</span>
           <span>${formatCurrency(outTheDoorTotal)}</span>

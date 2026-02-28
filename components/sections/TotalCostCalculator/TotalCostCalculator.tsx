@@ -33,15 +33,18 @@ export default function TotalCostCalculator({
   const [selectedState, setSelectedState] = useState(defaultState);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
   const [dealerFeeOverrides, setDealerFeeOverrides] = useState<Partial<Record<'docFee' | 'prepFee' | 'adminFee', number>>>({});
+  const [tradeInEnabled, setTradeInEnabled] = useState(false);
+  const [tradeInValue, setTradeInValue] = useState(0);
 
   const computed = useMemo(() => {
     const stateData = getStateTaxFees(selectedState);
 
     if (!stateData) {
-      return { stateData: null, taxResult: null, dmvResult: null, dealerFees: null, totalTaxAndFees: 0, outTheDoorTotal: currentPrice, monthlyPayment: Math.round(currentPrice / 180) };
+      return { stateData: null, taxResult: null, dmvResult: null, dealerFees: null, totalTaxAndFees: 0, outTheDoorTotal: currentPrice, monthlyPayment: Math.round(currentPrice / 180), taxSavings: 0 };
     }
 
-    const taxResult = calculateSalesTax(stateData, { listingPrice: currentPrice, tradeInValue: 0 });
+    const effectiveTradeIn = tradeInEnabled ? tradeInValue : 0;
+    const taxResult = calculateSalesTax(stateData, { listingPrice: currentPrice, tradeInValue: effectiveTradeIn });
     const dmvResult = calculateDmvFees(stateData, { listingPrice: currentPrice, gvwr });
     const baseFees = getDealerFeeDefaults(rvType ?? 'travel-trailer', stateData.docFeeCap);
 
@@ -56,14 +59,18 @@ export default function TotalCostCalculator({
       totalDealerFees: clampedDocFee + prepFee + adminFee,
     };
 
+    // Tax savings from trade-in credit
+    const taxWithoutTradeIn = calculateSalesTax(stateData, { listingPrice: currentPrice, tradeInValue: 0 });
+    const taxSavings = stateData.tradeInCredit ? Math.max(0, taxWithoutTradeIn.totalTax - taxResult.totalTax) : 0;
+
     const fees = taxResult.totalTax + dmvResult.totalDmvFees + dealerFees.totalDealerFees;
-    const total = currentPrice + fees;
+    const total = currentPrice + fees - effectiveTradeIn;
     const monthly = Math.round(total / 180);
 
-    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly };
-  }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides]);
+    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly, taxSavings };
+  }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides, tradeInEnabled, tradeInValue]);
 
-  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment } = computed;
+  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment, taxSavings } = computed;
 
   const handleDealerFeeChange = (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => {
     setDealerFeeOverrides(prev => ({ ...prev, [feeKey]: value }));
@@ -78,7 +85,7 @@ export default function TotalCostCalculator({
         <label className={styles.stateLabel}>Based on registering in</label>
         <select
           value={selectedState}
-          onChange={(e) => { setSelectedState(e.target.value); setDealerFeeOverrides({}); }}
+          onChange={(e) => { setSelectedState(e.target.value); setDealerFeeOverrides({}); setTradeInEnabled(false); setTradeInValue(0); }}
           className={styles.stateSelect}
         >
           {STATE_LIST.map((s) => (
@@ -99,6 +106,12 @@ export default function TotalCostCalculator({
           <span className={styles.summaryLabel}>Est. tax & fees</span>
           <span className={styles.summaryValue}>+${formatCurrency(totalTaxAndFees)}</span>
         </div>
+        {tradeInEnabled && tradeInValue > 0 && (
+          <div className={styles.summaryRow}>
+            <span className={styles.summaryLabel}>Trade-in value</span>
+            <span className={styles.tradeInValue}>-${formatCurrency(tradeInValue)}</span>
+          </div>
+        )}
         <div className={styles.summaryDivider} />
         <div className={styles.totalRow}>
           <span className={styles.totalLabel}>Out-the-door total</span>
@@ -127,6 +140,13 @@ export default function TotalCostCalculator({
           stateName={stateData?.stateName ?? selectedState}
           onDealerFeeChange={handleDealerFeeChange}
           docFeeCap={stateData?.docFeeCap ?? null}
+          tradeInEnabled={tradeInEnabled}
+          onTradeInToggle={setTradeInEnabled}
+          onTradeInValueChange={setTradeInValue}
+          tradeInValue={tradeInValue}
+          tradeInCredit={stateData?.tradeInCredit ?? true}
+          tradeInCreditNote={stateData?.tradeInCreditNote ?? null}
+          taxSavings={taxSavings}
         />
       )}
     </div>
