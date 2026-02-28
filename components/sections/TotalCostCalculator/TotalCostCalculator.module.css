@@ -99,8 +99,18 @@
   font: var(--font-body-2);
   color: var(--rv-on-surface-variant);
   text-align: center;
-  padding: var(--space-8) 0;
+  padding: var(--space-8) 0 0 0;
   margin: 0;
+  background: rgba(224, 237, 231, 0.3);
+}
+
+.financingNote {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+  padding: 0 0 var(--space-8) 0;
   background: rgba(224, 237, 231, 0.3);
 }
 

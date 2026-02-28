@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
 import {
   LOAN_TERMS,
   CREDIT_TIERS,
-  calculateFinancingSummary,
   type FinancingSummary,
 } from '../../../app/src/data/financingCalculations';
 import styles from './FinancingSection.module.css';

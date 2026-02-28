@@ -2,8 +2,10 @@ import { useState, useMemo } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import { getStateTaxFees, STATE_LIST } from '../../../app/src/data/stateTaxDatabase';
 import { calculateSalesTax, calculateDmvFees } from '../../../app/src/data/stateTaxCalculations';
+import { calculateFinancingSummary, CREDIT_TIERS, DEFAULT_TERM, DEFAULT_CREDIT_TIER } from '../../../app/src/data/financingCalculations';
 import { getDealerFeeDefaults, type DealerFeeDefaults } from './dealerFeeDefaults';
 import CostBreakdown from './CostBreakdown';
+import FinancingSection from './FinancingSection';
 import styles from './TotalCostCalculator.module.css';
 
 interface TotalCostCalculatorProps {
@@ -36,11 +38,40 @@ export default function TotalCostCalculator({
   const [tradeInEnabled, setTradeInEnabled] = useState(false);
   const [tradeInValue, setTradeInValue] = useState(0);
 
+  // Financing state (lifted up so monthly teaser always uses real PMT)
+  const [downPayment, setDownPayment] = useState(0);
+  const [selectedTermMonths, setSelectedTermMonths] = useState(DEFAULT_TERM);
+  const [selectedTierId, setSelectedTierId] = useState(DEFAULT_CREDIT_TIER);
+  const [manualApr, setManualApr] = useState('');
+  const [isManualApr, setIsManualApr] = useState(false);
+
   const computed = useMemo(() => {
     const stateData = getStateTaxFees(selectedState);
 
+    // Derive effective APR
+    const parsedManualApr = parseFloat(manualApr);
+    const effectiveApr = isManualApr && !Number.isNaN(parsedManualApr) && parsedManualApr > 0
+      ? parsedManualApr
+      : (CREDIT_TIERS.find(t => t.id === selectedTierId)?.apr ?? 7.49);
+
     if (!stateData) {
-      return { stateData: null, taxResult: null, dmvResult: null, dealerFees: null, totalTaxAndFees: 0, outTheDoorTotal: currentPrice, monthlyPayment: Math.round(currentPrice / 180), taxSavings: 0 };
+      const fallbackFinancing = calculateFinancingSummary({
+        outTheDoorTotal: currentPrice,
+        downPayment,
+        annualRate: effectiveApr,
+        termMonths: selectedTermMonths,
+      });
+      return {
+        stateData: null,
+        taxResult: null,
+        dmvResult: null,
+        dealerFees: null,
+        totalTaxAndFees: 0,
+        outTheDoorTotal: currentPrice,
+        monthlyPayment: Math.round(fallbackFinancing.monthlyPayment),
+        taxSavings: 0,
+        financingSummary: fallbackFinancing,
+      };
     }
 
     const effectiveTradeIn = tradeInEnabled ? tradeInValue : 0;
@@ -65,12 +96,21 @@ export default function TotalCostCalculator({
 
     const fees = taxResult.totalTax + dmvResult.totalDmvFees + dealerFees.totalDealerFees;
     const total = currentPrice + fees - effectiveTradeIn;
-    const monthly = Math.round(total / 180);
 
-    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly, taxSavings };
-  }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides, tradeInEnabled, tradeInValue]);
+    // Real PMT-based financing summary
+    const financingSummary = calculateFinancingSummary({
+      outTheDoorTotal: total,
+      downPayment,
+      annualRate: effectiveApr,
+      termMonths: selectedTermMonths,
+    });
 
-  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment, taxSavings } = computed;
+    const monthly = Math.round(financingSummary.monthlyPayment);
+
+    return { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees: fees, outTheDoorTotal: total, monthlyPayment: monthly, taxSavings, financingSummary };
+  }, [selectedState, currentPrice, gvwr, rvType, dealerFeeOverrides, tradeInEnabled, tradeInValue, downPayment, selectedTermMonths, selectedTierId, manualApr, isManualApr]);
+
+  const { stateData, taxResult, dmvResult, dealerFees, totalTaxAndFees, outTheDoorTotal, monthlyPayment, taxSavings, financingSummary } = computed;
 
   const handleDealerFeeChange = (feeKey: 'docFee' | 'prepFee' | 'adminFee', value: number) => {
     setDealerFeeOverrides(prev => ({ ...prev, [feeKey]: value }));
@@ -117,7 +157,8 @@ export default function TotalCostCalculator({
           <span className={styles.totalLabel}>Out-the-door total</span>
           <span className={styles.totalValue}>${formatCurrency(outTheDoorTotal)}</span>
         </div>
-        <p className={styles.monthlyTeaser}>Est. ${formatCurrency(monthlyPayment)}/mo</p>
+        <p className={styles.monthlyTeaser}>Est. ${formatCurrency(monthlyPayment)}/mo*</p>
+        <p className={styles.financingNote}>* Based on your financing terms below</p>
       </div>
 
       {/* Breakdown toggle */}
@@ -131,23 +172,40 @@ export default function TotalCostCalculator({
 
       {/* Itemized cost breakdown */}
       {breakdownOpen && taxResult && dmvResult && dealerFees && (
-        <CostBreakdown
-          listingPrice={currentPrice}
-          taxResult={taxResult}
-          dmvResult={dmvResult}
-          dealerFees={dealerFees}
-          outTheDoorTotal={outTheDoorTotal}
-          stateName={stateData?.stateName ?? selectedState}
-          onDealerFeeChange={handleDealerFeeChange}
-          docFeeCap={stateData?.docFeeCap ?? null}
-          tradeInEnabled={tradeInEnabled}
-          onTradeInToggle={setTradeInEnabled}
-          onTradeInValueChange={setTradeInValue}
-          tradeInValue={tradeInValue}
-          tradeInCredit={stateData?.tradeInCredit ?? true}
-          tradeInCreditNote={stateData?.tradeInCreditNote ?? null}
-          taxSavings={taxSavings}
-        />
+        <>
+          <CostBreakdown
+            listingPrice={currentPrice}
+            taxResult={taxResult}
+            dmvResult={dmvResult}
+            dealerFees={dealerFees}
+            outTheDoorTotal={outTheDoorTotal}
+            stateName={stateData?.stateName ?? selectedState}
+            onDealerFeeChange={handleDealerFeeChange}
+            docFeeCap={stateData?.docFeeCap ?? null}
+            tradeInEnabled={tradeInEnabled}
+            onTradeInToggle={setTradeInEnabled}
+            onTradeInValueChange={setTradeInValue}
+            tradeInValue={tradeInValue}
+            tradeInCredit={stateData?.tradeInCredit ?? true}
+            tradeInCreditNote={stateData?.tradeInCreditNote ?? null}
+            taxSavings={taxSavings}
+          />
+          <FinancingSection
+            outTheDoorTotal={outTheDoorTotal}
+            listingPrice={currentPrice}
+            downPayment={downPayment}
+            onDownPaymentChange={setDownPayment}
+            selectedTermMonths={selectedTermMonths}
+            onTermChange={setSelectedTermMonths}
+            selectedTierId={selectedTierId}
+            onTierChange={setSelectedTierId}
+            manualApr={manualApr}
+            onManualAprChange={setManualApr}
+            isManualApr={isManualApr}
+            onManualAprToggle={setIsManualApr}
+            financingSummary={financingSummary}
+          />
+        </>
       )}
     </div>
   );
