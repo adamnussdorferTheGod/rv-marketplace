@@ -13,7 +13,7 @@ import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
 import Description from '@components/sections/Description/Description';
 import Reviews from '@components/sections/Reviews/Reviews';
 import Divider from '@components/ui/Divider/Divider';
-import LoanCalculator from '@components/sections/LoanCalculator/LoanCalculator';
+import TotalCostCalculator from '@components/sections/TotalCostCalculator/TotalCostCalculator';
 import AboutDealership from '@components/sections/AboutDealership/AboutDealership';
 import Resources from '@components/sections/Resources/Resources';
 import ReportListing from '@components/sections/ReportListing/ReportListing';
@@ -114,10 +114,11 @@ function VehicleDetailPageContent() {
                   listingTitle={sampleListing.title}
                 />
                 <Divider />
-                <LoanCalculator
+                <TotalCostCalculator
                   currentPrice={sampleListing.currentPrice}
-                  dealerName={sampleListing.dealer.name}
-                  dealerPhone={sampleListing.dealer.phone}
+                  location={sampleListing.location}
+                  gvwr={sampleListing.gvwr}
+                  rvType="travel-trailer"
                 />
                 <Divider />
                 <LifestyleContext />
