@@ -55,3 +55,149 @@
 .addButton:hover {
   border-color: var(--rv-on-surface-variant);
 }
+
+.changeButton {
+  flex-shrink: 0;
+  padding: var(--space-4) var(--space-12);
+  background: transparent;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-full);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.changeButton:hover {
+  border-color: var(--rv-on-surface-variant);
+  color: var(--rv-on-surface);
+}
+
+/* ─── Match result card ──────────────────────────────────────────── */
+
+.matchCard {
+  border-radius: var(--radius-lg);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.verdictGood {
+  background: color-mix(in srgb, var(--color-green-200, #22c55e) 8%, var(--rv-surface));
+  border: 1px solid color-mix(in srgb, var(--color-green-200, #22c55e) 25%, transparent);
+}
+
+.verdictMarginal {
+  background: color-mix(in srgb, var(--color-yellow-200, #eab308) 8%, var(--rv-surface));
+  border: 1px solid color-mix(in srgb, var(--color-yellow-200, #eab308) 25%, transparent);
+}
+
+.verdictBad {
+  background: color-mix(in srgb, var(--color-red-200, #ef4444) 8%, var(--rv-surface));
+  border: 1px solid color-mix(in srgb, var(--color-red-200, #ef4444) 25%, transparent);
+}
+
+.matchHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.matchVerdict {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.matchVerdictIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.verdictGood .matchVerdictIcon { color: var(--color-green-200, #22c55e); }
+.verdictMarginal .matchVerdictIcon { color: var(--color-yellow-200, #eab308); }
+.verdictBad .matchVerdictIcon { color: var(--color-red-200, #ef4444); }
+
+.matchVerdictLabel {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+}
+
+.matchVehicle {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Check rows ─────────────────────────────────────────────────── */
+
+.matchChecks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.checkDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.checkLabel {
+  flex: 1;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.checkPct {
+  font: var(--font-label-2-semibold);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ─── Actions ────────────────────────────────────────────────────── */
+
+.matchActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid color-mix(in srgb, var(--rv-border-low) 60%, transparent);
+}
+
+.detailsLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font: var(--font-body-2);
+  color: var(--rv-primary);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.detailsLink:hover {
+  text-decoration: underline;
+}
+
+.removeLink {
+  background: none;
+  border: none;
+  padding: 0;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+}
+
+.removeLink:hover {
+  color: var(--color-red-200, #ef4444);
+}

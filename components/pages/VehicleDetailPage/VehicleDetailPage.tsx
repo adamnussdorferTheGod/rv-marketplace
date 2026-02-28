@@ -97,7 +97,13 @@ function VehicleDetailPageContent() {
                 />
                 <Divider />
                 <FeaturesAndSpecs specs={sampleListing.specs} />
-                <TowVehicleSetupPrompt />
+                <TowVehicleSetupPrompt
+                  rvSpecs={{
+                    gvwr: sampleListing.gvwr,
+                    tongueWeight: sampleListing.tongueWeight,
+                    hitchType: sampleListing.hitchType,
+                  }}
+                />
                 <Divider />
                 <Description description={sampleListing.description} />
                 <Divider />

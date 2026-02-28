@@ -396,7 +396,20 @@ export const TOW_VEHICLE_DATABASE: TowVehicle[] = [
 
 // ─── YMMT Cascading Lookup Functions ────────────────────────────────
 
-/** Returns sorted unique model years available in the database */
+/** Returns all unique make+model combos in the database */
+export function getAllMakeModels(): { make: string; model: string }[] {
+  const seen = new Set<string>();
+  const results: { make: string; model: string }[] = [];
+  for (const v of TOW_VEHICLE_DATABASE) {
+    const key = `${v.make}|${v.model}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      results.push({ make: v.make, model: v.model });
+    }
+  }
+  return results.sort((a, b) => `${a.make} ${a.model}`.localeCompare(`${b.make} ${b.model}`));
+}
+
 /** Returns all makes across all years */
 export function getAvailableMakes(): string[] {
   const makes = new Set(TOW_VEHICLE_DATABASE.map((v) => v.make));

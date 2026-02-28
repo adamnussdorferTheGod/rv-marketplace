@@ -1,27 +1,27 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import Icon from '@components/ui/Icon/Icon';
+import { getAllMakeModels } from '../../../../app/src/data/towVehicleDatabase';
 import BrandLogo from './brandLogos';
 import styles from './TowVehicleModal.module.css';
 
-// ─── Popular vehicles (quick-pick) ─────────────────────────────────
+// ─── Data ────────────────────────────────────────────────────────────
 
-interface PopularVehicle {
-  make: string;
-  model: string;
-}
+const ALL_VEHICLES = getAllMakeModels();
 
-const POPULAR_VEHICLES: PopularVehicle[] = [
-  { make: 'Ford', model: 'F-150' },
-  { make: 'Ram', model: '1500' },
-  { make: 'Chevrolet', model: 'Silverado 1500' },
-  { make: 'Toyota', model: 'Tundra' },
-  { make: 'GMC', model: 'Sierra 1500' },
-  { make: 'Ford', model: 'F-250' },
-  { make: 'Ram', model: '2500' },
-  { make: 'Toyota', model: 'Tacoma' },
-  { make: 'Jeep', model: 'Gladiator' },
-  { make: 'Chevrolet', model: 'Tahoe' },
-];
+const POPULAR_KEYS = new Set([
+  'Ford|F-150',
+  'Ram|1500',
+  'Chevrolet|Silverado 1500',
+  'Toyota|Tundra',
+  'GMC|Sierra 1500',
+  'Ford|F-250',
+  'Ram|2500',
+  'Toyota|Tacoma',
+  'Jeep|Gladiator',
+  'Chevrolet|Tahoe',
+]);
+
+const POPULAR_VEHICLES = ALL_VEHICLES.filter(v => POPULAR_KEYS.has(`${v.make}|${v.model}`));
 
 // ─── Component ──────────────────────────────────────────────────────
 
@@ -39,15 +39,18 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByMake, onSwitchT
     inputRef.current?.focus();
   }, []);
 
-  const filteredPopular = useMemo(() => {
-    if (!search.trim()) return POPULAR_VEHICLES;
+  const isSearching = search.trim().length > 0;
+
+  const searchResults = useMemo(() => {
+    if (!isSearching) return [];
     const q = search.toLowerCase();
-    return POPULAR_VEHICLES.filter(v =>
-      `${v.make} ${v.model}`.toLowerCase().includes(q) ||
-      v.make.toLowerCase().includes(q) ||
-      v.model.toLowerCase().includes(q)
+    return ALL_VEHICLES.filter(v =>
+      `${v.make} ${v.model}`.toLowerCase().includes(q),
     );
-  }, [search]);
+  }, [search, isSearching]);
+
+  const displayList = isSearching ? searchResults : POPULAR_VEHICLES;
+  const sectionLabel = isSearching ? 'Results' : 'Popular';
 
   return (
     <div className={styles.stepContent}>
@@ -76,12 +79,12 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByMake, onSwitchT
         )}
       </div>
 
-      {/* Popular vehicles */}
-      {filteredPopular.length > 0 && (
+      {/* Vehicle list */}
+      {displayList.length > 0 && (
         <div className={styles.section}>
-          <h3 className={styles.sectionLabelNormal}>Popular</h3>
+          <h3 className={styles.sectionLabelNormal}>{sectionLabel}</h3>
           <div className={styles.popularList}>
-            {filteredPopular.map(v => (
+            {displayList.map(v => (
               <button
                 key={`${v.make}-${v.model}`}
                 type="button"
@@ -101,7 +104,7 @@ export default function WizardStepIntro({ onQuickPick, onBrowseByMake, onSwitchT
         </div>
       )}
 
-      {filteredPopular.length === 0 && search.trim() && (
+      {displayList.length === 0 && isSearching && (
         <p className={styles.noResults}>No vehicles match "{search}"</p>
       )}
 
