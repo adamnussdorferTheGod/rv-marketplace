@@ -14,9 +14,9 @@ Requirements for Tow Vehicle Match milestone. Each maps to roadmap phases.
 - [ ] **VDAT-03**: YMMT cascading data supports year → make → model → trim → engine → cab → bed filtering
 - [ ] **VDAT-04**: Mock VIN decoder maps sample VINs to vehicle configurations from the database
 - [x] **VDAT-05**: RV listing data is augmented with GVWR, tongue weight, and hitch type fields (populated for sample listings)
-- [ ] **VDAT-06**: Tow compatibility algorithm evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) and returns per-check status + overall verdict
-- [ ] **VDAT-07**: Algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR)
-- [ ] **VDAT-08**: Overall verdict is "good" (all green), "marginal" (any yellow, none red), or "not_recommended" (any red)
+- [x] **VDAT-06**: Tow compatibility algorithm evaluates 6 checks (tow weight, tongue weight, payload, GCWR, hitch class, wheelbase ratio) and returns per-check status + overall verdict
+- [x] **VDAT-07**: Algorithm uses conservative defaults when RV specs are missing (tongue weight estimated at 10-15% of GVWR)
+- [x] **VDAT-08**: Overall verdict is "good" (all green), "marginal" (any yellow, none red), or "not_recommended" (any red)
 
 ### Vehicle Setup
 
@@ -112,9 +112,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | VDAT-03 | Phase 30 | Pending |
 | VDAT-04 | Phase 30 | Pending |
 | VDAT-05 | Phase 30 | Complete |
-| VDAT-06 | Phase 30 | Pending |
-| VDAT-07 | Phase 30 | Pending |
-| VDAT-08 | Phase 30 | Pending |
+| VDAT-06 | Phase 30 | Complete |
+| VDAT-07 | Phase 30 | Complete |
+| VDAT-08 | Phase 30 | Complete |
 | VSTP-01 | Phase 31 | Pending |
 | VSTP-02 | Phase 31 | Pending |
 | VSTP-03 | Phase 31 | Pending |

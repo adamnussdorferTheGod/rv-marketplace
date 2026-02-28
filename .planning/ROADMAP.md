@@ -622,7 +622,7 @@ Plans:
 | 27. SRP Page Assembly | v4.0 | 2/2 | Complete | 2026-02-27 |
 | 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
 | 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
-| 30. Vehicle Data Layer | 1/3 | In Progress|  | - |
+| 30. Vehicle Data Layer | 2/3 | In Progress|  | - |
 | 31. Tow Vehicle Setup | v6.0 | 0/3 | Not started | - |
 | 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
