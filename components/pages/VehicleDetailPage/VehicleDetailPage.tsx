@@ -103,6 +103,8 @@ function VehicleDetailPageContent() {
                     tongueWeight: sampleListing.tongueWeight,
                     hitchType: sampleListing.hitchType,
                   }}
+                  rvName={sampleListing.title.replace(/^\d{4}\s+/, '')}
+                  rvImageUrl={sampleListing.images[0]?.url}
                 />
                 <Divider />
                 <Description description={sampleListing.description} />

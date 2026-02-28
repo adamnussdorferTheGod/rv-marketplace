@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useTowVehicle } from '../TowVehicleContext';
 import {
   calculateTowCompatibility,
-  getVerdictLabel,
   type TowableRVSpecs,
 } from '../../../../app/src/data/towCompatibility';
 import type { TowCheckResult, TowVerdict } from '../../../../app/src/data/towTypes';
@@ -13,6 +12,8 @@ import styles from './TowVehicleSetupPrompt.module.css';
 
 interface TowVehicleSetupPromptProps {
   rvSpecs?: TowableRVSpecs;
+  rvName?: string;
+  rvImageUrl?: string;
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────
@@ -25,11 +26,34 @@ function verdictIcon(verdict: TowVerdict) {
   }
 }
 
+function verdictTitle(verdict: TowVerdict) {
+  switch (verdict) {
+    case 'good': return 'Good tow match';
+    case 'marginal': return 'Marginal tow match';
+    case 'not_recommended': return 'Not good tow match';
+  }
+}
+
+function verdictDescription(
+  verdict: TowVerdict,
+  vehicleName: string,
+  rvName: string,
+) {
+  switch (verdict) {
+    case 'good':
+      return `${vehicleName} can tow this ${rvName}.`;
+    case 'marginal':
+      return `${vehicleName} may struggle towing this ${rvName}.`;
+    case 'not_recommended':
+      return `${vehicleName} can't tow this ${rvName}.`;
+  }
+}
+
 function statusColor(status: 'green' | 'yellow' | 'red') {
   switch (status) {
-    case 'green': return 'var(--color-green-200, #22c55e)';
-    case 'yellow': return 'var(--color-yellow-200, #eab308)';
-    case 'red': return 'var(--color-red-200, #ef4444)';
+    case 'green': return '#11a94e';
+    case 'yellow': return '#eab308';
+    case 'red': return '#d8202e';
   }
 }
 
@@ -56,7 +80,7 @@ function CheckRow({ check }: { check: TowCheckResult }) {
       )}
       {pct == null && (
         <span className={styles.checkPct} style={{ color }}>
-          {check.status === 'green' ? 'OK' : 'Fail'}
+          {check.status === 'green' ? 'OK' : 'FAIL'}
         </span>
       )}
     </div>
@@ -65,8 +89,12 @@ function CheckRow({ check }: { check: TowCheckResult }) {
 
 // ─── Component ──────────────────────────────────────────────────────
 
-export default function TowVehicleSetupPrompt({ rvSpecs }: TowVehicleSetupPromptProps) {
-  const { savedVehicle, openSetupModal, clearVehicle } = useTowVehicle();
+export default function TowVehicleSetupPrompt({
+  rvSpecs,
+  rvName = 'RV',
+  rvImageUrl,
+}: TowVehicleSetupPromptProps) {
+  const { savedVehicle, openSetupModal } = useTowVehicle();
 
   const result = useMemo(() => {
     if (!savedVehicle || !rvSpecs) return null;
@@ -128,6 +156,7 @@ export default function TowVehicleSetupPrompt({ rvSpecs }: TowVehicleSetupPrompt
   // Vehicle saved + RV specs — show compatibility result
   const { verdict, checks } = result;
   const keyChecks = [checks.towWeight, checks.payload, checks.hitchClass];
+  const vehicleName = `${savedVehicle.make} ${savedVehicle.model} ${savedVehicle.trim}`;
 
   return (
     <div className={`${styles.matchCard} ${verdictClass(verdict)}`}>
@@ -135,37 +164,53 @@ export default function TowVehicleSetupPrompt({ rvSpecs }: TowVehicleSetupPrompt
       <div className={styles.matchHeader}>
         <div className={styles.matchVerdict}>
           <span className={styles.matchVerdictIcon}>
-            <Icon name={verdictIcon(verdict)} size={18} />
+            <Icon name={verdictIcon(verdict)} size={24} />
           </span>
-          <span className={styles.matchVerdictLabel}>
-            {getVerdictLabel(verdict)}
+          <span className={styles.matchVerdictTitle}>
+            {verdictTitle(verdict)}
           </span>
         </div>
-        <button type="button" className={styles.changeButton} onClick={openSetupModal}>
-          Change
+        <button type="button" className={styles.editButton} onClick={openSetupModal}>
+          <Icon name="edit" size={20} />
+          Edit
         </button>
       </div>
 
-      {/* Vehicle */}
-      <p className={styles.matchVehicle}>
-        {savedVehicle.make} {savedVehicle.model} {savedVehicle.trim}
+      {/* Description */}
+      <p className={styles.matchDescription}>
+        {verdictDescription(verdict, vehicleName, rvName)}
       </p>
 
-      {/* Key checks */}
-      <div className={styles.matchChecks}>
-        {keyChecks.map(c => (
-          <CheckRow key={c.label} check={c} />
-        ))}
-      </div>
+      {/* Content row: images + checks */}
+      <div className={styles.matchContent}>
+        {/* Overlapping vehicle/RV images */}
+        <div className={styles.matchImages}>
+          <div className={styles.matchImageCircle}>
+            <img
+              src="/images/icons/car-pickup.svg"
+              alt={vehicleName}
+              className={styles.matchImageIcon}
+            />
+          </div>
+          <div className={`${styles.matchImageCircle} ${styles.matchImageOverlap}`}>
+            {rvImageUrl ? (
+              <img
+                src={rvImageUrl}
+                alt={rvName}
+                className={styles.matchImagePhoto}
+              />
+            ) : (
+              <span className={styles.matchImageFallback}>RV</span>
+            )}
+          </div>
+        </div>
 
-      {/* Actions */}
-      <div className={styles.matchActions}>
-        <button type="button" className={styles.detailsLink} onClick={openSetupModal}>
-          View all checks
-        </button>
-        <button type="button" className={styles.removeLink} onClick={clearVehicle}>
-          Remove vehicle
-        </button>
+        {/* Check rows */}
+        <div className={styles.matchChecks}>
+          {keyChecks.map(c => (
+            <CheckRow key={c.label} check={c} />
+          ))}
+        </div>
       </div>
     </div>
   );
