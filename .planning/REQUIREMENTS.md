@@ -30,7 +30,7 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 - [x] **FEE-01**: Per-state DMV fees displayed: title fee, registration fee, plate/tab fee from static data
 - [x] **FEE-02**: Registration fee calculation supports flat, weight-based (using GVWR), and value-based models per state
 - [x] **FEE-03**: Dealer fee defaults by RV type (travel trailer, fifth wheel, Class A/B/C, pop-up, truck camper) with state doc fee caps enforced
-- [ ] **FEE-04**: Dealer fees editable per line item with inline edit interaction (click to edit, blur/enter to commit)
+- [x] **FEE-04**: Dealer fees editable per line item with inline edit interaction (click to edit, blur/enter to commit)
 
 ### Trade-In
 
@@ -136,7 +136,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FEE-01 | Phase 47 | Complete |
 | FEE-02 | Phase 47 | Complete |
 | FEE-03 | Phase 48 | Complete |
-| FEE-04 | Phase 49 | Pending |
+| FEE-04 | Phase 49 | Complete |
 | TRAD-01 | Phase 49 | Pending |
 | TRAD-02 | Phase 49 | Pending |
 | TRAD-03 | Phase 49 | Pending |

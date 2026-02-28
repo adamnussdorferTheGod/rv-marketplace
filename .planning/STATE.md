@@ -9,10 +9,10 @@ See: .planning/PROJECT.md (updated 2026-02-28)
 
 ## Current Position
 
-Phase: 18 - Mobile Polish
-Plan: 2 of 2 complete in current phase
-Status: Phase Complete
-Last activity: 2026-02-28 — Completed 18-02 (Restore LifestyleContext Tab Bar)
+Phase: 49 - Dealer Fees, Trade-in & Editable Inputs
+Plan: 1 of 2 complete in current phase
+Status: In Progress
+Last activity: 2026-02-28 — Completed 49-01 (Editable Dealer Fees)
 
 ## Performance Metrics
 
@@ -31,8 +31,8 @@ Last activity: 2026-02-28 — Completed 18-02 (Restore LifestyleContext Tab Bar)
 
 **v8.0:**
 - Total plans estimated: 10 (across 5 phases)
-- Completed: 4
-- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min
+- Completed: 5
+- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min
 
 ## Accumulated Context
 
@@ -57,6 +57,9 @@ Last activity: 2026-02-28 — Completed 18-02 (Restore LifestyleContext Tab Bar)
 - [48-02]: Null-guard rendering: CostBreakdown only renders when taxResult, dmvResult, dealerFees are non-null
 - [18-02]: Restored tab bar from pre-regression state (commit b1626a1) rather than reimplementing
 - [18-02]: Tab bar uses overflow-x auto with scrollbar-width none for hidden horizontal scroll on mobile
+- [49-01]: Click-to-edit interaction with hover dashed underline affordance (no pencil icon)
+- [49-01]: dealerFeeOverrides partial state merged with defaults -- only user-edited fees override
+- [49-01]: State change resets overrides inline in onChange (no useEffect) to avoid extra render
 
 ### Pending Todos
 
@@ -73,5 +76,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-28
-Stopped at: Completed 18-02-PLAN.md
+Stopped at: Completed 49-01-PLAN.md
 Resume file: None

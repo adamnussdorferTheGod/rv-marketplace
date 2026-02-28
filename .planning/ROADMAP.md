@@ -831,11 +831,11 @@ Plans:
   3. The user can override the estimated trade-in value by typing a custom dollar amount, and the override replaces the estimate in all calculations
   4. In trade-in credit states (~42 states), the trade-in value reduces the taxable amount and a prominent callout shows "Trade-in tax credit: saving you $X in taxes"
   5. In non-credit states (CA, DC, HI, KY, VA), a warning callout explains that sales tax applies to the full purchase price regardless of trade-in
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 49-01: Editable dealer fee line items with inline edit interaction and doc fee cap enforcement
-- [ ] 49-02: Trade-in toggle, YMMT/condition selector, value estimation, manual override, tax credit display, and non-credit state warning
+- [ ] 49-01-PLAN.md — Editable dealer fee line items with inline edit interaction and doc fee cap enforcement
+- [ ] 49-02-PLAN.md — Trade-in toggle, YMMT/condition selector, value estimation, manual override, tax credit display, and non-credit state warning
 
 ### Phase 50: Financing Calculator
 **Goal**: Users can configure loan terms and see how financing changes their monthly payment, with the amount financed correctly including tax and fees in the loan by default
@@ -847,11 +847,10 @@ Plans:
   3. A credit tier selector (Excellent 5.99% / Good 7.49% / Fair 9.99% / Below Fair 12.49%) provides a friendly APR input, with a text field for manual APR override when the user knows their exact rate
   4. The amount financed defaults to the out-the-door price (including tax and fees) minus the down payment, correctly updating when any upstream value changes
   5. The financing section displays monthly payment, total interest paid over the life of the loan, and total cost of the loan (principal + interest), all recalculating in real time
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 50-01: Down payment slider/input, loan term selector, credit tier selector with manual APR override
-- [ ] 50-02: Amount financed calculation, monthly payment formula, total interest/cost display, and integration with calculator totals
+- [ ] 50-01-PLAN.md — Financing calculation module, FinancingSection component (down payment slider/input, loan term pills, credit tier selector, manual APR override, financing summary display), and TotalCostCalculator integration with real PMT-based monthly teaser
 
 ### Phase 51: Insurance, State Tips & Responsive Polish
 **Goal**: Users see an educational insurance cost estimate, receive contextual tips about their selected state's tax advantages or gotchas, and the entire calculator works well on mobile
@@ -863,11 +862,11 @@ Plans:
   3. Tips use three distinct visual styles: info (neutral blue) for general facts, savings (green) for money-saving opportunities, and warning (amber) for gotchas or limitations
   4. On mobile viewports, calculator inputs stack into a single column and breakdown sections render as collapsible accordions to conserve vertical space
   5. Numeric values animate with an odometer-style counter roll when recalculating, providing visual feedback that values have changed
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 51-01: Insurance estimate section with premium range by RV type/value, coverage note, and educational disclaimer
-- [ ] 51-02: State-specific tip callouts with info/savings/warning styling, responsive single-column stacking, collapsible accordions, and value animation
+- [ ] 51-01-PLAN.md — Insurance estimate engine + state tip engine with display components (INS-01, INS-02, TIP-01, TIP-02)
+- [ ] 51-02-PLAN.md — Odometer-style value animation, mobile responsive stacking, collapsible accordion breakdown (UX-01, UX-02)
 
 ## Progress
 
@@ -900,7 +899,7 @@ Plans:
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 18. Mobile Polish | 2/2 | Complete   | 2026-02-28 | - |
+| 18. Mobile Polish | 2/2 | Complete    | 2026-02-28 | - |
 | 19. Routing & Homepage Shell | v5.0 | 1/1 | Complete | 2026-02-26 |
 | 20. Hero Banner & Search | v5.0 | 2/2 | Complete | 2026-02-26 |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 2/2 | Complete | 2026-02-26 |
@@ -930,7 +929,7 @@ Plans:
 | 45. Co-Shopping Shared List UI | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
 | 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
-| 48. Calculator Shell & Core Display | 2/2 | Complete   | 2026-02-28 | - |
-| 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 0/2 | Not started | - |
-| 50. Financing Calculator | v8.0 | 0/2 | Not started | - |
+| 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
+| 49. Dealer Fees, Trade-In & Editable Inputs | 1/2 | In Progress|  | - |
+| 50. Financing Calculator | v8.0 | 0/1 | Not started | - |
 | 51. Insurance, State Tips & Responsive Polish | v8.0 | 0/2 | Not started | - |
