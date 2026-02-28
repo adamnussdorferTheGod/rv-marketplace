@@ -14,7 +14,7 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 - [x] **CALC-03**: State selector dropdown defaults to listing location state, recalculates all values on change
 - [x] **CALC-04**: "Based on registering in [State]" attribution shown beneath totals
 - [x] **CALC-05**: All calculated values update in real-time as any input changes (no submit button)
-- [ ] **CALC-06**: Expandable full breakdown with itemized sections: Purchase Price, Taxes, DMV Fees, Dealer Fees, Financing, Insurance, Grand Total
+- [x] **CALC-06**: Expandable full breakdown with itemized sections: Purchase Price, Taxes, DMV Fees, Dealer Fees, Financing, Insurance, Grand Total
 
 ### State Tax Data
 
@@ -63,7 +63,7 @@ Requirements for Total Cost Calculator milestone. Replaces the existing LoanCalc
 
 - [ ] **UX-01**: Responsive layout — inputs stack single-column on mobile, breakdown sections as collapsible accordions
 - [ ] **UX-02**: Numeric values animate on recalculation with odometer-style counter roll
-- [ ] **UX-03**: Legal disclaimer at bottom: "Cost estimates are calculated using publicly available state tax rates..."
+- [x] **UX-03**: Legal disclaimer at bottom: "Cost estimates are calculated using publicly available state tax rates..."
 
 ## Future Requirements
 
@@ -126,7 +126,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CALC-03 | Phase 48 | Complete |
 | CALC-04 | Phase 48 | Complete |
 | CALC-05 | Phase 48 | Complete |
-| CALC-06 | Phase 48 | Pending |
+| CALC-06 | Phase 48 | Complete |
 | TAX-01 | Phase 47 | Complete |
 | TAX-02 | Phase 47 | Complete |
 | TAX-03 | Phase 47 | Complete |
@@ -154,7 +154,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIP-02 | Phase 51 | Pending |
 | UX-01 | Phase 51 | Pending |
 | UX-02 | Phase 51 | Pending |
-| UX-03 | Phase 48 | Pending |
+| UX-03 | Phase 48 | Complete |
 
 **Coverage:**
 - v8.0 requirements: 34 total
