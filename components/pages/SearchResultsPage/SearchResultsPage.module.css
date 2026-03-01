@@ -130,14 +130,6 @@
   display: contents;
 }
 
-.sidebarSticky {
-  position: sticky;
-  top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-32);
-}
-
 .sidebarAd {
   display: flex;
   justify-content: center;
@@ -305,8 +297,7 @@
   }
 
   .sidebarAd,
-  .sidebarExtra,
-  .sidebarSticky {
+  .sidebarExtra {
     display: none;
   }
 

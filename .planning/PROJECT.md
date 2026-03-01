@@ -8,27 +8,27 @@ An RV Trader marketplace frontend built as a React + TypeScript SPA. Includes a 
 
 A pixel-accurate marketplace experience that faithfully implements the Figma reference designs using the TIDE 2.0 design system and RV Trader theme, with dynamic client-side filtering that makes the demo feel like a real product.
 
-## Current Milestone: v5.0 Homepage
+## Current Milestone: v8.0 Total Cost Calculator
 
-**Goal:** Build the full homepage as the primary marketplace entry point — hero search, listing carousels, dealer showcase, selling options, ownership resources, blog content, SEO links, and app download — with react-router-dom routing across Homepage → SRP → VDP.
+**Goal:** Give buyers a realistic, all-in purchase price for any RV listing — not just the sticker price, but the actual out-the-door cost including state-specific sales tax, DMV fees, dealer fees, trade-in credit, financing costs, and insurance estimates. Location-aware, fully customizable, with collapsed summary + expandable full breakdown on the VDP.
 
 **Target features:**
-- react-router-dom routing: / (homepage), /search (SRP), /listing/:id (VDP)
-- Hero banner with "Shop the largest RV marketplace" heading and AI-powered search bar
-- Expanded search dropdown with 10 RV type thumbnails, popular searches, popular makes
-- "RVs hand-picked for you" listing carousel with filter chips and carousel navigation
-- Dealer showcase section with dealer branding and inventory carousel
-- "Selling made with you in mind" 3-panel tabbed section (consign, private, dealer)
-- "Featured listings" 2-row listing grid with carousel navigation
-- "Making RV ownership easy" 4 illustrated cards
-- "Stay in the know" tabbed blog/content section with featured image and article list
-- "Popular searches" SEO link grid with tabbed categories
-- App download + newsletter section
-- Logo always links to homepage; listing cards link to VDP
-
-**Figma reference:**
-- Homepage: frame 1:9679 (1789x6316px) — "Homepage — Desktop 1"
-- Expanded search: frame 1:10901 (1789x1566px) — "Homepage Search — Desktop 2"
+- Collapsed cost summary bar on every VDP: listing price + est. tax & fees = out-the-door total
+- Expanded full breakdown: Purchase Price, Taxes, DMV Fees, Dealer Fees, Financing, Insurance
+- State selector with automatic tax/fee recalculation for all 50 states + DC
+- State-specific intelligence: tax caps (SC, NC), no-tax states, RV-specific rules (MD, CT, GA, OK)
+- Trade-in section: YMMT selector, condition-based value estimate, trade-in tax credit display
+- Trade-in credit correctly applied/withheld per state (~42 allow, 5 don't)
+- Editable dealer fees with doc fee cap enforcement where applicable
+- Financing calculator: down payment, loan term (36–180 mo), APR/credit tier, monthly payment
+- Amount financed includes tax and fees in the loan (real-world default)
+- Insurance estimate section with annual premium range by RV type and value
+- State-specific tip callouts (tax caps, no-tax advantages, trade-in credit savings)
+- Mobile: sticky summary bar at bottom of VDP with tap-to-expand bottom sheet
+- Save Estimate to user account (auth required) with price-change notifications
+- Share estimate as link/image card, print-friendly PDF version
+- All calculations client-side from curated per-state tax/fee database (static JSON)
+- Mock data layer — no real API calls (consistent with frontend-only constraint)
 
 ## Requirements
 
@@ -49,32 +49,59 @@ A pixel-accurate marketplace experience that faithfully implements the Figma ref
 - ✓ Dealer showcase section with branding and inventory carousel — v5.0 Phase 21
 - ✓ "Featured listings" 2-row listing grid — v5.0 Phase 21
 - ✓ Listing cards → VDP routing via listingPath() — v5.0 Phase 21
+- ✓ SRP data types and ~80 sample listings — v4.0 Phase 24
+- ✓ Client-side filter/sort engine with URL sync — v4.0 Phase 24
+- ✓ Full SRP with filter sidebar, card grid, pagination, responsive — v4.0 Phases 24-29
 
 ### Active
 
-- [ ] react-router-dom routing with / (homepage), /search (SRP), /listing/:id (VDP)
-- [ ] Hero banner with search bar, AI icon, ZIP input, segmented control
-- [ ] Expanded search dropdown with RV type grid, popular searches/makes chips
-- [ ] "Selling made with you in mind" 3-panel tabbed section
-- [ ] "Making RV ownership easy" 4 illustrated cards
-- [ ] "Stay in the know" tabbed blog/content section
-- [ ] "Popular searches" SEO link grid
-- [ ] App download + newsletter section
-- [ ] Logo → homepage navigation
-- [x] SRP data types and ~80 sample listings — v4.0 Phase 24
-- [x] Client-side filter/sort engine with URL sync — v4.0 Phase 24
+- [ ] Cost summary bar (collapsed) on every VDP showing out-the-door total
+- [ ] Expanded full breakdown with itemized sections
+- [ ] State selector with full recalculation for all 50 states + DC
+- [ ] State-specific tax calculations including caps, no-tax states, RV-specific rules
+- [ ] Trade-in section with YMMT selector, value estimate, tax credit display
+- [ ] Editable dealer fees with state doc fee caps
+- [ ] Financing calculator with credit tier selector and long RV loan terms
+- [ ] Insurance estimate by RV type and value
+- [ ] State-specific tip callouts
+- [ ] Mobile sticky bar + bottom sheet breakdown
+- [ ] Save/share/print estimate functionality
+- [ ] Per-state tax and fee database (static JSON, all 50 states + DC)
 
 ### Out of Scope
 
-- Real API integration — client-side mock data only
+- Real API integration — client-side mock data only (vehicle data is static JSON)
 - Server-side rendering — SPA only
 - Backend search — client-side data only
-- User authentication — UI-only interactions (no persistence)
+- User authentication — UI-only interactions (no real persistence)
 - Real-time inventory updates — static sample dataset
 - Mobile responsive homepage — desktop-first (1789px)
 - AI-powered search suggestions — placeholder text only
-- SRP page build — separate v4.0 milestone (in progress)
 - Dealer dashboard or listing management — buyer-facing only
+- Real DataOne/NHTSA API integration — mock vehicle database with static data
+- Tow match email alerts — P2, deferred
+- Side-by-side tow comparison — P2, deferred
+- Tow vehicle recommendation engine — P2, deferred
+- Route integration with tow data — P2, depends on Lifestyle Context completion
+- Dealer tow match dashboard — P2, deferred
+- VIN camera scanner — P2, mobile enhancement
+- Truck camper payload-only variant — simplified for v6.0, may add later
+- Blind vote mode — P2, hide reactions until all vote
+- Ranking/drag-to-reorder mode — P2
+- AI-generated shared preference summary — P2
+- Agent/advisor list access — P2, privacy concerns
+- List activity in search ranking — P2, feedback loop risk
+- Archived/completed lists with "We bought one!" — P2
+- Real-time chat between co-shoppers — high complexity, not core
+- Real backend/authentication — frontend-only constraint
+- Zip code–level local tax rates (Avalara/TaxJar) — v8.0 uses state averages, defer API integration
+- Pre-qualification soft pull / financing partner integration — P2 monetization layer
+- Insurance quote integration (Progressive, Good Sam, Roamly) — P2 affiliate play
+- Dealer-specific fee data ingestion — P2, build pipeline but don't block v8.0
+- Transport/delivery cost estimate — P2, requires distance calculation
+- Side-by-side cost comparison of 2 listings — P2
+- GAP insurance / extended warranty line items — P2
+- Annual cost projection (renewal, insurance, maintenance by year) — P2
 
 ## Context
 
@@ -122,5 +149,17 @@ A pixel-accurate marketplace experience that faithfully implements the Figma ref
 | Full-width section breakout | DealerShowcase rendered outside .content as sibling, self-centering for gray background | ✓ Good |
 | CSS custom property card width override | FeaturedListings grid uses --homepage-card-width: 100% to fill grid cells | ✓ Good |
 
+| Mock vehicle data layer | Real APIs are out of scope — static JSON vehicle database with ~50 popular truck/SUV configs | — Pending |
+| Frontend-only tow calculations | All compatibility math runs client-side from static vehicle + listing data | — Pending |
+| Tow match as VDP section | Badge near price + expandable panel, not a separate page | — Pending |
+| SRP filter integration | "Fits My Vehicle" filter uses existing client-side filter engine pattern | — Pending |
+| Co-shopping mock data layer | No real backend — shared lists, reactions, comments stored in React context/state | — Pending |
+| WebSocket simulation | Mock real-time events with setTimeout/state updates — no actual WebSocket server | — Pending |
+| Registration gate as UI-only | Invite flow shows registration requirement but no real auth | — Pending |
+| Static state tax/fee database | Curated JSON for all 50 states + DC — no real-time tax API (Avalara/TaxJar deferred to P2) | — Pending |
+| Client-side cost calculations | All tax, fee, financing, insurance math runs in-browser from static data | — Pending |
+| State-average local tax rates | V1 uses state averages, not zip code–level granularity | — Pending |
+| Trade-in value estimation | Simplified model based on RV type, age, condition — not trying to be KBB | — Pending |
+
 ---
-*Last updated: 2026-02-26 after Phase 21 (v5.0 listing carousels & dealer showcase)*
+*Last updated: 2026-02-27 after milestone v8.0 Total Cost Calculator initialization*

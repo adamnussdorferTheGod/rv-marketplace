@@ -930,6 +930,6 @@ Plans:
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
 | 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
 | 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
-| 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete   | 2026-02-28 | - |
-| 50. Financing Calculator | 1/1 | Complete   | 2026-02-28 | - |
-| 51. Insurance, State Tips & Responsive Polish | 2/2 | Complete   | 2026-02-28 | - |
+| 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete    | 2026-02-28 | - |
+| 50. Financing Calculator | 1/1 | Complete    | 2026-02-28 | - |
+| 51. Insurance, State Tips & Responsive Polish | 2/2 | Complete    | 2026-02-28 | - |
