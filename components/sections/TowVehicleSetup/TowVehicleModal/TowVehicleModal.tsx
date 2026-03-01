@@ -165,7 +165,14 @@ export default function TowVehicleModal() {
       )}
 
       {showToast && (
-        <div className={styles.toast}>Vehicle saved</div>
+        <div className={styles.toastContainer} role="status" aria-live="polite">
+          <div className={styles.toast} onClick={() => setShowToast(false)}>
+            <p className={styles.toastHeading}>Vehicle saved</p>
+            <p className={styles.toastDescription}>
+              Tow compatibility badges will now appear on matching listings
+            </p>
+          </div>
+        </div>
       )}
     </>
   );
