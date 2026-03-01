@@ -32,7 +32,9 @@
   align-items: center;
   text-align: center;
   padding: var(--space-32) var(--space-24);
-  background: var(--rv-surface);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.08);
   clip-path: inset(-20px 0 0 0);
   animation: fadeIn 300ms ease;
