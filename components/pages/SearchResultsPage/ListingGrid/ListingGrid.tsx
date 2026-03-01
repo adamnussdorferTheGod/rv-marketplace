@@ -5,7 +5,7 @@ import AdSlot from '../../../ui/AdSlot/AdSlot';
 import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
 import SellRvCard from '../SellRvCard/SellRvCard';
 import SellRvPromoCard from '../SellRvPromoCard/SellRvPromoCard';
-import AiSearchCard from '../AiSearchCard/AiSearchCard';
+import AiQuestionBanner from '../../../pages/HomePage/AiQuestionBanner/AiQuestionBanner';
 import styles from './ListingGrid.module.css';
 
 interface ListingGridProps {
@@ -91,7 +91,7 @@ export default function ListingGrid({
       if (interleavedType === 'ai_search') {
         elements.push(
           <div key="interleaved-ai-search" className={styles.interleavedSection}>
-            <AiSearchCard />
+            <AiQuestionBanner />
           </div>,
         );
       } else if (interleavedType === 'ad') {

@@ -299,7 +299,7 @@ export default function HeroBanner() {
           <SegmentedButtons
             options={SEGMENT_OPTIONS}
             selected={segment}
-            onChange={setSegment}
+            onChange={(val) => { setSegment(val); closeDropdown(); }}
             animated
           />
         </div>
