@@ -26,6 +26,7 @@ import SimilarListings from '@components/sections/SimilarListings/SimilarListing
 import RelatedCategories from '@components/sections/RelatedCategories/RelatedCategories';
 import InsuranceAccessories from '@components/sections/InsuranceAccessories/InsuranceAccessories';
 import TowVehicleSetupPrompt from '@components/sections/TowVehicleSetup/TowVehicleSetupPrompt/TowVehicleSetupPrompt';
+import { useTowVehicle } from '@components/sections/TowVehicleSetup/TowVehicleContext';
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
@@ -58,8 +59,14 @@ function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
   const { currentPage } = useNavigation();
+  const { savedVehicle } = useTowVehicle();
   const { listing, slug, prevSlug, nextSlug } = useCurrentListing();
   const videoData = useMemo(() => generateVideoWalkthrough(listing, slug), [listing, slug]);
+  const rvSpecs = useMemo(() => ({
+    gvwr: listing.gvwr,
+    tongueWeight: listing.tongueWeight,
+    hitchType: listing.hitchType,
+  }), [listing.gvwr, listing.tongueWeight, listing.hitchType]);
   const { saveViewed } = useRecentlyViewed();
 
   // Track this listing as recently viewed
@@ -124,11 +131,8 @@ function VehicleDetailPageContent() {
                 <Divider />
                 <FeaturesAndSpecs specs={listing.specs} />
                 <TowVehicleSetupPrompt
-                  rvSpecs={{
-                    gvwr: listing.gvwr,
-                    tongueWeight: listing.tongueWeight,
-                    hitchType: listing.hitchType,
-                  }}
+                  key={savedVehicle ? `${savedVehicle.make}-${savedVehicle.model}-${savedVehicle.trim}` : 'setup'}
+                  rvSpecs={rvSpecs}
                   rvName={listing.title.replace(/^\d{4}\s+/, '')}
                   rvImageUrl={listing.images[0]?.url}
                 />

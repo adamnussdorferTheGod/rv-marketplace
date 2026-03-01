@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useTowVehicle } from '../TowVehicleContext';
 import {
   calculateTowCompatibility,
@@ -96,10 +95,9 @@ export default function TowVehicleSetupPrompt({
 }: TowVehicleSetupPromptProps) {
   const { savedVehicle, openSetupModal } = useTowVehicle();
 
-  const result = useMemo(() => {
-    if (!savedVehicle || !rvSpecs?.gvwr) return null;
-    return calculateTowCompatibility(savedVehicle, rvSpecs);
-  }, [savedVehicle, rvSpecs]);
+  const result = savedVehicle && rvSpecs?.gvwr
+    ? calculateTowCompatibility(savedVehicle, rvSpecs)
+    : null;
 
   // No vehicle saved — show setup prompt
   if (!savedVehicle) {
