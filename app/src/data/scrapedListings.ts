@@ -6496,23 +6496,19 @@ export const allListings: { slug: string; data: ListingData }[] = [
   { slug: 'wayfarer-25qw', data: wayfarerQwListing },
 ];
 
-// ─── Duplicate listings (different price + rotated hero image) ───────
+// ─── Duplicate listings (different price + rotated gallery) ──────────
 
 function cloneListing(data: ListingData, priceMultiplier: number, imageRotation: number): ListingData {
-  const rotated = [...data.images];
-  const rotation = imageRotation % rotated.length;
+  // Always keep the base listing's first image as the hero (verified exterior).
+  // Only rotate the remaining gallery images so VDP galleries look different.
+  const hero = data.images[0];
+  const gallery = data.images.slice(1);
+  const rotation = imageRotation % (gallery.length || 1);
   if (rotation > 0) {
-    const moved = rotated.splice(0, rotation);
-    rotated.push(...moved);
+    const moved = gallery.splice(0, rotation);
+    gallery.push(...moved);
   }
-  // Ensure the hero image (first) is always an exterior shot
-  if (!rotated[0]?.alt.includes('exterior')) {
-    const extIdx = rotated.findIndex(img => img.alt.includes('exterior'));
-    if (extIdx > 0) {
-      const [ext] = rotated.splice(extIdx, 1);
-      rotated.unshift(ext);
-    }
-  }
+  const rotated = [hero, ...gallery];
 
   const newPrice = Math.round(data.currentPrice * priceMultiplier / 100) * 100;
   const newOriginal = Math.round(data.originalPrice * priceMultiplier / 100) * 100;
