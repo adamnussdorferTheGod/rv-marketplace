@@ -64,6 +64,9 @@ export const sunseekerListing: ListingData = {
   vin: '4X4TSMD20RF500123',
   daysOnSite: 8,
 
+  // Tow compatibility
+  gvwr: 12500,
+
   // Price Analysis
   priceAnalysis: {
     rangeMin: 72000,
