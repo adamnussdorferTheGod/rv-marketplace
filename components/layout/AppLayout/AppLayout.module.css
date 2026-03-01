@@ -1,14 +1,10 @@
 .layout {
   width: 100%;
-  max-width: 1920px;
   margin: 0 auto;
   background: var(--rv-surface);
   overflow-x: clip;
 }
 
 .fullWidth {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
 }

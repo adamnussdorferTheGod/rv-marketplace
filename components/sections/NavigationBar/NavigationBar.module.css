@@ -34,6 +34,11 @@
   text-decoration: none;
 }
 
+.navLinkDisabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 /* SM: 768–991px */
 @media (max-width: 991px) {
   .resultText {

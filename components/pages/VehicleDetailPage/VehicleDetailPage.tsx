@@ -37,23 +37,27 @@ import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerS
 import { VdpVariantProvider } from './VdpVariantContext';
 import { NavigationProvider, useNavigation } from '../NavigationContext';
 import DestinationDetailPage from '../DestinationDetailPage/DestinationDetailPage';
-import { sunseekerListing, listingsBySlug } from '../../../app/src/data/scrapedListings';
+import { sunseekerListing, listingsBySlug, allListings } from '../../../app/src/data/scrapedListings';
 import { generateNarrations } from '../../../app/src/data/generateNarrations';
 import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
+import { generateDealKit } from '../../../app/src/data/generateDealKit';
 import styles from './VehicleDetailPage.module.css';
 
 function useCurrentListing() {
   const { id } = useParams<{ id: string }>();
   const slug = id && listingsBySlug[id] ? id : 'sunseeker-1950le';
   const listing = (id && listingsBySlug[id]) || sunseekerListing;
-  return { listing, slug };
+  const idx = allListings.findIndex(l => l.slug === slug);
+  const prevSlug = idx > 0 ? allListings[idx - 1].slug : undefined;
+  const nextSlug = idx < allListings.length - 1 ? allListings[idx + 1].slug : undefined;
+  return { listing, slug, prevSlug, nextSlug };
 }
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
   const { currentPage } = useNavigation();
-  const { listing, slug } = useCurrentListing();
+  const { listing, slug, prevSlug, nextSlug } = useCurrentListing();
   const videoData = useMemo(() => generateVideoWalkthrough(listing, slug), [listing, slug]);
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
@@ -76,7 +80,7 @@ function VehicleDetailPageContent() {
           {/* Full-width sections above two-column area — reordered on mobile */}
           <div className={styles.aboveFold}>
             <div className={`${styles.sectionSpacing} ${styles.navSection}`}>
-              <NavigationBar resultPosition={listing.resultPosition} totalResults={listing.totalResults} />
+              <NavigationBar resultPosition={listing.resultPosition} totalResults={listing.totalResults} prevSlug={prevSlug} nextSlug={nextSlug} />
             </div>
             <div className={`${styles.sectionSpacing} ${styles.gallerySection}`}>
               <PhotoGallery
@@ -196,7 +200,7 @@ function VehicleDetailPageWrapper() {
       <VdpVariantProvider>
         <AiModeProvider listing={listing}>
           <NarrationProvider narrations={generateNarrations(listing)}>
-            <DealKitProvider>
+            <DealKitProvider data={generateDealKit(listing)}>
               <VideoWalkthroughProvider data={generateVideoWalkthrough(listing, slug)}>
                 <VehicleDetailPageContent />
               </VideoWalkthroughProvider>

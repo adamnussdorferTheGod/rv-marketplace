@@ -3,16 +3,13 @@ import { useDealKit, LOADING_STEPS } from '../DealKitContext';
 import styles from './DealKitLoading.module.css';
 
 export default function DealKitLoading() {
-  const { loadingStep, data } = useDealKit();
-
-  // Use vehicleImage from data if available, fall back to sampleListing image
-  const imageUrl = data?.vehicleImage ?? 'https://images.unsplash.com/photo-1619317190381-643a6b28d6e6?w=400&h=400&fit=crop&q=80';
+  const { loadingStep, vehicleImage } = useDealKit();
 
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.iconWrap}>
-          <img src={imageUrl} alt="" className={styles.vehicleThumb} />
+          <img src={vehicleImage} alt="" className={styles.vehicleThumb} />
           <div className={styles.sparkleBadge}>
             <Icon name="sparkles" size={16} />
           </div>

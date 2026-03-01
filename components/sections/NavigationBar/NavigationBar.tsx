@@ -6,9 +6,11 @@ import styles from './NavigationBar.module.css';
 interface NavigationBarProps {
   resultPosition: number;
   totalResults: number;
+  prevSlug?: string;
+  nextSlug?: string;
 }
 
-export default function NavigationBar({ resultPosition, totalResults }: NavigationBarProps) {
+export default function NavigationBar({ resultPosition, totalResults, prevSlug, nextSlug }: NavigationBarProps) {
   return (
     <nav className={styles.navigationBar}>
       <Link to={ROUTES.SEARCH} className={styles.backLink}>
@@ -19,14 +21,28 @@ export default function NavigationBar({ resultPosition, totalResults }: Navigati
         <span className={styles.resultText}>
           Result {resultPosition.toLocaleString()} of {totalResults.toLocaleString()}
         </span>
-        <a href="#" className={styles.navLink}>
-          <Icon name="chevron_left" size={20} />
-          Previous
-        </a>
-        <a href="#" className={styles.navLink}>
-          Next
-          <Icon name="chevron_right" size={20} />
-        </a>
+        {prevSlug ? (
+          <Link to={`/listing/${prevSlug}`} className={styles.navLink}>
+            <Icon name="chevron_left" size={20} />
+            Previous
+          </Link>
+        ) : (
+          <span className={`${styles.navLink} ${styles.navLinkDisabled}`}>
+            <Icon name="chevron_left" size={20} />
+            Previous
+          </span>
+        )}
+        {nextSlug ? (
+          <Link to={`/listing/${nextSlug}`} className={styles.navLink}>
+            Next
+            <Icon name="chevron_right" size={20} />
+          </Link>
+        ) : (
+          <span className={`${styles.navLink} ${styles.navLinkDisabled}`}>
+            Next
+            <Icon name="chevron_right" size={20} />
+          </span>
+        )}
       </div>
     </nav>
   );

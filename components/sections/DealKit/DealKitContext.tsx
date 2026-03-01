@@ -8,7 +8,6 @@ import {
   type ReactNode,
 } from 'react';
 import type { DealKitData } from '../../../app/src/data/dealKitTypes';
-import { sampleDealKit } from '../../../app/src/data/sampleDealKit';
 
 type DealKitStep =
   | 'idle'
@@ -22,6 +21,7 @@ interface DealKitContextValue {
   isAuthenticated: boolean;
   isContentUnlocked: boolean;
   data: DealKitData | null;
+  vehicleImage: string;
   loadingStep: number;
   activeSection: string;
   checkedItems: Set<string>;
@@ -48,10 +48,11 @@ const LOADING_STEPS = [
 const LOADING_STEP_DURATION = 500; // ms per step
 
 interface DealKitProviderProps {
+  data: DealKitData;
   children: ReactNode;
 }
 
-export function DealKitProvider({ children }: DealKitProviderProps) {
+export function DealKitProvider({ data: dealKitData, children }: DealKitProviderProps) {
   const [step, setStep] = useState<DealKitStep>('idle');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [data, setData] = useState<DealKitData | null>(null);
@@ -78,7 +79,7 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
     if (step !== 'loading') return;
 
     if (loadingStep >= LOADING_STEPS.length) {
-      setData(sampleDealKit);
+      setData(dealKitData);
       setStep('ready');
       return;
     }
@@ -128,6 +129,7 @@ export function DealKitProvider({ children }: DealKitProviderProps) {
       isAuthenticated,
       isContentUnlocked,
       data,
+      vehicleImage: dealKitData.vehicleImage,
       loadingStep,
       activeSection,
       checkedItems,
