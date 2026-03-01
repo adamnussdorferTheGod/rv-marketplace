@@ -6544,6 +6544,12 @@ const priceVariants: { suffix: string; multiplier: number; rotation: number }[] 
   { suffix: '-5', multiplier: 1.15, rotation: 3 },
   { suffix: '-6', multiplier: 0.95, rotation: 5 },
   { suffix: '-7', multiplier: 1.05, rotation: 6 },
+  { suffix: '-8', multiplier: 0.88, rotation: 3 },
+  { suffix: '-9', multiplier: 1.12, rotation: 5 },
+  { suffix: '-10', multiplier: 0.82, rotation: 7 },
+  { suffix: '-11', multiplier: 1.18, rotation: 1 },
+  { suffix: '-12', multiplier: 0.90, rotation: 6 },
+  { suffix: '-13', multiplier: 1.10, rotation: 2 },
 ];
 
 const duplicatedListings: { slug: string; data: ListingData }[] = allListings.flatMap(
