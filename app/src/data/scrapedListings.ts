@@ -6496,6 +6496,62 @@ export const allListings: { slug: string; data: ListingData }[] = [
   { slug: 'wayfarer-25qw', data: wayfarerQwListing },
 ];
 
+// ─── Duplicate listings (different price + rotated hero image) ───────
+
+function cloneListing(data: ListingData, priceMultiplier: number, imageRotation: number): ListingData {
+  const rotated = [...data.images];
+  const rotation = imageRotation % rotated.length;
+  if (rotation > 0) {
+    const moved = rotated.splice(0, rotation);
+    rotated.push(...moved);
+  }
+
+  const newPrice = Math.round(data.currentPrice * priceMultiplier / 100) * 100;
+  const newOriginal = Math.round(data.originalPrice * priceMultiplier / 100) * 100;
+  const monthlyEstimate = Math.round(newPrice / 240 * 1.06);
+
+  return {
+    ...data,
+    images: rotated,
+    currentPrice: newPrice,
+    originalPrice: newOriginal,
+    monthlyPayment: monthlyEstimate,
+    loanMonthlyPayment: monthlyEstimate,
+    stockNumber: data.stockNumber + '-B',
+    daysOnSite: Math.max(1, data.daysOnSite + Math.floor((priceMultiplier - 1) * 50)),
+    priceAnalysis: {
+      ...data.priceAnalysis,
+      priceHistory: [
+        { date: '01/15/26', change: 'Listed', price: newOriginal },
+        ...(newPrice !== newOriginal
+          ? [{ date: '02/10/26', change: 'Price reduced', price: newPrice }]
+          : []),
+      ],
+    },
+    engagement: {
+      ...data.engagement,
+      viewCount: Math.round(data.engagement.viewCount * (0.6 + Math.random() * 0.8)),
+      saveCount: Math.round(data.engagement.saveCount * (0.5 + Math.random() * 0.8)),
+    },
+    viewerCount: Math.floor(Math.random() * 12) + 2,
+  };
+}
+
+const priceVariants: { suffix: string; multiplier: number; rotation: number }[] = [
+  { suffix: '-2', multiplier: 0.92, rotation: 2 },
+  { suffix: '-3', multiplier: 1.08, rotation: 4 },
+];
+
+const duplicatedListings: { slug: string; data: ListingData }[] = allListings.flatMap(
+  ({ slug, data }) =>
+    priceVariants.map(({ suffix, multiplier, rotation }) => ({
+      slug: slug + suffix,
+      data: cloneListing(data, multiplier, rotation),
+    })),
+);
+
+allListings.push(...duplicatedListings);
+
 export const listingsBySlug: Record<string, ListingData> = Object.fromEntries(
   allListings.map(l => [l.slug, l.data])
 );
