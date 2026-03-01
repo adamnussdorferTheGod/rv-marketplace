@@ -35,7 +35,7 @@ const TYPE_SLUG_MAP: Record<string, string> = {
   'Class C Motorhomes': 'class-c',
   'Class B Campervans': 'class-b',
   'Toy Haulers': 'toy-hauler',
-  'Pop-Up Campers': 'pop-up-camper',
+  'Pop-Up Campers': 'pop-up',
   'Truck Campers': 'truck-camper',
   'Hybrid Trailers': 'hybrid-trailer',
   'Park Models': 'park-model',

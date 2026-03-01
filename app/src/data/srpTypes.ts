@@ -9,7 +9,10 @@ export type RVType =
   | 'travel-trailer'
   | 'fifth-wheel'
   | 'toy-hauler'
-  | 'pop-up';
+  | 'pop-up'
+  | 'truck-camper'
+  | 'park-model'
+  | 'fish-house';
 
 export type FuelType = 'gas' | 'diesel' | 'electric' | 'n/a';
 
@@ -127,6 +130,9 @@ export const RV_TYPE_LABELS: Record<RVType, string> = {
   'fifth-wheel': 'Fifth Wheel',
   'toy-hauler': 'Toy Hauler',
   'pop-up': 'Pop-Up Camper',
+  'truck-camper': 'Truck Camper',
+  'park-model': 'Park Model',
+  'fish-house': 'Fish House',
 };
 
 export const SORT_OPTIONS: Array<{ value: SortOption; label: string }> = [

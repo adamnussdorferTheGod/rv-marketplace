@@ -45,6 +45,21 @@ export const RV_TYPE_OPTIONS: RVTypeOption[] = [
     label: RV_TYPE_LABELS['pop-up'],
     thumbnail: '/images/rv-types/pop-up-camper.png',
   },
+  {
+    value: 'truck-camper',
+    label: RV_TYPE_LABELS['truck-camper'],
+    thumbnail: '/images/rv-types/truck-camper.png',
+  },
+  {
+    value: 'park-model',
+    label: RV_TYPE_LABELS['park-model'],
+    thumbnail: '/images/rv-types/park-model.png',
+  },
+  {
+    value: 'fish-house',
+    label: RV_TYPE_LABELS['fish-house'],
+    thumbnail: '/images/rv-types/fish-house.png',
+  },
 ];
 
 // ─── Make & Model hierarchical tree ─────────────────────────────────

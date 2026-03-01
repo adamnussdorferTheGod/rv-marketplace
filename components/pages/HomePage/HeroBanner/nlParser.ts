@@ -71,6 +71,16 @@ const RV_TYPE_ALIASES: Record<string, string> = {
   'pop up camper': 'pop-up',
   'tent trailer': 'pop-up',
   'folding trailer': 'pop-up',
+  'truck camper': 'truck-camper',
+  'truck campers': 'truck-camper',
+  'slide in': 'truck-camper',
+  'slide-in': 'truck-camper',
+  'park model': 'park-model',
+  'park models': 'park-model',
+  'fish house': 'fish-house',
+  'fish houses': 'fish-house',
+  'ice house': 'fish-house',
+  'ice castle': 'fish-house',
 };
 
 // Sorted longest-first so multi-word aliases match before substrings
@@ -87,6 +97,9 @@ const RV_TYPE_LABELS: Record<string, string> = {
   'class-c': 'Class C Motorhomes',
   'toy-hauler': 'Toy Haulers',
   'pop-up': 'Pop-Up Campers',
+  'truck-camper': 'Truck Campers',
+  'park-model': 'Park Models',
+  'fish-house': 'Fish Houses',
 };
 
 // Floor plan pattern → filter value

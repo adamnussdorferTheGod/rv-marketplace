@@ -29,7 +29,7 @@ export const RV_TYPES: RVType[] = [
   { label: 'Class C', slug: 'class-c', imageUrl: '/images/rv-types/class-c.png' },
   { label: 'Fifth Wheel', slug: 'fifth-wheel', imageUrl: '/images/rv-types/fifth-wheel.png' },
   { label: 'Toy Hauler', slug: 'toy-hauler', imageUrl: '/images/rv-types/toy-hauler.png' },
-  { label: 'Pop-up', slug: 'pop-up-camper', imageUrl: '/images/rv-types/pop-up-camper.png' },
+  { label: 'Pop-up', slug: 'pop-up', imageUrl: '/images/rv-types/pop-up-camper.png' },
   { label: 'Truck\u00A0Camper', slug: 'truck-camper', imageUrl: '/images/rv-types/truck-camper.png' },
   { label: 'Park Model', slug: 'park-model', imageUrl: '/images/rv-types/park-model.png' },
   { label: 'Fish House', slug: 'fish-house', imageUrl: '/images/rv-types/fish-house.png' },
