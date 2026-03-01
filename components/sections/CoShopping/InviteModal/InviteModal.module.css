@@ -260,6 +260,8 @@
 
 .sendBtn {
   width: 100%;
+  margin-top: var(--space-8);
+  border-radius: var(--radius-base);
 }
 
 /* ── Feedback text ─────────────────────────────────────────────────── */
