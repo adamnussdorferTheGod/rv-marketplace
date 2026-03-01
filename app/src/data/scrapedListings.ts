@@ -6540,6 +6540,10 @@ function cloneListing(data: ListingData, priceMultiplier: number, imageRotation:
 const priceVariants: { suffix: string; multiplier: number; rotation: number }[] = [
   { suffix: '-2', multiplier: 0.92, rotation: 2 },
   { suffix: '-3', multiplier: 1.08, rotation: 4 },
+  { suffix: '-4', multiplier: 0.85, rotation: 1 },
+  { suffix: '-5', multiplier: 1.15, rotation: 3 },
+  { suffix: '-6', multiplier: 0.95, rotation: 5 },
+  { suffix: '-7', multiplier: 1.05, rotation: 6 },
 ];
 
 const duplicatedListings: { slug: string; data: ListingData }[] = allListings.flatMap(
