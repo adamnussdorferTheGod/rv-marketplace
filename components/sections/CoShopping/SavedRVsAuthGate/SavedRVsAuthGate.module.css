@@ -5,7 +5,7 @@
 
 .gatedContent {
   position: relative;
-  max-height: 200px;
+  max-height: 260px;
   overflow: hidden;
 }
 
@@ -22,10 +22,11 @@
   z-index: 1;
 }
 
-/* Auth card below the fade */
+/* Auth card overlaps the bottom of the last visible saved listing */
 .card {
   position: relative;
   z-index: 2;
+  margin-top: -60px;
   display: flex;
   flex-direction: column;
   align-items: center;
