@@ -107,7 +107,10 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
       {/* Section 4: Featured dealers */}
       <section>
-        <h3 className={styles.sectionHeading}>Featured from dealers near you</h3>
+        <div className={styles.sectionHeadingRow}>
+          <h3 className={styles.sectionHeading}>Featured from dealers near you</h3>
+          <span className={styles.sponsoredBadge}>Sponsored</span>
+        </div>
         <div className={styles.chipWrap}>
           {FEATURED_DEALERS.map((dealer) => (
             <button

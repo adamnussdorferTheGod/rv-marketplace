@@ -33,6 +33,32 @@
   margin: 0 0 var(--space-12) 0;
 }
 
+.sectionHeadingRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0 0 var(--space-12) 0;
+}
+
+.sectionHeadingRow .sectionHeading {
+  margin: 0;
+}
+
+/* Sponsored pill badge */
+.sponsoredBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 12px;
+  border-radius: 100px;
+  background: var(--color-green-100);
+  color: var(--rv-primary);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+}
+
 /* 5x2 RV type grid */
 .typeGrid {
   display: grid;
