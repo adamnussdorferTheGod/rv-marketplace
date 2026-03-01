@@ -97,7 +97,7 @@ export default function TowVehicleSetupPrompt({
   const { savedVehicle, openSetupModal } = useTowVehicle();
 
   const result = useMemo(() => {
-    if (!savedVehicle || !rvSpecs) return null;
+    if (!savedVehicle || !rvSpecs?.gvwr) return null;
     return calculateTowCompatibility(savedVehicle, rvSpecs);
   }, [savedVehicle, rvSpecs]);
 

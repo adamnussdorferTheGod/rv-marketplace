@@ -47,23 +47,20 @@ export default function TowVehicleModal() {
 
   // Toast notification when vehicle is saved while modal was open
   useEffect(() => {
-    if (
+    const shouldToast =
       wasModalOpenRef.current &&
       prevSavedRef.current === null &&
-      savedVehicle !== null
-    ) {
+      savedVehicle !== null;
+
+    prevSavedRef.current = savedVehicle;
+    wasModalOpenRef.current = isModalOpen;
+
+    if (shouldToast) {
       setShowToast(true);
       const timer = setTimeout(() => setShowToast(false), 5000);
       return () => clearTimeout(timer);
     }
-    prevSavedRef.current = savedVehicle;
-    wasModalOpenRef.current = isModalOpen;
   }, [savedVehicle, isModalOpen]);
-
-  // Track modal open state
-  useEffect(() => {
-    wasModalOpenRef.current = isModalOpen;
-  }, [isModalOpen]);
 
   if (!isModalOpen && !showToast) return null;
 
