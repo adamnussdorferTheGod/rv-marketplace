@@ -48,7 +48,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
       {/* Section 1: RV Types */}
       <section>
-        <h3 className={styles.sectionHeading}>RV types</h3>
         <div className={styles.typeGrid}>
           {RV_TYPES.map((type) => (
             <button
