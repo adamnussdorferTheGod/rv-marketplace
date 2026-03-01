@@ -35,7 +35,8 @@ import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerS
 import { VdpVariantProvider } from './VdpVariantContext';
 import { NavigationProvider, useNavigation } from '../NavigationContext';
 import DestinationDetailPage from '../DestinationDetailPage/DestinationDetailPage';
-import { sampleListing } from '../../../app/src/data/sampleListing';
+// import { sampleListing } from '../../../app/src/data/sampleListing';
+import { sunseekerListing as sampleListing } from '../../../app/src/data/scrapedListings';
 import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
 import { sampleVideoWalkthrough } from '../../../app/src/data/sampleVideoWalkthrough';
 import styles from './VehicleDetailPage.module.css';
