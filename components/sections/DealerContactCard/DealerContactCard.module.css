@@ -136,6 +136,71 @@
   color: var(--rv-on-surface);
 }
 
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-height: 200px;
+}
+
+/* ─── Financing form ─────────────────────────────────────────────── */
+
+.financingForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.nameRow {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.nameRow > .formInput {
+  flex: 1;
+  min-width: 0;
+}
+
+.formInput {
+  width: 100%;
+  height: 44px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  background: var(--rv-surface);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  box-sizing: border-box;
+  transition: border-color 150ms;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rv-primary) 15%, transparent);
+}
+
+.formInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.nextButton {
+  width: 100%;
+  padding: var(--space-16) var(--space-32);
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border: none;
+  border-radius: var(--radius-full);
+  font: var(--font-button-1);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 150ms;
+}
+
+.nextButton:hover {
+  background: var(--rv-primary-dark);
+}
+
 /* XS: <=767px */
 @media (max-width: 767px) {
   .callSection {

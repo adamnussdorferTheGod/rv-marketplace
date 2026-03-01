@@ -1,0 +1,383 @@
+/* ─── Full-screen prequalification overlay ───────────────────────── */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--rv-surface);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ─── Header ─────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-16) var(--space-24);
+  flex-shrink: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--rv-on-surface);
+  opacity: 0.5;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 150ms;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────── */
+
+.body {
+  flex: 1;
+  display: flex;
+  gap: var(--space-32);
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-24) var(--space-32);
+  overflow-y: auto;
+}
+
+.mainColumn {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+/* ─── Form header ────────────────────────────────────────────────── */
+
+.prequalLabel {
+  font: var(--font-label-2);
+  color: var(--rv-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 var(--space-8);
+}
+
+.formTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-4);
+  line-height: 1.2;
+}
+
+.formSubtext {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-24);
+}
+
+/* ─── Form fields ────────────────────────────────────────────────── */
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.fieldRow {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.fieldSmall {
+  flex: 0 0 100px;
+}
+
+.fieldLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.fieldRequired {
+  color: #dc3545;
+}
+
+.fieldInput {
+  height: 44px;
+  padding: 0 var(--space-12);
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  background: var(--rv-surface);
+  box-sizing: border-box;
+  transition: border-color 150ms;
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rv-primary) 15%, transparent);
+}
+
+.fieldInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.phoneWrapper {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  transition: border-color 150ms;
+}
+
+.phoneWrapper:focus-within {
+  border-color: var(--rv-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rv-primary) 15%, transparent);
+}
+
+.phonePrefix {
+  padding: 0 var(--space-12);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  background: var(--rv-surface-variant);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-right: 1px solid var(--rv-border);
+}
+
+.phoneInput {
+  flex: 1;
+  height: 100%;
+  padding: 0 var(--space-12);
+  border: none;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  background: transparent;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.phoneInput:focus {
+  outline: none;
+}
+
+.phoneInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Legal + Continue ───────────────────────────────────────────── */
+
+.legalText {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--rv-on-surface-variant);
+  margin: var(--space-16) 0 0;
+}
+
+.continueRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-24);
+}
+
+.continueBtn {
+  height: 48px;
+  padding: 0 var(--space-32);
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  font: var(--font-button-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: background 150ms;
+}
+
+.continueBtn:hover {
+  background: var(--rv-primary-dark);
+}
+
+/* ─── Disclaimer box ─────────────────────────────────────────────── */
+
+.disclaimerBox {
+  margin-top: var(--space-32);
+  padding: var(--space-16);
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-base);
+}
+
+.disclaimerText {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Sidebar: Step indicator card ───────────────────────────────── */
+
+.stepCard {
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.stepLabel {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.stepTitle {
+  font: var(--font-title-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.stepDots {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.dotActive {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rv-primary);
+  flex-shrink: 0;
+}
+
+.dotInactive {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--rv-border-low);
+  flex-shrink: 0;
+}
+
+.dotConnector {
+  width: 24px;
+  height: 2px;
+  background: var(--rv-border-low);
+}
+
+.stepDate {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Sidebar: Vehicle card ──────────────────────────────────────── */
+
+.vehicleCard {
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.vehicleImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.vehicleInfo {
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.vehicleTitle {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.vehicleBadge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font: var(--font-label-3);
+  font-weight: 600;
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface-variant);
+}
+
+.vehicleDealer {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .body {
+    flex-direction: column;
+    padding: 0 var(--space-16) var(--space-24);
+  }
+
+  .sidebar {
+    width: 100%;
+    order: -1;
+  }
+
+  .formTitle {
+    font-size: 22px;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+  }
+
+  .fieldSmall {
+    flex: 1;
+  }
+
+  .vehicleImage {
+    height: 140px;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

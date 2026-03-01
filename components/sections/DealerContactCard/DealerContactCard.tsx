@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Icon from '@components/ui/Icon/Icon';
-import type { DealerInfo, ListingEngagement } from '../../../app/src/data/types';
+import type { DealerInfo, ListingEngagement, ListingImage } from '../../../app/src/data/types';
+import PrequalificationModal from './PrequalificationModal';
 import styles from './DealerContactCard.module.css';
 
 const tabOptions: { value: 'contact' | 'financing'; label: string }[] = [
@@ -12,10 +13,19 @@ const tabOptions: { value: 'contact' | 'financing'; label: string }[] = [
 interface DealerContactCardProps {
   dealer: DealerInfo;
   engagement: ListingEngagement;
+  listing?: {
+    title: string;
+    images: ListingImage[];
+    condition: string;
+  };
 }
 
-export default function DealerContactCard({ dealer, engagement }: DealerContactCardProps) {
+export default function DealerContactCard({ dealer, engagement, listing }: DealerContactCardProps) {
   const [activeTab, setActiveTab] = useState<'contact' | 'financing'>('contact');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [showPrequalModal, setShowPrequalModal] = useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -26,12 +36,51 @@ export default function DealerContactCard({ dealer, engagement }: DealerContactC
             selected={activeTab}
             onChange={setActiveTab}
           />
-          <textarea
-            className={styles.messageInput}
-            placeholder="Comments"
-            rows={4}
-          />
-          <button className={styles.submitButton}>Send email</button>
+
+          <div className={styles.tabContent}>
+            {activeTab === 'contact' ? (
+              <>
+                <textarea
+                  className={styles.messageInput}
+                  placeholder="Comments"
+                  rows={4}
+                />
+                <button className={styles.submitButton}>Send email</button>
+              </>
+            ) : (
+              <div className={styles.financingForm}>
+                <div className={styles.nameRow}>
+                  <input
+                    className={styles.formInput}
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                  />
+                  <input
+                    className={styles.formInput}
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
+                  />
+                </div>
+                <input
+                  className={styles.formInput}
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <button
+                  className={styles.nextButton}
+                  onClick={() => setShowPrequalModal(true)}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className={styles.divider} />
@@ -73,6 +122,18 @@ export default function DealerContactCard({ dealer, engagement }: DealerContactC
           <strong>{engagement.saveCount}</strong> saves
         </span>
       </div>
+
+      <PrequalificationModal
+        isOpen={showPrequalModal}
+        onClose={() => setShowPrequalModal(false)}
+        firstName={firstName}
+        lastName={lastName}
+        email={email}
+        vehicleTitle={listing?.title ?? ''}
+        vehicleImage={listing?.images[0]}
+        vehicleCondition={listing?.condition ?? 'Used'}
+        dealerName={dealer.name}
+      />
     </div>
   );
 }

@@ -156,7 +156,15 @@ function VehicleDetailPageContent() {
             }
             right={
               <>
-                <DealerContactCard dealer={listing.dealer} engagement={listing.engagement} />
+                <DealerContactCard
+                  dealer={listing.dealer}
+                  engagement={listing.engagement}
+                  listing={{
+                    title: listing.title,
+                    images: listing.images,
+                    condition: listing.specs.find(s => s.label === 'Condition')?.value ?? 'Used',
+                  }}
+                />
                 <div className={styles.sidebarAd}>
                   <AdSlot width={300} height={250} />
                 </div>
