@@ -5,7 +5,7 @@
 }
 
 .heading {
-  font: var(--font-headline-3);
+  font: var(--font-headline-2);
   color: var(--rv-on-surface);
   margin-bottom: var(--space-4);
 }
