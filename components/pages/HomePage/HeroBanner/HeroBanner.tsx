@@ -309,7 +309,7 @@ export default function HeroBanner() {
         <motion.div
           className={styles.cardInner}
           initial={animateEntrance ? { opacity: 0, filter: 'blur(6px)' } : false}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          animate={{ opacity: 1, filter: 'none' }}
           transition={{ duration: 0.6, delay: 0.35, ease: 'easeOut' }}
         >
           <AnimatePresence mode="wait" initial={false}>

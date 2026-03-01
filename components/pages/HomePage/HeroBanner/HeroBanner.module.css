@@ -119,10 +119,9 @@
   transition: border-radius 150ms ease, border-color 250ms ease, box-shadow 250ms ease;
 }
 
-/* Focus / open state — green border + glow, keep full pill radius */
+/* Focus / open state — green border, no glow */
 .searchBarOpen {
   border-color: #006836;
-  box-shadow: 0 4px 20px rgba(0, 104, 54, 0.12);
 }
 
 /* Card open state — flatten bottom, dropdown connects below */
@@ -137,9 +136,7 @@
 .searchBackdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.55);
   z-index: 300;
   animation: fadeIn 200ms ease-out;
 }
