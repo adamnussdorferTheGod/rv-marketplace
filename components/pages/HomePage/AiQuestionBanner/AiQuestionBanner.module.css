@@ -109,6 +109,11 @@
   mask-composite: exclude;
   pointer-events: none;
   animation: bannerShimmer 2s linear 7.5 forwards;
+  animation-play-state: paused;
+}
+
+.visible .inputWrap::before {
+  animation-play-state: running;
 }
 
 @keyframes bannerShimmer {

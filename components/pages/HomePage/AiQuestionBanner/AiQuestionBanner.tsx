@@ -34,11 +34,24 @@ function usePhraseCycle(count: number, interval: number, active: boolean) {
 export default function AiQuestionBanner() {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.3 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const showPlaceholder = !inputValue && !isFocused;
-  const phraseIndex = usePhraseCycle(PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
+  const phraseIndex = usePhraseCycle(PHRASES.length, PHRASE_INTERVAL, showPlaceholder && isVisible);
 
   const handleSubmit = () => {
     const text = inputValue.trim();
@@ -54,7 +67,7 @@ export default function AiQuestionBanner() {
   };
 
   return (
-    <section className={styles.section}>
+    <section ref={sectionRef} className={`${styles.section} ${isVisible ? styles.visible : ''}`}>
       <div className={styles.card}>
         <div className={styles.textCol}>
           <div className={styles.header}>
