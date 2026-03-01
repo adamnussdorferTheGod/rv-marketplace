@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
+import type { TowVerdict } from '../../../../app/src/data/towTypes';
 import { listingPath } from '../../../../app/src/routes';
 import { useCoShopping } from '../../../sections/CoShopping/CoShoppingContext';
 import Icon from '../../../ui/Icon/Icon';
@@ -7,6 +8,7 @@ import styles from './SRPListingCard.module.css';
 
 interface SRPListingCardProps {
   listing: SRPListing;
+  towVerdict?: TowVerdict;
 }
 
 const TAG_COLORS: Record<string, string> = {
@@ -17,7 +19,12 @@ const TAG_COLORS: Record<string, string> = {
   'History report': 'var(--rv-border-tag-navy)',
 };
 
-export default function SRPListingCard({ listing }: SRPListingCardProps) {
+const TOW_BADGE: Record<string, { label: string; color: string }> = {
+  good: { label: 'Tow match', color: 'var(--rv-border-tag-green)' },
+  marginal: { label: 'Marginal tow', color: 'var(--rv-border-tag-orange)' },
+};
+
+export default function SRPListingCard({ listing, towVerdict }: SRPListingCardProps) {
   const { isListingOnAnyList, toggleListingOnActiveList } = useCoShopping();
   const isFavorite = isListingOnAnyList(listing.id);
 
@@ -64,6 +71,16 @@ export default function SRPListingCard({ listing }: SRPListingCardProps) {
             style={{ borderLeftColor: TAG_COLORS[listing.tagBadge] ?? 'var(--rv-border-tag-red)' }}
           >
             {listing.tagBadge}
+          </span>
+        )}
+
+        {/* Tow match badge */}
+        {towVerdict && TOW_BADGE[towVerdict] && (
+          <span
+            className={`${styles.tagBadge} ${listing.tagBadge ? styles.tagBadgeSecond : ''}`}
+            style={{ borderLeftColor: TOW_BADGE[towVerdict].color }}
+          >
+            {TOW_BADGE[towVerdict].label}
           </span>
         )}
 

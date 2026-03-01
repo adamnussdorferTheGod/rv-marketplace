@@ -1,4 +1,5 @@
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
+import type { TowVerdict } from '../../../../app/src/data/towTypes';
 import SRPListingCard from '../SRPListingCard/SRPListingCard';
 import AdSlot from '../../../ui/AdSlot/AdSlot';
 import InlineAdCard from '../../../ui/AdSlot/InlineAdCard';
@@ -9,6 +10,7 @@ import styles from './ListingGrid.module.css';
 
 interface ListingGridProps {
   listings: SRPListing[];
+  towVerdicts?: Map<string, TowVerdict>;
 }
 
 /**
@@ -28,6 +30,7 @@ const SELL_RV_POSITION = 19;
 
 export default function ListingGrid({
   listings,
+  towVerdicts,
 }: ListingGridProps) {
   if (listings.length === 0) {
     return (
@@ -55,7 +58,13 @@ export default function ListingGrid({
       cardNodes.push(specialSlots[slot]);
     } else {
       const listing = listings[listingIndex];
-      cardNodes.push(<SRPListingCard key={listing.id} listing={listing} />);
+      cardNodes.push(
+        <SRPListingCard
+          key={listing.id}
+          listing={listing}
+          towVerdict={towVerdicts?.get(listing.id)}
+        />,
+      );
       listingIndex++;
     }
   }

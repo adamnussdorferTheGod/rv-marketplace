@@ -157,28 +157,47 @@
   font: var(--font-label-3);
   color: var(--rv-on-surface-variant);
   margin: 0;
+  min-height: 17px;
 }
 
-/* ── Link row — read-only field matching Select DS input ───────────── */
-
-.linkRow {
-  display: flex;
-  gap: var(--space-8);
-  align-items: stretch;
-}
+/* ── Link field — clickable to copy ────────────────────────────────── */
 
 .linkField {
-  flex: 1;
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  width: 100%;
   height: 48px;
   padding: 0 var(--space-16);
   background: var(--rv-surface-variant);
   border: var(--border-light) solid var(--rv-border);
   border-radius: var(--radius-base);
   color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  font-family: var(--font-family);
+  text-align: left;
   overflow: hidden;
+  transition: border-color 200ms ease, background 150ms ease;
+}
+
+.linkField:hover {
+  border-color: var(--rv-border-high);
+  background: var(--color-gray-300);
+}
+
+.linkField:active {
+  background: var(--color-gray-400);
+}
+
+.linkFieldCopied {
+  border-color: var(--color-green-200);
+  color: var(--color-green-300);
+  background: var(--color-green-100);
+}
+
+.linkFieldCopied:hover {
+  border-color: var(--color-green-200);
+  background: var(--color-green-100);
 }
 
 .linkText {
@@ -188,23 +207,13 @@
   text-overflow: ellipsis;
 }
 
-.copyBtn {
-  flex-shrink: 0;
-}
-
-/* ── Email row — editable field matching Select DS input ────────────── */
-
-.emailRow {
-  display: flex;
-  gap: var(--space-8);
-  align-items: stretch;
-}
+/* ── Email field — editable, matching Select DS input ──────────────── */
 
 .emailFieldWrap {
-  flex: 1;
   display: flex;
   align-items: center;
   gap: var(--space-8);
+  width: 100%;
   height: 48px;
   padding: 0 var(--space-16);
   background: var(--color-white);
@@ -247,6 +256,12 @@
   color: var(--rv-on-surface-variant);
 }
 
+/* ── Send button — full width ──────────────────────────────────────── */
+
+.sendBtn {
+  width: 100%;
+}
+
 /* ── Feedback text ─────────────────────────────────────────────────── */
 
 .errorText {
@@ -281,18 +296,5 @@
     padding: var(--space-24) var(--space-16);
     max-width: 100%;
     margin: 0 var(--space-8);
-  }
-
-  .linkRow,
-  .emailRow {
-    flex-direction: column;
-  }
-
-  .copyBtn {
-    width: 100%;
-  }
-
-  .emailFieldWrap {
-    height: 48px;
   }
 }

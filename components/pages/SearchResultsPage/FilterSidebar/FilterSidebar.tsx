@@ -10,12 +10,13 @@ import RVTypeFilter from './RVTypeFilter';
 import MakeModelFilter from './MakeModelFilter';
 import PriceFilter from './PriceFilter';
 import AdditionalFilters from './AdditionalFilters';
-import TowVehicleSetupPrompt from '@components/sections/TowVehicleSetup/TowVehicleSetupPrompt/TowVehicleSetupPrompt';
+import SrpTowFilter from './SrpTowFilter';
 import styles from './FilterSidebar.module.css';
 
 interface FilterSidebarProps {
   filters: FilterCriteria;
   totalCount: number;
+  towMatchCount: number;
   activeFilters: ActiveFilter[];
   allListings: SRPListing[];
   setFilter: <K extends keyof FilterCriteria>(
@@ -43,6 +44,7 @@ const CONDITION_OPTIONS: { value: 'all' | 'new' | 'used'; label: string }[] = [
 export default function FilterSidebar({
   filters,
   totalCount,
+  towMatchCount,
   activeFilters,
   allListings,
   setFilter,
@@ -377,9 +379,9 @@ export default function FilterSidebar({
           toggleArrayFilter={toggleArrayFilter}
         />
 
-        {/* 10. Tow Vehicle setup prompt */}
-        <CollapsibleSection title="Tow Vehicle">
-          <TowVehicleSetupPrompt />
+        {/* 10. Tow Match filter */}
+        <CollapsibleSection title="Tow Match">
+          <SrpTowFilter matchCount={towMatchCount} totalCount={totalCount} />
         </CollapsibleSection>
       </div>
 

@@ -1,8 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import { RV_TYPE_LABELS } from '@app/src/data/srpTypes.ts';
 import { sampleSrpListings } from '@app/src/data/sampleSrpListings.ts';
+import { useTowVehicle } from '@components/sections/TowVehicleSetup/TowVehicleContext';
+import {
+  calculateTowCompatibility,
+  isTowableType,
+  type TowableRVSpecs,
+} from '@app/src/data/towCompatibility.ts';
+import type { TowVerdict } from '@app/src/data/towTypes.ts';
 import Icon from '../../ui/Icon/Icon';
 import ActionChip from '../../ui/ActionChip/ActionChip';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
@@ -45,6 +52,45 @@ export default function SearchResultsPage() {
     setSort,
   } = useSrpFilters();
 
+  const { savedVehicle, towFilterEnabled } = useTowVehicle();
+
+  // Compute tow verdicts for all results
+  const towVerdicts = useMemo(() => {
+    if (!savedVehicle) return new Map<string, TowVerdict>();
+    const map = new Map<string, TowVerdict>();
+    for (const listing of results) {
+      if (!isTowableType(listing.rvType) || !listing.gvwr) continue;
+      const rvSpecs: TowableRVSpecs = {
+        gvwr: listing.gvwr,
+        tongueWeight: listing.tongueWeight,
+        hitchType: listing.hitchType,
+      };
+      const result = calculateTowCompatibility(savedVehicle, rvSpecs);
+      map.set(listing.id, result.verdict);
+    }
+    return map;
+  }, [savedVehicle, results]);
+
+  // Count towable listings (good + marginal)
+  const towMatchCount = useMemo(() => {
+    let count = 0;
+    for (const verdict of towVerdicts.values()) {
+      if (verdict === 'good' || verdict === 'marginal') count++;
+    }
+    return count;
+  }, [towVerdicts]);
+
+  // Apply tow filter on top of existing results
+  const towFilteredResults = useMemo(() => {
+    if (!towFilterEnabled || !savedVehicle) return results;
+    return results.filter(listing => {
+      const verdict = towVerdicts.get(listing.id);
+      // Keep non-towable types (motorhomes), and good/marginal matches
+      if (!isTowableType(listing.rvType)) return true;
+      return verdict === 'good' || verdict === 'marginal';
+    });
+  }, [results, towFilterEnabled, savedVehicle, towVerdicts]);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,9 +106,10 @@ export default function SearchResultsPage() {
     setCurrentPage(1);
   }, [filters, sort]);
 
-  // Pagination calculations
-  const totalPages = Math.ceil(results.length / RESULTS_PER_PAGE);
-  const paginatedResults = results.slice(
+  // Pagination calculations (use tow-filtered results)
+  const displayResults = towFilteredResults;
+  const totalPages = Math.ceil(displayResults.length / RESULTS_PER_PAGE);
+  const paginatedResults = displayResults.slice(
     (currentPage - 1) * RESULTS_PER_PAGE,
     currentPage * RESULTS_PER_PAGE,
   );
@@ -102,6 +149,7 @@ export default function SearchResultsPage() {
             <FilterSidebar
               filters={filters}
               totalCount={totalCount}
+              towMatchCount={towMatchCount}
               activeFilters={activeFilters}
               allListings={sampleSrpListings}
               setFilter={setFilter}
@@ -189,6 +237,7 @@ export default function SearchResultsPage() {
 
             <ListingGrid
               listings={paginatedResults}
+              towVerdicts={towVerdicts}
             />
 
             <Pagination

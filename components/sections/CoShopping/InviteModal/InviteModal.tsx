@@ -120,22 +120,19 @@ export default function InviteModal({ listName, members, onClose, onInviteSent }
         {/* Share link section */}
         <div className={styles.section}>
           <label className={styles.sectionLabel}>Share link</label>
-          <div className={styles.linkRow}>
-            <div className={styles.linkField}>
-              <Icon name="link" size={18} />
-              <span className={styles.linkText}>{shareLink}</span>
-            </div>
-            <Button
-              variant={linkCopied ? 'primary' : 'secondary'}
-              size="sm"
-              onClick={handleCopyLink}
-              leadingIcon={linkCopied ? 'check' : undefined}
-              className={styles.copyBtn}
-            >
-              {linkCopied ? 'Copied' : 'Copy link'}
-            </Button>
-          </div>
-          <p className={styles.sectionHint}>Anyone with this link can join your list</p>
+          <button
+            type="button"
+            className={`${styles.linkField} ${linkCopied ? styles.linkFieldCopied : ''}`}
+            onClick={handleCopyLink}
+          >
+            <Icon name={linkCopied ? 'check' : 'link'} size={18} />
+            <span className={styles.linkText}>
+              {linkCopied ? 'Copied to clipboard!' : shareLink}
+            </span>
+          </button>
+          <p className={styles.sectionHint}>
+            {linkCopied ? '\u00A0' : 'Click to copy — anyone with this link can join'}
+          </p>
         </div>
 
         {/* Divider */}
@@ -144,34 +141,34 @@ export default function InviteModal({ listName, members, onClose, onInviteSent }
         {/* Email invite section */}
         <div className={styles.section}>
           <label className={styles.sectionLabel} htmlFor="invite-email">Send via email</label>
-          <div className={styles.emailRow}>
-            <div className={`${styles.emailFieldWrap} ${emailError ? styles.emailFieldError : ''}`}>
-              <Icon name="mail" size={18} />
-              <input
-                ref={emailRef}
-                id="invite-email"
-                type="email"
-                className={styles.emailInput}
-                placeholder="partner@example.com"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  if (emailError) setEmailError('');
-                }}
-                onKeyDown={handleEmailKeyDown}
-              />
-            </div>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={handleSendInvite}
-              disabled={emailSent}
-            >
-              {emailSent ? 'Sent!' : 'Send'}
-            </Button>
+          <div className={`${styles.emailFieldWrap} ${emailError ? styles.emailFieldError : ''}`}>
+            <Icon name="mail" size={18} />
+            <input
+              ref={emailRef}
+              id="invite-email"
+              type="email"
+              className={styles.emailInput}
+              placeholder="partner@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (emailError) setEmailError('');
+              }}
+              onKeyDown={handleEmailKeyDown}
+            />
           </div>
           {emailError && <p className={styles.errorText}>{emailError}</p>}
           {emailSent && <p className={styles.successText}>Invite sent! (Demo)</p>}
+          <Button
+            variant="primary"
+            size="lg"
+            onClick={handleSendInvite}
+            disabled={emailSent}
+            className={styles.sendBtn}
+            leadingIcon="mail"
+          >
+            {emailSent ? 'Sent!' : 'Send Invite'}
+          </Button>
         </div>
       </div>
     </div>

@@ -14,12 +14,14 @@ interface TowVehicleContextValue {
   isModalOpen: boolean;
   hasTowPackage: boolean;
   hasWDH: boolean;
+  towFilterEnabled: boolean;
   openSetupModal: () => void;
   closeSetupModal: () => void;
   saveVehicle: (vehicle: TowVehicle) => void;
   clearVehicle: () => void;
   setHasTowPackage: (v: boolean) => void;
   setHasWDH: (v: boolean) => void;
+  setTowFilterEnabled: (v: boolean) => void;
 }
 
 const TowVehicleContext = createContext<TowVehicleContextValue | null>(null);
@@ -33,6 +35,7 @@ export function TowVehicleProvider({ children }: TowVehicleProviderProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasTowPackage, setHasTowPackageState] = useState(false);
   const [hasWDH, setHasWDHState] = useState(false);
+  const [towFilterEnabled, setTowFilterEnabledState] = useState(false);
 
   // Body scroll lock when modal is open
   useEffect(() => {
@@ -71,30 +74,38 @@ export function TowVehicleProvider({ children }: TowVehicleProviderProps) {
     setHasWDHState(v);
   }, []);
 
+  const setTowFilterEnabled = useCallback((v: boolean) => {
+    setTowFilterEnabledState(v);
+  }, []);
+
   const value = useMemo<TowVehicleContextValue>(
     () => ({
       savedVehicle,
       isModalOpen,
       hasTowPackage,
       hasWDH,
+      towFilterEnabled,
       openSetupModal,
       closeSetupModal,
       saveVehicle,
       clearVehicle,
       setHasTowPackage,
       setHasWDH,
+      setTowFilterEnabled,
     }),
     [
       savedVehicle,
       isModalOpen,
       hasTowPackage,
       hasWDH,
+      towFilterEnabled,
       openSetupModal,
       closeSetupModal,
       saveVehicle,
       clearVehicle,
       setHasTowPackage,
       setHasWDH,
+      setTowFilterEnabled,
     ],
   );
 
