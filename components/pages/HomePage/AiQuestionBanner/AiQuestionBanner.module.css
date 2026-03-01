@@ -109,12 +109,13 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
-  animation: bannerShimmer 2s linear infinite;
+  animation: bannerShimmer 2s linear 7.5 forwards;
 }
 
 @keyframes bannerShimmer {
-  0% { --banner-shimmer-angle: 0deg; }
-  100% { --banner-shimmer-angle: 360deg; }
+  0% { --banner-shimmer-angle: 0deg; opacity: 1; }
+  90% { --banner-shimmer-angle: 324deg; opacity: 1; }
+  100% { --banner-shimmer-angle: 360deg; opacity: 0; }
 }
 
 .inputWrap:focus-within {
