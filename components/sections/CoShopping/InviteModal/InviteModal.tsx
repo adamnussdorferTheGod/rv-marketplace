@@ -43,23 +43,14 @@ export default function InviteModal({ listName, members, onClose, onInviteSent }
   };
 
   const handleSendInvite = () => {
-    if (!email.trim()) {
-      setEmailError('Enter an email address');
-      emailRef.current?.focus();
-      return;
-    }
-    if (!validateEmail(email)) {
+    if (email.trim() && !validateEmail(email)) {
       setEmailError('Enter a valid email address');
       emailRef.current?.focus();
       return;
     }
     setEmailError('');
-    setEmailSent(true);
     onInviteSent?.(email);
-    setTimeout(() => {
-      setEmailSent(false);
-      setEmail('');
-    }, 2500);
+    onClose();
   };
 
   const handleEmailKeyDown = (e: React.KeyboardEvent) => {
