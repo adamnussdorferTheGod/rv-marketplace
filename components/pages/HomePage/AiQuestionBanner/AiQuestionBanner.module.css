@@ -1,7 +1,8 @@
 /* AiQuestionBanner — homepage "Have a question?" section */
 
 .section {
-  padding: var(--space-32) 0 var(--space-48) 0;
+  padding: var(--space-32) 0;
+  margin-bottom: var(--space-16);
 }
 
 .card {
@@ -103,16 +104,24 @@
   color: var(--rv-on-surface-variant);
 }
 
-.customPlaceholder {
+.placeholderWrap {
   position: absolute;
   left: 52px;
   right: var(--space-16);
+  top: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
-  gap: var(--space-4);
   pointer-events: none;
   user-select: none;
   overflow: hidden;
+}
+
+.customPlaceholder {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
 }
 
 .placeholderTry {

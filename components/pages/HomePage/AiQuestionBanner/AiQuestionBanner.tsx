@@ -73,24 +73,26 @@ export default function AiQuestionBanner() {
           <div className={styles.inputWrap}>
             <Icon name="ai_search" size={24} className={styles.aiIcon} />
 
-            <AnimatePresence mode="wait">
-              {showPlaceholder && (
-                <motion.div
-                  key={phraseIndex}
-                  className={styles.customPlaceholder}
-                  initial={{ opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.3, ease: 'easeInOut' }}
-                >
-                  <span className={styles.placeholderTry}>Try</span>
-                  <span className={styles.placeholderHint}>
-                    {PHRASES[phraseIndex]}
-                  </span>
-                  <span className={styles.cursor} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {showPlaceholder && (
+              <div className={styles.placeholderWrap}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={phraseIndex}
+                    className={styles.customPlaceholder}
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  >
+                    <span className={styles.placeholderTry}>Try</span>
+                    <span className={styles.placeholderHint}>
+                      {PHRASES[phraseIndex]}
+                    </span>
+                    <span className={styles.cursor} />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            )}
 
             <input
               ref={inputRef}
