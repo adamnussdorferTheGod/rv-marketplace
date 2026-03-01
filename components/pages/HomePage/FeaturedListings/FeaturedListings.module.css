@@ -75,7 +75,21 @@
   }
 
   .grid {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: var(--space-12);
+    padding-bottom: var(--space-8);
+  }
+
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .grid > * {
+    flex: 0 0 160px;
+    scroll-snap-align: start;
   }
 
   .arrows {
