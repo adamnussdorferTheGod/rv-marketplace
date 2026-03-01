@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
@@ -35,22 +37,28 @@ import VideoPlayerShell from '@components/sections/VideoWalkthrough/VideoPlayerS
 import { VdpVariantProvider } from './VdpVariantContext';
 import { NavigationProvider, useNavigation } from '../NavigationContext';
 import DestinationDetailPage from '../DestinationDetailPage/DestinationDetailPage';
-// import { sampleListing } from '../../../app/src/data/sampleListing';
-import { sunseekerListing as sampleListing } from '../../../app/src/data/scrapedListings';
-import { sampleNarrations } from '../../../app/src/data/sampleNarrations';
-import { sampleVideoWalkthrough } from '../../../app/src/data/sampleVideoWalkthrough';
+import { sunseekerListing, listingsBySlug } from '../../../app/src/data/scrapedListings';
+import { generateNarrations } from '../../../app/src/data/generateNarrations';
+import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
 import styles from './VehicleDetailPage.module.css';
+
+function useCurrentListing() {
+  const { id } = useParams<{ id: string }>();
+  return (id && listingsBySlug[id]) || sunseekerListing;
+}
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
   const { currentPage } = useNavigation();
+  const listing = useCurrentListing();
+  const videoData = useMemo(() => generateVideoWalkthrough(listing), [listing]);
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
     maximumFractionDigits: 0,
-  }).format(sampleListing.currentPrice);
+  }).format(listing.currentPrice);
 
   if (currentPage.type === 'destination-detail') {
     return <DestinationDetailPage destination={currentPage.destination} />;
@@ -66,19 +74,19 @@ function VehicleDetailPageContent() {
           {/* Full-width sections above two-column area — reordered on mobile */}
           <div className={styles.aboveFold}>
             <div className={`${styles.sectionSpacing} ${styles.navSection}`}>
-              <NavigationBar resultPosition={sampleListing.resultPosition} totalResults={sampleListing.totalResults} />
+              <NavigationBar resultPosition={listing.resultPosition} totalResults={listing.totalResults} />
             </div>
             <div className={`${styles.sectionSpacing} ${styles.gallerySection}`}>
               <PhotoGallery
-                images={sampleListing.images}
-                totalPhotoCount={sampleListing.totalPhotoCount}
-                tagText={sampleListing.tagText}
-                listingTitle={sampleListing.title}
-                videoWalkthrough={sampleVideoWalkthrough}
+                images={listing.images}
+                totalPhotoCount={listing.totalPhotoCount}
+                tagText={listing.tagText}
+                listingTitle={listing.title}
+                videoWalkthrough={videoData}
               />
             </div>
             <div className={`${styles.sectionSpacing} ${styles.titleSectionWrapper}`}>
-              <TitleSection title={sampleListing.title} stockNumber={sampleListing.stockNumber} location={sampleListing.location} dealerWebsiteUrl={sampleListing.dealer.websiteUrl} />
+              <TitleSection title={listing.title} stockNumber={listing.stockNumber} location={listing.location} dealerWebsiteUrl={listing.dealer.websiteUrl} />
             </div>
           </div>
 
@@ -87,40 +95,40 @@ function VehicleDetailPageContent() {
             left={
               <>
                 <PricePayment
-                  currentPrice={sampleListing.currentPrice}
-                  originalPrice={sampleListing.originalPrice}
-                  monthlyPayment={sampleListing.monthlyPayment}
-                  dealRating={sampleListing.dealRating}
+                  currentPrice={listing.currentPrice}
+                  originalPrice={listing.originalPrice}
+                  monthlyPayment={listing.monthlyPayment}
+                  dealRating={listing.dealRating}
                 />
                 <FitCheck />
                 <VehicleHistoryReport
-                  vhrAvailable={sampleListing.vhrAvailable}
+                  vhrAvailable={listing.vhrAvailable}
                 />
                 <Divider />
-                <FeaturesAndSpecs specs={sampleListing.specs} />
+                <FeaturesAndSpecs specs={listing.specs} />
                 <TowVehicleSetupPrompt
                   rvSpecs={{
-                    gvwr: sampleListing.gvwr,
-                    tongueWeight: sampleListing.tongueWeight,
-                    hitchType: sampleListing.hitchType,
+                    gvwr: listing.gvwr,
+                    tongueWeight: listing.tongueWeight,
+                    hitchType: listing.hitchType,
                   }}
-                  rvName={sampleListing.title.replace(/^\d{4}\s+/, '')}
-                  rvImageUrl={sampleListing.images[0]?.url}
+                  rvName={listing.title.replace(/^\d{4}\s+/, '')}
+                  rvImageUrl={listing.images[0]?.url}
                 />
                 <Divider />
-                <Description description={sampleListing.description} />
+                <Description description={listing.description} />
                 <Divider />
                 <PriceAnalysis
-                  currentPrice={sampleListing.currentPrice}
-                  dealRating={sampleListing.dealRating}
-                  priceAnalysis={sampleListing.priceAnalysis}
-                  listingTitle={sampleListing.title}
+                  currentPrice={listing.currentPrice}
+                  dealRating={listing.dealRating}
+                  priceAnalysis={listing.priceAnalysis}
+                  listingTitle={listing.title}
                 />
                 <Divider />
                 <TotalCostCalculator
-                  currentPrice={sampleListing.currentPrice}
-                  location={sampleListing.location}
-                  gvwr={sampleListing.gvwr}
+                  currentPrice={listing.currentPrice}
+                  location={listing.location}
+                  gvwr={listing.gvwr}
                   rvType="travel-trailer"
                 />
                 <Divider />
@@ -128,11 +136,11 @@ function VehicleDetailPageContent() {
                 <Divider />
                 <DealKitCard />
                 <Divider />
-                <Reviews reviews={sampleListing.reviews} modelName={`${sampleListing.make} ${sampleListing.model} ${sampleListing.trim}`} />
+                <Reviews reviews={listing.reviews} modelName={`${listing.make} ${listing.model} ${listing.trim}`} />
                 <Divider />
-                <AboutDealership dealer={sampleListing.dealer} />
+                <AboutDealership dealer={listing.dealer} />
                 <Divider />
-                <WillingToNegotiate isNegotiable={sampleListing.isNegotiable} />
+                <WillingToNegotiate isNegotiable={listing.isNegotiable} />
                 <Divider />
                 <Resources />
                 <Divider />
@@ -142,7 +150,7 @@ function VehicleDetailPageContent() {
             }
             right={
               <>
-                <DealerContactCard dealer={sampleListing.dealer} engagement={sampleListing.engagement} />
+                <DealerContactCard dealer={listing.dealer} engagement={listing.engagement} />
                 <div className={styles.sidebarAd}>
                   <AdSlot width={300} height={250} />
                 </div>
@@ -158,9 +166,9 @@ function VehicleDetailPageContent() {
 
           {/* Full-width sections below two-column area */}
           <Divider />
-          <SimilarListings listings={sampleListing.similarListings} />
+          <SimilarListings listings={listing.similarListings} />
           <Divider />
-          <RelatedCategories categories={sampleListing.categories} />
+          <RelatedCategories categories={listing.categories} />
           <InsuranceAccessories />
           <AdSenseSection />
         </main>
@@ -169,7 +177,7 @@ function VehicleDetailPageContent() {
         </div>
       </div>
       <AiModePanel
-        listingTitle={sampleListing.title}
+        listingTitle={listing.title}
         listingPrice={formattedPrice}
       />
       <DealKitOverlay />
@@ -178,14 +186,16 @@ function VehicleDetailPageContent() {
   );
 }
 
-export default function VehicleDetailPage() {
+function VehicleDetailPageWrapper() {
+  const listing = useCurrentListing();
+
   return (
     <NavigationProvider>
       <VdpVariantProvider>
-        <AiModeProvider listing={sampleListing}>
-          <NarrationProvider narrations={sampleNarrations}>
+        <AiModeProvider listing={listing}>
+          <NarrationProvider narrations={generateNarrations(listing)}>
             <DealKitProvider>
-              <VideoWalkthroughProvider data={sampleVideoWalkthrough}>
+              <VideoWalkthroughProvider data={generateVideoWalkthrough(listing)}>
                 <VehicleDetailPageContent />
               </VideoWalkthroughProvider>
             </DealKitProvider>
@@ -194,4 +204,8 @@ export default function VehicleDetailPage() {
       </VdpVariantProvider>
     </NavigationProvider>
   );
+}
+
+export default function VehicleDetailPage() {
+  return <VehicleDetailPageWrapper />;
 }
