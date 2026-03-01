@@ -1,12 +1,12 @@
-/* Clipped content with gradient fade */
+/* Clipped content with gradient fade — matches AI FitCheck gated pattern */
 .outer {
   position: relative;
+  overflow: hidden;
+  max-height: 280px;
 }
 
 .gatedContent {
   position: relative;
-  max-height: 260px;
-  overflow: hidden;
 }
 
 .gradient {
@@ -15,39 +15,22 @@
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.5) 60%,
-    rgba(255, 255, 255, 0.65) 100%
+    rgba(255, 255, 255, 0.85) 60%,
+    rgba(255, 255, 255, 1) 100%
   );
   pointer-events: none;
-  z-index: 1;
 }
 
-/* Auth card overlaps the bottom of the last visible saved listing */
+/* Auth card sits below the fade */
 .card {
   position: relative;
-  z-index: 2;
-  margin: -60px -20px 0;
+  margin: 0 -20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   padding: var(--space-32) var(--space-24);
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   animation: fadeIn 300ms ease;
-}
-
-/* Upward shadow at top edge (avoids clip-path which breaks backdrop-filter) */
-.card::before {
-  content: '';
-  position: absolute;
-  top: -1px;
-  left: -20px;
-  right: -20px;
-  height: 0;
-  box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.10);
-  z-index: 3;
 }
 
 @keyframes fadeIn {
