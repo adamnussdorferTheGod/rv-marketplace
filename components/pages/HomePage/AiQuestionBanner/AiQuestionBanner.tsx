@@ -1,12 +1,44 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 import Icon from '@components/ui/Icon/Icon';
 import styles from './AiQuestionBanner.module.css';
 
+const PHRASES = [
+  "What's a good RV for a couple with pets?",
+  'Best travel trailers under $30,000',
+  'Family-friendly Class C motorhomes',
+  'Lightweight towable RVs for a half-ton truck',
+];
+
+const PHRASE_INTERVAL = 3500;
+
+function usePhraseCycle(count: number, interval: number, active: boolean) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, interval);
+    return () => clearInterval(id);
+  }, [count, interval, active]);
+
+  useEffect(() => {
+    if (!active) setIndex(0);
+  }, [active]);
+
+  return index;
+}
+
 export default function AiQuestionBanner() {
   const [inputValue, setInputValue] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  const showPlaceholder = !inputValue && !isFocused;
+  const phraseIndex = usePhraseCycle(PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
 
   const handleSubmit = () => {
     const text = inputValue.trim();
@@ -40,20 +72,34 @@ export default function AiQuestionBanner() {
         <div className={styles.searchRow} onClick={() => inputRef.current?.focus()}>
           <div className={styles.inputWrap}>
             <Icon name="ai_search" size={24} className={styles.aiIcon} />
-            {!inputValue && (
-              <div className={styles.customPlaceholder}>
-                <span className={styles.placeholderTry}>Try</span>
-                <span className={styles.placeholderHint}>
-                  What's a good RV for a couple with pets?
-                </span>
-              </div>
-            )}
+
+            <AnimatePresence mode="wait">
+              {showPlaceholder && (
+                <motion.div
+                  key={phraseIndex}
+                  className={styles.customPlaceholder}
+                  initial={{ opacity: 0, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                >
+                  <span className={styles.placeholderTry}>Try</span>
+                  <span className={styles.placeholderHint}>
+                    {PHRASES[phraseIndex]}
+                  </span>
+                  <span className={styles.cursor} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <input
               ref={inputRef}
               type="text"
               className={styles.input}
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
               onKeyDown={handleKeyDown}
               aria-label="Ask an AI question about RVs"
             />

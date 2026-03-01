@@ -1,7 +1,7 @@
 /* AiQuestionBanner — homepage "Have a question?" section */
 
 .section {
-  padding: var(--space-32) 0;
+  padding: var(--space-32) 0 var(--space-48) 0;
 }
 
 .card {
@@ -127,6 +127,20 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  background: var(--rv-on-surface-variant);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 .submitBtn {
