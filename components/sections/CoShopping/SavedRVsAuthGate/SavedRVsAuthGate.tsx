@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './SavedRVsAuthGate.module.css';
 
@@ -18,6 +18,12 @@ interface SavedRVsAuthGateProps {
 }
 
 export default function SavedRVsAuthGate({ children }: SavedRVsAuthGateProps) {
+  const [dismissed, setDismissed] = useState(false);
+
+  if (dismissed) {
+    return <>{children}</>;
+  }
+
   return (
     <>
       <div className={styles.outer}>
@@ -32,11 +38,11 @@ export default function SavedRVsAuthGate({ children }: SavedRVsAuthGateProps) {
           Save unlimited RVs, invite a co-shopper, and compare your favorites side by side.
         </p>
         <div className={styles.actions}>
-          <button className={styles.authButton} onClick={() => {}}>
+          <button className={styles.authButton} onClick={() => setDismissed(true)}>
             <GoogleIcon />
             <span>Continue with Google</span>
           </button>
-          <button className={styles.authButton} onClick={() => {}}>
+          <button className={styles.authButton} onClick={() => setDismissed(true)}>
             <Icon name="mail" size={20} />
             <span>Continue with email</span>
           </button>
