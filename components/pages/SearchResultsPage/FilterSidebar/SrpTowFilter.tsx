@@ -2,12 +2,7 @@ import { useTowVehicle } from '@components/sections/TowVehicleSetup/TowVehicleCo
 import Icon from '@components/ui/Icon/Icon';
 import styles from './SrpTowFilter.module.css';
 
-interface SrpTowFilterProps {
-  matchCount: number;
-  totalCount: number;
-}
-
-export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterProps) {
+export default function SrpTowFilter() {
   const {
     savedVehicle,
     towFilterEnabled,
@@ -60,7 +55,7 @@ export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterPro
 
       <div className={styles.toggleRow}>
         <label className={styles.toggleLabel} htmlFor="tow-filter-toggle">
-          Only show towable
+          Show towable match
         </label>
         <button
           id="tow-filter-toggle"
@@ -73,10 +68,6 @@ export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterPro
           <span className={styles.toggleKnob} />
         </button>
       </div>
-
-      <p className={styles.matchCount}>
-        <strong>{matchCount}</strong> of {totalCount} listings match
-      </p>
     </div>
   );
 }

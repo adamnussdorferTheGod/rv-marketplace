@@ -1,7 +1,7 @@
 /* ─── No vehicle: gradient prompt card ───────────────────────────── */
 
 .promptCard {
-  border-radius: var(--radius-base);
+  border-radius: 16px;
   padding: var(--space-16);
   display: flex;
   flex-direction: column;
@@ -51,8 +51,8 @@
 /* ─── Vehicle saved: filter toggle card ──────────────────────────── */
 
 .filterCard {
-  background: var(--rv-surface-accent);
-  border-radius: var(--radius-lg);
+  background: #e0ede7;
+  border-radius: 16px;
   padding: var(--space-16);
   display: flex;
   flex-direction: column;
@@ -67,14 +67,20 @@
 }
 
 .filterVehicleName {
-  font: var(--font-label-2-semibold);
-  color: var(--rv-on-surface);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22.4px;
+  color: #252526;
   margin: 0;
 }
 
 .filterVehicleDetail {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: #6e7072;
   margin: 0;
 }
 
@@ -87,16 +93,15 @@
   height: 32px;
   background: none;
   border: none;
-  border-radius: var(--radius-sm);
-  color: var(--rv-on-surface-variant);
+  border-radius: 4px;
+  color: #252526;
   cursor: pointer;
   padding: 0;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: background 0.15s ease;
 }
 
 .editBtn:hover {
-  background: var(--rv-surface-variant);
-  color: var(--rv-on-surface);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 /* ─── Toggle switch ──────────────────────────────────────────────── */
@@ -109,54 +114,45 @@
 }
 
 .toggleLabel {
-  font: var(--font-label-2);
-  color: var(--rv-on-surface);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19.6px;
+  color: #252526;
   cursor: pointer;
 }
 
 .toggle {
   position: relative;
-  width: 44px;
-  height: 24px;
-  border-radius: 12px;
-  background: #939598;
-  border: none;
+  width: 64px;
+  height: 32px;
+  border-radius: 100px;
+  background: white;
+  border: 1px solid #939598;
   cursor: pointer;
   padding: 0;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease;
   flex-shrink: 0;
 }
 
 .toggleOn {
   background: #11a94e;
+  border-color: #11a94e;
 }
 
 .toggleKnob {
   position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 20px;
-  height: 20px;
+  top: 3px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: white;
-  transition: transform 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: #252526;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.09);
 }
 
 .toggleOn .toggleKnob {
-  transform: translateX(20px);
+  transform: translateX(31px);
+  background: white;
 }
-
-/* ─── Match count & actions ──────────────────────────────────────── */
-
-.matchCount {
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  margin: 0;
-}
-
-.matchCount strong {
-  font-weight: 600;
-  color: #11a94e;
-}
-

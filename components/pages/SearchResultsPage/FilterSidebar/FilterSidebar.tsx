@@ -16,7 +16,6 @@ import styles from './FilterSidebar.module.css';
 interface FilterSidebarProps {
   filters: FilterCriteria;
   totalCount: number;
-  towMatchCount: number;
   activeFilters: ActiveFilter[];
   allListings: SRPListing[];
   setFilter: <K extends keyof FilterCriteria>(
@@ -44,7 +43,6 @@ const CONDITION_OPTIONS: { value: 'all' | 'new' | 'used'; label: string }[] = [
 export default function FilterSidebar({
   filters,
   totalCount,
-  towMatchCount,
   activeFilters,
   allListings,
   setFilter,
@@ -381,7 +379,7 @@ export default function FilterSidebar({
 
         {/* 10. Tow Match filter */}
         <CollapsibleSection title="Tow Match">
-          <SrpTowFilter matchCount={towMatchCount} totalCount={totalCount} />
+          <SrpTowFilter />
         </CollapsibleSection>
       </div>
 

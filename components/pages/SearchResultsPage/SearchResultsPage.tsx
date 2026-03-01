@@ -71,15 +71,6 @@ export default function SearchResultsPage() {
     return map;
   }, [savedVehicle, results]);
 
-  // Count towable listings (good + marginal)
-  const towMatchCount = useMemo(() => {
-    let count = 0;
-    for (const verdict of towVerdicts.values()) {
-      if (verdict === 'good' || verdict === 'marginal') count++;
-    }
-    return count;
-  }, [towVerdicts]);
-
   // Apply tow filter on top of existing results
   const towFilteredResults = useMemo(() => {
     if (!towFilterEnabled || !savedVehicle) return results;
@@ -149,7 +140,6 @@ export default function SearchResultsPage() {
             <FilterSidebar
               filters={filters}
               totalCount={totalCount}
-              towMatchCount={towMatchCount}
               activeFilters={activeFilters}
               allListings={sampleSrpListings}
               setFilter={setFilter}
