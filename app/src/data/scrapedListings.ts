@@ -6505,6 +6505,14 @@ function cloneListing(data: ListingData, priceMultiplier: number, imageRotation:
     const moved = rotated.splice(0, rotation);
     rotated.push(...moved);
   }
+  // Ensure the hero image (first) is always an exterior shot
+  if (!rotated[0]?.alt.includes('exterior')) {
+    const extIdx = rotated.findIndex(img => img.alt.includes('exterior'));
+    if (extIdx > 0) {
+      const [ext] = rotated.splice(extIdx, 1);
+      rotated.unshift(ext);
+    }
+  }
 
   const newPrice = Math.round(data.currentPrice * priceMultiplier / 100) * 100;
   const newOriginal = Math.round(data.originalPrice * priceMultiplier / 100) * 100;

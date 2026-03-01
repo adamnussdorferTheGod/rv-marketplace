@@ -63,7 +63,7 @@ export default function DestinationsTab({ destinations, rvLengthFt }: Destinatio
   return (
     <div className={styles.wrapper}>
       {/* Section title — outside card */}
-      <h3 className={styles.title}>Popular destinations near you</h3>
+      <h3 className={styles.title}>Where will this RV take you?</h3>
 
       <div className={styles.card}>
       {/* Subtitle */}
@@ -106,7 +106,7 @@ export default function DestinationsTab({ destinations, rvLengthFt }: Destinatio
           <Icon name="sparkles" size={24} className={styles.planSparkle} />
           Plan with AI
         </h3>
-        <div className={styles.planGlow} aria-hidden="true" />
+
         <div className={styles.planPills}>
           {AI_PROMPTS.map(prompt => (
             <button key={prompt} className={styles.planPill} type="button" onClick={() => handlePromptClick(prompt)}>
