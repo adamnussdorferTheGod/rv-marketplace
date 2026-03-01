@@ -19,9 +19,9 @@ export default function HomePage() {
       <DealerShowcase />
       <div className={styles.content}>
         <SellingSection />
+        <AiQuestionBanner />
         <FeaturedListings />
         <StayInTheKnow />
-        <AiQuestionBanner />
         <OwnershipCards />
         <PopularSearches />
       </div>
