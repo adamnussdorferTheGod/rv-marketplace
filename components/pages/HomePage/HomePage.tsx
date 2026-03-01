@@ -5,6 +5,7 @@ import FeaturedListings from './FeaturedListings/FeaturedListings';
 import SellingSection from './SellingSection/SellingSection';
 import OwnershipCards from './OwnershipCards/OwnershipCards';
 import StayInTheKnow from './StayInTheKnow/StayInTheKnow';
+import AiQuestionBanner from './AiQuestionBanner/AiQuestionBanner';
 import PopularSearches from './PopularSearches/PopularSearches';
 import styles from './HomePage.module.css';
 
@@ -20,6 +21,7 @@ export default function HomePage() {
         <SellingSection />
         <FeaturedListings />
         <StayInTheKnow />
+        <AiQuestionBanner />
         <OwnershipCards />
         <PopularSearches />
       </div>
