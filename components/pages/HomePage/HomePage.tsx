@@ -1,6 +1,7 @@
 import HeroBanner from './HeroBanner/HeroBanner';
 import HandPickedSection from './HandPickedSection/HandPickedSection';
 import DealerShowcase from './DealerShowcase/DealerShowcase';
+import WhereYouLeftOff from './WhereYouLeftOff/WhereYouLeftOff';
 import FeaturedListings from './FeaturedListings/FeaturedListings';
 import SellingSection from './SellingSection/SellingSection';
 import OwnershipCards from './OwnershipCards/OwnershipCards';
@@ -18,6 +19,7 @@ export default function HomePage() {
       </div>
       <DealerShowcase />
       <div className={styles.content}>
+        <WhereYouLeftOff />
         <SellingSection />
         <AiQuestionBanner />
         <FeaturedListings />

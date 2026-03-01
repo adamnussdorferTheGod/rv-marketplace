@@ -1,5 +1,6 @@
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecentlyViewed } from '../../../app/src/hooks/useRecentlyViewed';
 import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import NavigationBar from '@components/sections/NavigationBar/NavigationBar';
@@ -59,6 +60,16 @@ function VehicleDetailPageContent() {
   const { currentPage } = useNavigation();
   const { listing, slug, prevSlug, nextSlug } = useCurrentListing();
   const videoData = useMemo(() => generateVideoWalkthrough(listing, slug), [listing, slug]);
+  const { saveViewed } = useRecentlyViewed();
+
+  // Track this listing as recently viewed
+  useEffect(() => {
+    saveViewed({
+      slug,
+      title: listing.title,
+      imageUrl: listing.images[0]?.url ?? '',
+    });
+  }, [slug, listing.title, listing.images, saveViewed]);
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
