@@ -178,11 +178,11 @@
   }
 
   .tabs {
-    max-width: 320px;
+    max-width: 100%;
   }
 
   .track {
-    min-height: 340px;
+    min-height: 370px;
   }
 
   .cardImageWrap {
@@ -191,7 +191,6 @@
 
   .cardInfo {
     padding: 0;
-    flex-direction: column;
     gap: var(--space-12);
   }
 
@@ -200,6 +199,6 @@
   }
 
   .ctaButton {
-    align-self: flex-start;
+    align-self: center;
   }
 }

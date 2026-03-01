@@ -439,9 +439,12 @@ export default function HeroBanner() {
                     aria-label="Model"
                   />
                 </div>
-                <Button variant="primary" size="lg" onClick={handleSell}>
+                <Button variant="primary" size="lg" onClick={handleSell} className={styles.sellTextBtn}>
                   Sell
                 </Button>
+                <button className={styles.sellIconBtn} onClick={handleSell} aria-label="Sell">
+                  <Icon name="search" size={22} />
+                </button>
               </motion.div>
             )}
           </AnimatePresence>

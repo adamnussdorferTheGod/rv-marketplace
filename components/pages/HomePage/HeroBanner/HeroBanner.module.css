@@ -4,7 +4,7 @@
   width: calc(100% - 48px);
   max-width: 1653px;
   height: 393px;
-  margin: var(--space-16) auto 100px;
+  margin: var(--space-32) auto 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,7 +71,7 @@
   padding: 48px 32px 32px 32px;
   z-index: 10;
   transform: translateY(50%);
-  animation: float 4s ease-in-out 1s infinite, breathe 3s ease-in-out infinite;
+  box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.08);
 }
 
 /* Inner content wrapper — motion handles entrance fade */
@@ -81,17 +81,6 @@
   align-items: flex-start;
   gap: 32px;
   width: 100%;
-}
-
-/* ── Floating + breathing animations ── */
-@keyframes float {
-  0%, 100% { transform: translateY(50%); }
-  50% { transform: translateY(calc(50% - 3px)); }
-}
-
-@keyframes breathe {
-  0%, 100% { box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.08); }
-  50% { box-shadow: 0px 8px 28px 4px rgba(0,0,0,0.14); }
 }
 
 /* ── Segmented control ── */
@@ -137,7 +126,6 @@
 
 /* Card open state — flatten bottom for dropdown, keep layout stable */
 .searchCardOpen {
-  animation-play-state: paused;
   box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.07);
   border-radius: 16px 16px 0 0;
   z-index: 301;
@@ -265,6 +253,28 @@
   gap: 12px;
 }
 
+/* Sell form button variants */
+.sellTextBtn {}
+
+.sellIconBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--rv-primary);
+  color: var(--rv-on-primary);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.sellIconBtn:hover {
+  opacity: 0.85;
+}
+
 /* ================= Reduced motion ================= */
 @media (prefers-reduced-motion: reduce) {
   .searchCard {
@@ -301,25 +311,20 @@
     height: auto;
     min-height: 200px;
     padding: var(--space-24) var(--space-16) 0;
+    margin-top: var(--space-16);
     margin-bottom: 24px;
     border-radius: 12px;
   }
 
   .heading {
-    font-size: 24px;
+    font-size: 20px;
     line-height: 1.3;
-    margin-top: var(--space-64);
+    margin-top: var(--space-32);
   }
 
   .searchCard {
     padding: 40px 16px 16px 16px;
     transform: translateY(24px);
-    animation: none;
-    box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.08);
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(24px); }
   }
 
   .cardInner {
@@ -353,18 +358,27 @@
   }
 
   .sellForm {
-    flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     align-items: stretch;
   }
 
   .sellFields {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
   }
 
-  .sellForm > button {
-    width: 100%;
+  /* Hide model select on mobile */
+  .sellFields > *:nth-child(3) {
+    display: none;
+  }
+
+  /* Sell text button hidden, icon button shown */
+  .sellTextBtn {
+    display: none;
+  }
+
+  .sellIconBtn {
+    display: flex;
   }
 }
