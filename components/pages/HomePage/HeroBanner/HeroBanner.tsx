@@ -88,6 +88,7 @@ export default function HeroBanner() {
   const [zipCode, setZipCode] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const searchRowRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
 
@@ -315,6 +316,7 @@ export default function HeroBanner() {
             {segment === 'shop' ? (
               <motion.div
                 key="shop"
+                ref={searchRowRef}
                 className={styles.searchRow}
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -450,25 +452,42 @@ export default function HeroBanner() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Dropdown rendered inside card — no gap possible */}
-        {isDropdownOpen && (
-          <div ref={dropdownRef} className={styles.dropdownWrap}>
-            {hasSuggestions ? (
-              <SearchSuggestions
-                suggestions={suggestions}
-                query={searchQuery}
-                activeIndex={activeIndex}
-                isLoadingAI={isLoadingAI}
-                onSelect={handleSuggestionSelect}
-                onClose={closeDropdown}
-              />
-            ) : (
-              <SearchDropdown onClose={closeDropdown} />
-            )}
-          </div>
-        )}
-
       </div>
+
+      {/* Dropdown positioned from search row bottom, not card bottom */}
+      {isDropdownOpen && (
+        <div
+          ref={dropdownRef}
+          className={styles.dropdownWrap}
+          style={{
+            position: 'fixed',
+            top: searchRowRef.current
+              ? searchRowRef.current.getBoundingClientRect().bottom + 'px'
+              : searchContainerRef.current
+                ? searchContainerRef.current.getBoundingClientRect().bottom + 'px'
+                : '50%',
+            left: searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().left + 'px'
+              : undefined,
+            width: searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().width + 'px'
+              : undefined,
+          }}
+        >
+          {hasSuggestions ? (
+            <SearchSuggestions
+              suggestions={suggestions}
+              query={searchQuery}
+              activeIndex={activeIndex}
+              isLoadingAI={isLoadingAI}
+              onSelect={handleSuggestionSelect}
+              onClose={closeDropdown}
+            />
+          ) : (
+            <SearchDropdown onClose={closeDropdown} />
+          )}
+        </div>
+      )}
 
       <DealerSpotlight />
     </section>
