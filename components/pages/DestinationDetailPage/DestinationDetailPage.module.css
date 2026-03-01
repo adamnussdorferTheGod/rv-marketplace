@@ -5,7 +5,7 @@
 }
 
 .content {
-  max-width: 1184px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: var(--space-32) var(--space-64);
   display: flex;
