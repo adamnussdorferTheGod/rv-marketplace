@@ -5,6 +5,7 @@ import styles from './FitCheck.module.css';
 const PROMPTS = [
   'Off-roading RV that fits a family of four and a dog',
   "I'm looking for an RV to take off-roading that will fit a family of four.",
+  'Can I tow this with a half-ton truck? What should I watch out for?',
 ];
 
 export default function FitCheck() {

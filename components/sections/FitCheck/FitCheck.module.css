@@ -49,6 +49,13 @@
 
 .sparkleIcon {
   color: var(--rv-on-surface);
+  animation: sparkle-pulse 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
 }
 
 .description {
@@ -65,8 +72,8 @@
 }
 
 .promptCard {
-  width: 288px;
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 200px;
   padding: var(--space-16);
   background: var(--rv-surface);
   border: none;
