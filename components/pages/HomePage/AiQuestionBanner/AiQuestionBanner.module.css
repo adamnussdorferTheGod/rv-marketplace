@@ -80,9 +80,8 @@
   height: 56px;
   padding: 0 var(--space-16);
   background: var(--rv-surface);
-  border: 1px solid #d5d5d5;
+  border: 1px solid var(--rv-border-input);
   border-radius: var(--radius-full);
-  overflow: hidden;
   cursor: text;
 }
 
