@@ -64,8 +64,10 @@ export const sunseekerListing: ListingData = {
   vin: '4X4TSMD20RF500123',
   daysOnSite: 8,
 
-  // Tow compatibility
-  gvwr: 12500,
+  // Tow compatibility (demo: uses travel-trailer specs for realistic tow match results)
+  gvwr: 7300,
+  tongueWeight: 780,
+  hitchType: 'bumper-pull' as const,
 
   // Price Analysis
   priceAnalysis: {
