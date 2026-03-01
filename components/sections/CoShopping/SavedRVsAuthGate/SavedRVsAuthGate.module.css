@@ -38,15 +38,15 @@
   animation: fadeIn 300ms ease;
 }
 
-/* Top-only shadow via pseudo-element (avoids clip-path breaking backdrop-filter) */
+/* Upward shadow at top edge (avoids clip-path which breaks backdrop-filter) */
 .card::before {
   content: '';
   position: absolute;
-  top: -8px;
+  top: 0;
   left: 0;
   right: 0;
-  height: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  height: 1px;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.12);
 }
 
 @keyframes fadeIn {
