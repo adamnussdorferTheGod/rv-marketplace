@@ -450,43 +450,25 @@ export default function HeroBanner() {
           </AnimatePresence>
         </motion.div>
 
-      </div>
+        {/* Dropdown rendered inside card — no gap possible */}
+        {isDropdownOpen && (
+          <div ref={dropdownRef} className={styles.dropdownWrap}>
+            {hasSuggestions ? (
+              <SearchSuggestions
+                suggestions={suggestions}
+                query={searchQuery}
+                activeIndex={activeIndex}
+                isLoadingAI={isLoadingAI}
+                onSelect={handleSuggestionSelect}
+                onClose={closeDropdown}
+              />
+            ) : (
+              <SearchDropdown onClose={closeDropdown} />
+            )}
+          </div>
+        )}
 
-      {/* Dropdown rendered outside card to avoid transform scroll issues */}
-      {isDropdownOpen && (
-        <div
-          ref={dropdownRef}
-          className={styles.dropdownWrap}
-          style={{
-            position: 'fixed',
-            top: searchContainerRef.current
-              ? searchContainerRef.current.getBoundingClientRect().bottom + 'px'
-              : '50%',
-            left: searchContainerRef.current
-              ? searchContainerRef.current.getBoundingClientRect().left + 'px'
-              : undefined,
-            width: searchContainerRef.current
-              ? searchContainerRef.current.getBoundingClientRect().width + 'px'
-              : undefined,
-            '--dropdown-top': searchContainerRef.current
-              ? searchContainerRef.current.getBoundingClientRect().bottom + 'px'
-              : '50%',
-          } as React.CSSProperties}
-        >
-          {hasSuggestions ? (
-            <SearchSuggestions
-              suggestions={suggestions}
-              query={searchQuery}
-              activeIndex={activeIndex}
-              isLoadingAI={isLoadingAI}
-              onSelect={handleSuggestionSelect}
-              onClose={closeDropdown}
-            />
-          ) : (
-            <SearchDropdown onClose={closeDropdown} />
-          )}
-        </div>
-      )}
+      </div>
 
       <DealerSpotlight />
     </section>
