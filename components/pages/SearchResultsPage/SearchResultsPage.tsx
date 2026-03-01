@@ -10,6 +10,7 @@ import {
   type TowableRVSpecs,
 } from '@app/src/data/towCompatibility.ts';
 import type { TowVerdict } from '@app/src/data/towTypes.ts';
+import { findNearMissListings } from '@app/src/data/srpFilterEngine.ts';
 import Icon from '../../ui/Icon/Icon';
 import ActionChip from '../../ui/ActionChip/ActionChip';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
@@ -18,6 +19,7 @@ import SortControls from './SortControls/SortControls';
 import SortBottomSheet from './SortControls/SortBottomSheet';
 import MobileFilterBar from './MobileFilterBar/MobileFilterBar';
 import ListingGrid from './ListingGrid/ListingGrid';
+import NearMissResults from './NearMissResults/NearMissResults';
 import Pagination from './Pagination/Pagination';
 import SellOnRvTrader from './FilterSidebar/SellOnRvTrader';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
@@ -81,6 +83,29 @@ export default function SearchResultsPage() {
       return verdict === 'good' || verdict === 'marginal';
     });
   }, [results, towFilterEnabled, savedVehicle, towVerdicts]);
+
+  // Near-miss results when no listings match
+  const nearMiss = useMemo(() => {
+    if (towFilteredResults.length > 0) return null;
+    return findNearMissListings(sampleSrpListings, filters);
+  }, [towFilteredResults.length, filters]);
+
+  // Tow verdicts for near-miss listings
+  const nearMissTowVerdicts = useMemo(() => {
+    if (!savedVehicle || !nearMiss?.listings.length) return new Map<string, TowVerdict>();
+    const map = new Map<string, TowVerdict>();
+    for (const listing of nearMiss.listings) {
+      if (!isTowableType(listing.rvType) || !listing.gvwr) continue;
+      const rvSpecs: TowableRVSpecs = {
+        gvwr: listing.gvwr,
+        tongueWeight: listing.tongueWeight,
+        hitchType: listing.hitchType,
+      };
+      const result = calculateTowCompatibility(savedVehicle, rvSpecs);
+      map.set(listing.id, result.verdict);
+    }
+    return map;
+  }, [savedVehicle, nearMiss]);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
@@ -229,6 +254,13 @@ export default function SearchResultsPage() {
               listings={paginatedResults}
               towVerdicts={towVerdicts}
             />
+
+            {nearMiss && nearMiss.listings.length > 0 && (
+              <NearMissResults
+                listings={nearMiss.listings}
+                towVerdicts={nearMissTowVerdicts}
+              />
+            )}
 
             <Pagination
               currentPage={currentPage}

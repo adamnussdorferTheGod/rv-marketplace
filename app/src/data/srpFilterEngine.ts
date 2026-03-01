@@ -400,3 +400,113 @@ export function buildActiveFilters(criteria: FilterCriteria): ActiveFilter[] {
 
   return chips;
 }
+
+// ─── Near-miss (relaxed filter) engine ─────────────────────────────
+
+export interface NearMissResult {
+  listings: SRPListing[];
+  relaxedFilters: string[];
+}
+
+/**
+ * Progressively relaxes filters until at least one listing matches.
+ * Never drops `rvTypes` — that represents core user intent.
+ * Returns up to `maxResults` listings sorted by relevance.
+ */
+export function findNearMissListings(
+  allListings: SRPListing[],
+  originalCriteria: FilterCriteria,
+  maxResults = 6,
+): NearMissResult {
+  const relaxedFilters: string[] = [];
+
+  // Build a mutable copy of criteria we'll progressively loosen
+  let criteria: FilterCriteria = { ...originalCriteria };
+
+  const tiers: Array<{
+    labels: string[];
+    relax: (c: FilterCriteria) => FilterCriteria;
+  }> = [
+    // Tier 1: Drop floor plans, sleeping capacity, GVWR
+    {
+      labels: ['floor plans', 'sleeping capacity', 'weight'],
+      relax: (c) => ({
+        ...c,
+        floorPlans: [],
+        sleepingCapacity: null,
+        grossVehicleWeightMax: null,
+      }),
+    },
+    // Tier 2: Drop length, fuel types
+    {
+      labels: ['length', 'fuel type'],
+      relax: (c) => ({
+        ...c,
+        lengthMin: null,
+        lengthMax: null,
+        fuelTypes: [],
+      }),
+    },
+    // Tier 3: Drop models
+    {
+      labels: ['model'],
+      relax: (c) => ({ ...c, models: [] }),
+    },
+    // Tier 4: Widen price by ±25%
+    {
+      labels: ['price range'],
+      relax: (c) => ({
+        ...c,
+        priceMin: c.priceMin !== null ? Math.round(c.priceMin * 0.75) : null,
+        priceMax: c.priceMax !== null ? Math.round(c.priceMax * 1.25) : null,
+      }),
+    },
+    // Tier 5: Widen year by ±3
+    {
+      labels: ['year range'],
+      relax: (c) => ({
+        ...c,
+        yearMin: c.yearMin !== null ? c.yearMin - 3 : null,
+        yearMax: c.yearMax !== null ? c.yearMax + 3 : null,
+      }),
+    },
+    // Tier 6: Reset condition to 'all'
+    {
+      labels: ['condition'],
+      relax: (c) => ({ ...c, condition: 'all' }),
+    },
+    // Tier 7: Drop makes
+    {
+      labels: ['make'],
+      relax: (c) => ({ ...c, makes: [] }),
+    },
+    // Tier 8: Double radius
+    {
+      labels: ['search radius'],
+      relax: (c) => ({ ...c, radiusMiles: c.radiusMiles * 2 }),
+    },
+    // Tier 9: Drop keyword
+    {
+      labels: ['keyword'],
+      relax: (c) => ({ ...c, keyword: '' }),
+    },
+  ];
+
+  for (const tier of tiers) {
+    const relaxed = tier.relax(criteria);
+    // Only count this tier if it actually changed something
+    if (JSON.stringify(relaxed) === JSON.stringify(criteria)) continue;
+
+    criteria = relaxed;
+    relaxedFilters.push(...tier.labels);
+
+    const results = filterListings(allListings, criteria);
+    if (results.length > 0) {
+      const sorted = sortListings(results, 'relevance');
+      return { listings: sorted.slice(0, maxResults), relaxedFilters };
+    }
+  }
+
+  // Nothing found even after all relaxations
+  return { listings: [], relaxedFilters };
+}
