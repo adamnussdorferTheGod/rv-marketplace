@@ -148,9 +148,9 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
           />
         )}
 
-        {/* Compact cards for solo mode */}
+        {/* Compact cards for solo mode — show first 2 freely */}
         <div className={styles.cardList}>
-          {sortedListings.slice(0, FREE_SAVE_LIMIT).map((sl) => (
+          {sortedListings.slice(0, FREE_SAVE_LIMIT - 1).map((sl) => (
             <SharedListCard
               key={sl.listingId}
               listId={activeList.id}
@@ -162,10 +162,10 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
           ))}
         </div>
 
-        {/* Auth gate with blurred overflow cards */}
+        {/* Auth gate — 3rd card onwards, blurred behind frosted glass */}
         {sortedListings.length >= FREE_SAVE_LIMIT && (
           <SavedRVsAuthGate>
-            {sortedListings.slice(FREE_SAVE_LIMIT).map((sl) => (
+            {sortedListings.slice(FREE_SAVE_LIMIT - 1).map((sl) => (
               <SharedListCard
                 key={sl.listingId}
                 listId={activeList.id}
@@ -254,7 +254,7 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
       {activeTab === 'list' && (
         <>
           <div className={styles.cardList}>
-            {sortedListings.slice(0, FREE_SAVE_LIMIT).map((sl) => (
+            {sortedListings.slice(0, FREE_SAVE_LIMIT - 1).map((sl) => (
               <SharedListCard
                 key={sl.listingId}
                 listId={activeList.id}
@@ -265,10 +265,10 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
             ))}
           </div>
 
-          {/* Auth gate with blurred overflow cards */}
+          {/* Auth gate — 3rd card onwards, blurred behind frosted glass */}
           {sortedListings.length >= FREE_SAVE_LIMIT && (
             <SavedRVsAuthGate>
-              {sortedListings.slice(FREE_SAVE_LIMIT).map((sl) => (
+              {sortedListings.slice(FREE_SAVE_LIMIT - 1).map((sl) => (
                 <SharedListCard
                   key={sl.listingId}
                   listId={activeList.id}
