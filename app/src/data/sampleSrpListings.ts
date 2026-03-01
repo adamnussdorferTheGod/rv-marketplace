@@ -475,6 +475,16 @@ function specValue(data: ListingData, label: string): string {
   return data.specs.find(s => s.label === label)?.value ?? '';
 }
 
+/** Only allow tag badges that match the design system palette */
+const ALLOWED_TAGS = new Set([
+  'New arrival', 'Newly listed', 'Price drop', 'Price reduced',
+  'Hot deal', 'History report',
+]);
+
+function sanitizeTag(tag: string | undefined | null): string | null {
+  return tag && ALLOWED_TAGS.has(tag) ? tag : null;
+}
+
 /** Hardcoded coordinates for cities appearing in scraped listings */
 const cityCoords: Record<string, { lat: number; lng: number; zip: string }> = {
   'Sacramento': { lat: 38.5816, lng: -121.4944, zip: '95814' },
@@ -500,8 +510,9 @@ const FEATURED_SLUGS = new Set([
   'fuzion-430',
   'freedom-traveler-a24',
   'allegro-open-road-32sa',
-  'globetrotter-27fb',
+
   'basecamp-20x',
+  'eagle-321rsts',
 ]);
 
 function toSRPListing(slug: string, data: ListingData): SRPListing {
@@ -541,7 +552,7 @@ function toSRPListing(slug: string, data: ListingData): SRPListing {
     monthlyPayment: data.monthlyPayment ?? estimateMonthly(data.currentPrice),
     dealRating: data.dealRating,
     photos: data.images,
-    tagBadge: data.tagText ?? null,
+    tagBadge: sanitizeTag(data.tagText),
     isFeatured: FEATURED_SLUGS.has(slug),
     isSponsored: false,
     isFavorited: false,
