@@ -36,6 +36,7 @@ export interface SRPLocation {
 
 export interface SRPListing {
   id: string;
+  slug?: string;
   title: string;
   year: number;
   make: string;

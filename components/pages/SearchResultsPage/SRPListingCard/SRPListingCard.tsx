@@ -39,7 +39,7 @@ export default function SRPListingCard({ listing, towVerdict }: SRPListingCardPr
     listing.originalPrice != null && listing.originalPrice !== listing.currentPrice;
 
   return (
-    <Link to={listingPath(listing.id)} className={styles.cardLink}>
+    <Link to={listingPath(listing.slug ?? listing.id)} className={styles.cardLink}>
     <article className={styles.card}>
       {/* ── Photo Section ── */}
       <div className={styles.photoWrapper}>

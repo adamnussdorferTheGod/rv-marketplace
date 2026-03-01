@@ -1,5 +1,6 @@
-import type { ListingImage } from './types.ts';
+import type { ListingImage, ListingData } from './types.ts';
 import type { SRPListing, RVType, FuelType } from './srpTypes.ts';
+import { allListings } from './scrapedListings.ts';
 
 // ─── Internal data tables ────────────────────────────────────────────
 
@@ -451,8 +452,133 @@ function buildListing(index: number, def: ListingDef): SRPListing {
   };
 }
 
+// ─── Scraped listing adapter ─────────────────────────────────────────
+
+function parseRvType(value: string): RVType {
+  const v = value.toLowerCase();
+  if (v.includes('toy hauler')) return 'toy-hauler';
+  if (v.includes('pop-up') || v.includes('folding')) return 'pop-up';
+  if (v.includes('fifth wheel')) return 'fifth-wheel';
+  if (v.includes('travel trailer')) return 'travel-trailer';
+  if (v.includes('class a')) return 'class-a';
+  if (v.includes('class b')) return 'class-b';
+  if (v.includes('class c')) return 'class-c';
+  return 'travel-trailer';
+}
+
+function deriveFuelType(rvType: RVType, rvTypeSpec: string): FuelType {
+  if (!MOTORHOME_TYPES.has(rvType)) return 'n/a';
+  return rvTypeSpec.toLowerCase().includes('diesel') ? 'diesel' : 'gas';
+}
+
+function specValue(data: ListingData, label: string): string {
+  return data.specs.find(s => s.label === label)?.value ?? '';
+}
+
+/** Hardcoded coordinates for cities appearing in scraped listings */
+const cityCoords: Record<string, { lat: number; lng: number; zip: string }> = {
+  'Sacramento': { lat: 38.5816, lng: -121.4944, zip: '95814' },
+  'Roseville': { lat: 38.7521, lng: -121.2880, zip: '95661' },
+  'Alvarado': { lat: 32.3574, lng: -97.0161, zip: '76009' },
+  'San Diego': { lat: 32.7157, lng: -117.1611, zip: '92101' },
+  'Portland': { lat: 45.5152, lng: -122.6784, zip: '97201' },
+  'Fairfield': { lat: 38.2494, lng: -122.0400, zip: '94533' },
+  'La Mirada': { lat: 33.9172, lng: -118.0120, zip: '90638' },
+  'Temecula': { lat: 33.4936, lng: -117.1484, zip: '92590' },
+  'Fresno': { lat: 36.7378, lng: -119.7871, zip: '93721' },
+  'Barstow': { lat: 34.8958, lng: -117.0173, zip: '92311' },
+  'Riverside': { lat: 33.9533, lng: -117.3962, zip: '92501' },
+  'El Cajon': { lat: 32.7948, lng: -116.9625, zip: '92020' },
+};
+
+const FEATURED_SLUGS = new Set([
+  'sunseeker-1950le',
+  'dutch-star-4020',
+  'sprinter-2500-awd',
+  'flying-cloud-23fbq',
+  'riverstone-420re',
+  'fuzion-430',
+  'freedom-traveler-a24',
+  'allegro-open-road-32sa',
+  'globetrotter-27fb',
+  'basecamp-20x',
+]);
+
+function toSRPListing(slug: string, data: ListingData): SRPListing {
+  const rvTypeSpec = specValue(data, 'RV type');
+  const rvType = parseRvType(rvTypeSpec);
+  const condition: 'new' | 'used' = specValue(data, 'Condition').toLowerCase() === 'new' ? 'new' : 'used';
+  const lengthFt = parseInt(specValue(data, 'Length')) || 0;
+  const sleepingCapacity = parseInt(specValue(data, 'Sleeping capacity')) || 2;
+  const gvwrRaw = specValue(data, 'GVWR').replace(/[^0-9]/g, '');
+  const gvwr = gvwrRaw ? parseInt(gvwrRaw) : null;
+  const fuelType = deriveFuelType(rvType, rvTypeSpec);
+
+  const [city = '', state = ''] = data.location.split(', ');
+  const coords = cityCoords[city] ?? { lat: 38.5816, lng: -121.4944, zip: '95814' };
+
+  const isTowable = !MOTORHOME_TYPES.has(rvType) && gvwr != null;
+  const towFields = isTowable
+    ? {
+        gvwr: gvwr!,
+        tongueWeight: computeTongueWeight(gvwr!, rvType, 0),
+        hitchType: determineHitchType(rvType, gvwr!) as 'bumper-pull' | 'fifth-wheel' | 'gooseneck',
+      }
+    : {};
+
+  return {
+    id: slug,
+    slug,
+    title: data.title,
+    year: data.year,
+    make: data.make,
+    model: data.model,
+    trim: data.trim,
+    rvType,
+    condition,
+    currentPrice: data.currentPrice,
+    originalPrice: data.originalPrice !== data.currentPrice ? data.originalPrice : null,
+    monthlyPayment: data.monthlyPayment ?? estimateMonthly(data.currentPrice),
+    dealRating: data.dealRating,
+    photos: data.images,
+    tagBadge: data.tagText ?? null,
+    isFeatured: FEATURED_SLUGS.has(slug),
+    isSponsored: false,
+    isFavorited: false,
+    dealer: {
+      name: data.dealer.name,
+      city,
+      state,
+      distanceMiles: null,
+    },
+    location: {
+      city,
+      state,
+      zip: coords.zip,
+      lat: coords.lat,
+      lng: coords.lng,
+    },
+    lengthFt,
+    sleepingCapacity,
+    fuelType,
+    floorPlan: null,
+    grossVehicleWeight: gvwr,
+    ...towFields,
+    mileage: null,
+    daysOnSite: data.daysOnSite,
+    isTrustedPartner: data.dealer.isTop50,
+  };
+}
+
+const realListings: SRPListing[] = allListings.map(({ slug, data }) =>
+  toSRPListing(slug, data),
+);
+
 // ─── Export ──────────────────────────────────────────────────────────
 
-export const sampleSrpListings: SRPListing[] = listingDefs.map((def, i) =>
+/** Mock listings kept for filter engine variety (not displayed first) */
+const mockListings: SRPListing[] = listingDefs.map((def, i) =>
   buildListing(i, def),
 );
+
+export const sampleSrpListings: SRPListing[] = realListings;
