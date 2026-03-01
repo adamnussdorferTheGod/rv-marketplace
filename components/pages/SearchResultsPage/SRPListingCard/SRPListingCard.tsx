@@ -64,25 +64,22 @@ export default function SRPListingCard({ listing, towVerdict }: SRPListingCardPr
           </div>
         )}
 
-        {/* Tag badge */}
-        {listing.tagBadge && (
+        {/* Badge: tow match takes priority over tag badge — only show one */}
+        {towVerdict && TOW_BADGE[towVerdict] ? (
+          <span
+            className={styles.tagBadge}
+            style={{ borderLeftColor: TOW_BADGE[towVerdict].color }}
+          >
+            {TOW_BADGE[towVerdict].label}
+          </span>
+        ) : listing.tagBadge ? (
           <span
             className={styles.tagBadge}
             style={{ borderLeftColor: TAG_COLORS[listing.tagBadge] ?? 'var(--rv-border-tag-red)' }}
           >
             {listing.tagBadge}
           </span>
-        )}
-
-        {/* Tow match badge */}
-        {towVerdict && TOW_BADGE[towVerdict] && (
-          <span
-            className={`${styles.tagBadge} ${listing.tagBadge ? styles.tagBadgeSecond : ''}`}
-            style={{ borderLeftColor: TOW_BADGE[towVerdict].color }}
-          >
-            {TOW_BADGE[towVerdict].label}
-          </span>
-        )}
+        ) : null}
 
         {/* Favorite heart toggle */}
         <button

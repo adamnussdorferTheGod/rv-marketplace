@@ -91,10 +91,6 @@
   box-shadow: var(--rv-shadow-bottom);
 }
 
-.tagBadgeSecond {
-  top: calc(var(--space-16) + 28px);
-}
-
 /* Favorite heart button */
 
 .favoriteBtn {
