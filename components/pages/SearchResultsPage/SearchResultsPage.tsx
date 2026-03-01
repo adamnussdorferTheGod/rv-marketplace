@@ -22,6 +22,7 @@ import ListingGrid from './ListingGrid/ListingGrid';
 import NearMissResults from './NearMissResults/NearMissResults';
 import Pagination from './Pagination/Pagination';
 import SellOnRvTrader from './FilterSidebar/SellOnRvTrader';
+import PopularFilters from './PopularFilters/PopularFilters';
 import AdSlot from '@components/ui/AdSlot/AdSlot';
 import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
@@ -173,6 +174,13 @@ export default function SearchResultsPage() {
               clearAll={clearAll}
               isOpen={sidebarOpen}
               onClose={() => setSidebarOpen(false)}
+            />
+
+            <PopularFilters
+              filters={filters}
+              allListings={sampleSrpListings}
+              setFilter={setFilter}
+              toggleArrayFilter={toggleArrayFilter}
             />
 
             <div className={styles.sidebarExtra}>
