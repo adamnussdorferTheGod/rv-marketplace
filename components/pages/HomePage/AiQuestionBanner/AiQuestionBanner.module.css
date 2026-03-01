@@ -65,6 +65,12 @@
   min-width: 0;
 }
 
+@property --banner-shimmer-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .inputWrap {
   flex: 1;
   position: relative;
@@ -74,15 +80,50 @@
   height: 56px;
   padding: 0 var(--space-16);
   background: var(--rv-surface);
-  border: 1px solid var(--rv-border-input);
+  border: 1px solid #d5d5d5;
   border-radius: var(--radius-full);
   overflow: hidden;
   cursor: text;
 }
 
+.inputWrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--border-heavy);
+  background: conic-gradient(
+    from var(--banner-shimmer-angle),
+    var(--rv-primary) 0%,
+    var(--rv-brand-accent) 20%,
+    var(--rv-primary) 38%,
+    #d5d5d5 42%,
+    #d5d5d5 58%,
+    var(--rv-primary) 62%,
+    var(--rv-brand-accent) 80%,
+    var(--rv-primary) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: bannerShimmer 2s linear infinite;
+}
+
+@keyframes bannerShimmer {
+  0% { --banner-shimmer-angle: 0deg; }
+  100% { --banner-shimmer-angle: 360deg; }
+}
+
 .inputWrap:focus-within {
   border-color: var(--rv-primary);
   box-shadow: 0 0 0 1px var(--rv-primary);
+}
+
+.inputWrap:focus-within::before {
+  display: none;
 }
 
 .aiIcon {
