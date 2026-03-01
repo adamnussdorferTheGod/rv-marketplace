@@ -1,6 +1,4 @@
 .card {
-  position: sticky;
-  top: 16px;
   background: var(--rv-surface);
   border: 1px solid var(--rv-border-low);
   border-radius: var(--radius-12);

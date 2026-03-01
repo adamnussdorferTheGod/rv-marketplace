@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { useIsMobile } from '@app/src/hooks/useIsMobile';
+import { useRecentSearches } from '@app/src/hooks/useRecentSearches';
 import { RV_TYPE_LABELS } from '@app/src/data/srpTypes.ts';
+import type { FilterCriteria } from '@app/src/data/srpTypes.ts';
 import { sampleSrpListings } from '@app/src/data/sampleSrpListings.ts';
 import { useTowVehicle } from '@components/sections/TowVehicleSetup/TowVehicleContext';
 import {
@@ -40,6 +42,78 @@ const FULL_SUBTITLE =
   'Whether you\'re looking for a compact camper van or a luxurious Class A motorhome, filter by type, make, price, and more to narrow your search.';
 
 const RESULTS_PER_PAGE = 30;
+
+const RV_TYPE_IMAGE_MAP: Record<string, string> = {
+  'class-a': '/images/rv-types/class-a.png',
+  'class-b': '/images/rv-types/class-b.png',
+  'class-c': '/images/rv-types/class-c.png',
+  'travel-trailer': '/images/rv-types/travel-trailer.png',
+  'fifth-wheel': '/images/rv-types/fifth-wheel.png',
+  'toy-hauler': '/images/rv-types/toy-hauler.png',
+  'pop-up': '/images/rv-types/pop-up-camper.png',
+};
+const DEFAULT_SEARCH_IMAGE = '/images/rv-types/travel-trailer.png';
+
+function buildSearchTitle(filters: FilterCriteria): string {
+  const parts: string[] = [];
+
+  if (filters.condition !== 'all') {
+    parts.push(filters.condition === 'new' ? 'New' : 'Used');
+  }
+
+  if (filters.rvTypes.length === 1) {
+    parts.push(RV_TYPE_LABELS[filters.rvTypes[0]]);
+  } else if (filters.rvTypes.length > 1) {
+    parts.push(`${filters.rvTypes.length} RV types`);
+  } else {
+    parts.push('RVs');
+  }
+
+  if (filters.makes.length === 1) {
+    parts.push(`by ${filters.makes[0]}`);
+  }
+
+  if (filters.priceMax !== null) {
+    parts.push(`under $${(filters.priceMax / 1000).toFixed(0)}K`);
+  }
+
+  if (filters.zipCode) {
+    parts.push(`near ${filters.zipCode}`);
+  }
+
+  return parts.join(' ') || 'RV Search';
+}
+
+function buildSearchSubtitle(filters: FilterCriteria, resultCount: number): string {
+  const details: string[] = [];
+
+  if (filters.yearMin || filters.yearMax) {
+    const min = filters.yearMin ?? '...';
+    const max = filters.yearMax ?? '...';
+    details.push(`${min}–${max}`);
+  }
+
+  if (filters.priceMin !== null && filters.priceMax !== null) {
+    details.push(`$${(filters.priceMin / 1000).toFixed(0)}K–$${(filters.priceMax / 1000).toFixed(0)}K`);
+  } else if (filters.priceMin !== null) {
+    details.push(`$${(filters.priceMin / 1000).toFixed(0)}K+`);
+  }
+
+  if (filters.fuelTypes.length > 0) {
+    details.push(filters.fuelTypes.join(', '));
+  }
+
+  details.push(`${resultCount} results`);
+
+  return details.join(' \u00b7 ');
+}
+
+function buildSearchImage(filters: FilterCriteria): string {
+  if (filters.rvTypes.length >= 1) {
+    return RV_TYPE_IMAGE_MAP[filters.rvTypes[0]] ?? DEFAULT_SEARCH_IMAGE;
+  }
+  return DEFAULT_SEARCH_IMAGE;
+}
 
 export default function SearchResultsPage() {
   const {
@@ -118,6 +192,24 @@ export default function SearchResultsPage() {
 
   const { activeList } = useCoShopping();
 
+  // ─── Save this search to recent searches ─────────────────────────
+  const { saveSearch } = useRecentSearches();
+  const savedUrlRef = useRef('');
+
+  useEffect(() => {
+    const url = `/search${window.location.search}`;
+    // Skip if we already saved this exact URL
+    if (url === savedUrlRef.current) return;
+    // Skip default/empty search
+    if (!window.location.search) return;
+
+    savedUrlRef.current = url;
+    const title = buildSearchTitle(filters);
+    const subtitle = buildSearchSubtitle(filters, totalCount);
+    const imageUrl = buildSearchImage(filters);
+    saveSearch({ title, subtitle, url, imageUrl });
+  }, [filters, totalCount, saveSearch]);
+
   // Reset to page 1 whenever filters or sort change
   useEffect(() => {
     setCurrentPage(1);
@@ -176,22 +268,24 @@ export default function SearchResultsPage() {
               onClose={() => setSidebarOpen(false)}
             />
 
-            <PopularFilters
-              filters={filters}
-              allListings={sampleSrpListings}
-              setFilter={setFilter}
-              toggleArrayFilter={toggleArrayFilter}
-            />
-
             <div className={styles.sidebarExtra}>
               <SellOnRvTrader />
             </div>
 
             <div className={styles.sidebarAd}>
-              <AdSlot width={300} height={250} label="Ad: 300x250" />
-            </div>
-            <div className={styles.sidebarAd}>
               <AdSlot width={300} height={600} label="Ad: 300x600" />
+            </div>
+
+            <div className={styles.sidebarSticky}>
+              <PopularFilters
+                filters={filters}
+                allListings={sampleSrpListings}
+                setFilter={setFilter}
+                toggleArrayFilter={toggleArrayFilter}
+              />
+              <div className={styles.sidebarAd}>
+                <AdSlot width={300} height={250} label="Ad: 300x250" />
+              </div>
             </div>
           </div>
 
