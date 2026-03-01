@@ -16,7 +16,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
   const navigate = useNavigate();
 
   const handleTypeClick = (slug: string) => {
-    navigate(`/search?type=${slug}`);
+    navigate(`/search?rvTypes=${slug}`);
     onClose();
   };
 
@@ -25,13 +25,13 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
     onClose();
   };
 
-  const handleMakeClick = (slug: string) => {
-    navigate(`/search?make=${slug}`);
+  const handleMakeClick = (label: string) => {
+    navigate(`/search?makes=${encodeURIComponent(label)}`);
     onClose();
   };
 
   const handleDealerClick = (slug: string) => {
-    navigate(`/search?dealer=${slug}`);
+    navigate(`/search?keyword=${encodeURIComponent(slug.replace(/-/g, ' '))}`);
     onClose();
   };
 
@@ -96,7 +96,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
               key={make.slug}
               type="button"
               className={styles.searchChip}
-              onClick={() => handleMakeClick(make.slug)}
+              onClick={() => handleMakeClick(make.label)}
             >
               <Icon name="search" size={20} />
               {make.label}

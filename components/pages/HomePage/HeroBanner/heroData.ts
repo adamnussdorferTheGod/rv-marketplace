@@ -37,11 +37,11 @@ export const RV_TYPES: RVType[] = [
 
 export const POPULAR_SEARCHES: PopularSearch[] = [
   { label: 'RVs under $35,000', query: 'priceMax=35000' },
-  { label: 'Min. 4 sleeping capacity', query: 'sleepingMin=4' },
-  { label: 'Under 50,000 miles', query: 'milesMax=50000' },
-  { label: 'Recent price drops', query: 'sort=price-drop' },
-  { label: 'Used', query: 'condition=used' },
-  { label: 'RVs under 5,000 lbs', query: 'weightMax=5000' },
+  { label: 'Min. 4 sleeping capacity', query: 'sleepingCapacity=4' },
+  { label: 'Used RVs', query: 'condition=used' },
+  { label: 'Recent price drops', query: 'sort=price-low' },
+  { label: 'RVs under 5,000 lbs', query: 'gvwMax=5000' },
+  { label: 'RVs under $75,000', query: 'priceMax=75000' },
 ];
 
 export const POPULAR_MAKES: PopularMake[] = [
