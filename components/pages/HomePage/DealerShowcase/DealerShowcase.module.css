@@ -262,6 +262,7 @@
 
   .cardsTrack {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-12);
   }
 
   .cardPhoto {

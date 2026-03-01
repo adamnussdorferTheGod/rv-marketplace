@@ -130,3 +130,10 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+
+/* Mobile */
+@media (max-width: 767px) {
+  .container {
+    padding: var(--space-16);
+  }
+}

@@ -76,7 +76,9 @@ export default function DestinationDetailPage({ destination }: DestinationDetail
             </div>
             <div className={styles.rightCol}>
               <DestinationMap name={destination.name} region={destination.region} lat={destination.lat} lng={destination.lng} />
-              <AdSlot width={300} height={250} />
+              <div className={styles.sidebarAd}>
+                <AdSlot width={300} height={250} />
+              </div>
             </div>
           </div>
         ) : (

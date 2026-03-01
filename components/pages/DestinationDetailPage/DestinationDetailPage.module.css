@@ -84,7 +84,11 @@
   }
 
   .rightCol {
-    order: -1;
+    position: static;
+  }
+
+  .sidebarAd {
+    display: none;
   }
 }
 

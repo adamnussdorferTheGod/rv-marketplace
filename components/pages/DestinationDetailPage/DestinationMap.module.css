@@ -75,3 +75,20 @@
     min-height: 240px;
   }
 }
+
+@media (max-width: 767px) {
+  .mapContainer {
+    min-height: 200px;
+    height: 220px;
+  }
+
+  .mapPlaceholder {
+    min-height: 200px;
+  }
+
+  .legend {
+    gap: 4px 10px;
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}

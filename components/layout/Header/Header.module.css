@@ -187,7 +187,8 @@
 /* XS: <=767px */
 @media (max-width: 767px) {
   .header {
-    padding: var(--space-16);
+    height: 64px;
+    padding: var(--space-12) var(--space-16);
   }
 
   .logo {
@@ -197,5 +198,14 @@
 
   .inner {
     gap: var(--space-4);
+  }
+
+  .iconButtonRound {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .accountButton {
+    min-height: 44px;
   }
 }

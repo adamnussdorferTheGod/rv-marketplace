@@ -269,6 +269,10 @@
 
 /* SM: 768–991px */
 @media (max-width: 991px) {
+  .footer {
+    padding: var(--space-32);
+  }
+
   .columns {
     flex-wrap: wrap;
   }

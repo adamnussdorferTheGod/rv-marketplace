@@ -276,8 +276,8 @@
   }
 
   .navButton {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
   }
 
   .navPrev {
@@ -293,7 +293,7 @@
   }
 
   .thumbButton {
-    width: 48px;
-    height: 36px;
+    width: 52px;
+    height: 44px;
   }
 }

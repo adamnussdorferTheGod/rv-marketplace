@@ -101,6 +101,7 @@
   left: 0;
   right: 0;
   width: 373px;
+  max-width: calc(100% - 32px);
   margin-inline: auto;
   z-index: 1;
 }

@@ -20,6 +20,10 @@
   .grid {
     grid-template-columns: 1fr;
   }
+
+  .right {
+    position: static;
+  }
 }
 
 /* XS: reduce gap */
