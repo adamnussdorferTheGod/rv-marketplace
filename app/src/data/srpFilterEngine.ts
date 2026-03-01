@@ -480,12 +480,22 @@ export function findNearMissListings(
       labels: ['make'],
       relax: (c) => ({ ...c, makes: [] }),
     },
-    // Tier 8: Double radius
+    // Tier 8: Drop price entirely (widening may not have been enough)
+    {
+      labels: ['price range'],
+      relax: (c) => ({ ...c, priceMin: null, priceMax: null }),
+    },
+    // Tier 9: Drop year entirely (widening may not have been enough)
+    {
+      labels: ['year range'],
+      relax: (c) => ({ ...c, yearMin: null, yearMax: null }),
+    },
+    // Tier 10: Double radius
     {
       labels: ['search radius'],
       relax: (c) => ({ ...c, radiusMiles: c.radiusMiles * 2 }),
     },
-    // Tier 9: Drop keyword
+    // Tier 11: Drop keyword
     {
       labels: ['keyword'],
       relax: (c) => ({ ...c, keyword: '' }),
