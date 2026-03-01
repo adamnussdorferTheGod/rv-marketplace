@@ -53,7 +53,7 @@ export default function TowVehicleModal() {
       savedVehicle !== null
     ) {
       setShowToast(true);
-      const timer = setTimeout(() => setShowToast(false), 3000);
+      const timer = setTimeout(() => setShowToast(false), 5000);
       return () => clearTimeout(timer);
     }
     prevSavedRef.current = savedVehicle;

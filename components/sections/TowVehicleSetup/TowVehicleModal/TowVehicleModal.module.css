@@ -854,7 +854,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
-  animation: slideUpFade 3s forwards;
+  animation: slideUpFade 5s forwards;
   pointer-events: none;
 }
 

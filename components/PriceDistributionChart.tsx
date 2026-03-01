@@ -106,7 +106,7 @@ function TrackPriceBanner({ listingTitle, formattedPrice }: { listingTitle: stri
 
   useEffect(() => {
     if (!showToast) return;
-    const timer = setTimeout(dismissToast, 4000);
+    const timer = setTimeout(dismissToast, 5000);
     return () => clearTimeout(timer);
   }, [showToast, dismissToast]);
 
