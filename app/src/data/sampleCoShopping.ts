@@ -28,21 +28,48 @@ export const MOCK_USER_SARAH: ListMember = {
   isOwner: false,
 };
 
-// ─── Default state: solo user, empty list ───────────────────────────
+// ─── Default state: solo user, 3 pre-hearted listings for demo ──────
 
-const emptySharedList: SharedList = {
+const defaultListingIds = [
+  sampleSrpListings[0].id,
+  sampleSrpListings[2].id,
+  sampleSrpListings[5].id,
+];
+
+const defaultListings: SharedListing[] = [
+  {
+    listingId: defaultListingIds[0],
+    addedBy: 'user-you',
+    addedAt: '2026-02-21T10:15:00Z',
+    note: null,
+  },
+  {
+    listingId: defaultListingIds[1],
+    addedBy: 'user-you',
+    addedAt: '2026-02-22T14:30:00Z',
+    note: null,
+  },
+  {
+    listingId: defaultListingIds[2],
+    addedBy: 'user-you',
+    addedAt: '2026-02-23T09:45:00Z',
+    note: null,
+  },
+];
+
+const defaultSharedList: SharedList = {
   id: 'list-1',
   name: 'Saved RVs',
   members: [MOCK_USER_YOU],
-  listings: [],
+  listings: defaultListings,
   reactions: [],
   comments: [],
   createdAt: '2026-02-20T10:00:00Z',
-  updatedAt: '2026-02-20T10:00:00Z',
+  updatedAt: '2026-02-23T09:45:00Z',
 };
 
 export const sampleCoShoppingState: CoShoppingState = {
-  lists: [emptySharedList],
+  lists: [defaultSharedList],
   activeListId: 'list-1',
   currentUserId: 'user-you',
 };
