@@ -70,6 +70,10 @@
 
 /* XS: <=767px */
 @media (max-width: 767px) {
+  .section {
+    padding-top: var(--space-16);
+  }
+
   .title {
     font-size: 24px;
   }
