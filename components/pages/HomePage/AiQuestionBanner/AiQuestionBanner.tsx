@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import Icon from '@components/ui/Icon/Icon';
+import { useAiMode } from '@components/sections/AiMode/AiModeContext';
 import styles from './AiQuestionBanner.module.css';
 
 const PHRASES = [
@@ -37,7 +37,7 @@ export default function AiQuestionBanner() {
   const [isVisible, setIsVisible] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const navigate = useNavigate();
+  const { openPanel, sendMessage } = useAiMode();
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -56,7 +56,9 @@ export default function AiQuestionBanner() {
   const handleSubmit = () => {
     const text = inputValue.trim();
     if (!text) return;
-    navigate(`/search?q=${encodeURIComponent(text)}`);
+    openPanel('default');
+    setTimeout(() => sendMessage(text), 50);
+    setInputValue('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

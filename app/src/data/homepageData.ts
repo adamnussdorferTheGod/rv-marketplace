@@ -135,7 +135,7 @@ export const sellingPanels: SellingPanel[] = [
     description:
       'Partner with a trusted dealership to sell your RV on consignment. They handle the marketing, showings, and paperwork while you sit back and wait for the best offer.',
     ctaText: 'Learn more',
-    image: '/images/listings/rv-05.png',
+    image: '/images/selling-consignment.png',
   },
   {
     id: 'sell-privately',
@@ -153,7 +153,7 @@ export const sellingPanels: SellingPanel[] = [
     description:
       'Get an instant cash offer for your RV and close in as little as a few days. No haggling, no waiting, no hassle -- just a fair price and a quick sale.',
     ctaText: 'Get your offer',
-    image: '/images/listings/rv-07.png',
+    image: '/images/selling-dealer.jpg',
   },
 ];
 

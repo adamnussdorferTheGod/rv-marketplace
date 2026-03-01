@@ -242,8 +242,13 @@
     width: calc(100% - 24px);
   }
 
+  .showcase {
+    margin-top: var(--space-16);
+  }
+
   .header {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     gap: var(--space-12);
   }
 
@@ -252,8 +257,12 @@
   }
 
   .logoContainer {
-    width: 80px;
-    height: 56px;
+    width: 72px;
+    height: 50px;
+  }
+
+  .tagline {
+    display: none;
   }
 
   .arrowsArea {
@@ -261,8 +270,22 @@
   }
 
   .cardsTrack {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     gap: var(--space-12);
+    padding-bottom: var(--space-8);
+    scrollbar-width: none;
+  }
+
+  .cardsTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cardsTrack > * {
+    flex: 0 0 160px;
+    scroll-snap-align: start;
   }
 
   .cardPhoto {

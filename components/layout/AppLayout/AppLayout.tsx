@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import CrossPromotionsBar from '@components/layout/CrossPromotionsBar/CrossPromotionsBar';
 import Header from '@components/layout/Header/Header';
 import Footer from '@components/layout/Footer/Footer';
@@ -22,7 +23,17 @@ export default function AppLayout() {
         <Header />
       </div>
       <main>
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
       </main>
       <div className={styles.fullWidth}>
         <Footer />

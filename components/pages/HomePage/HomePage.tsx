@@ -8,25 +8,30 @@ import OwnershipCards from './OwnershipCards/OwnershipCards';
 import StayInTheKnow from './StayInTheKnow/StayInTheKnow';
 import AiQuestionBanner from './AiQuestionBanner/AiQuestionBanner';
 import PopularSearches from './PopularSearches/PopularSearches';
+import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
+import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
   return (
-    <div className={styles.homePage}>
-      <HeroBanner />
-      <div className={styles.content}>
-        <HandPickedSection />
+    <AiModeProvider>
+      <div className={styles.homePage}>
+        <HeroBanner />
+        <div className={styles.content}>
+          <HandPickedSection />
+        </div>
+        <DealerShowcase />
+        <div className={styles.content}>
+          <WhereYouLeftOff />
+          <AiQuestionBanner />
+          <SellingSection />
+          <FeaturedListings />
+          <StayInTheKnow />
+          <OwnershipCards />
+          <PopularSearches />
+        </div>
       </div>
-      <DealerShowcase />
-      <div className={styles.content}>
-        <WhereYouLeftOff />
-        <SellingSection />
-        <AiQuestionBanner />
-        <FeaturedListings />
-        <StayInTheKnow />
-        <OwnershipCards />
-        <PopularSearches />
-      </div>
-    </div>
+      <AiModePanel />
+    </AiModeProvider>
   );
 }

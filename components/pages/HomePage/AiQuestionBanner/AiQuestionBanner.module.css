@@ -1,7 +1,7 @@
 /* AiQuestionBanner — homepage "Have a question?" section */
 
 .section {
-  padding: var(--space-32) 0;
+  padding: 48px 0 var(--space-32);
   margin-bottom: var(--space-16);
 }
 
