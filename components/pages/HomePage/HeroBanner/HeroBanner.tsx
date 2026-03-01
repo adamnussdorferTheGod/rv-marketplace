@@ -468,7 +468,10 @@ export default function HeroBanner() {
             width: searchContainerRef.current
               ? searchContainerRef.current.getBoundingClientRect().width + 'px'
               : undefined,
-          }}
+            '--dropdown-top': searchContainerRef.current
+              ? searchContainerRef.current.getBoundingClientRect().bottom + 'px'
+              : '50%',
+          } as React.CSSProperties}
         >
           {hasSuggestions ? (
             <SearchSuggestions
