@@ -362,7 +362,12 @@ export default function FilterSidebar({
           onToggleModel={(model: string) => toggleArrayFilter('models', model)}
         />
 
-        {/* 8. Price filter */}
+        {/* 8. Tow Match filter */}
+        <CollapsibleSection title="Tow Match">
+          <SrpTowFilter />
+        </CollapsibleSection>
+
+        {/* 9. Price filter */}
         <PriceFilter
           priceMin={filters.priceMin}
           priceMax={filters.priceMax}
@@ -370,17 +375,12 @@ export default function FilterSidebar({
           onSetFilter={setFilter}
         />
 
-        {/* 9+. Additional filters: Length, Year, Bunkhouse, Fuel, Sleeping, Floor Plan, GVW */}
+        {/* 10+. Additional filters: Length, Year, Bunkhouse, Fuel, Sleeping, Floor Plan, GVW */}
         <AdditionalFilters
           filters={filters}
           setFilter={setFilter}
           toggleArrayFilter={toggleArrayFilter}
         />
-
-        {/* 10. Tow Match filter */}
-        <CollapsibleSection title="Tow Match">
-          <SrpTowFilter />
-        </CollapsibleSection>
       </div>
 
       {/* Mobile overlay footer */}
