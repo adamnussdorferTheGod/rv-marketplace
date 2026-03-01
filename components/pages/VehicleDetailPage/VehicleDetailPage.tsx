@@ -44,15 +44,17 @@ import styles from './VehicleDetailPage.module.css';
 
 function useCurrentListing() {
   const { id } = useParams<{ id: string }>();
-  return (id && listingsBySlug[id]) || sunseekerListing;
+  const slug = id && listingsBySlug[id] ? id : 'sunseeker-1950le';
+  const listing = (id && listingsBySlug[id]) || sunseekerListing;
+  return { listing, slug };
 }
 
 function VehicleDetailPageContent() {
   const { isOpen } = useAiMode();
   const { state: videoState, closeLightbox } = useVideoWalkthrough();
   const { currentPage } = useNavigation();
-  const listing = useCurrentListing();
-  const videoData = useMemo(() => generateVideoWalkthrough(listing), [listing]);
+  const { listing, slug } = useCurrentListing();
+  const videoData = useMemo(() => generateVideoWalkthrough(listing, slug), [listing, slug]);
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -187,7 +189,7 @@ function VehicleDetailPageContent() {
 }
 
 function VehicleDetailPageWrapper() {
-  const listing = useCurrentListing();
+  const { listing, slug } = useCurrentListing();
 
   return (
     <NavigationProvider>
@@ -195,7 +197,7 @@ function VehicleDetailPageWrapper() {
         <AiModeProvider listing={listing}>
           <NarrationProvider narrations={generateNarrations(listing)}>
             <DealKitProvider>
-              <VideoWalkthroughProvider data={generateVideoWalkthrough(listing)}>
+              <VideoWalkthroughProvider data={generateVideoWalkthrough(listing, slug)}>
                 <VehicleDetailPageContent />
               </VideoWalkthroughProvider>
             </DealKitProvider>

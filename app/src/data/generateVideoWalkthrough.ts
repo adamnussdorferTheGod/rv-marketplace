@@ -50,7 +50,39 @@ function shortName(listing: ListingData): string {
   return `${listing.make} ${listing.model}`.trim() || listing.title;
 }
 
-export function generateVideoWalkthrough(listing: ListingData): VideoWalkthroughData {
+// Listings that have TTS narration audio files in /assets/narration/{slug}.mp3
+const AUDIO_SLUGS = new Set([
+  'sunseeker-1950le',
+  'jay-flight-slx-380dqs',
+  'dutch-star-4020',
+  'sprinter-2500-awd',
+  'plateau-xltw',
+  'flying-cloud-23fbq',
+  'bambi-sport-16',
+  'riverstone-420re',
+  'sunseeker-3010dsf',
+  'fuzion-430',
+  'heritage-glen-378fl',
+  'scope-18m',
+  'freedom-traveler-a24',
+  'hideout-sport-175bh',
+  'allegro-open-road-32sa',
+  'blazen-275bcrxl',
+  'eagle-321rsts',
+  'wayfarer-25xpw',
+  'transit-250-camper',
+  'chateau-22e',
+  'express-1500-camper',
+  'reflection-100-27bh',
+  'basecamp-20x',
+  'tioga-26q',
+  'reflection-150-260rd',
+  'mirada-29fw',
+  'flagstaff-se-206stse',
+  'wayfarer-25qw',
+]);
+
+export function generateVideoWalkthrough(listing: ListingData, slug?: string): VideoWalkthroughData {
   const price = `$${listing.currentPrice.toLocaleString()}`;
   const ratingLabel = listing.dealRating.charAt(0).toUpperCase() + listing.dealRating.slice(1);
   const length = findSpec(listing, 'Length') ?? findSpec(listing, 'Overall Length');
@@ -329,6 +361,7 @@ export function generateVideoWalkthrough(listing: ListingData): VideoWalkthrough
     },
     acts,
     audio: {
+      ...(slug && AUDIO_SLUGS.has(slug) ? { audioUrl: `/assets/narration/${slug}.mp3` } : {}),
       segments: audioSegments,
     },
   };
