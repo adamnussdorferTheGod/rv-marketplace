@@ -13,7 +13,6 @@ export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterPro
     towFilterEnabled,
     openSetupModal,
     setTowFilterEnabled,
-    clearVehicle,
   } = useTowVehicle();
 
   // ── No vehicle saved: gradient prompt card ──
@@ -51,10 +50,11 @@ export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterPro
         </div>
         <button
           type="button"
-          className={styles.changeLink}
+          className={styles.editBtn}
           onClick={openSetupModal}
+          aria-label="Change vehicle"
         >
-          Change
+          <Icon name="edit" size={18} />
         </button>
       </div>
 
@@ -77,14 +77,6 @@ export default function SrpTowFilter({ matchCount, totalCount }: SrpTowFilterPro
       <p className={styles.matchCount}>
         <strong>{matchCount}</strong> of {totalCount} listings match
       </p>
-
-      <button
-        type="button"
-        className={styles.removeLink}
-        onClick={clearVehicle}
-      >
-        Remove vehicle
-      </button>
     </div>
   );
 }

@@ -78,16 +78,25 @@
   margin: 0;
 }
 
-.changeLink {
+.editBtn {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   background: none;
   border: none;
-  padding: 0;
-  font: var(--font-body-2);
-  color: var(--rv-primary);
+  border-radius: var(--radius-sm);
+  color: var(--rv-on-surface-variant);
   cursor: pointer;
-  text-decoration: underline;
-  white-space: nowrap;
+  padding: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.editBtn:hover {
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface);
 }
 
 /* ─── Toggle switch ──────────────────────────────────────────────── */
@@ -151,16 +160,3 @@
   color: #11a94e;
 }
 
-.removeLink {
-  background: none;
-  border: none;
-  padding: 0;
-  font: var(--font-body-2);
-  color: var(--rv-on-surface-variant);
-  cursor: pointer;
-  text-align: left;
-}
-
-.removeLink:hover {
-  color: #d8202e;
-}
