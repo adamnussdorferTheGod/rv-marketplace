@@ -1,12 +1,12 @@
 .card {
   background: var(--rv-surface);
   border: 1px solid var(--rv-border-low);
-  border-radius: var(--radius-12);
-  padding: var(--space-20) var(--space-20) var(--space-12);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
 }
 
 .heading {
-  font: var(--font-label-1);
+  font: var(--font-title-2);
   color: var(--rv-on-surface);
   margin: 0 0 var(--space-16);
 }
@@ -17,20 +17,20 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-16);
 }
 
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-8) 0;
+  height: 40px;
 }
 
 .label {
   display: flex;
   align-items: center;
-  gap: var(--space-10);
+  gap: var(--space-8);
   cursor: pointer;
   flex: 1;
   min-width: 0;
@@ -38,11 +38,11 @@
 
 .checkbox {
   appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 1.5px solid var(--rv-border-medium);
-  border-radius: var(--radius-4);
-  background: var(--rv-surface);
+  width: 24px;
+  height: 24px;
+  border: 1px solid #939598;
+  border-radius: 4px;
+  background: white;
   cursor: pointer;
   flex-shrink: 0;
   position: relative;
@@ -50,29 +50,29 @@
 }
 
 .checkbox:checked {
-  background: var(--rv-on-surface);
-  border-color: var(--rv-on-surface);
+  background: #252526;
+  border-color: #252526;
 }
 
 .checkbox:checked::after {
   content: '';
   position: absolute;
-  top: 3px;
-  left: 6px;
-  width: 5px;
-  height: 9px;
+  top: 4px;
+  left: 7px;
+  width: 6px;
+  height: 10px;
   border: solid white;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 
 .text {
-  font: var(--font-body-2);
+  font: var(--font-body-1);
   color: var(--rv-on-surface);
 }
 
 .count {
-  font: var(--font-body-2);
+  font: var(--font-body-1);
   color: var(--rv-on-surface-variant);
   flex-shrink: 0;
   margin-left: var(--space-8);
