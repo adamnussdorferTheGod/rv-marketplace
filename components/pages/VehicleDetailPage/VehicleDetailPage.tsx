@@ -29,6 +29,7 @@ import TowVehicleSetupPrompt from '@components/sections/TowVehicleSetup/TowVehic
 import { useTowVehicle } from '@components/sections/TowVehicleSetup/TowVehicleContext';
 import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
+import { PrequalProvider } from '@components/sections/DealerContactCard/PrequalContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import { NarrationProvider } from '@components/sections/PhotoNarration/NarrationContext';
 import { DealKitProvider } from '@components/sections/DealKit/DealKitContext';
@@ -43,7 +44,7 @@ import { sunseekerListing, listingsBySlug, allListings } from '../../../app/src/
 import { generateNarrations } from '../../../app/src/data/generateNarrations';
 import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
 import { generateDealKit } from '../../../app/src/data/generateDealKit';
-import VdpSectionNav from '@components/sections/VdpSectionNav/VdpSectionNav';
+// import VdpSectionNav from '@components/sections/VdpSectionNav/VdpSectionNav';
 import styles from './VehicleDetailPage.module.css';
 
 function useCurrentListing() {
@@ -115,7 +116,7 @@ function VehicleDetailPageContent() {
             </div>
           </div>
 
-          <VdpSectionNav />
+          {/* <VdpSectionNav /> */}
 
           {/* Two-column area */}
           <TwoColumnLayout
@@ -237,7 +238,9 @@ function VehicleDetailPageWrapper() {
           <NarrationProvider narrations={generateNarrations(listing)}>
             <DealKitProvider data={generateDealKit(listing)}>
               <VideoWalkthroughProvider data={generateVideoWalkthrough(listing, slug)}>
-                <VehicleDetailPageContent />
+                <PrequalProvider>
+                  <VehicleDetailPageContent />
+                </PrequalProvider>
               </VideoWalkthroughProvider>
             </DealKitProvider>
           </NarrationProvider>

@@ -1,3 +1,4 @@
+import { usePrequal } from '@components/sections/DealerContactCard/PrequalContext';
 import styles from './PaymentCalculator.module.css';
 
 function GreenCheck() {
@@ -14,6 +15,8 @@ function GreenCheck() {
 }
 
 export default function PrequalBanner() {
+  const { open } = usePrequal();
+
   return (
     <div className={styles.prequal}>
       <div className={styles.prequalPig}>
@@ -39,7 +42,7 @@ export default function PrequalBanner() {
           </div>
         </div>
       </div>
-      <button type="button" className={styles.prequalButton}>
+      <button type="button" className={styles.prequalButton} onClick={open}>
         Get prequalified
       </button>
     </div>

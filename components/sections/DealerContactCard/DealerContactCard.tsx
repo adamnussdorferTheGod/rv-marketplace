@@ -3,6 +3,7 @@ import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Icon from '@components/ui/Icon/Icon';
 import type { DealerInfo, ListingEngagement, ListingImage } from '../../../app/src/data/types';
 import PrequalificationModal from './PrequalificationModal';
+import { usePrequal } from './PrequalContext';
 import styles from './DealerContactCard.module.css';
 
 const tabOptions: { value: 'contact' | 'financing'; label: string }[] = [
@@ -25,7 +26,7 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [showPrequalModal, setShowPrequalModal] = useState(false);
+  const { isOpen: showPrequalModal, open: openPrequalModal, close: closePrequalModal } = usePrequal();
 
   return (
     <div className={styles.wrapper}>
@@ -74,7 +75,7 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
                 />
                 <button
                   className={styles.nextButton}
-                  onClick={() => setShowPrequalModal(true)}
+                  onClick={openPrequalModal}
                 >
                   Next
                 </button>
@@ -125,7 +126,7 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
 
       <PrequalificationModal
         isOpen={showPrequalModal}
-        onClose={() => setShowPrequalModal(false)}
+        onClose={closePrequalModal}
         firstName={firstName}
         lastName={lastName}
         email={email}
