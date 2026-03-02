@@ -8,6 +8,7 @@ import Icon from '@components/ui/Icon/Icon';
 import DonutChart from './DonutChart';
 import DownPaymentToggle from './DownPaymentToggle';
 import PrequalBanner from './PrequalBanner';
+import TradeInModal from './TradeInModal';
 import styles from './PaymentCalculator.module.css';
 
 interface PaymentCalculatorProps {
@@ -33,6 +34,8 @@ export default function PaymentCalculator({ currentPrice }: PaymentCalculatorPro
   const [downPaymentMode, setDownPaymentMode] = useState<'$' | '%'>('$');
   const [termMonths, setTermMonths] = useState(DEFAULT_TERM);
   const [apr, setApr] = useState('7');
+  const [tradeInValue, setTradeInValue] = useState(0);
+  const [tradeInModalOpen, setTradeInModalOpen] = useState(false);
 
   const downDollars =
     downPaymentMode === '%'
@@ -49,12 +52,12 @@ export default function PaymentCalculator({ currentPrice }: PaymentCalculatorPro
   const summary = useMemo(
     () =>
       calculateFinancingSummary({
-        outTheDoorTotal: price,
+        outTheDoorTotal: Math.max(0, price - tradeInValue),
         downPayment: downDollars,
         annualRate: parseFloat(apr) || 0,
         termMonths,
       }),
-    [price, downDollars, apr, termMonths],
+    [price, tradeInValue, downDollars, apr, termMonths],
   );
 
   const handleToggleMode = useCallback(
@@ -203,6 +206,39 @@ export default function PaymentCalculator({ currentPrice }: PaymentCalculatorPro
                 </div>
               </div>
             </div>
+
+            {/* Trade-in */}
+            {tradeInValue > 0 ? (
+              <div className={styles.tradeInActive}>
+                <button
+                  type="button"
+                  className={styles.tradeInInfo}
+                  onClick={() => setTradeInModalOpen(true)}
+                >
+                  <span className={styles.tradeInLabel}>Trade-in value</span>
+                  <span className={styles.tradeInValue}>
+                    -${formatCurrency(tradeInValue)}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className={styles.tradeInBtn}
+                  onClick={() => setTradeInValue(0)}
+                  aria-label="Remove trade-in"
+                >
+                  <Icon name="delete" size={20} />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className={styles.tradeInLink}
+                onClick={() => setTradeInModalOpen(true)}
+              >
+                <Icon name="add" size={18} />
+                Add a trade-in
+              </button>
+            )}
           </div>
         </div>
 
@@ -233,6 +269,13 @@ export default function PaymentCalculator({ currentPrice }: PaymentCalculatorPro
         *Excludes tax, title, tags, and other fees. for general informational
         purposes only. Dealer APR may vary.
       </p>
+
+      <TradeInModal
+        isOpen={tradeInModalOpen}
+        onClose={() => setTradeInModalOpen(false)}
+        onApply={setTradeInValue}
+        currentValue={tradeInValue}
+      />
     </section>
   );
 }

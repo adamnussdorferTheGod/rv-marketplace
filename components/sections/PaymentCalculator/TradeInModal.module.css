@@ -1,0 +1,237 @@
+/* ─── Backdrop ────────────────────────────────────────────────────── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+}
+
+/* ─── Modal ───────────────────────────────────────────────────────── */
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24) var(--space-24) var(--space-32);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-24);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--rv-on-surface);
+  opacity: 0.5;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 150ms;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+/* ─── Form ────────────────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.fieldRow {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.fieldRow > * {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ─── Field ───────────────────────────────────────────────────────── */
+
+.fieldWrap {
+  position: relative;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--rv-on-surface-variant);
+  margin-bottom: var(--space-4);
+}
+
+.fieldSelect,
+.fieldInput {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  font-size: 16px;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+  background: var(--color-white);
+  box-sizing: border-box;
+  transition: border-color 150ms;
+}
+
+.fieldSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.selectChevron {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  pointer-events: none;
+  color: var(--rv-on-surface-variant);
+  display: flex;
+  align-items: center;
+}
+
+.fieldInput:focus,
+.fieldSelect:focus {
+  outline: none;
+  border-color: var(--rv-on-surface);
+}
+
+/* ─── Estimate display ────────────────────────────────────────────── */
+
+.estimate {
+  background: rgba(56, 112, 233, 0.08);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.estimateLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+.estimateValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--rv-secondary);
+  margin: 0;
+}
+
+.estimateRange {
+  font-size: 13px;
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
+
+/* ─── Manual override ─────────────────────────────────────────────── */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  color: var(--rv-on-surface-variant);
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rv-border);
+}
+
+.manualInput {
+  position: relative;
+}
+
+.manualPrefix {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--rv-on-surface-variant);
+  pointer-events: none;
+}
+
+.manualInput .fieldInput {
+  padding-left: 28px;
+}
+
+/* ─── Submit ──────────────────────────────────────────────────────── */
+
+.submitBtn {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--rv-primary);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background 150ms;
+  margin-top: var(--space-8);
+}
+
+.submitBtn:hover {
+  background: var(--rv-primary-dark);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .modal {
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 95vh;
+    align-self: flex-end;
+  }
+
+  .fieldRow {
+    flex-direction: column;
+  }
+}

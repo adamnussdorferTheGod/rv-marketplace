@@ -388,6 +388,65 @@
   background: var(--color-gray-200);
 }
 
+/* ── Trade-in link ───────────────────────────────────────────────── */
+.tradeInLink {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  font: var(--font-label-3);
+  color: var(--rv-primary);
+  transition: color 150ms;
+}
+
+.tradeInLink:hover {
+  color: var(--rv-primary-dark);
+}
+
+/* ── Trade-in active display ─────────────────────────────────────── */
+.tradeInActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(56, 112, 233, 0.08);
+  border-radius: var(--radius-base);
+  padding: var(--space-12) var(--space-16);
+}
+
+.tradeInInfo {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tradeInLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.tradeInValue {
+  font: var(--font-body-1);
+  font-weight: 600;
+  color: var(--rv-secondary);
+}
+
+.tradeInBtn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rv-on-surface-variant);
+  transition: color 150ms;
+}
+
+.tradeInBtn:hover {
+  color: var(--rv-on-surface);
+}
+
 /* ── Disclaimer ──────────────────────────────────────────────────── */
 /* Figma: Label 3 (Medium 12px/16.8px), #6e7072 */
 .disclaimer {
