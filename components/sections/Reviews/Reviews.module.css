@@ -32,10 +32,10 @@
 
 /* Left side: rating badge + distribution */
 .ratingSide {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-32);
+  max-width: 320px;
 }
 
 .ratingRow {
@@ -102,9 +102,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
   gap: var(--space-4);
   padding-bottom: var(--space-4);
+  max-width: 280px;
 }
 
 .distributionRow {
@@ -125,6 +125,7 @@
   height: 10px;
   border-radius: 100px;
   background: var(--rv-border-low);
+  overflow: hidden;
 }
 
 .distributionFill {
