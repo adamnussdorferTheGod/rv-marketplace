@@ -328,7 +328,7 @@
 
 .prequalPig img {
   display: block;
-  width: 109px;
+  width: 150px;
   height: auto;
 }
 
@@ -375,7 +375,7 @@
   cursor: pointer;
   background: var(--rv-surface);
   border: var(--border-light) solid var(--rv-border);
-  border-radius: var(--radius-base);
+  border-radius: 100px;
   padding: var(--space-16) var(--space-32);
   font: var(--font-button-1);
   color: var(--rv-secondary);

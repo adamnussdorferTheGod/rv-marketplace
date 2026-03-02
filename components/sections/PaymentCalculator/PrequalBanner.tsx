@@ -20,8 +20,8 @@ export default function PrequalBanner() {
         <img
           src="/images/icons/pig-savings.png"
           alt=""
-          width="109"
-          height="85"
+          width="150"
+          height="117"
         />
       </div>
       <div className={styles.prequalContent}>
@@ -40,7 +40,7 @@ export default function PrequalBanner() {
         </div>
       </div>
       <button type="button" className={styles.prequalButton}>
-        Prequalified
+        Get prequalified
       </button>
     </div>
   );
