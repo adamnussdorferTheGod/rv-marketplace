@@ -49,6 +49,7 @@
   align-items: center;
   justify-content: flex-start;
   padding-top: 48px;
+  margin-top: auto;
 }
 
 .heading {
@@ -72,7 +73,7 @@
   border-radius: 16px;
   padding: 48px 32px 32px 32px;
   z-index: 10;
-  margin-top: auto;
+  margin-top: 60px; /* 40px visual gap to segmented toggle (toggle overhangs card by 20px) */
   box-shadow: 0px 2px 12px 2px rgba(0,0,0,0.08);
 }
 
