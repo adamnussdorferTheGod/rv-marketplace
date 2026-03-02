@@ -27,7 +27,7 @@ const CARDS_PER_ROW = 3;
 /** Positions in the flat card list where special cards replace listings (0-indexed) */
 const INLINE_AD_POSITION = 8;
 const SELL_RV_POSITION = 19;
-const SELL_RV_PROMO_POSITION = 20;
+const SELL_RV_PROMO_POSITION = 23;
 
 export default function ListingGrid({
   listings,
