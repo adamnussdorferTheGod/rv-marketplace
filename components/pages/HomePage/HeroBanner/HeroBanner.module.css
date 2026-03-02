@@ -128,8 +128,15 @@
   border-color: #006836;
 }
 
-/* Card open state — dropdown connects below */
+/* Card open state — fixed modal, dropdown connects below */
 .searchCardOpen {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 48px);
+  max-width: 900px;
+  margin-top: 0;
   box-shadow: none;
   border-radius: 16px 16px 0 0;
   padding: 48px 32px 16px 32px;
