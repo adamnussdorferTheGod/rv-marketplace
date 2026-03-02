@@ -27,6 +27,7 @@ const CARDS_PER_ROW = 3;
 /** Positions in the flat card list where special cards replace listings (0-indexed) */
 const INLINE_AD_POSITION = 8;
 const SELL_RV_POSITION = 19;
+const SELL_RV_PROMO_POSITION = 20;
 
 export default function ListingGrid({
   listings,
@@ -47,6 +48,7 @@ export default function ListingGrid({
   const specialSlots: Record<number, React.ReactNode> = {
     [INLINE_AD_POSITION]: <InlineAdCard key="inline-ad" />,
     [SELL_RV_POSITION]: <SellRvCard key="sell-rv" />,
+    [SELL_RV_PROMO_POSITION]: <SellRvPromoCard key="sell-rv-promo" />,
   };
 
   const cardNodes: React.ReactNode[] = [];
@@ -108,9 +110,6 @@ export default function ListingGrid({
       }
     }
   });
-
-  // Append the Figma promo card to the last row of the grid
-  elements.push(<SellRvPromoCard key="sell-rv-promo" />);
 
   return <div className={styles.grid}>{elements}</div>;
 }
