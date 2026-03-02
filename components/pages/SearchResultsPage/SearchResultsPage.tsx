@@ -137,7 +137,20 @@ export default function SearchResultsPage() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  // Capture scroll restore target during init (before effects overwrite sessionStorage)
+  const scrollRestoreRef = useRef<number>(0);
+  const [currentPage, setCurrentPage] = useState(() => {
+    try {
+      const stored = sessionStorage.getItem('srpState');
+      if (!stored) return 1;
+      const state = JSON.parse(stored);
+      if (state.url === window.location.pathname + window.location.search) {
+        scrollRestoreRef.current = state.scrollY || 0;
+        return state.page || 1;
+      }
+    } catch { /* ignore */ }
+    return 1;
+  });
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
   const [sharedListOpen, setSharedListOpen] = useState(false);
   const [compareListingCount, setCompareListingCount] = useState(0);
@@ -160,10 +173,51 @@ export default function SearchResultsPage() {
     saveSearch({ title, zipCode: filters.zipCode || '90210', resultCount: totalCount, url });
   }, [filters, totalCount, saveSearch]);
 
-  // Reset to page 1 whenever filters or sort change
+  // Reset to page 1 whenever filters or sort change (skip initial mount
+  // so we can restore the page from sessionStorage on return from VDP)
+  const isInitialMount = useRef(true);
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     setCurrentPage(1);
   }, [filters, sort]);
+
+  // Save SRP state (page + scroll) to sessionStorage for return navigation
+  useEffect(() => {
+    const save = () => {
+      sessionStorage.setItem('srpState', JSON.stringify({
+        url: window.location.pathname + window.location.search,
+        page: currentPage,
+        scrollY: window.scrollY,
+      }));
+    };
+    save();
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          save();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [currentPage]);
+
+  // Restore scroll position on mount (returning from VDP)
+  useEffect(() => {
+    const scrollY = scrollRestoreRef.current;
+    if (scrollY > 0) {
+      scrollRestoreRef.current = 0;
+      // Delay to run after AppLayout's scroll-to-top and AnimatePresence enter
+      const timer = setTimeout(() => window.scrollTo(0, scrollY), 100);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Pagination calculations (use tow-filtered results)
   const displayResults = towFilteredResults;

@@ -11,9 +11,20 @@ interface NavigationBarProps {
 }
 
 export default function NavigationBar({ resultPosition, totalResults, prevSlug, nextSlug }: NavigationBarProps) {
+  let backUrl = ROUTES.SEARCH;
+  try {
+    const stored = sessionStorage.getItem('srpState');
+    if (stored) {
+      const state = JSON.parse(stored);
+      if (typeof state.url === 'string' && state.url.startsWith('/search')) {
+        backUrl = state.url;
+      }
+    }
+  } catch { /* ignore */ }
+
   return (
     <nav className={styles.navigationBar}>
-      <Link to={ROUTES.SEARCH} className={styles.backLink}>
+      <Link to={backUrl} className={styles.backLink}>
         <Icon name="chevron_left" size={20} />
         Search results
       </Link>
