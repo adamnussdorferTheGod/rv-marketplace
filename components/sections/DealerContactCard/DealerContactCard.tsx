@@ -3,6 +3,7 @@ import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Icon from '@components/ui/Icon/Icon';
 import type { DealerInfo, ListingEngagement, ListingImage } from '../../../app/src/data/types';
 import PrequalificationModal from './PrequalificationModal';
+import SendEmailModal from './SendEmailModal';
 import { usePrequal } from './PrequalContext';
 import styles from './DealerContactCard.module.css';
 
@@ -27,6 +28,7 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const { isOpen: showPrequalModal, open: openPrequalModal, close: closePrequalModal } = usePrequal();
+  const [showEmailModal, setShowEmailModal] = useState(false);
 
   return (
     <div className={styles.wrapper}>
@@ -46,7 +48,7 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
                   placeholder="Comments"
                   rows={4}
                 />
-                <button className={styles.submitButton}>Send email</button>
+                <button className={styles.submitButton} onClick={() => setShowEmailModal(true)}>Send email</button>
               </>
             ) : (
               <div className={styles.financingForm}>
@@ -134,6 +136,12 @@ export default function DealerContactCard({ dealer, engagement, listing }: Deale
         vehicleImage={listing?.images[0]}
         vehicleCondition={listing?.condition ?? 'Used'}
         dealerName={dealer.name}
+      />
+
+      <SendEmailModal
+        isOpen={showEmailModal}
+        onClose={() => setShowEmailModal(false)}
+        vehicleTitle={listing?.title ?? ''}
       />
     </div>
   );

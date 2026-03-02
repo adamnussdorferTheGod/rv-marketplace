@@ -13,9 +13,9 @@ export interface RecentSearch {
 }
 
 const SEED_SEARCHES: RecentSearch[] = [
-  { id: 'seed-s1', title: 'Class C Motorhomes', zipCode: '90210', resultCount: 47, url: '/search?type=class-c', timestamp: Date.now() - 3600_000 },
-  { id: 'seed-s2', title: 'Travel Trailers Under $30k', zipCode: '90210', resultCount: 128, url: '/search?type=travel-trailer&maxPrice=30000', timestamp: Date.now() - 7200_000 },
-  { id: 'seed-s3', title: 'Airstream', zipCode: '90210', resultCount: 12, url: '/search?q=Airstream', timestamp: Date.now() - 10800_000 },
+  { id: 'seed-s1', title: 'Class C Motorhomes', zipCode: '90210', resultCount: 47, url: '/search?rvTypes=class-c', timestamp: Date.now() - 3600_000 },
+  { id: 'seed-s2', title: 'Travel Trailers Under $30k', zipCode: '90210', resultCount: 128, url: '/search?rvTypes=travel-trailer&priceMax=30000', timestamp: Date.now() - 7200_000 },
+  { id: 'seed-s3', title: 'Airstream', zipCode: '90210', resultCount: 12, url: '/search?makes=Airstream', timestamp: Date.now() - 10800_000 },
 ];
 
 // Notify React when storage changes within the same tab
