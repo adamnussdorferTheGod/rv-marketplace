@@ -128,19 +128,21 @@
   border-color: #006836;
 }
 
-/* Card open state — fixed modal, dropdown connects below */
+/* Card open state — fixed modal with dropdown inside */
 .searchCardOpen {
   position: fixed;
-  top: 100px;
+  top: 80px;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 48px);
   max-width: 900px;
   margin-top: 0;
-  box-shadow: none;
-  border-radius: 16px 16px 0 0;
-  padding: 48px 32px 16px 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  padding: 48px 32px 0 32px;
   z-index: 301;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 }
 
 /* Lightbox backdrop behind expanded search */
@@ -157,9 +159,9 @@
   to { opacity: 1; }
 }
 
-/* Dropdown — fixed position, anchored to search row bottom */
+/* Dropdown — flows inside card */
 .dropdownWrap {
-  z-index: 301;
+  width: 100%;
 }
 
 /* AI icon */
