@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'motion/react';
 import SegmentedButtons from '@components/ui/SegmentedButtons/SegmentedButtons';
 import Button from '@components/ui/Button/Button';
 import Select from '@components/ui/Select/Select';
@@ -26,11 +26,42 @@ const PLACEHOLDER_PHRASES = [
   'Try: Travel trailers near me',
 ];
 
-const HEADING_WORDS = ['Shop', 'the', 'largest', 'RV', 'marketplace'];
+const RV_COUNT_BASE = 234191;
+const RV_COUNT_TICK_MS = 4200; // new listing every ~4.2s
 
 const PHRASE_INTERVAL = 3500; // ms between phrase swaps
 
 /* ── hooks ── */
+
+/** Animated counter that smoothly rolls through digits. */
+function AnimatedCount({ target }: { target: number }) {
+  const motionVal = useMotionValue(target - 200);
+  const spring = useSpring(motionVal, { stiffness: 40, damping: 20 });
+  const display = useTransform(spring, (v) => Math.round(v).toLocaleString());
+  const [text, setText] = useState(target.toLocaleString());
+
+  useEffect(() => {
+    motionVal.set(target);
+  }, [target, motionVal]);
+
+  useEffect(() => {
+    return display.on('change', (v) => setText(v));
+  }, [display]);
+
+  return <>{text}</>;
+}
+
+/** Fake-dynamic RV count that ticks up over time. */
+function useRvCount(base: number, tickMs: number) {
+  const [count, setCount] = useState(base);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount((c) => c + Math.floor(Math.random() * 80) + 20);
+    }, tickMs);
+    return () => clearInterval(id);
+  }, [tickMs]);
+  return count;
+}
 
 /** Cycles through phrases on a timer. Returns current index. */
 function usePhraseCycle(count: number, interval: number, active: boolean) {
@@ -135,6 +166,7 @@ export default function HeroBanner() {
 
   const showPlaceholder = !searchQuery && !isDropdownOpen;
   const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
+  const rvCount = useRvCount(RV_COUNT_BASE, RV_COUNT_TICK_MS);
   const reducedMotion = usePrefersReducedMotion();
   const animateEntrance = !reducedMotion;
   const isMobile = useIsMobile();
@@ -275,9 +307,9 @@ export default function HeroBanner() {
       {/* ── Heading with per-word stagger reveal ── */}
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>
-          {HEADING_WORDS.map((word, i) => (
+          {['Shop', '234,191', 'new', '&', 'used', 'RVs'].map((word, i) => (
             <motion.span
-              key={word}
+              key={`heading-${i}`}
               style={{ display: 'inline-block' }}
               initial={animateEntrance ? { opacity: 0, y: 20, filter: 'blur(4px)' } : false}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
