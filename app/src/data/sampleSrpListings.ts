@@ -2,6 +2,15 @@ import type { ListingImage, ListingData } from './types.ts';
 import type { SRPListing, RVType, FuelType } from './srpTypes.ts';
 import { allListings } from './scrapedListings.ts';
 
+function sortPhotosExteriorFirst(images: ListingImage[]): ListingImage[] {
+  if (images.length <= 1) return images;
+  const hero = images[0];
+  const rest = images.slice(1);
+  const ext = rest.filter(img => img.alt.toLowerCase().includes('exterior'));
+  const other = rest.filter(img => !img.alt.toLowerCase().includes('exterior'));
+  return [hero, ...ext, ...other];
+}
+
 // ─── Internal data tables ────────────────────────────────────────────
 
 interface ModelDef {
@@ -551,7 +560,7 @@ function toSRPListing(slug: string, data: ListingData): SRPListing {
     originalPrice: data.originalPrice !== data.currentPrice ? data.originalPrice : null,
     monthlyPayment: data.monthlyPayment ?? estimateMonthly(data.currentPrice),
     dealRating: data.dealRating,
-    photos: data.images,
+    photos: sortPhotosExteriorFirst(data.images),
     tagBadge: sanitizeTag(data.tagText),
     isFeatured: FEATURED_SLUGS.has(slug),
     isSponsored: false,

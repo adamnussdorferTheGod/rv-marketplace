@@ -27,7 +27,7 @@ export const sunseekerListing: ListingData = {
     { url: `${IMG_SUNSEEKER}/6934d41107d51a99bb0a31c4.webp`, alt: '2026 Forest River Sunseeker 1950LE exterior driver side profile' },
     { url: `${IMG_SUNSEEKER}/6934d411cadc3d8805029a86.webp`, alt: '2026 Forest River Sunseeker 1950LE exterior rear passenger side' },
     { url: `${IMG_SUNSEEKER}/6934d4124bd08237730e8663.webp`, alt: '2026 Forest River Sunseeker 1950LE exterior rear view with power awning' },
-    { url: `${IMG_SUNSEEKER}/6934d412d1b438573c046b01.webp`, alt: '2026 Forest River Sunseeker 1950LE pass-through basement storage compartment' },
+    { url: `${IMG_SUNSEEKER}/6934d412d1b438573c046b01.webp`, alt: '2026 Forest River Sunseeker 1950LE exterior pass-through basement storage compartment' },
     { url: `${IMG_SUNSEEKER}/6934d413dbe5535d290d9b43.webp`, alt: '2026 Forest River Sunseeker 1950LE solar charge controller panel' },
     { url: `${IMG_SUNSEEKER}/6934d414d8e1dc0d7d0761f9.webp`, alt: '2026 Forest River Sunseeker 1950LE interior kitchen and dinette overview' },
     { url: `${IMG_SUNSEEKER}/6934d414f59ad145810fa882.webp`, alt: '2026 Forest River Sunseeker 1950LE kitchen detail with marble-look countertops' },
@@ -251,8 +251,8 @@ export const jayFlightListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_JAYFLIGHT}/69736dbdf100879bc90354d4.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS exterior front three-quarter view at dealership' },
-    { url: `${IMG_JAYFLIGHT}/6999a50208bcb853f505df99.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS exterior driver side profile showing triple slides' },
-    { url: `${IMG_JAYFLIGHT}/6999a502194d09dc8900200d.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS exterior rear view with spare tire' },
+    { url: `${IMG_JAYFLIGHT}/6999a50208bcb853f505df99.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS interior bedroom with queen bed and overhead cabinets' },
+    { url: `${IMG_JAYFLIGHT}/6999a502194d09dc8900200d.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS interior solar controller panel' },
     { url: `${IMG_JAYFLIGHT}/6999a5025601a9402c01d227.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS interior living room with fireplace' },
     { url: `${IMG_JAYFLIGHT}/6999a5026c5abce24104b61a.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS kitchen with island and stainless appliances' },
     { url: `${IMG_JAYFLIGHT}/6999a5029b729e309f036b63.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS master bedroom with queen bed and wardrobe' },
@@ -260,7 +260,7 @@ export const jayFlightListing: ListingData = {
     { url: `${IMG_JAYFLIGHT}/6999a502e5c602d135043378.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS bathroom with walk-in shower' },
     { url: `${IMG_JAYFLIGHT}/6999a502eb2299d7aa03f62e.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS dinette and entertainment center' },
     { url: `${IMG_JAYFLIGHT}/6999a502ecef999d15051634.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS exterior pass-through storage' },
-    { url: `${IMG_JAYFLIGHT}/6999a502ee50698efe0373c5.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS outdoor kitchen compartment' },
+    { url: `${IMG_JAYFLIGHT}/6999a502ee50698efe0373c5.webp`, alt: '2025 Jayco Jay Flight SLX 380DQS interior stove and oven range with glass cooktop' },
   ],
   tagText: 'Price drop',
   totalPhotoCount: 11,
@@ -708,7 +708,7 @@ export const sprinterListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_SPRINTER}/69a20be82c6950a39a017612.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD exterior side profile with pop-top raised' },
-    { url: `${IMG_SPRINTER}/69a20bb93c14d7d65a0043a2.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD exterior front three-quarter view' },
+    { url: `${IMG_SPRINTER}/69a20bb93c14d7d65a0043a2.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD interior dinette lounge with fold-out table' },
     { url: `${IMG_SPRINTER}/69a20bce9f7892ab660fed52.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD exterior rear with open doors showing interior layout' },
     { url: `${IMG_SPRINTER}/69a20c12f23f8550f808efc2.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD interior galley kitchen with butcher block counter' },
     { url: `${IMG_SPRINTER}/69a20c2c0bae5d7136020cd2.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD rear sleeping area with platform bed' },
@@ -716,7 +716,7 @@ export const sprinterListing: ListingData = {
     { url: `${IMG_SPRINTER}/69a20c4ebd17bdde6a079482.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD driver cockpit with MBUX infotainment' },
     { url: `${IMG_SPRINTER}/69a20c654c06872f6102d722.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD pop-top sleeping loft detail' },
     { url: `${IMG_SPRINTER}/69a20c6c54ed4fadc6064ba2.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD underbody lithium battery bank' },
-    { url: `${IMG_SPRINTER}/69a20c772c936cc80e017292.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD exterior awning and side entry' },
+    { url: `${IMG_SPRINTER}/69a20c772c936cc80e017292.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD exterior rear with kayak and bike rack' },
     { url: `${IMG_SPRINTER}/69a20cd87284e06d4a038a12.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD rear storage garage area' },
     { url: `${IMG_SPRINTER}/69a20cdf77596740300deb62.webp`, alt: '2025 Mercedes-Benz Sprinter 2500 AWD roof-mounted solar panel array' },
   ],
@@ -934,8 +934,8 @@ export const plateauListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_PLATEAU}/693b60ea9d69b3e59201c085.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior front three-quarter view in silver' },
-    { url: `${IMG_PLATEAU}/693b5fd9eca0889733040852.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior driver side profile' },
-    { url: `${IMG_PLATEAU}/693b5fdd3229ed24b5036192.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior rear view with open doors' },
+    { url: `${IMG_PLATEAU}/693b5fd9eca0889733040852.webp`, alt: '2025 Pleasure-Way Plateau XLTW interior galley kitchen with countertop and control panel' },
+    { url: `${IMG_PLATEAU}/693b5fdd3229ed24b5036192.webp`, alt: '2025 Pleasure-Way Plateau XLTW interior kitchen counter and sink close-up' },
     { url: `${IMG_PLATEAU}/693b5ff5be8d96079b030792.webp`, alt: '2025 Pleasure-Way Plateau XLTW interior forward view showing captain chairs swiveled' },
     { url: `${IMG_PLATEAU}/693b6013a0b707309605c2d4.webp`, alt: '2025 Pleasure-Way Plateau XLTW galley kitchen with solid surface countertops' },
     { url: `${IMG_PLATEAU}/693b602638a2301ccc093b12.webp`, alt: '2025 Pleasure-Way Plateau XLTW rear power sofa in lounge configuration' },
@@ -943,12 +943,12 @@ export const plateauListing: ListingData = {
     { url: `${IMG_PLATEAU}/693b60340cf56021f905cec2.webp`, alt: '2025 Pleasure-Way Plateau XLTW wet bath with toilet and shower' },
     { url: `${IMG_PLATEAU}/693b603c43e9cdedc60c60a3.webp`, alt: '2025 Pleasure-Way Plateau XLTW overhead cabinetry and LED lighting detail' },
     { url: `${IMG_PLATEAU}/693b605d6d52a4babb09d282.webp`, alt: '2025 Pleasure-Way Plateau XLTW entertainment center with smart TV' },
-    { url: `${IMG_PLATEAU}/693b607d187243e0d3080f42.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior awning extended at campsite' },
+    { url: `${IMG_PLATEAU}/693b607d187243e0d3080f42.webp`, alt: '2025 Pleasure-Way Plateau XLTW interior driver cockpit and steering wheel' },
     { url: `${IMG_PLATEAU}/693b608a84ab899307023832.webp`, alt: '2025 Pleasure-Way Plateau XLTW underbody lithium battery and electrical system' },
     { url: `${IMG_PLATEAU}/693b60f88e3505ddea060f94.webp`, alt: '2025 Pleasure-Way Plateau XLTW roof-mounted solar panels and A/C unit' },
-    { url: `${IMG_PLATEAU}/693b616600316a08d2074512.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior storage compartments open' },
+    { url: `${IMG_PLATEAU}/693b616600316a08d2074512.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior front grille at dealership' },
     { url: `${IMG_PLATEAU}/693b6176ff765a1b540ff102.webp`, alt: '2025 Pleasure-Way Plateau XLTW cockpit dash with Mercedes MBUX system' },
-    { url: `${IMG_PLATEAU}/693b617c8fe721b16d0f9183.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior passenger side at dusk with lights on' },
+    { url: `${IMG_PLATEAU}/693b617c8fe721b16d0f9183.webp`, alt: '2025 Pleasure-Way Plateau XLTW exterior Pleasure-Way badge detail' },
   ],
   tagText: 'Luxury',
   totalPhotoCount: 16,
@@ -1171,10 +1171,10 @@ export const flyingCloudListing: ListingData = {
     { url: `${IMG_FLYINGCLOUD}/698abd158e138a4ac9028bb9.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen dinette with ultraleather cushions' },
     { url: `${IMG_FLYINGCLOUD}/698abd158e138a4ac9028bbb.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen rear queen bedroom with memory foam mattress' },
     { url: `${IMG_FLYINGCLOUD}/698abd158e138a4ac9028bbd.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen bathroom with shower and porcelain toilet' },
-    { url: `${IMG_FLYINGCLOUD}/698abd158e138a4ac9028bbe.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen exterior detail of curbside awning and entry step' },
+    { url: `${IMG_FLYINGCLOUD}/698abd158e138a4ac9028bbe.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen interior bathroom with toilet and cabinetry' },
     { url: `${IMG_FLYINGCLOUD}/698abd168e138a4ac9028bc2.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen overhead storage and birch wood cabinetry' },
-    { url: `${IMG_FLYINGCLOUD}/698abd168e138a4ac9028bc5.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen exterior pass-through storage with LED lighting' },
-    { url: `${IMG_FLYINGCLOUD}/698abd168e138a4ac9028bcb.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen hitch and A-frame detail' },
+    { url: `${IMG_FLYINGCLOUD}/698abd168e138a4ac9028bc5.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen interior dinette booth with leather cushions' },
+    { url: `${IMG_FLYINGCLOUD}/698abd168e138a4ac9028bcb.webp`, alt: '2025 Airstream Flying Cloud 23FB Queen interior hallway looking toward rear' },
   ],
   tagText: 'Price drop',
   totalPhotoCount: 12,
@@ -1405,7 +1405,7 @@ export const bambiListing: ListingData = {
     { url: `${IMG_BAMBI}/698eb4f988971505be30b450.webp`, alt: '2025 Airstream Bambi Sport 16 galley kitchen with two-burner cooktop and sink' },
     { url: `${IMG_BAMBI}/698eb4f988971505be30b455.webp`, alt: '2025 Airstream Bambi Sport 16 rear wet bath with shower and cassette toilet' },
     { url: `${IMG_BAMBI}/698eb4fa88971505be30b458.webp`, alt: '2025 Airstream Bambi Sport 16 overhead storage cabinets and panoramic window' },
-    { url: `${IMG_BAMBI}/698eb4fa88971505be30b459.webp`, alt: '2025 Airstream Bambi Sport 16 exterior hitch and A-frame with power tongue jack' },
+    { url: `${IMG_BAMBI}/698eb4fa88971505be30b459.webp`, alt: '2025 Airstream Bambi Sport 16 interior looking forward with TV and dinette' },
   ],
   tagText: 'New arrival',
   totalPhotoCount: 7,
@@ -1862,7 +1862,7 @@ const sunseeker3010Listing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_sunseeker3010}/69736bd11e40d0bc5b02239c.webp`, alt: '2026 Forest River Sunseeker 3010DSF exterior front three-quarter view' },
-    { url: `${IMG_sunseeker3010}/697ca3b92feddd495e7a4297.webp`, alt: '2026 Forest River Sunseeker 3010DSF exterior driver side profile' },
+    { url: `${IMG_sunseeker3010}/697ca3b92feddd495e7a4297.webp`, alt: '2026 Forest River Sunseeker 3010DSF interior kitchen with marble countertop and sink' },
     { url: `${IMG_sunseeker3010}/698dc5c7fbf78e02570bd1dc.webp`, alt: '2026 Forest River Sunseeker 3010DSF interior living area with slide-out dinette' },
     { url: `${IMG_sunseeker3010}/6991bb2587d4831d9e32e037.webp`, alt: '2026 Forest River Sunseeker 3010DSF kitchen with stainless appliances and island' },
     { url: `${IMG_sunseeker3010}/6991bb2587d4831d9e32e038.webp`, alt: '2026 Forest River Sunseeker 3010DSF master bedroom with queen bed' },
@@ -1870,7 +1870,7 @@ const sunseeker3010Listing: ListingData = {
     { url: `${IMG_sunseeker3010}/69945d9701cfa17aed3d0e20.webp`, alt: '2026 Forest River Sunseeker 3010DSF bathroom with shower and vanity' },
     { url: `${IMG_sunseeker3010}/699d9871c4f2fc77b15d89e6.webp`, alt: '2026 Forest River Sunseeker 3010DSF cockpit with Ford dash and backup camera' },
     { url: `${IMG_sunseeker3010}/699eea653cfc8225f913dc7e.webp`, alt: '2026 Forest River Sunseeker 3010DSF exterior rear with power awning extended' },
-    { url: `${IMG_sunseeker3010}/699eea653cfc8225f913dc7f.webp`, alt: '2026 Forest River Sunseeker 3010DSF pass-through basement storage compartment' },
+    { url: `${IMG_sunseeker3010}/699eea653cfc8225f913dc7f.webp`, alt: '2026 Forest River Sunseeker 3010DSF exterior pass-through basement storage compartment' },
   ],
   tagText: 'New arrival',
   totalPhotoCount: 10,
@@ -2087,15 +2087,15 @@ const fuzionListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_fuzion}/697cad5f2cc60b5bfa06af9f.webp`, alt: '2024 Keystone Fuzion 430 exterior front three-quarter view on dealer lot' },
-    { url: `${IMG_fuzion}/697cad7a25ba4c726908d203.webp`, alt: '2024 Keystone Fuzion 430 exterior driver side showing slide-outs' },
-    { url: `${IMG_fuzion}/697cad7a349a5db8e003e104.webp`, alt: '2024 Keystone Fuzion 430 rear ramp door open revealing garage area' },
+    { url: `${IMG_fuzion}/697cad7a25ba4c726908d203.webp`, alt: '2024 Keystone Fuzion 430 interior kitchen with stainless refrigerator and theater seating' },
+    { url: `${IMG_fuzion}/697cad7a349a5db8e003e104.webp`, alt: '2024 Keystone Fuzion 430 exterior rear ramp door open revealing garage area' },
     { url: `${IMG_fuzion}/697cad7a7ca9d47519084d1b.webp`, alt: '2024 Keystone Fuzion 430 interior living room with opposing slides' },
     { url: `${IMG_fuzion}/697cad7a9b33bc824c09a912.webp`, alt: '2024 Keystone Fuzion 430 kitchen with large center island and pantry' },
     { url: `${IMG_fuzion}/697cad7ae0c28869e600a278.webp`, alt: '2024 Keystone Fuzion 430 loft area above garage with bonus sleeping' },
     { url: `${IMG_fuzion}/697cad7ae1cf901ed505e15e.webp`, alt: '2024 Keystone Fuzion 430 master bedroom with king bed and storage' },
     { url: `${IMG_fuzion}/697cad7ae743daa60d0c9a1a.webp`, alt: '2024 Keystone Fuzion 430 bathroom with walk-in shower' },
     { url: `${IMG_fuzion}/697cad7af69d7064260e5cc6.webp`, alt: '2024 Keystone Fuzion 430 garage area with tie-downs and fuel station' },
-    { url: `${IMG_fuzion}/69970e2df0dca431835d5e8e.webp`, alt: '2024 Keystone Fuzion 430 exterior rear with patio deck railing system' },
+    { url: `${IMG_fuzion}/69970e2df0dca431835d5e8e.webp`, alt: '2024 Keystone Fuzion 430 interior master bedroom with king bed and wardrobe' },
   ],
   tagText: 'Price drop',
   totalPhotoCount: 10,
@@ -2330,7 +2330,7 @@ const heritageGlenListing: ListingData = {
     { url: `${IMG_heritageGlen}/69a22ba0abb617b64f033b22.webp`, alt: '2025 Forest River Heritage Glen 378FL bathroom with tub-shower combo' },
     { url: `${IMG_heritageGlen}/69a22bbd3b29cbf46f018372.webp`, alt: '2025 Forest River Heritage Glen 378FL second bathroom with vanity' },
     { url: `${IMG_heritageGlen}/69a22bc9cdd70bb23300e5c2.webp`, alt: '2025 Forest River Heritage Glen 378FL exterior awning with LED lights at dusk' },
-    { url: `${IMG_heritageGlen}/69a22bd48fef2b81e607ea92.webp`, alt: '2025 Forest River Heritage Glen 378FL rear cap and ladder detail' },
+    { url: `${IMG_heritageGlen}/69a22bd48fef2b81e607ea92.webp`, alt: '2025 Forest River Heritage Glen 378FL exterior rear cap and ladder detail' },
     { url: `${IMG_heritageGlen}/69a22bd866bf7293ce0fdc42.webp`, alt: '2025 Forest River Heritage Glen 378FL underbelly storage and utility hookups' },
     { url: `${IMG_heritageGlen}/69a22bd9dc413524840a97e2.webp`, alt: '2025 Forest River Heritage Glen 378FL interior panoramic view with slides extended' },
   ],
@@ -2559,13 +2559,13 @@ const scopeListing: ListingData = {
     { url: `${IMG_scope}/693a7ad1920b271659158afa.webp`, alt: '2025 Thor Scope 18M kitchen area with two-burner cooktop and sink' },
     { url: `${IMG_scope}/693a7ad1920b271659158afd.webp`, alt: '2025 Thor Scope 18M rear queen bed with privacy curtain' },
     { url: `${IMG_scope}/693a7ad1920b271659158afe.webp`, alt: '2025 Thor Scope 18M wet bath with toilet and shower combination' },
-    { url: `${IMG_scope}/693a7ad1920b271659158aff.webp`, alt: '2025 Thor Scope 18M exterior entry door and grab handle' },
+    { url: `${IMG_scope}/693a7ad1920b271659158aff.webp`, alt: '2025 Thor Scope 18M interior living area with dinette and swivel chair' },
     { url: `${IMG_scope}/693a7ad1920b271659158b00.webp`, alt: '2025 Thor Scope 18M tongue and hitch detail with propane tanks' },
-    { url: `${IMG_scope}/693a7ad1920b271659158b01.webp`, alt: '2025 Thor Scope 18M exterior rear with spare tire and bumper' },
+    { url: `${IMG_scope}/693a7ad1920b271659158b01.webp`, alt: '2025 Thor Scope 18M interior kitchenette with refrigerator and sink' },
     { url: `${IMG_scope}/693a7ad1920b271659158b03.webp`, alt: '2025 Thor Scope 18M underside and axle detail' },
     { url: `${IMG_scope}/693a7ad1920b271659158b04.webp`, alt: '2025 Thor Scope 18M interior cabinetry and overhead storage' },
     { url: `${IMG_scope}/693a7ad1920b271659158b05.webp`, alt: '2025 Thor Scope 18M dinette converted to sleeping area' },
-    { url: `${IMG_scope}/693a7ad1920b271659158b08.webp`, alt: '2025 Thor Scope 18M exterior passenger side showing windows' },
+    { url: `${IMG_scope}/693a7ad1920b271659158b08.webp`, alt: '2025 Thor Scope 18M interior wet bath with toilet and shower' },
     { url: `${IMG_scope}/69736845f8b770ad1d001275.webp`, alt: '2025 Thor Scope 18M roof detail with A/C unit and solar prep' },
   ],
   tagText: 'New arrival',
@@ -2794,8 +2794,8 @@ const freedomTravelerListing: ListingData = {
     { url: `${IMG_freedomTraveler}/69872cabc9c0a12bb6118691.webp`, alt: '2025 Thor Freedom Traveler A24 rear bedroom with queen bed' },
     { url: `${IMG_freedomTraveler}/69872cacc9c0a12bb6118692.webp`, alt: '2025 Thor Freedom Traveler A24 bathroom with shower and vanity' },
     { url: `${IMG_freedomTraveler}/69872cadc9c0a12bb6118693.webp`, alt: '2025 Thor Freedom Traveler A24 cockpit with dash and driver area' },
-    { url: `${IMG_freedomTraveler}/6996ff476382912a3405b6b8.webp`, alt: '2025 Thor Freedom Traveler A24 exterior rear showing storage compartments' },
-    { url: `${IMG_freedomTraveler}/69a2dc25d6cbbc045768fef7.webp`, alt: '2025 Thor Freedom Traveler A24 exterior passenger side profile on lot' },
+    { url: `${IMG_freedomTraveler}/6996ff476382912a3405b6b8.webp`, alt: '2025 Thor Freedom Traveler A24 interior living area with kitchen counter and sofa' },
+    { url: `${IMG_freedomTraveler}/69a2dc25d6cbbc045768fef7.webp`, alt: '2025 Thor Freedom Traveler A24 interior cab area with captain chairs and overhead bunk' },
   ],
   tagText: 'Compact Class A',
   totalPhotoCount: 9,
@@ -3013,13 +3013,13 @@ const hideoutListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_hideout}/697379bff04761f33b06e7f6.webp`, alt: '2025 Keystone Hideout Sport 175BH exterior front three-quarter view showing compact travel trailer profile' },
-    { url: `${IMG_hideout}/6981f3e2fb770e66dc1cf6bd.webp`, alt: '2025 Keystone Hideout Sport 175BH exterior driver side with awning' },
+    { url: `${IMG_hideout}/6981f3e2fb770e66dc1cf6bd.webp`, alt: '2025 Keystone Hideout Sport 175BH interior dinette kitchen area with booth seating' },
     { url: `${IMG_hideout}/6981f3e2fb770e66dc1cf6be.webp`, alt: '2025 Keystone Hideout Sport 175BH interior overview with dinette and bunks' },
     { url: `${IMG_hideout}/6981f3e2fb770e66dc1cf6bf.webp`, alt: '2025 Keystone Hideout Sport 175BH rear bunk beds with ladder' },
     { url: `${IMG_hideout}/6981f3e3fb770e66dc1cf6c0.webp`, alt: '2025 Keystone Hideout Sport 175BH kitchen area with range and microwave' },
     { url: `${IMG_hideout}/6981f3e3fb770e66dc1cf6c1.webp`, alt: '2025 Keystone Hideout Sport 175BH front queen bed with overhead cabinets' },
     { url: `${IMG_hideout}/6981f3e6fb770e66dc1cf6c7.webp`, alt: '2025 Keystone Hideout Sport 175BH wet bath with shower and toilet' },
-    { url: `${IMG_hideout}/6981f3e7fb770e66dc1cf6ca.webp`, alt: '2025 Keystone Hideout Sport 175BH exterior rear with bumper and spare tire' },
+    { url: `${IMG_hideout}/6981f3e7fb770e66dc1cf6ca.webp`, alt: '2025 Keystone Hideout Sport 175BH interior bedroom with mattress and TV mount' },
   ],
   tagText: 'Budget friendly',
   totalPhotoCount: 8,
@@ -3251,8 +3251,8 @@ export const allegroListing: ListingData = {
     { url: `${IMG_ALLEGRO}/695d61b8adb6a5baa406ba42.webp`, alt: '2025 Tiffin Allegro Open Road 32SA bedroom wardrobe and storage' },
     { url: `${IMG_ALLEGRO}/695d61bec4d45d781a0e2212.webp`, alt: '2025 Tiffin Allegro Open Road 32SA bathroom with porcelain toilet and glass shower' },
     { url: `${IMG_ALLEGRO}/695d61c11fc35eabb2099c72.webp`, alt: '2025 Tiffin Allegro Open Road 32SA full-body paint detail close-up' },
-    { url: `${IMG_ALLEGRO}/695d61c78757c7d3260cc903.webp`, alt: '2025 Tiffin Allegro Open Road 32SA exterior storage bay open showing compartments' },
-    { url: `${IMG_ALLEGRO}/695d61cdab08ed2fa8078bc2.webp`, alt: '2025 Tiffin Allegro Open Road 32SA powered patio awning extended with LED lights' },
+    { url: `${IMG_ALLEGRO}/695d61c78757c7d3260cc903.webp`, alt: '2025 Tiffin Allegro Open Road 32SA interior living room with leather sofa and cockpit' },
+    { url: `${IMG_ALLEGRO}/695d61cdab08ed2fa8078bc2.webp`, alt: '2025 Tiffin Allegro Open Road 32SA interior master bedroom with king bed and wardrobe' },
   ],
   tagText: 'Premium',
   totalPhotoCount: 13,
@@ -3475,7 +3475,7 @@ export const blazenListing: ListingData = {
     { url: `${IMG_BLAZEN}/69857b3054e565517208b8fe.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL kitchen galley with stainless appliances' },
     { url: `${IMG_BLAZEN}/69857b3054e565517208b8ff.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL bedroom with queen bed and overhead storage' },
     { url: `${IMG_BLAZEN}/69857b3154e565517208b900.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL bathroom with radius shower' },
-    { url: `${IMG_BLAZEN}/69857b3254e565517208b903.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL exterior patio side with awning deployed' },
+    { url: `${IMG_BLAZEN}/69857b3254e565517208b903.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL interior bathroom with frosted glass shower' },
     { url: `${IMG_BLAZEN}/69857b3354e565517208b905.webp`, alt: '2025 Pacific Coachworks Blazen 275BCRXL front pass-through storage compartment' },
   ],
   tagText: 'Toy hauler',
@@ -3696,8 +3696,8 @@ export const eagleListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_EAGLE}/699da1a15433d1da0f00bde7.webp`, alt: '2025 Jayco Eagle 321RSTS exterior front three-quarter view on dealer lot' },
-    { url: `${IMG_EAGLE}/699da1d0195849654d0d9d25.webp`, alt: '2025 Jayco Eagle 321RSTS exterior passenger side with triple slides extended' },
-    { url: `${IMG_EAGLE}/699da1d029ea826c870d0ba7.webp`, alt: '2025 Jayco Eagle 321RSTS exterior rear with spare tire and bumper storage' },
+    { url: `${IMG_EAGLE}/699da1d0195849654d0d9d25.webp`, alt: '2025 Jayco Eagle 321RSTS interior kitchen with white cabinets and gold hardware' },
+    { url: `${IMG_EAGLE}/699da1d029ea826c870d0ba7.webp`, alt: '2025 Jayco Eagle 321RSTS interior master bedroom with plaid bedding and wardrobe' },
     { url: `${IMG_EAGLE}/699da1d02b7797156009c72f.webp`, alt: '2025 Jayco Eagle 321RSTS living room with theater seating and fireplace' },
     { url: `${IMG_EAGLE}/699da1d0323d619ed00ed8c7.webp`, alt: '2025 Jayco Eagle 321RSTS kitchen island with farmhouse sink and pendant lights' },
     { url: `${IMG_EAGLE}/699da1d036759cff940a0ac8.webp`, alt: '2025 Jayco Eagle 321RSTS free-standing dinette table and chairs' },
@@ -3705,7 +3705,7 @@ export const eagleListing: ListingData = {
     { url: `${IMG_EAGLE}/699da1d0e248e25b62025369.webp`, alt: '2025 Jayco Eagle 321RSTS bedroom closet with washer/dryer prep' },
     { url: `${IMG_EAGLE}/699da1d0e90e46a9050bb346.webp`, alt: '2025 Jayco Eagle 321RSTS bathroom with residential shower and skylight' },
     { url: `${IMG_EAGLE}/699da1d0eb9d5efa1907e336.webp`, alt: '2025 Jayco Eagle 321RSTS outdoor kitchen with mini fridge and griddle' },
-    { url: `${IMG_EAGLE}/699da1d0ec4e7fb933011fa8.webp`, alt: '2025 Jayco Eagle 321RSTS power awning extended over campsite' },
+    { url: `${IMG_EAGLE}/699da1d0ec4e7fb933011fa8.webp`, alt: '2025 Jayco Eagle 321RSTS interior kitchen gas range with range hood' },
   ],
   tagText: 'Popular model',
   totalPhotoCount: 11,
@@ -3933,7 +3933,7 @@ export const wayfarerListing: ListingData = {
     { url: `${IMG_WAYFARER}/69854b2068065e7a1e00e882.webp`, alt: '2024 Tiffin Wayfarer 25XPW Murphy bed deployed showing queen mattress' },
     { url: `${IMG_WAYFARER}/69854b20f39e71419a0a8782.webp`, alt: '2024 Tiffin Wayfarer 25XPW wet bath with shower, toilet, and vanity' },
     { url: `${IMG_WAYFARER}/69854b216c9a0b4a500daeb2.webp`, alt: '2024 Tiffin Wayfarer 25XPW rear storage area with expandable flex space' },
-    { url: `${IMG_WAYFARER}/69854b22ad21f330bf014862.webp`, alt: '2024 Tiffin Wayfarer 25XPW exterior storage compartments open' },
+    { url: `${IMG_WAYFARER}/69854b22ad21f330bf014862.webp`, alt: '2024 Tiffin Wayfarer 25XPW interior cab and living area with murphy bed stowed' },
     { url: `${IMG_WAYFARER}/69854b23a8f45bee500cb232.webp`, alt: '2024 Tiffin Wayfarer 25XPW roof-mounted solar panel and AC unit' },
     { url: `${IMG_WAYFARER}/69854b245d8a7a9f54038ef2.webp`, alt: '2024 Tiffin Wayfarer 25XPW interior overhead cabinetry and LED lighting' },
     { url: `${IMG_WAYFARER}/69854b26ed42609eed0d4a52.webp`, alt: '2024 Tiffin Wayfarer 25XPW Mercedes-Benz 3.0L turbo diesel engine badge' },
@@ -4152,15 +4152,15 @@ export const globetrotterListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_GLOBETROTTER}/698cc250190b8f51030adb8b.webp`, alt: '2020 Airstream Globetrotter 27FB Twin exterior front three-quarter view showing signature aluminum body' },
-    { url: `${IMG_GLOBETROTTER}/698cc2542b27caf1bc056458.webp`, alt: '2020 Airstream Globetrotter 27FB Twin exterior passenger side profile with curved aluminum panels' },
-    { url: `${IMG_GLOBETROTTER}/698cc2546d1a64a14002ee47.webp`, alt: '2020 Airstream Globetrotter 27FB Twin rear with tail lights and bumper hitch' },
+    { url: `${IMG_GLOBETROTTER}/698cc2542b27caf1bc056458.webp`, alt: '2020 Airstream Globetrotter 27FB Twin interior dinette kitchen with blue bench seating' },
+    { url: `${IMG_GLOBETROTTER}/698cc2546d1a64a14002ee47.webp`, alt: '2020 Airstream Globetrotter 27FB Twin interior kitchen area with TV and blue upholstery' },
     { url: `${IMG_GLOBETROTTER}/698cc25477810351d60ff4a6.webp`, alt: '2020 Airstream Globetrotter 27FB Twin interior living area with European-inspired cabinetry' },
     { url: `${IMG_GLOBETROTTER}/698cc254b884a885310e6a93.webp`, alt: '2020 Airstream Globetrotter 27FB Twin kitchen with Corian counters and panoramic windows' },
     { url: `${IMG_GLOBETROTTER}/698cc254dffbadc6f2035786.webp`, alt: '2020 Airstream Globetrotter 27FB Twin twin bed configuration in rear' },
     { url: `${IMG_GLOBETROTTER}/698cc254ea0194d9b20dcaa3.webp`, alt: '2020 Airstream Globetrotter 27FB Twin bathroom with porcelain toilet and shower' },
     { url: `${IMG_GLOBETROTTER}/698cc2554de6b7c96a0e35d5.webp`, alt: '2020 Airstream Globetrotter 27FB Twin front lounge area with convertible sofa' },
     { url: `${IMG_GLOBETROTTER}/698cc255a00ef542dd06d952.webp`, alt: '2020 Airstream Globetrotter 27FB Twin overhead storage and reading lights' },
-    { url: `${IMG_GLOBETROTTER}/698cc25636fa28f0cc0143f2.webp`, alt: '2020 Airstream Globetrotter 27FB Twin exterior campsite setup with awning extended' },
+    { url: `${IMG_GLOBETROTTER}/698cc25636fa28f0cc0143f2.webp`, alt: '2020 Airstream Globetrotter 27FB Twin interior rear bedroom with twin beds' },
   ],
   tagText: 'Premium Airstream',
   totalPhotoCount: 10,
@@ -4393,7 +4393,7 @@ export const transitListing: ListingData = {
     { url: `${IMG_TRANSIT}/68b3a2ec8daf09711335ecff.webp`, alt: '2018 Ford Transit 250 camper van interior living area with bench seating' },
     { url: `${IMG_TRANSIT}/68b3a2efab03a34711394d90.webp`, alt: '2018 Ford Transit 250 camper van solar panel array on roof' },
     { url: `${IMG_TRANSIT}/68b3b6c7b3ef3c682843a5ae.webp`, alt: '2018 Ford Transit 250 camper van electrical system and lithium battery bank' },
-    { url: `${IMG_TRANSIT}/68b3e3bf33aed1313629f6b2.webp`, alt: '2018 Ford Transit 250 camper van campsite setup with side awning' },
+    { url: `${IMG_TRANSIT}/68b3e3bf33aed1313629f6b2.webp`, alt: '2018 Ford Transit 250 camper van exterior campsite setup with side awning' },
   ],
   tagText: 'Custom van',
   totalPhotoCount: 9,
@@ -4613,14 +4613,14 @@ export const chateauListing: ListingData = {
   // Photos
   images: [
     { url: `${IMG_CHATEAU}/6973707cb1dc7d351104884d.webp`, alt: '2024 Thor Chateau 22E exterior front three-quarter view on dealer lot' },
-    { url: `${IMG_CHATEAU}/698f1c166b5b592f97696d69.webp`, alt: '2024 Thor Chateau 22E exterior driver side showing compact profile' },
-    { url: `${IMG_CHATEAU}/698f1c176b5b592f97696d6a.webp`, alt: '2024 Thor Chateau 22E exterior rear with backup camera and ladder' },
+    { url: `${IMG_CHATEAU}/698f1c166b5b592f97696d69.webp`, alt: '2024 Thor Chateau 22E interior kitchen dinette with marble counters and booth seating' },
+    { url: `${IMG_CHATEAU}/698f1c176b5b592f97696d6a.webp`, alt: '2024 Thor Chateau 22E interior dinette booth close-up with marble table' },
     { url: `${IMG_CHATEAU}/698f1c176b5b592f97696d6b.webp`, alt: '2024 Thor Chateau 22E cockpit with Ford dash and swivel captain chairs' },
     { url: `${IMG_CHATEAU}/698f1c186b5b592f97696d6c.webp`, alt: '2024 Thor Chateau 22E interior living area and overcab sleeping bunk' },
     { url: `${IMG_CHATEAU}/698f1c186b5b592f97696d6d.webp`, alt: '2024 Thor Chateau 22E kitchen with three-burner stove and microwave' },
     { url: `${IMG_CHATEAU}/698f1c196b5b592f97696d6e.webp`, alt: '2024 Thor Chateau 22E rear corner bed with privacy curtain' },
     { url: `${IMG_CHATEAU}/698f1c196b5b592f97696d6f.webp`, alt: '2024 Thor Chateau 22E bathroom with toilet, vanity, and shower' },
-    { url: `${IMG_CHATEAU}/698f1c1d6b5b592f97696d73.webp`, alt: '2024 Thor Chateau 22E exterior storage compartment and power awning' },
+    { url: `${IMG_CHATEAU}/698f1c1d6b5b592f97696d73.webp`, alt: '2024 Thor Chateau 22E interior kitchen with microwave stove and oven' },
   ],
   tagText: 'Low miles',
   totalPhotoCount: 9,
@@ -4839,8 +4839,8 @@ export const expressListing: ListingData = {
   location: 'San Diego, CA',
 
   images: [
-    { url: `${IMG_EXPRESS}/61b2da39aa488356005052b2.webp`, alt: '2014 Chevrolet Express 1500 camper van exterior front three-quarter view in white' },
-    { url: `${IMG_EXPRESS}/61b2da53fe6f6250140939e0.webp`, alt: '2014 Chevrolet Express 1500 camper van exterior driver side profile' },
+    { url: `${IMG_EXPRESS}/61b2da39aa488356005052b2.webp`, alt: '2014 Chevrolet Express 1500 camper van interior kitchenette through open side doors' },
+    { url: `${IMG_EXPRESS}/61b2da53fe6f6250140939e0.webp`, alt: '2014 Chevrolet Express 1500 camper van interior rear dinette with orange table' },
     { url: `${IMG_EXPRESS}/61b2da68cd0cf01b0767bd38.webp`, alt: '2014 Chevrolet Express 1500 interior living area with bed platform and storage' },
     { url: `${IMG_EXPRESS}/61b2da6ae7261979cc0974f8.webp`, alt: '2014 Chevrolet Express 1500 interior galley kitchen with sink and countertop' },
     { url: `${IMG_EXPRESS}/61b2da6dc08b685ec628eae5.webp`, alt: '2014 Chevrolet Express 1500 rear cargo area converted to sleeping quarters' },
@@ -5049,10 +5049,10 @@ export const reflection100Listing: ListingData = {
     { url: `${IMG_REFLECTION100}/6916dd04e5d9b3f80f098a78.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH master bedroom with queen bed' },
     { url: `${IMG_REFLECTION100}/6916dd1bfd977bda2d09a172.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH bunkhouse with double bunks' },
     { url: `${IMG_REFLECTION100}/6916dd4f418abe99800baebc.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH bathroom with shower and vanity' },
-    { url: `${IMG_REFLECTION100}/6916ddb4a1b2191c7701e4ea.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH exterior awning extended at campsite' },
+    { url: `${IMG_REFLECTION100}/6916ddb4a1b2191c7701e4ea.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH interior dinette booth with gray upholstery' },
     { url: `${IMG_REFLECTION100}/6916ddcf4a1fd777bc0451e7.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH pass-through storage compartment' },
     { url: `${IMG_REFLECTION100}/6916dde935a4fb508407f3a2.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH kitchen detail with farmhouse sink' },
-    { url: `${IMG_REFLECTION100}/6916de037eee7154da0b7c9a.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH exterior rear with spare tire' },
+    { url: `${IMG_REFLECTION100}/6916de037eee7154da0b7c9a.webp`, alt: '2026 Grand Design Reflection 100 Series 27BH interior entertainment center with wall-mounted TV' },
   ],
   tagText: 'New arrival',
   totalPhotoCount: 11,
@@ -5254,7 +5254,7 @@ export const basecampListing: ListingData = {
 
   images: [
     { url: `${IMG_BASECAMP}/6914ef1e3aa862b8be06f25e.webp`, alt: '2021 Airstream Basecamp 20X exterior front three-quarter view showing iconic silver shell' },
-    { url: `${IMG_BASECAMP}/6914ef1ec48d8828f90bac7a.webp`, alt: '2021 Airstream Basecamp 20X rear hatch open showing garage area and off-road tires' },
+    { url: `${IMG_BASECAMP}/6914ef1ec48d8828f90bac7a.webp`, alt: '2021 Airstream Basecamp 20X exterior rear hatch open showing garage area and off-road tires' },
     { url: `${IMG_BASECAMP}/6914ef1f890a8e4f6e0a5126.webp`, alt: '2021 Airstream Basecamp 20X interior living area with convertible dinette' },
     { url: `${IMG_BASECAMP}/6914ef1f9feec30cb103c337.webp`, alt: '2021 Airstream Basecamp 20X compact kitchen with stainless countertops' },
     { url: `${IMG_BASECAMP}/6914ef1fe5deb18957075bda.webp`, alt: '2021 Airstream Basecamp 20X wet bath with skylight and modern fixtures' },
@@ -5464,7 +5464,7 @@ export const tiogaListing: ListingData = {
     { url: `${IMG_TIOGA}/697ee0fb69b56a06a03d3697.webp`, alt: '2005 Fleetwood Tioga 26Q interior kitchen with oak cabinetry' },
     { url: `${IMG_TIOGA}/697ee0fb69b56a06a03d3699.webp`, alt: '2005 Fleetwood Tioga 26Q interior dinette and living area' },
     { url: `${IMG_TIOGA}/697ee0fb69b56a06a03d369a.webp`, alt: '2005 Fleetwood Tioga 26Q rear bedroom with queen bed' },
-    { url: `${IMG_TIOGA}/697ee0fb69b56a06a03d369c.webp`, alt: '2005 Fleetwood Tioga 26Q exterior rear showing ladder and spare tire' },
+    { url: `${IMG_TIOGA}/697ee0fb69b56a06a03d369c.webp`, alt: '2005 Fleetwood Tioga 26Q interior full kitchen and living area with cab-over bed' },
   ],
   tagText: 'Budget friendly',
   totalPhotoCount: 7,
@@ -5666,7 +5666,7 @@ export const reflection150Listing: ListingData = {
     { url: `${IMG_REFLECTION150}/69859260d0aa681bf459b07d.webp`, alt: '2026 Grand Design Reflection 150 260RD kitchen with residential appliances' },
     { url: `${IMG_REFLECTION150}/69859260d0aa681bf459b07e.webp`, alt: '2026 Grand Design Reflection 150 260RD master bedroom with king bed' },
     { url: `${IMG_REFLECTION150}/69859260d0aa681bf459b07f.webp`, alt: '2026 Grand Design Reflection 150 260RD bathroom with separate shower and vanity' },
-    { url: `${IMG_REFLECTION150}/69859261d0aa681bf459b085.webp`, alt: '2026 Grand Design Reflection 150 260RD exterior rear with dual awnings' },
+    { url: `${IMG_REFLECTION150}/69859261d0aa681bf459b085.webp`, alt: '2026 Grand Design Reflection 150 260RD interior kitchen island with drawers open' },
   ],
   tagText: 'New arrival',
   totalPhotoCount: 6,
@@ -5875,9 +5875,9 @@ export const miradaListing: ListingData = {
     { url: `${IMG_MIRADA}/6916dd69cd1fc3258802a3f6.webp`, alt: '2026 Coachmen Mirada 29FW master bedroom with king bed and overhead cabinets' },
     { url: `${IMG_MIRADA}/6916dd7ee053917c7700a545.webp`, alt: '2026 Coachmen Mirada 29FW bathroom with glass-enclosed shower' },
     { url: `${IMG_MIRADA}/6916ddbc59c3c065250a932b.webp`, alt: '2026 Coachmen Mirada 29FW pass-through basement storage fully open' },
-    { url: `${IMG_MIRADA}/6916ddcfb4a7a7e2d1080c7b.webp`, alt: '2026 Coachmen Mirada 29FW exterior rear with tow hitch and backup camera' },
-    { url: `${IMG_MIRADA}/6916ddf0ad3f1370020282ed.webp`, alt: '2026 Coachmen Mirada 29FW patio awning extended with LED lighting' },
-    { url: `${IMG_MIRADA}/6916de7f55ab12d88e02cf54.webp`, alt: '2026 Coachmen Mirada 29FW exterior front showing power leveling jacks' },
+    { url: `${IMG_MIRADA}/6916ddcfb4a7a7e2d1080c7b.webp`, alt: '2026 Coachmen Mirada 29FW interior bathroom vanity with sink and blue accent wall' },
+    { url: `${IMG_MIRADA}/6916ddf0ad3f1370020282ed.webp`, alt: '2026 Coachmen Mirada 29FW interior bathroom shower with marble surround' },
+    { url: `${IMG_MIRADA}/6916de7f55ab12d88e02cf54.webp`, alt: '2026 Coachmen Mirada 29FW interior bedroom with queen bed and overhead cabinets' },
   ],
   tagText: 'New arrival',
   totalPhotoCount: 11,
@@ -6285,7 +6285,7 @@ export const wayfarerQwListing: ListingData = {
     { url: `${IMG_WAYFARER_QW}/699ee9f5c7ddfa4ed54a2897.webp`, alt: '2019 Tiffin Wayfarer 25QW kitchen with solid surface counters and residential appliances' },
     { url: `${IMG_WAYFARER_QW}/699ee9f6c7ddfa4ed54a2898.webp`, alt: '2019 Tiffin Wayfarer 25QW rear bedroom with queen bed and wardrobe storage' },
     { url: `${IMG_WAYFARER_QW}/699ee9f9c7ddfa4ed54a289f.webp`, alt: '2019 Tiffin Wayfarer 25QW bathroom with glass-enclosed shower and vanity' },
-    { url: `${IMG_WAYFARER_QW}/699ee9f9c7ddfa4ed54a28a0.webp`, alt: '2019 Tiffin Wayfarer 25QW exterior rear with Mercedes badge and tow hitch' },
+    { url: `${IMG_WAYFARER_QW}/699ee9f9c7ddfa4ed54a28a0.webp`, alt: '2019 Tiffin Wayfarer 25QW interior bathroom with shower toilet and vanity' },
   ],
   tagText: 'Mercedes diesel',
   totalPhotoCount: 7,
@@ -6501,19 +6501,35 @@ export const allListings: { slug: string; data: ListingData }[] = [
   { slug: 'wayfarer-25qw', data: wayfarerQwListing },
 ];
 
+// ─── Image sorting helper ────────────────────────────────────────────
+// Puts exterior photos first (after hero at [0]). Used in cloneListing and listingsBySlug.
+function sortExteriorFirst(images: ListingData['images']): ListingData['images'] {
+  if (images.length <= 1) return images;
+  const hero = images[0];
+  const rest = images.slice(1);
+  const ext = rest.filter(img => img.alt.toLowerCase().includes('exterior'));
+  const other = rest.filter(img => !img.alt.toLowerCase().includes('exterior'));
+  return [hero, ...ext, ...other];
+}
+
 // ─── Duplicate listings (different price + rotated gallery) ──────────
 
 function cloneListing(data: ListingData, priceMultiplier: number, imageRotation: number): ListingData {
-  // Always keep the base listing's first image as the hero (verified exterior).
-  // Only rotate the remaining gallery images so VDP galleries look different.
-  const hero = data.images[0];
-  const gallery = data.images.slice(1);
-  const rotation = imageRotation % (gallery.length || 1);
-  if (rotation > 0) {
-    const moved = gallery.splice(0, rotation);
-    gallery.push(...moved);
+  // Pick a unique exterior photo as hero so SRP cards look different for same-model listings.
+  // Then sort remaining images: exterior first, interior after.
+  const exteriorIndices = data.images
+    .map((img, i) => (img.alt.toLowerCase().includes('exterior') ? i : -1))
+    .filter(i => i >= 0);
+
+  let reordered: typeof data.images;
+  if (exteriorIndices.length > 1) {
+    const heroIdx = exteriorIndices[imageRotation % exteriorIndices.length];
+    const hero = data.images[heroIdx];
+    const rest = data.images.filter((_, i) => i !== heroIdx);
+    reordered = sortExteriorFirst([hero, ...rest]);
+  } else {
+    reordered = sortExteriorFirst([...data.images]);
   }
-  const rotated = [hero, ...gallery];
 
   const newPrice = Math.round(data.currentPrice * priceMultiplier / 100) * 100;
   const newOriginal = Math.round(data.originalPrice * priceMultiplier / 100) * 100;
@@ -6521,7 +6537,7 @@ function cloneListing(data: ListingData, priceMultiplier: number, imageRotation:
 
   return {
     ...data,
-    images: rotated,
+    images: reordered,
     currentPrice: newPrice,
     originalPrice: newOriginal,
     monthlyPayment: monthlyEstimate,
@@ -6571,6 +6587,8 @@ const duplicatedListings: { slug: string; data: ListingData }[] = allListings.fl
 
 allListings.push(...duplicatedListings);
 
+// ─── Export with exterior-first image sorting baked in ───────────────
+// Sort images at export time (not via mutation) so every consumer gets exterior-first order.
 export const listingsBySlug: Record<string, ListingData> = Object.fromEntries(
-  allListings.map(l => [l.slug, l.data])
+  allListings.map(l => [l.slug, { ...l.data, images: sortExteriorFirst(l.data.images) }])
 );
