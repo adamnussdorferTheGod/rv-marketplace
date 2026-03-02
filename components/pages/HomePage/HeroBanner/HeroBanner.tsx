@@ -307,7 +307,7 @@ export default function HeroBanner() {
       {/* ── Heading with per-word stagger reveal ── */}
       <div className={styles.heroContent}>
         <h1 className={styles.heading}>
-          {['Shop', '234,191', 'new', '&', 'used', 'RVs'].map((word, i) => (
+          {['Shop', '234,191', 'used', '&', 'new', 'RVs'].map((word, i) => (
             <motion.span
               key={`heading-${i}`}
               style={{ display: 'inline-block' }}

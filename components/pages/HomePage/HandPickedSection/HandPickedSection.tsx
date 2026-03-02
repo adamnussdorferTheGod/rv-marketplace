@@ -4,28 +4,50 @@ import Icon from '../../../ui/Icon/Icon';
 import HomepageListingCard from '../HomepageListingCard/HomepageListingCard';
 import styles from './HandPickedSection.module.css';
 
-type FilterKey = 'Recommended' | 'Used' | 'Nearest' | 'Price drop' | 'Dealer' | 'Private seller' | 'New';
+type FilterKey = 'Recommended' | 'Nearest' | 'Price drop' | 'Dealer' | 'Private seller' | 'Sleeps 6+' | 'Under $30K' | 'New' | 'Used';
 
 const FILTER_CHIPS: FilterKey[] = [
   'Recommended',
-  'Used',
   'Nearest',
   'Price drop',
   'Dealer',
   'Private seller',
+  'Sleeps 6+',
+  'Under $30K',
   'New',
+  'Used',
 ];
 
 const PAGE_SIZE = 5;
 
+function seededShuffle(arr: HomepageListingData[], seed: number): HomepageListingData[] {
+  const copy = [...arr];
+  let s = seed;
+  for (let i = copy.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0x7fffffff;
+    const j = s % (i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function hashString(str: string): number {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(h);
+}
+
 function applyFilter(listings: HomepageListingData[], filter: FilterKey): HomepageListingData[] {
+  const seed = hashString(filter);
   switch (filter) {
     case 'Recommended':
       return listings;
     case 'Used':
-      return listings.filter((l) => l.condition === 'used');
+      return seededShuffle(listings.filter((l) => l.condition === 'used'), seed);
     case 'New':
-      return listings.filter((l) => l.condition === 'new');
+      return seededShuffle(listings.filter((l) => l.condition === 'new'), seed);
     case 'Nearest':
       return [...listings].sort((a, b) => {
         const distA = a.dealer.distanceMiles ?? Infinity;
@@ -33,11 +55,15 @@ function applyFilter(listings: HomepageListingData[], filter: FilterKey): Homepa
         return distA - distB;
       });
     case 'Price drop':
-      return listings.filter((l) => l.dealRating === 'great' || l.dealRating === 'good');
+      return seededShuffle(listings.filter((l) => l.dealRating === 'great' || l.dealRating === 'good'), seed);
     case 'Dealer':
-      return listings;
+      return seededShuffle(listings, seed);
     case 'Private seller':
-      return listings;
+      return seededShuffle(listings, seed + 1);
+    case 'Sleeps 6+':
+      return seededShuffle(listings, seed + 2);
+    case 'Under $30K':
+      return seededShuffle(listings.filter((l) => l.currentPrice < 30000), seed);
   }
 }
 
