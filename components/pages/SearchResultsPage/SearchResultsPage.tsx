@@ -34,6 +34,24 @@ import SharedListPanel from '../../sections/CoShopping/SharedListPanel/SharedLis
 import { useCoShopping } from '../../sections/CoShopping/CoShoppingContext';
 import styles from './SearchResultsPage.module.css';
 
+const NUDGE_CHIPS = [
+  'Recommended',
+  'Nearest',
+  'Price drop',
+  'Dealer',
+  'Private seller',
+  'Sleeps 6+',
+  'Under $30K',
+  'New',
+  'Used',
+  'Pet friendly',
+  'Towable',
+  'Under 30 ft',
+  'Bunkhouse',
+  'Solar ready',
+  'Outdoor kitchen',
+] as const;
+
 const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
 const FULL_SUBTITLE =
   'Browse thousands of new and used RVs for sale from trusted dealers and private sellers across the country. ' +
@@ -153,6 +171,8 @@ export default function SearchResultsPage() {
   });
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
   const [sharedListOpen, setSharedListOpen] = useState(false);
+  const [activeNudge, setActiveNudge] = useState<string | null>(null);
+  const nudgeRowRef = useRef<HTMLDivElement>(null);
   const [compareListingCount, setCompareListingCount] = useState(0);
   const isMobile = useIsMobile();
 
@@ -348,6 +368,43 @@ export default function SearchResultsPage() {
             <ListingGrid
               listings={paginatedResults}
               towVerdicts={towVerdicts}
+              afterRow4={
+                <>
+                <h3 className={styles.nudgeHeading}>Looking for something else?</h3>
+                <div className={styles.nudgeWrap}>
+                  <button
+                    type="button"
+                    className={styles.nudgeArrow}
+                    onClick={() => nudgeRowRef.current?.scrollBy({ left: -200, behavior: 'smooth' })}
+                    aria-label="Scroll left"
+                  >
+                    <Icon name="chevron_left" size={20} />
+                  </button>
+                  <div className={styles.nudgeFadeLeft} />
+                  <div className={styles.nudgeRow} ref={nudgeRowRef}>
+                    {NUDGE_CHIPS.map((chip) => (
+                      <button
+                        key={chip}
+                        type="button"
+                        className={`${styles.nudgeChip} ${activeNudge === chip ? styles.nudgeChipActive : ''}`}
+                        onClick={() => setActiveNudge(activeNudge === chip ? null : chip)}
+                      >
+                        {chip}
+                      </button>
+                    ))}
+                  </div>
+                  <div className={styles.nudgeFade} />
+                  <button
+                    type="button"
+                    className={styles.nudgeArrow}
+                    onClick={() => nudgeRowRef.current?.scrollBy({ left: 200, behavior: 'smooth' })}
+                    aria-label="Scroll right"
+                  >
+                    <Icon name="chevron_right" size={20} />
+                  </button>
+                </div>
+                </>
+              }
             />
 
             {nearMiss && nearMiss.listings.length > 0 && (

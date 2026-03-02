@@ -11,6 +11,7 @@ import styles from './ListingGrid.module.css';
 interface ListingGridProps {
   listings: SRPListing[];
   towVerdicts?: Map<string, TowVerdict>;
+  afterRow4?: React.ReactNode;
 }
 
 /**
@@ -32,6 +33,7 @@ const SELL_RV_PROMO_POSITION = 23;
 export default function ListingGrid({
   listings,
   towVerdicts,
+  afterRow4,
 }: ListingGridProps) {
   if (listings.length === 0) {
     return (
@@ -86,6 +88,15 @@ export default function ListingGrid({
     row.forEach((node) => {
       elements.push(node);
     });
+
+    // Custom content after row 4
+    if (rowNumber === 4 && afterRow4) {
+      elements.push(
+        <div key="after-row-4" className={styles.interleavedSection}>
+          {afterRow4}
+        </div>,
+      );
+    }
 
     // Check if interleaved content goes after this row
     const interleavedType = INTERLEAVED_CONTENT[rowNumber];

@@ -111,6 +111,103 @@
   flex-shrink: 0;
 }
 
+/* ─── Nudge chips ────────────────────────────────────────────────── */
+
+.nudgeHeading {
+  font: var(--font-headline-3);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-16);
+}
+
+.nudgeWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-24);
+}
+
+.nudgeRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+  min-width: 0;
+}
+
+.nudgeRow::-webkit-scrollbar {
+  display: none;
+}
+
+.nudgeFadeLeft {
+  width: 80px;
+  flex-shrink: 0;
+  background: linear-gradient(to left, transparent, var(--rv-surface));
+  margin-right: -80px;
+  pointer-events: none;
+  z-index: 1;
+  align-self: stretch;
+}
+
+.nudgeFade {
+  width: 80px;
+  flex-shrink: 0;
+  background: linear-gradient(to right, transparent, var(--rv-surface));
+  margin-left: -80px;
+  pointer-events: none;
+  z-index: 1;
+  align-self: stretch;
+}
+
+.nudgeArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--rv-border);
+  background: var(--rv-surface);
+  cursor: pointer;
+  color: var(--rv-on-surface);
+  padding: 0;
+  transition: border-color 0.15s ease;
+}
+
+.nudgeArrow:hover {
+  border-color: var(--rv-border-high);
+}
+
+.nudgeChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--rv-surface-variant);
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.nudgeChip:hover {
+  background: var(--color-gray-300);
+}
+
+.nudgeChipActive {
+  background: var(--rv-secondary);
+  color: var(--rv-on-secondary);
+}
+
+.nudgeChipActive:hover {
+  background: var(--rv-secondary);
+}
+
 /* ─── Featured listings title override ───────────────────────────── */
 
 .featuredTitle {
@@ -348,5 +445,20 @@
 @media (max-width: 767px) {
   .content {
     padding: var(--space-8) 20px;
+  }
+
+  .nudgeArrow,
+  .nudgeFade,
+  .nudgeFadeLeft {
+    display: none;
+  }
+
+  .nudgeRow {
+    gap: var(--space-8);
+  }
+
+  .nudgeChip {
+    padding: var(--space-8) var(--space-12);
+    font-size: 13px;
   }
 }
