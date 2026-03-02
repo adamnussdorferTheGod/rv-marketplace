@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Icon from '@components/ui/Icon/Icon';
 import Select from '@components/ui/Select/Select';
+import ContentGate from '@components/pages/DestinationDetailPage/ContentGate';
 import { getStateTaxFees, STATE_LIST } from '../../../app/src/data/stateTaxDatabase';
 import { calculateSalesTax, calculateDmvFees } from '../../../app/src/data/stateTaxCalculations';
 import styles from './TotalCostPanel.module.css';
@@ -62,6 +63,7 @@ export default function TotalCostPanel({
 }: TotalCostPanelProps) {
   const defaultState = extractStateCode(location);
   const [selectedState, setSelectedState] = useState(defaultState);
+  const [gated, setGated] = useState(true);
 
   // Reset state when location changes
   useEffect(() => {
@@ -146,49 +148,57 @@ export default function TotalCostPanel({
         </div>
 
         <div className={styles.body}>
-          <div className={styles.stateRow}>
-            <span>Based on registering in</span>
-            <Select
-              className={styles.stateSelect}
-              options={STATE_LIST.map((s) => ({ value: s.code, label: s.name }))}
-              value={selectedState}
-              onChange={setSelectedState}
-            />
-          </div>
-
-          <div className={styles.totalAmount}>{formatDollars(costs.total)}</div>
-
-          <div className={styles.barContainer}>
-            <div className={styles.bar}>
-              <div
-                className={styles.barSegment}
-                style={{ width: `${segments.listing}%`, background: BAR_COLORS.listing }}
-              />
-              <div
-                className={styles.barSegment}
-                style={{ width: `${segments.taxes}%`, background: BAR_COLORS.taxes }}
-              />
-              <div
-                className={styles.barSegment}
-                style={{ width: `${segments.dmv}%`, background: BAR_COLORS.dmv }}
+          <ContentGate
+            gated={gated}
+            onAuthenticate={() => setGated(false)}
+            heading="Sign in to see the full breakdown"
+            subtext="Create a free account to unlock detailed tax and fee estimates for any state."
+            contained
+          >
+            <div className={styles.stateRow}>
+              <span>Based on registering in</span>
+              <Select
+                className={styles.stateSelect}
+                options={STATE_LIST.map((s) => ({ value: s.code, label: s.name }))}
+                value={selectedState}
+                onChange={setSelectedState}
               />
             </div>
-          </div>
 
-          <div className={styles.breakdown}>
-            {breakdownItems.map((item) => (
-              <div key={item.label} className={styles.breakdownItem}>
-                <span className={styles.dot} style={{ background: item.color }} />
-                <span className={styles.breakdownLabel}>{item.label}</span>
-                <span className={styles.breakdownValue}>{formatDollars(item.value)}</span>
+            <div className={styles.totalAmount}>{formatDollars(costs.total)}</div>
+
+            <div className={styles.barContainer}>
+              <div className={styles.bar}>
+                <div
+                  className={styles.barSegment}
+                  style={{ width: `${segments.listing}%`, background: BAR_COLORS.listing }}
+                />
+                <div
+                  className={styles.barSegment}
+                  style={{ width: `${segments.taxes}%`, background: BAR_COLORS.taxes }}
+                />
+                <div
+                  className={styles.barSegment}
+                  style={{ width: `${segments.dmv}%`, background: BAR_COLORS.dmv }}
+                />
               </div>
-            ))}
-          </div>
+            </div>
 
-          <p className={styles.disclaimer}>
-            Estimated taxes and fees are based on typical rates and may vary.
-            Contact your local DMV and tax authority for exact amounts.
-          </p>
+            <div className={styles.breakdown}>
+              {breakdownItems.map((item) => (
+                <div key={item.label} className={styles.breakdownItem}>
+                  <span className={styles.dot} style={{ background: item.color }} />
+                  <span className={styles.breakdownLabel}>{item.label}</span>
+                  <span className={styles.breakdownValue}>{formatDollars(item.value)}</span>
+                </div>
+              ))}
+            </div>
+
+            <p className={styles.disclaimer}>
+              Estimated taxes and fees are based on typical rates and may vary.
+              Contact your local DMV and tax authority for exact amounts.
+            </p>
+          </ContentGate>
         </div>
       </div>
     </>

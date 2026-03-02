@@ -38,7 +38,7 @@
   text-align: center;
   padding: 48px var(--space-24) var(--space-64);
   background: var(--rv-surface);
-  box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px -4px 16px 0px rgba(0, 0, 0, 0.06);
   clip-path: inset(-20px 0 0 0);
   left: 50%;
   transform: translateX(-50%);
