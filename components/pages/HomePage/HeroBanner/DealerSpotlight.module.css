@@ -1,7 +1,7 @@
 /* Dealer spotlight badge — bottom-right of hero */
 .spotlight {
   position: absolute;
-  top: 338px;
+  top: 318px;
   right: var(--space-32);
   z-index: 3;
   display: flex;
