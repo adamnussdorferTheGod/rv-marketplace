@@ -113,10 +113,11 @@
 
 /* ── Input field (floated label inside border) ───────────────────── */
 .inputField {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 58px;
+  min-height: 58px;
   background: var(--rv-surface);
   border: var(--border-light) solid var(--rv-border);
   border-radius: var(--radius-base);
@@ -126,7 +127,7 @@
 }
 
 .inputField:focus-within {
-  border-color: var(--color-blue-200);
+  border-color: var(--rv-primary);
 }
 
 .inputLabel {
@@ -195,7 +196,10 @@
 /* Figma: 64×32 pill, white bg, 1px #939598 border, rounded 100px */
 .switch {
   all: unset;
-  position: relative;
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  transform: translateY(-50%);
   width: 64px;
   height: 32px;
   border-radius: 100px;
