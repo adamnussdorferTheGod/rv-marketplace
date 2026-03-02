@@ -108,7 +108,7 @@
 @media (max-width: 767px) {
   .section {
     gap: var(--space-16);
-    margin-top: var(--space-16);
+    margin-top: 0;
   }
 
   .chipRow {

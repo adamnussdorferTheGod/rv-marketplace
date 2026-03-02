@@ -19,7 +19,7 @@
 /* XS: <=767px */
 @media (max-width: 767px) {
   .content {
-    width: calc(100% - 24px);
+    width: calc(100% - 32px);
     padding: var(--space-16) 0;
   }
 }

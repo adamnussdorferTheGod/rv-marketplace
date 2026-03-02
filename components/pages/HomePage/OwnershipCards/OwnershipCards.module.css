@@ -99,7 +99,7 @@
 /* XS: <=767px */
 @media (max-width: 767px) {
   .section {
-    padding: var(--space-24) 0;
+    padding: var(--space-16) 0;
     margin-top: 32px;
   }
 

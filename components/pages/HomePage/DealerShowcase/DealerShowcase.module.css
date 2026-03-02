@@ -239,7 +239,7 @@
 
 @media (max-width: 767px) {
   .inner {
-    width: calc(100% - 24px);
+    width: calc(100% - 32px);
   }
 
   .showcase {
@@ -253,7 +253,15 @@
   }
 
   .dealerName {
-    font-size: 18px;
+    font-size: 15px;
+  }
+
+  .viewInventory {
+    font-size: 13px;
+  }
+
+  .phone {
+    font-size: 13px;
   }
 
   .logoContainer {
