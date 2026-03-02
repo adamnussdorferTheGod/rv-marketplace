@@ -17,6 +17,8 @@ interface PriceDistributionChartProps {
   averagePrice: number;
   priceHistory: PriceHistoryEntry[];
   listingTitle: string;
+  estimatedTotal?: string;
+  onTotalCostClick?: () => void;
 }
 
 const DEAL_COLORS: Record<string, string> = {
@@ -157,6 +159,8 @@ export default function PriceDistributionChart({
   averagePrice,
   priceHistory,
   listingTitle,
+  estimatedTotal,
+  onTotalCostClick,
 }: PriceDistributionChartProps) {
   const [historyOpen, setHistoryOpen] = useState(true);
   const [gaugeVisible, setGaugeVisible] = useState(false);
@@ -302,6 +306,17 @@ export default function PriceDistributionChart({
           </div>
         )}
       </div>
+
+      {/* ── Estimated Total Cost ── */}
+      {onTotalCostClick && estimatedTotal && (
+        <button
+          type="button"
+          className={styles.totalCostLink}
+          onClick={onTotalCostClick}
+        >
+          Estimated total cost: {estimatedTotal}
+        </button>
+      )}
 
       {/* ── Track the Price ── */}
       <TrackPriceBanner listingTitle={listingTitle} formattedPrice={formattedPrice} />

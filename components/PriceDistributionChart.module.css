@@ -170,6 +170,26 @@
   color: var(--rv-on-surface-variant);
 }
 
+/* ── Estimated Total Cost ── */
+
+.totalCostLink {
+  font: var(--font-label-1);
+  color: var(--rv-on-surface);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  width: fit-content;
+  margin-top: var(--space-16);
+}
+
+.totalCostLink:hover {
+  color: var(--rv-on-surface-variant);
+}
+
 /* ── Track the Price ── */
 
 .trackPrice {

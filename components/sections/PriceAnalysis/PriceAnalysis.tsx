@@ -7,9 +7,11 @@ interface PriceAnalysisProps {
   dealRating: 'great' | 'good' | 'fair' | 'high';
   priceAnalysis: PriceAnalysisData;
   listingTitle: string;
+  estimatedTotal?: string;
+  onTotalCostClick?: () => void;
 }
 
-export default function PriceAnalysis({ currentPrice, dealRating, priceAnalysis, listingTitle }: PriceAnalysisProps) {
+export default function PriceAnalysis({ currentPrice, dealRating, priceAnalysis, listingTitle, estimatedTotal, onTotalCostClick }: PriceAnalysisProps) {
   return (
     <div className={styles.section}>
       <h2 className={styles.heading}>Price</h2>
@@ -25,6 +27,8 @@ export default function PriceAnalysis({ currentPrice, dealRating, priceAnalysis,
           averagePrice={priceAnalysis.averagePrice}
           priceHistory={priceAnalysis.priceHistory}
           listingTitle={listingTitle}
+          estimatedTotal={estimatedTotal}
+          onTotalCostClick={onTotalCostClick}
         />
       </div>
     </div>

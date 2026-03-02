@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecentlyViewed } from '../../../app/src/hooks/useRecentlyViewed';
 import TwoColumnLayout from '@components/layout/TwoColumnLayout/TwoColumnLayout';
@@ -31,6 +31,7 @@ import AdSenseSection from '@components/sections/AdSenseSection/AdSenseSection';
 import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import { PrequalProvider } from '@components/sections/DealerContactCard/PrequalContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
+import TotalCostPanel, { computeTotalCost } from '@components/sections/PricePayment/TotalCostPanel';
 import { NarrationProvider } from '@components/sections/PhotoNarration/NarrationContext';
 import { DealKitProvider } from '@components/sections/DealKit/DealKitContext';
 import DealKitCard from '@components/sections/DealKit/DealKitCard/DealKitCard';
@@ -63,6 +64,9 @@ function VehicleDetailPageContent() {
   const { currentPage } = useNavigation();
   const { savedVehicle } = useTowVehicle();
   const { listing, slug, prevSlug, nextSlug } = useCurrentListing();
+  const [totalCostPanelOpen, setTotalCostPanelOpen] = useState(false);
+  const openTotalCostPanel = useCallback(() => setTotalCostPanelOpen(true), []);
+  const closeTotalCostPanel = useCallback(() => setTotalCostPanelOpen(false), []);
   const videoData = useMemo(() => generateVideoWalkthrough(listing, slug), [listing, slug]);
   const rvSpecs = useMemo(() => ({
     gvwr: listing.gvwr,
@@ -85,6 +89,19 @@ function VehicleDetailPageContent() {
     currency: 'USD',
     maximumFractionDigits: 0,
   }).format(listing.currentPrice);
+
+  const stateCode = useMemo(() => {
+    const parts = listing.location.split(',');
+    const st = parts[parts.length - 1]?.trim();
+    return st && st.length === 2 ? st.toUpperCase() : 'CA';
+  }, [listing.location]);
+
+  const estimatedTotal = useMemo(
+    () => computeTotalCost(listing.currentPrice, stateCode),
+    [listing.currentPrice, stateCode],
+  );
+
+  const formattedTotal = '$' + Math.round(estimatedTotal.total).toLocaleString('en-US');
 
   if (currentPage.type === 'destination-detail') {
     return <DestinationDetailPage destination={currentPage.destination} />;
@@ -155,6 +172,8 @@ function VehicleDetailPageContent() {
                   dealRating={listing.dealRating}
                   priceAnalysis={listing.priceAnalysis}
                   listingTitle={listing.title}
+                  estimatedTotal={formattedTotal}
+                  onTotalCostClick={openTotalCostPanel}
                 />
                 </div>
                 <Divider />
@@ -223,6 +242,12 @@ function VehicleDetailPageContent() {
       <AiModePanel
         listingTitle={listing.title}
         listingPrice={formattedPrice}
+      />
+      <TotalCostPanel
+        isOpen={totalCostPanelOpen}
+        onClose={closeTotalCostPanel}
+        currentPrice={listing.currentPrice}
+        location={listing.location}
       />
       <DealKitOverlay />
       {videoState.isLightboxOpen && <VideoPlayerShell onClose={closeLightbox} />}
