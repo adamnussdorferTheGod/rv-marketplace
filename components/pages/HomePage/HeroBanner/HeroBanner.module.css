@@ -126,8 +126,13 @@
   border-color: #006836;
 }
 
-/* Card open state — flatten bottom, dropdown connects below */
+/* Card open state — fixed overlay, dropdown connects below */
 .searchCardOpen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateY(-80px);
+  margin-top: 0;
   box-shadow: none;
   border-radius: 16px 16px 0 0;
   padding: 48px 32px 16px 32px;
