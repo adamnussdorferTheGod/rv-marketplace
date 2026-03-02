@@ -7,9 +7,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-12);
-  background: var(--color-white);
+  background: rgba(49, 46, 33, 0.5);
   border-radius: var(--radius-base);
-  box-shadow: var(--rv-shadow-bottom);
+  backdrop-filter: blur(8px);
   padding: var(--space-12);
 }
 
@@ -34,14 +34,14 @@
   font-weight: 600;
   font-size: 14px;
   line-height: 1.4;
-  color: var(--rv-on-surface);
+  color: #ffffff;
 }
 
 /* Shop inventory link */
 .shopLink {
   font-size: 13px;
   font-weight: 500;
-  color: var(--rv-primary);
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
 }
 
