@@ -1,15 +1,14 @@
 /* ============ Hero banner ============ */
 .hero {
   position: relative;
-  width: calc(100% - 48px);
-  max-width: 1653px;
-  height: 393px;
-  margin: var(--space-32) auto 100px;
+  width: 100%;
+  height: 390px;
+  margin: 0 auto 52px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-48) var(--space-32) 0;
-  border-radius: 16px;
+  padding: 0 var(--space-32);
+  border-radius: 0;
   background-color: #d4d4d4;
   overflow: visible;
 }
@@ -18,7 +17,6 @@
 .heroImageWrap {
   position: absolute;
   inset: 0;
-  border-radius: inherit;
   overflow: hidden;
 }
 
@@ -46,15 +44,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  justify-content: flex-start;
+  padding-top: 48px;
 }
 
 .heading {
   color: var(--color-white);
-  font: var(--font-display-1);
-  font-size: 40px;
-  margin: 190px 0 0;
+  font-size: 32px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -104,7 +103,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-bottom: 16px;
+  padding-bottom: 0;
 }
 
 /* Search pill */
@@ -130,7 +129,7 @@
 .searchCardOpen {
   box-shadow: none;
   border-radius: 16px 16px 0 0;
-  padding: 48px 32px 0 32px;
+  padding: 48px 32px 16px 32px;
   z-index: 301;
 }
 
@@ -289,7 +288,6 @@
 /* Tablet */
 @media (max-width: 991px) {
   .hero {
-    width: calc(100% - 32px);
     height: auto;
     min-height: 320px;
     padding: var(--space-48) var(--space-24) 0;
@@ -308,13 +306,11 @@
 /* Mobile */
 @media (max-width: 767px) {
   .hero {
-    width: calc(100% - 24px);
     height: auto;
     min-height: 200px;
     padding: var(--space-24) var(--space-16) 0;
-    margin-top: var(--space-16);
+    margin-top: 0;
     margin-bottom: 24px;
-    border-radius: 12px;
   }
 
   .heading {

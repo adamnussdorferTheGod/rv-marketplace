@@ -3,7 +3,6 @@ import Icon from '@components/ui/Icon/Icon';
 import {
   RV_TYPES,
   POPULAR_SEARCHES,
-  POPULAR_MAKES,
   FEATURED_DEALERS,
 } from './heroData';
 import styles from './SearchDropdown.module.css';
@@ -22,11 +21,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
   const handleSearchClick = (query: string) => {
     navigate(`/search?${query}`);
-    onClose();
-  };
-
-  const handleMakeClick = (label: string) => {
-    navigate(`/search?makes=${encodeURIComponent(label)}`);
     onClose();
   };
 
@@ -72,7 +66,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
       <section>
         <h3 className={styles.sectionHeading}>Popular searches</h3>
         <div className={styles.chipWrap}>
-          {POPULAR_SEARCHES.map((search) => (
+          {POPULAR_SEARCHES.slice(0, 3).map((search) => (
             <button
               key={search.label}
               type="button"
@@ -81,24 +75,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
             >
               <Icon name="search" size={20} />
               {search.label}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 3: Popular makes */}
-      <section>
-        <h3 className={styles.sectionHeading}>Popular makes</h3>
-        <div className={styles.chipWrap}>
-          {POPULAR_MAKES.map((make) => (
-            <button
-              key={make.slug}
-              type="button"
-              className={styles.searchChip}
-              onClick={() => handleMakeClick(make.label)}
-            >
-              <Icon name="search" size={20} />
-              {make.label}
             </button>
           ))}
         </div>
