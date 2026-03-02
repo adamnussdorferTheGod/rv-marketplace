@@ -21,10 +21,15 @@
   transition: color 0.15s ease;
 }
 
+/* When animated, the indicator handles all visuals — only change text color */
 .selected {
+  color: var(--rv-on-surface);
+}
+
+/* Non-animated fallback: show static background/border */
+.segment.selected:not(:has(.indicator)) {
   background: var(--rv-surface);
   border-color: var(--rv-border-high);
-  color: var(--rv-on-surface);
   box-shadow: var(--rv-shadow-segment);
 }
 
