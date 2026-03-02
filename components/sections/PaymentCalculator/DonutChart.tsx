@@ -23,8 +23,12 @@ export default function DonutChart({ principal, interest, monthlyPayment }: Donu
   const interestFrac = total > 0 ? interest / total : 0;
   const principalFrac = total > 0 ? principal / total : 1;
 
-  const interestLen = interestFrac * CIRCUMFERENCE;
-  const principalLen = principalFrac * CIRCUMFERENCE;
+  // Visual gap between arcs; account for round linecaps extending STROKE/2 per end
+  const GAP = 4;
+  const ARC_GAP = GAP + STROKE;
+
+  const interestArc = Math.max(0, interestFrac * CIRCUMFERENCE - ARC_GAP);
+  const principalArc = Math.max(0, principalFrac * CIRCUMFERENCE - ARC_GAP);
 
   return (
     <div className={styles.donut}>
@@ -44,7 +48,7 @@ export default function DonutChart({ principal, interest, monthlyPayment }: Donu
           strokeWidth={BG_STROKE}
         />
         {/* Interest arc — red, starts from top going clockwise */}
-        {interestLen > 0.5 && (
+        {interestArc > 0.5 && (
           <circle
             cx={CX}
             cy={CY}
@@ -52,8 +56,8 @@ export default function DonutChart({ principal, interest, monthlyPayment }: Donu
             fill="none"
             stroke="#EC5B3E"
             strokeWidth={STROKE}
-            strokeDasharray={`${interestLen} ${CIRCUMFERENCE - interestLen}`}
-            strokeDashoffset={0}
+            strokeDasharray={`${interestArc} ${CIRCUMFERENCE - interestArc}`}
+            strokeDashoffset={-(ARC_GAP / 2)}
             strokeLinecap="round"
             transform={`rotate(-90 ${CX} ${CY})`}
             style={{
@@ -69,8 +73,8 @@ export default function DonutChart({ principal, interest, monthlyPayment }: Donu
           fill="none"
           stroke="#3870E9"
           strokeWidth={STROKE}
-          strokeDasharray={`${principalLen} ${CIRCUMFERENCE - principalLen}`}
-          strokeDashoffset={-interestLen}
+          strokeDasharray={`${principalArc} ${CIRCUMFERENCE - principalArc}`}
+          strokeDashoffset={-(interestFrac * CIRCUMFERENCE + ARC_GAP / 2)}
           strokeLinecap="round"
           transform={`rotate(-90 ${CX} ${CY})`}
           style={{
