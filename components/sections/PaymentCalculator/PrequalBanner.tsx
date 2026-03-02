@@ -26,7 +26,7 @@ export default function PrequalBanner() {
       </div>
       <div className={styles.prequalContent}>
         <span className={styles.prequalHeading}>
-          Find the right personal loan for you
+          Find the right RV loan for you
         </span>
         <div className={styles.prequalChecks}>
           <div className={styles.prequalCheck}>

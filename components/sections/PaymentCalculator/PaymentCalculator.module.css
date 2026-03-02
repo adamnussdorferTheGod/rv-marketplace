@@ -343,7 +343,7 @@
 
 /* Figma: SemiBold 14px/19.6px, #151515 */
 .prequalHeading {
-  font: var(--font-label-2-semibold);
+  font: var(--font-headline-3);
   color: #151515;
 }
 
