@@ -128,21 +128,11 @@
   border-color: #006836;
 }
 
-/* Card open state — fixed modal with dropdown inside */
+/* Card open state — stays in place, elevated above backdrop */
 .searchCardOpen {
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 900px;
-  margin-top: 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  border-radius: 16px;
-  padding: 48px 32px 0 32px;
   z-index: 301;
-  max-height: calc(100vh - 120px);
-  overflow-y: auto;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* Lightbox backdrop behind expanded search */
@@ -159,9 +149,15 @@
   to { opacity: 1; }
 }
 
-/* Dropdown — flows inside card */
+/* Dropdown — hangs below card, out of flow so card height stays fixed */
 .dropdownWrap {
-  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
 }
 
 /* AI icon */
