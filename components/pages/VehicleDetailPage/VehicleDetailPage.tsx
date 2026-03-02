@@ -135,12 +135,14 @@ function VehicleDetailPageContent() {
                 <Divider />
                 <div id="features">
                 <FeaturesAndSpecs specs={listing.specs} />
-                <TowVehicleSetupPrompt
-                  key={savedVehicle ? `${savedVehicle.make}-${savedVehicle.model}-${savedVehicle.trim}` : 'setup'}
-                  rvSpecs={rvSpecs}
-                  rvName={listing.title.replace(/^\d{4}\s+/, '')}
-                  rvImageUrl={listing.images[0]?.url}
-                />
+                {listing.gvwr && (
+                  <TowVehicleSetupPrompt
+                    key={savedVehicle ? `${savedVehicle.make}-${savedVehicle.model}-${savedVehicle.trim}` : 'setup'}
+                    rvSpecs={rvSpecs}
+                    rvName={listing.title.replace(/^\d{4}\s+/, '')}
+                    rvImageUrl={listing.images[0]?.url}
+                  />
+                )}
                 </div>
                 <Divider />
                 <div id="description">
