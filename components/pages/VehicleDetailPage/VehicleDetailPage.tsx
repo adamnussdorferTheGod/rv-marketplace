@@ -16,7 +16,7 @@ import PriceAnalysis from '@components/sections/PriceAnalysis/PriceAnalysis';
 import Description from '@components/sections/Description/Description';
 import Reviews from '@components/sections/Reviews/Reviews';
 import Divider from '@components/ui/Divider/Divider';
-import TotalCostCalculator from '@components/sections/TotalCostCalculator/TotalCostCalculator';
+import PaymentCalculator from '@components/sections/PaymentCalculator/PaymentCalculator';
 import AboutDealership from '@components/sections/AboutDealership/AboutDealership';
 import Resources from '@components/sections/Resources/Resources';
 import ReportListing from '@components/sections/ReportListing/ReportListing';
@@ -43,6 +43,7 @@ import { sunseekerListing, listingsBySlug, allListings } from '../../../app/src/
 import { generateNarrations } from '../../../app/src/data/generateNarrations';
 import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
 import { generateDealKit } from '../../../app/src/data/generateDealKit';
+import VdpSectionNav from '@components/sections/VdpSectionNav/VdpSectionNav';
 import styles from './VehicleDetailPage.module.css';
 
 function useCurrentListing() {
@@ -114,6 +115,8 @@ function VehicleDetailPageContent() {
             </div>
           </div>
 
+          <VdpSectionNav />
+
           {/* Two-column area */}
           <TwoColumnLayout
             left={
@@ -129,6 +132,7 @@ function VehicleDetailPageContent() {
                   vhrAvailable={listing.vhrAvailable}
                 />
                 <Divider />
+                <div id="features">
                 <FeaturesAndSpecs specs={listing.specs} />
                 <TowVehicleSetupPrompt
                   key={savedVehicle ? `${savedVehicle.make}-${savedVehicle.model}-${savedVehicle.trim}` : 'setup'}
@@ -136,30 +140,38 @@ function VehicleDetailPageContent() {
                   rvName={listing.title.replace(/^\d{4}\s+/, '')}
                   rvImageUrl={listing.images[0]?.url}
                 />
+                </div>
                 <Divider />
+                <div id="description">
                 <Description description={listing.description} />
+                </div>
                 <Divider />
+                <div id="price">
                 <PriceAnalysis
                   currentPrice={listing.currentPrice}
                   dealRating={listing.dealRating}
                   priceAnalysis={listing.priceAnalysis}
                   listingTitle={listing.title}
                 />
+                </div>
                 <Divider />
-                <TotalCostCalculator
-                  currentPrice={listing.currentPrice}
-                  location={listing.location}
-                  gvwr={listing.gvwr}
-                  rvType="travel-trailer"
-                />
+                <div id="payment">
+                <PaymentCalculator currentPrice={listing.currentPrice} />
+                </div>
                 <Divider />
+                <div id="inspiration">
                 <LifestyleContext />
+                </div>
                 <Divider />
                 <DealKitCard />
                 <Divider />
+                <div id="reviews">
                 <Reviews reviews={listing.reviews} modelName={`${listing.make} ${listing.model} ${listing.trim}`} />
+                </div>
                 <Divider />
+                <div id="seller">
                 <AboutDealership dealer={listing.dealer} />
+                </div>
                 <Divider />
                 <WillingToNegotiate isNegotiable={listing.isNegotiable} />
                 <Divider />

@@ -1,0 +1,393 @@
+/* ── Wrapper ─────────────────────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.heading {
+  font: var(--font-headline-2);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.description {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+/* ── Two-panel layout ────────────────────────────────────────────── */
+.panels {
+  display: flex;
+  gap: var(--space-16);
+}
+
+@media (max-width: 767px) {
+  .panels {
+    flex-direction: column;
+  }
+}
+
+/* ── Left panel (gray, inputs) ───────────────────────────────────── */
+.inputPanel {
+  flex: 1;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+}
+
+.inputsInner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: 30px 21px 24px;
+}
+
+/* ── Right panel (blue tint, chart) ──────────────────────────────── */
+.chartPanel {
+  flex: 1;
+  background: rgba(56, 112, 233, 0.15);
+  border-radius: var(--radius-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 20px 34px;
+  gap: 28px;
+}
+
+.chartLabel {
+  font: var(--font-label-3);
+  color: var(--rv-secondary);
+}
+
+/* ── Donut chart ─────────────────────────────────────────────────── */
+.donut {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donutCenter {
+  position: absolute;
+  font: var(--font-headline-2);
+  color: var(--rv-secondary);
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ── Legend ───────────────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.legendDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendBlue {
+  background: #3870E9;
+}
+
+.legendOrange {
+  background: #EC5B3E;
+}
+
+.legendText {
+  font: var(--font-label-3);
+  color: #686868;
+}
+
+/* ── Input field (floated label inside border) ───────────────────── */
+.inputField {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 58px;
+  background: var(--rv-surface);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-8) var(--space-16);
+  box-sizing: border-box;
+  transition: border-color 150ms;
+}
+
+.inputField:focus-within {
+  border-color: var(--color-blue-200);
+}
+
+.inputLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.inputValueRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.inputPrefix {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.inputSuffix {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.input {
+  all: unset;
+  flex: 1;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  min-width: 0;
+}
+
+/* ── Term + APR row ──────────────────────────────────────────────── */
+.termAprRow {
+  display: flex;
+  gap: var(--space-16);
+}
+
+.termAprRow .inputField {
+  flex: 1;
+}
+
+/* ── Select (term dropdown) ──────────────────────────────────────── */
+.select {
+  all: unset;
+  flex: 1;
+  font: var(--font-body-1);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.selectChevron {
+  display: flex;
+  align-items: center;
+  color: var(--rv-on-surface);
+  pointer-events: none;
+}
+
+/* ── $/% toggle switch ───────────────────────────────────────────── */
+/* Figma: 64×32 pill, white bg, 1px #939598 border, rounded 100px */
+.switch {
+  all: unset;
+  position: relative;
+  width: 64px;
+  height: 32px;
+  border-radius: 100px;
+  border: 1px solid var(--rv-border);
+  background: var(--rv-surface);
+  cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+/* Figma: 24×24 dark filled circle at (3,3), shadow-bottom */
+.switchThumb {
+  position: absolute;
+  top: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-gray-800);
+  box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.07);
+  transition: left 200ms ease-out;
+  z-index: 1;
+}
+
+/* Icons: 20×20 at (5,5) and (37,5) */
+.switchIcon {
+  position: absolute;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rv-on-surface-variant);
+  transition: color 150ms;
+  z-index: 2;
+}
+
+.switchIconLeft {
+  left: 5px;
+}
+
+.switchIconRight {
+  left: 37px;
+}
+
+/* Active icon sits on the dark thumb — render in white */
+.switchIconActive {
+  color: #ffffff;
+}
+
+/* ── Range slider ────────────────────────────────────────────────── */
+/* Figma: 8px track, green active / gray inactive, 24px thumb */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  background: linear-gradient(
+    to right,
+    var(--rv-primary) 0%,
+    var(--rv-primary) var(--slider-pct, 0%),
+    #b2b2b2 var(--slider-pct, 0%),
+    #b2b2b2 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fefefe;
+  border: 1px solid var(--rv-primary);
+  box-shadow:
+    0px 2px 6px rgba(19, 19, 19, 0.12),
+    0px 1px 2px rgba(19, 19, 19, 0.08);
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fefefe;
+  border: 1px solid var(--rv-primary);
+  box-shadow:
+    0px 2px 6px rgba(19, 19, 19, 0.12),
+    0px 1px 2px rgba(19, 19, 19, 0.08);
+  cursor: pointer;
+}
+
+.slider::-moz-range-track {
+  height: 8px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+/* ── Prequal banner ──────────────────────────────────────────────── */
+/* Figma: #f6faff bg, 32px padding, 8px radius, flex items-center */
+.prequal {
+  display: flex;
+  align-items: center;
+  background: #f6faff;
+  border-radius: var(--radius-base);
+  padding: var(--space-32);
+  gap: var(--space-32);
+}
+
+@media (max-width: 767px) {
+  .prequal {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-24);
+    gap: var(--space-24);
+  }
+}
+
+/* Pig illustration: flex-shrink 0, ~109×85 */
+.prequalPig {
+  flex-shrink: 0;
+}
+
+.prequalPig img {
+  display: block;
+  width: 109px;
+  height: auto;
+}
+
+/* Text content area */
+.prequalContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  min-width: 0;
+}
+
+/* Figma: SemiBold 14px/19.6px, #151515 */
+.prequalHeading {
+  font: var(--font-label-2-semibold);
+  color: #151515;
+}
+
+/* Check items stack tightly (no gap between rows) */
+.prequalChecks {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Figma: 28px container (20px icon + 8px gap) then text */
+.prequalCheck {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  font: var(--font-body-2);
+  color: var(--rv-secondary);
+  height: 22px;
+}
+
+/* Green checkmark SVG: 20×20, 2px top offset to align with text */
+.prequalCheckIcon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Figma: white bg, 1px #939598 border, 8px radius, px-32 py-16, Button 1 font */
+.prequalButton {
+  all: unset;
+  cursor: pointer;
+  background: var(--rv-surface);
+  border: var(--border-light) solid var(--rv-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16) var(--space-32);
+  font: var(--font-button-1);
+  color: var(--rv-secondary);
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.prequalButton:hover {
+  background: var(--color-gray-200);
+}
+
+/* ── Disclaimer ──────────────────────────────────────────────────── */
+/* Figma: Label 3 (Medium 12px/16.8px), #6e7072 */
+.disclaimer {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin: 0;
+}
