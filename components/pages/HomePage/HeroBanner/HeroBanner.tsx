@@ -25,6 +25,7 @@ const HERO_IMAGES = [
   { src: '/images/hero-rv-2.jpg', position: '50% 80%' },
   { src: '/images/hero-rv-3.jpg', position: '65% 72%' },
   { src: '/images/hero-rv.png', position: '10% 75%' },
+  { src: '/images/hero-rv-5.jpg', position: '50% 40%' },
 ];
 
 const HERO_ROTATE_MS = 8000;

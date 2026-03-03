@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 ## Current Position
 
 Phase: 52 of 55 (Computation Engine & Types)
-Plan: 1 of 2 in current phase
-Status: Executing
-Last activity: 2026-03-03 -- Completed 52-01 (types + seasonal table + mockListings export)
+Plan: 2 of 2 in current phase (PHASE COMPLETE)
+Status: Phase 52 Complete
+Last activity: 2026-03-03 -- Completed 52-02 (market insights computation engine + 10 tests)
 
 ## Performance Metrics
 
@@ -34,7 +34,7 @@ Last activity: 2026-03-03 -- Completed 52-01 (types + seasonal table + mockListi
 - 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min, 51-01: 3min, 51-02: 3min
 
 **v9.0:**
-- 52-01: 1min
+- 52-01: 1min, 52-02: 2min
 
 ## Accumulated Context
 
@@ -47,6 +47,8 @@ Last activity: 2026-03-03 -- Completed 52-01 (types + seasonal table + mockListi
 - [v9.0]: Generate-then-render pattern -- mirrors generateDealKit.ts established in VDP
 - [52-01]: Object.freeze on SEASONAL_MULTIPLIERS for runtime immutability
 - [52-01]: PriceDropData nullable on MarketInsightsOk for listings without price history
+- [52-02]: Duplicated parseRvType locally as resolveRvType to avoid import coupling
+- [52-02]: computePriceDrop always returns PriceDropData with hasRecentDrop flag (not null)
 
 ### Pending Todos
 
@@ -64,5 +66,5 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 52-01-PLAN.md
+Stopped at: Completed 52-02-PLAN.md (Phase 52 complete)
 Resume file: None

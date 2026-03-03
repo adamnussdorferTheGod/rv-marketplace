@@ -9,7 +9,7 @@ Requirements for v9.0 Market Insights milestone. Each maps to roadmap phases.
 
 ### Data Layer
 
-- [ ] **DATA-01**: Pricing engine computes market metrics from existing ~80 sample listings by matching comparables (same RV type, similar year range, similar condition)
+- [x] **DATA-01**: Pricing engine computes market metrics from existing ~80 sample listings by matching comparables (same RV type, similar year range, similar condition)
 - [x] **DATA-02**: Listings include `daysOnSite` and price drop history fields to power insight cards
 - [x] **DATA-03**: Engine returns `null`/insufficient-data state when fewer than 3 comparables exist for a listing's type
 
@@ -89,7 +89,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DATA-01 | Phase 52 | Pending |
+| DATA-01 | Phase 52 | Complete |
 | DATA-02 | Phase 52 | Complete |
 | DATA-03 | Phase 52 | Complete |
 | DOM-01 | Phase 54 | Pending |

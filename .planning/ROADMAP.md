@@ -883,7 +883,7 @@ Plans:
 - Minimum sample guard: Cards suppressed when fewer than sufficient comparables exist
 - VDP-only: Cards appear on VDP, not SRP cards (SRP integration deferred to v2)
 
-- [ ] **Phase 52: Computation Engine & Types** - TypeScript types for all market insight data, pure computation engine with comparable matching, minimum-sample guards, and Vitest unit tests
+- [x] **Phase 52: Computation Engine & Types** - TypeScript types for all market insight data, pure computation engine with comparable matching, minimum-sample guards, and Vitest unit tests (completed 2026-03-03)
 - [ ] **Phase 53: MarketInsightsSection & VDP Wiring** - Section container with card grid layout, VDP integration via useMemo, default-collapsed cards, insufficient-data state, TIDE 2.0 styling
 - [ ] **Phase 54: Insight Cards** - Days on Market, Supply & Demand, Seasonal Timing, and Price Drop Alert cards with headline insights and contextual buyer advice
 - [ ] **Phase 55: Methodology Panels & Progressive Disclosure** - Expand/collapse on all cards, methodology detail showing comparables and match criteria, data disclaimer, AnimatePresence animation
@@ -1015,7 +1015,7 @@ Plans:
 | 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 2/2 | Complete | 2026-02-28 |
 | 50. Financing Calculator | v8.0 | 1/1 | Complete | 2026-02-28 |
 | 51. Insurance, State Tips & Responsive Polish | v8.0 | 2/2 | Complete | 2026-02-28 |
-| 52. Computation Engine & Types | 1/2 | In Progress|  | - |
+| 52. Computation Engine & Types | 2/2 | Complete   | 2026-03-03 | - |
 | 53. MarketInsightsSection & VDP Wiring | v9.0 | 0/1 | Not started | - |
 | 54. Insight Cards | v9.0 | 0/2 | Not started | - |
 | 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
