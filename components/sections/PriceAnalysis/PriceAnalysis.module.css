@@ -1,6 +1,21 @@
 .section {
   width: 100%;
-  margin-bottom: var(--space-32);
+}
+
+.layout {
+  display: flex;
+  gap: var(--space-32);
+  align-items: flex-start;
+}
+
+.textCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.chartCol {
+  width: 284px;
+  flex-shrink: 0;
 }
 
 .heading {
@@ -12,21 +27,28 @@
 .explanation {
   font: var(--font-body-2);
   color: var(--rv-on-surface);
-  margin: var(--space-8) 0 0 0;
+  margin: var(--space-16) 0 0 0;
 }
 
 .learnMore {
   display: inline-block;
   margin-top: var(--space-4);
   font: var(--font-link-2);
-  color: var(--rv-primary);
-  text-decoration: none;
-}
-
-.learnMore:hover {
+  color: var(--rv-on-surface);
   text-decoration: underline;
 }
 
-.chartContainer {
-  margin-top: var(--space-16);
+.learnMore:hover {
+  color: var(--rv-on-surface-variant);
+}
+
+@media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .chartCol {
+    width: 100%;
+  }
 }

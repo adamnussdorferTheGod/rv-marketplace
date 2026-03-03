@@ -8,166 +8,156 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  padding-top: var(--space-16);
 }
 
-.avgLabelRow {
+/* Top row: deal card pill + average price label */
+.gaugeTop {
   position: relative;
-  height: 17px;
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-4);
 }
 
-.avgLabel {
+/* Average price — positioned top-right */
+.avgGroup {
   position: absolute;
-  transform: translateX(-50%);
-  font: var(--font-label-3);
-  color: var(--rv-on-surface-variant);
-  white-space: nowrap;
-}
-
-.barArea {
-  position: relative;
-  padding-top: 72px; /* deal card (~58px) + pointer (10px) + gap (4px) */
-}
-
-.dealCardPositioner {
-  position: absolute;
+  right: 0;
   top: 0;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 2;
+  text-align: center;
+}
+
+.avgLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+}
+
+.avgValue {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface-variant);
+}
+
+/* Average vertical dashed line */
+.avgLine {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 50px;
+  border-left: 1px dashed var(--rv-on-surface-variant);
+  z-index: 1;
+}
+
+/* Deal card pill */
+.dealPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--rv-surface);
+  border: var(--border-light) solid var(--rv-border-low);
+  border-radius: var(--radius-full);
+  padding: var(--space-8) var(--space-16);
+  box-shadow: var(--rv-shadow-bottom);
+  width: fit-content;
   opacity: 0;
 }
 
-.gaugeVisible .dealCardPositioner {
+.gaugeVisible .dealPill {
   animation: dealCardDrop 0.7s ease-out 0.3s both;
 }
 
 @keyframes dealCardDrop {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-12px) scale(0.96);
+    transform: translateY(-8px) scale(0.96);
   }
   60% {
     opacity: 1;
-    transform: translateX(-50%) translateY(3px) scale(1.01);
+    transform: translateY(2px) scale(1.01);
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
-.dealCard {
-  background: var(--rv-surface);
-  border: var(--border-heavy) solid;
-  border-radius: var(--radius-full);
-  padding: var(--space-8) var(--space-16);
-  text-align: center;
+.dealPillPrice {
+  font: var(--font-title-2);
+  color: var(--color-teal-300);
+}
+
+/* 3-segment colored bar */
+.barRow {
   display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-}
-
-.dealCardLabel {
-  font: var(--font-label-3);
-  color: var(--rv-on-surface);
-}
-
-.dealCardPrice {
-  font: var(--font-label-1-semibold);
-  color: var(--rv-on-surface);
-}
-
-.dealCardPointer {
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid;
-}
-
-.avgLine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  border-left: 1px dashed var(--rv-on-surface-variant);
-  z-index: 1;
-}
-
-.gradientBar {
-  height: 8px;
-  border-radius: var(--radius-full);
-  background: linear-gradient(to right, #61c487 6.25%, #d1de56 50%, #fa8131 100%);
+  gap: var(--space-8);
+  align-items: center;
   position: relative;
-  overflow: hidden;
+}
+
+.barSegment {
+  flex: 1;
+  height: 4px;
+  border-radius: var(--radius-full);
   transform-origin: left center;
   transform: scaleX(0);
 }
 
-.gaugeVisible .gradientBar {
-  animation: barReveal 0.8s ease-out both;
+.gaugeVisible .barSegment {
+  animation: barReveal 0.6s ease-out both;
 }
 
-.gaugeVisible .gradientBar::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 30%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.5),
-    transparent
-  );
-  animation: barShimmer 1s ease-in-out 0.7s 1 both;
-  pointer-events: none;
-}
+.gaugeVisible .barSegment:nth-child(1) { animation-delay: 0.3s; }
+.gaugeVisible .barSegment:nth-child(2) { animation-delay: 0.45s; }
+.gaugeVisible .barSegment:nth-child(3) { animation-delay: 0.6s; }
 
 @keyframes barReveal {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
-@keyframes barShimmer {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(430%);
-  }
+.segmentTeal { background: var(--color-teal-200); }
+.segmentGreen { background: var(--color-green-200); }
+.segmentLime { background: var(--color-lime-200); }
+
+/* Dot indicator on bar */
+.barDot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-teal-200);
+  border: 2px solid var(--rv-surface);
+  box-shadow: 0 0 0 1px var(--color-teal-200);
+  z-index: 2;
+  transform: translateX(-50%);
+  opacity: 0;
 }
 
-/* ── Section Labels ── */
+.gaugeVisible .barDot {
+  animation: dotAppear 0.3s ease-out 0.7s both;
+}
 
-.sectionLabels {
-  display: flex;
+@keyframes dotAppear {
+  from { opacity: 0; transform: translateX(-50%) scale(0); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* Range labels below bar */
+.rangeLabels {
+  position: relative;
+  height: 20px;
   margin-top: var(--space-4);
 }
 
-.sectionLabel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.sectionLabelTitle {
-  font: var(--font-label-2-semibold);
-  color: var(--rv-on-surface);
-}
-
-.sectionLabelRange {
-  font: var(--font-label-3);
+.rangeLabel {
+  position: absolute;
+  transform: translateX(-50%);
+  font: var(--font-label-2);
   color: var(--rv-on-surface-variant);
+  white-space: nowrap;
 }
 
 /* ── Estimated Total Cost ── */
@@ -381,19 +371,6 @@
 
 /* XS: <=767px */
 @media (max-width: 767px) {
-  .barArea {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .sectionLabels {
-    gap: var(--space-4);
-  }
-
-  .sectionLabelRange {
-    font-size: 10px;
-  }
-
   .trackPrice {
     flex-wrap: wrap;
   }
