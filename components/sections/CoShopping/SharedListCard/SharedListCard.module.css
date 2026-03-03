@@ -41,10 +41,19 @@
   color: #939598;
 }
 
-.removeButton {
+.favoriteHeart {
   position: absolute;
   top: 6px;
   right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.removeButton {
+  position: absolute;
+  top: 6px;
+  left: 6px;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -84,10 +93,8 @@
 }
 
 .title {
-  font-size: 18px;
-  font-weight: 600;
+  font: var(--font-label-2-semibold);
   color: #252526;
-  line-height: 25.2px;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -97,10 +104,8 @@
 }
 
 .price {
-  font-size: 18px;
-  font-weight: 600;
+  font: var(--font-label-2-semibold);
   color: #252526;
-  line-height: 25.2px;
 }
 
 /* Divider */
