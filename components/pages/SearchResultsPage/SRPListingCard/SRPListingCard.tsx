@@ -156,17 +156,19 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
               <div className={styles.divider} />
             </div>
 
-            {listing.isTrustedPartner && (
-              <div className={styles.trustedBadge}>
-                <Icon name="award_star" size={20} className={styles.trustedBadgeIcon} />
-                Trusted partner
-              </div>
-            )}
-
             <div className={styles.listBottomRow}>
               <span className={styles.dealerName}>{listing.dealer.name}</span>
               <span className={styles.listDealerSep}>&middot;</span>
               <span className={styles.dealerLocation}>{location}</span>
+              {listing.isTrustedPartner && (
+                <>
+                  <span className={styles.listDealerSep}>&middot;</span>
+                  <div className={styles.trustedBadge}>
+                    <Icon name="award_star" size={20} className={styles.trustedBadgeIcon} />
+                    Trusted partner
+                  </div>
+                </>
+              )}
               <button type="button" className={`${styles.ctaButton} ${styles.listCtaButton}`}>
                 More info
               </button>

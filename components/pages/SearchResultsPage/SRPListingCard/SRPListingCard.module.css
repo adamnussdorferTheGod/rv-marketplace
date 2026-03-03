@@ -281,6 +281,8 @@
 .listCard .content {
   flex: 1;
   min-width: 0;
+  gap: var(--space-12);
+  padding: var(--space-24);
 }
 
 .listCard .dividerWrapper {
@@ -297,6 +299,7 @@
 .listTopRow .textBlock {
   flex: 1;
   min-width: 0;
+  gap: var(--space-12);
 }
 
 .listTopRow .title {
