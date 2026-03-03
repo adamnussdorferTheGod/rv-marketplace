@@ -36,6 +36,11 @@
   font: var(--font-link-2);
   color: var(--rv-on-surface);
   text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
 }
 
 .learnMore:hover {
