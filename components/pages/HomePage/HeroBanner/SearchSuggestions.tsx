@@ -124,7 +124,9 @@ export default function SearchSuggestions({
 
       {grouped.map((group) => (
         <div key={group.category} className={styles.group}>
-          <div className={styles.categoryHeader}>{CATEGORY_LABELS[group.category]}</div>
+          {group.category !== 'make' && group.category !== 'make_model' && group.category !== 'model' && (
+            <div className={styles.categoryHeader}>{CATEGORY_LABELS[group.category]}</div>
+          )}
           {group.items.map(({ item, flatIndex }) => {
             const isActive = flatIndex === activeIndex;
             return (
