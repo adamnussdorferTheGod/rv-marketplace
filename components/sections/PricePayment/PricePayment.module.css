@@ -51,10 +51,8 @@
   gap: var(--space-4);
   height: 28px;
   padding: 2px 10px 2px 2px;
-  background: var(--color-green-100);
   border-radius: 100px;
   font: var(--font-label-2-semibold);
-  color: var(--rv-primary);
   white-space: nowrap;
   width: fit-content;
 }
@@ -65,9 +63,8 @@
   justify-content: center;
   width: var(--space-24);
   height: var(--space-24);
-  background: var(--color-green-200);
   border-radius: 50%;
-  color: var(--rv-on-primary);
+  color: #fff;
   flex-shrink: 0;
 }
 

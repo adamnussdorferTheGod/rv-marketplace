@@ -12,20 +12,11 @@ function formatPrice(value: number): string {
   return '$' + value.toLocaleString('en-US');
 }
 
-function getBadgeLabel(rating: string): string {
-  switch (rating) {
-    case 'low':
-      return 'Low price';
-    case 'good':
-      return 'Low price';
-    case 'fair':
-      return 'Fair price';
-    case 'high':
-      return 'High price';
-    default:
-      return 'Low price';
-  }
-}
+const DEAL_BADGE: Record<string, { label: string; icon: string; bg: string; iconBg: string; text: string }> = {
+  great: { label: 'Well below market price', icon: 'arrow_downward', bg: '#e9f7f7', iconBg: '#036c6c', text: '#036c6c' },
+  good:  { label: 'Below market price',      icon: 'south_east',    bg: '#e4fbed', iconBg: '#49a46c', text: '#49a46c' },
+  fair:  { label: 'Around market price',      icon: 'arrow_forward', bg: '#f9fbe4', iconBg: '#acb646', text: '#7f872a' },
+};
 
 export default function PricePayment({
   currentPrice,
@@ -42,12 +33,20 @@ export default function PricePayment({
         <div className={styles.divider} />
         <a href="#" className={styles.paymentLink}>Est. monthly payment</a>
       </div>
-      <div className={styles.badge}>
-        <span className={styles.badgeIcon}>
-          <Icon name="arrow_downward" size={14} />
-        </span>
-        {getBadgeLabel(dealRating)}
-      </div>
+      {DEAL_BADGE[dealRating] && (
+        <div
+          className={styles.badge}
+          style={{ background: DEAL_BADGE[dealRating].bg, color: DEAL_BADGE[dealRating].text }}
+        >
+          <span
+            className={styles.badgeIcon}
+            style={{ background: DEAL_BADGE[dealRating].iconBg }}
+          >
+            <Icon name={DEAL_BADGE[dealRating].icon} size={14} />
+          </span>
+          {DEAL_BADGE[dealRating].label}
+        </div>
+      )}
     </div>
   );
 }
