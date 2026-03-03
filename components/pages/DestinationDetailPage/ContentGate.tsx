@@ -24,13 +24,15 @@ interface ContentGateProps {
 
 export default function ContentGate({ gated, onAuthenticate, children, heading, subtext, contained }: ContentGateProps) {
   useEffect(() => {
-    if (gated) {
+    if (gated && !contained) {
       document.documentElement.setAttribute('data-content-gated', '');
     }
     return () => {
-      document.documentElement.removeAttribute('data-content-gated');
+      if (!contained) {
+        document.documentElement.removeAttribute('data-content-gated');
+      }
     };
-  }, [gated]);
+  }, [gated, contained]);
 
   if (!gated) return <>{children}</>;
 
