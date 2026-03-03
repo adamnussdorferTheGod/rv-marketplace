@@ -21,8 +21,10 @@ const SEGMENT_OPTIONS: { value: HeroSegment; label: string }[] = [
 ];
 
 const HERO_IMAGES = [
-  { src: '/images/hero-rv.png', position: '10% 75%' },
+  { src: '/images/hero-rv-4.jpg', position: '70% 60%' },
   { src: '/images/hero-rv-2.jpg', position: '50% 80%' },
+  { src: '/images/hero-rv-3.jpg', position: '65% 72%' },
+  { src: '/images/hero-rv.png', position: '10% 75%' },
 ];
 
 const HERO_ROTATE_MS = 8000;
