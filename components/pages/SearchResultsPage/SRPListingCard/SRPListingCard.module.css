@@ -185,6 +185,29 @@
   text-decoration: line-through;
 }
 
+/* Deal type badge pill */
+
+.dealBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-8) var(--space-4) var(--space-4);
+  border-radius: var(--radius-full);
+  font: var(--font-label-2-semibold);
+  white-space: nowrap;
+}
+
+.dealBadgeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  flex-shrink: 0;
+}
+
 .ctaButton {
   display: flex;
   height: 40px;
@@ -272,6 +295,14 @@
   flex-shrink: 0;
   aspect-ratio: unset;
   align-self: stretch;
+  background: var(--rv-surface-secondary);
+}
+
+.listPhoto {
+  object-fit: contain !important;
+  object-position: center top;
+  padding: 12px;
+  box-sizing: border-box;
 }
 
 .listCard .photoWrapper::after {

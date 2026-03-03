@@ -26,6 +26,12 @@ const TOW_BADGE: Record<string, { label: string; color: string }> = {
   marginal: { label: 'Marginal tow', color: 'var(--rv-border-tag-orange)' },
 };
 
+const DEAL_BADGE: Record<string, { label: string; icon: string; bg: string; iconBg: string; text: string }> = {
+  great: { label: 'Well below market price', icon: 'arrow_downward', bg: '#e9f7f7', iconBg: '#036c6c', text: '#036c6c' },
+  good:  { label: 'Below market price',      icon: 'south_east',    bg: '#e4fbed', iconBg: '#49a46c', text: '#49a46c' },
+  fair:  { label: 'Around market price',      icon: 'arrow_forward', bg: '#f9fbe4', iconBg: '#acb646', text: '#7f872a' },
+};
+
 export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }: SRPListingCardProps) {
   const { isListingOnAnyList, toggleListingOnActiveList } = useCoShopping();
   const isFavorite = isListingOnAnyList(listing.id);
@@ -39,6 +45,8 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
 
   const showOriginalPrice =
     listing.originalPrice != null && listing.originalPrice !== listing.currentPrice;
+
+  const dealBadge = listing.dealRating ? DEAL_BADGE[listing.dealRating] : null;
 
   const isList = variant === 'list';
 
@@ -61,7 +69,7 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
           <img
             src={listing.photos[0].url}
             alt={listing.photos[0].alt}
-            className={styles.photo}
+            className={`${styles.photo} ${isList ? styles.listPhoto : ''}`}
             loading="lazy"
           />
         )}
@@ -149,6 +157,14 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
                     ${listing.originalPrice!.toLocaleString()}
                   </span>
                 )}
+                {dealBadge && (
+                  <span className={styles.dealBadge} style={{ background: dealBadge.bg }}>
+                    <span className={styles.dealBadgeIcon} style={{ background: dealBadge.iconBg }}>
+                      <Icon name={dealBadge.icon} size={14} />
+                    </span>
+                    <span style={{ color: dealBadge.text }}>{dealBadge.label}</span>
+                  </span>
+                )}
               </div>
             </div>
 
@@ -187,6 +203,14 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
                   {showOriginalPrice && (
                     <span className={styles.originalPrice}>
                       ${listing.originalPrice!.toLocaleString()}
+                    </span>
+                  )}
+                  {dealBadge && (
+                    <span className={styles.dealBadge} style={{ background: dealBadge.bg }}>
+                      <span className={styles.dealBadgeIcon} style={{ background: dealBadge.iconBg }}>
+                        <Icon name={dealBadge.icon} size={14} />
+                      </span>
+                      <span style={{ color: dealBadge.text }}>{dealBadge.label}</span>
                     </span>
                   )}
                 </div>

@@ -608,6 +608,14 @@ const ICONS: Record<string, IconDefinition> = {
     ],
   },
 
+  // South-east diagonal arrow (below market price)
+  south_east: {
+    paths: [
+      'M18 18L6 6',
+      'M8 18H18V8',
+    ],
+  },
+
   // Download icon (Deal Kit PDF)
   download: {
     paths: [
