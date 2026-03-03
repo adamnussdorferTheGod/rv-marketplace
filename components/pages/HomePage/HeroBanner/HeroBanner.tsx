@@ -20,6 +20,13 @@ const SEGMENT_OPTIONS: { value: HeroSegment; label: string }[] = [
   { value: 'sell', label: 'Sell my RV' },
 ];
 
+const HERO_IMAGES = [
+  { src: '/images/hero-rv.png', position: '10% 75%' },
+  { src: '/images/hero-rv-2.jpg', position: '50% 80%' },
+];
+
+const HERO_ROTATE_MS = 8000;
+
 const PLACEHOLDER_PHRASES = [
   'Try: Family-friendly RVs for 4',
   'Try: Class A under $80,000',
@@ -166,6 +173,7 @@ export default function HeroBanner() {
 
   const showPlaceholder = !searchQuery && !isDropdownOpen;
   const phraseIndex = usePhraseCycle(PLACEHOLDER_PHRASES.length, PHRASE_INTERVAL, showPlaceholder);
+  const heroImageIndex = usePhraseCycle(HERO_IMAGES.length, HERO_ROTATE_MS, true);
   const rvCount = useRvCount(RV_COUNT_BASE, RV_COUNT_TICK_MS);
   const reducedMotion = usePrefersReducedMotion();
   const animateEntrance = !reducedMotion;
@@ -298,9 +306,23 @@ export default function HeroBanner() {
       className={styles.hero}
       ref={heroRef}
     >
-      {/* ── Background layer ── */}
+      {/* ── Background layer — crossfading images ── */}
       <div className={styles.heroImageWrap}>
-        <div className={styles.heroBackground} />
+        <div className={styles.heroBackground}>
+          <AnimatePresence initial={false}>
+            <motion.img
+              key={heroImageIndex}
+              src={HERO_IMAGES[heroImageIndex].src}
+              alt=""
+              className={styles.heroBackgroundImg}
+              style={{ objectPosition: HERO_IMAGES[heroImageIndex].position }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+            />
+          </AnimatePresence>
+        </div>
         <div className={styles.heroOverlay} />
       </div>
 
