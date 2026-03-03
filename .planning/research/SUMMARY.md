@@ -1,17 +1,17 @@
 # Project Research Summary
 
-**Project:** RV Marketplace v9.0 — Market Insights
-**Domain:** Client-side algorithmic pricing intelligence for RV Vehicle Detail Page
-**Researched:** 2026-03-02
+**Project:** RV Marketplace v10.0 — AI-Powered SRP Summary + Research Assistant
+**Domain:** Marketplace AI search intelligence and conversational shopping assistant
+**Researched:** 2026-03-03
 **Confidence:** HIGH
 
 ## Executive Summary
 
-v9.0 adds buyer-facing market intelligence cards to the existing VDP — deal scoring, days-on-market context, supply/demand framing, seasonal timing advice, and price drop alerts. This is table-stakes UX in the automotive space (CarGurus, KBB, Edmunds all offer it) but is completely absent from RV marketplaces today. RV Trader has no buyer-facing deal badges or market insight cards. Building this pattern on an RV VDP is both well-understood (copy the automotive playbook) and meaningfully differentiated (no RV competitor has done it yet).
+RV Marketplace v10.0 adds two layered AI features to the existing Search Results Page: a passive summary card (headline stats + AI narrative + expandable detail panel with charts) and an active conversational assistant (chat input, prompt chips, typed message responses). Research confirms this pattern — a passive summary layer plus an active assistant layer — is the exact architecture shipped by every major automotive marketplace in 2025 (CarGurus Discover, Autotrader AI Mode, Cars.com Carson). The RV vertical has zero buyer-facing AI features, making this a clear differentiation opportunity. The critical finding is that the entire v10.0 scope can be delivered using zero new npm dependencies: every capability maps to existing codebase patterns (custom SVG charts, AiMode chat UI, mockAiService templates, CSS Modules responsive layout).
 
-The recommended approach is zero new dependencies. All four insight cards are pure algorithmic computations over the existing ~80-listing dataset, following patterns already established in this codebase: a pure TypeScript engine in `app/src/data/`, a typed result object passed as a prop, and card components that only render. This is the exact shape of `generateDealKit.ts`, `generateNarrations.ts`, and `generateVideoWalkthrough.ts`. The engine is the only new file that carries meaningful risk — it must bridge `ListingData` and `SRPListing` types, handle sparse subcategories gracefully, and compute statistically defensible metrics from a small dataset.
+The recommended approach is a strict generate-then-render architecture: a pure `srpSummaryEngine.ts` function computes typed summary data from the filtered `SRPListing[]` array, downstream components receive pre-computed props, and the assistant uses a keyword-classified mock service with real data interpolation. Confidence gating — four tiers from "full" (50+ listings) to "insufficient" (<3) — must be threaded as a top-level data contract through every component in the feature tree, not treated as a display flag on a single component. The data itself is the "intelligence": template strings interpolating real listing stats (counts, median prices, top makes, deal breakdowns) produce accurate and trustworthy responses without LLM infrastructure.
 
-The primary risk is trust erosion from overconfident UI. Presenting point estimates ("32 days") derived from 4 comparables, displaying supply counts as if they reflect real market inventory, or applying national seasonal models to Florida listings — all of these will make the feature look unreliable to any buyer who cross-checks. The mitigation is clear: minimum-sample guards in the engine (suppress cards below n=8), range copy instead of point estimates, comparison scope disclosure in the engine return type, and a methodology panel that shows actual comparables rather than marketing language. These guards must be built into the engine API from day one — they cannot be polished on afterwards without refactoring.
+The primary risks are implementation-level, not architectural. Layout shift from inserting the summary card, the chat panel disrupting the 3-column listing grid, and confidence state failing to propagate to all child components are the three highest-impact pitfalls — each requiring specific prevention strategies baked into the first commits of their respective phases. A secondary risk is scope creep into real LLM integration: the existing codebase already has `claudeService.ts` for the VDP, making it tempting to hook it up for the SRP. This must be a hard boundary enforced at code review.
 
 ---
 
@@ -19,129 +19,194 @@ The primary risk is trust erosion from overconfident UI. Presenting point estima
 
 ### Recommended Stack
 
-No new dependencies. The entire v9.0 feature set is achievable with the existing installed stack: React 19.2.0, TypeScript 5.9.3, CSS Modules, and Motion 12.34.3 (already installed). The computation engine mirrors `financingCalculations.ts` and `tradeInEstimator.ts` — pure TypeScript functions that take inputs and return typed objects. Caching via `useMemo` with `[listing]` dependency is the correct pattern and is already used for `generateDealKit()` in `VehicleDetailPage.tsx`. Card expand/collapse uses local `useState` per card, matching the `TotalCostCalculator` breakdown pattern. Vitest 4.0.18 is already configured and should cover the engine with unit tests following the `stateTaxCalculations.test.ts` pattern.
-
-The one exception is seasonal insights: the ~80-listing dataset is a price snapshot, not a time series, so seasonal coefficients must be a hardcoded lookup table (`SEASONAL_INDEX[rvType][month]`) based on known RV market patterns. This is appropriate for the demo and should be clearly labeled in UI copy.
+The existing stack handles all v10.0 capabilities. No new dependencies are needed or recommended.
 
 **Core technologies:**
-- TypeScript 5.9.3 (pure functions) — computation engine with no React dependencies; trivially unit-testable
-- React 19.2.0 `useMemo` — computation caching; established VDP pattern via `generateDealKit`
-- React 19.2.0 `useState` — per-card expand/collapse; no shared context needed
-- Motion 12.34.3 `AnimatePresence` — `height: auto` expand animation; already installed, handles auto-height correctly
-- Vitest 4.0.18 — unit tests for `marketInsights.ts`; test pattern established in `stateTaxCalculations.test.ts`
+- **React 19 + TypeScript 5.9** — component tree and type safety for all new components; the established pattern
+- **CSS Modules + `tokens.css`** — all styling; scoped, zero runtime cost, consistent with every existing component
+- **Custom SVG components** — price histogram, trend chart, deal quality donut; two working codebase precedents exist (`DonutChart.tsx`, `PriceDistributionChart.tsx`)
+- **AiMode components (adapted)** — `ChatInput`, `ConversationThread`, `SuggestedPrompts`, `MessageBubble`, `AiModePanel` are 80%+ reusable for the SRP assistant
+- **Template literal functions** — narrative generation; type-safe, compile-time checked, matches existing `mockAiService.ts` and `generateNarrations.ts` patterns
+- **`requestAnimationFrame` hook (`useTypewriter`)** — character-by-character text reveal for assistant responses; 25 lines, zero dependencies
+- **Vitest (already installed at 4.0.18)** — unit testing for the pure computation layer (`srpSummaryEngine.ts`)
+
+**External libraries explicitly rejected:** recharts (React 19 peer dep issues, ~50KB gzipped), MSW (no fetch() calls exist — contradicts direct-import architecture), Vercel AI SDK (no real LLM), Stream Chat / Chatscope (conflicts with CSS Modules), D3.js (overkill for 3 simple SVG charts).
+
+See `.planning/research/STACK.md` for full rationale and alternatives analysis.
 
 ### Expected Features
 
-Buyer-facing pricing intelligence is table stakes on automotive platforms. The full MVP set (P1) can be built from the existing dataset with no schema changes to `ListingData` — `priceHistory`, `daysOnSite`, `currentPrice`, `rvType`, `year`, `condition`, and `location.state` are already present.
+Buyer-facing AI search summaries are becoming table stakes on automotive and major marketplace platforms. The RV vertical has no comparable features today.
 
-**Must have (table stakes):**
-- Deal Quality Badge + Market Value Reference (T1/T2) — primary buyer signal; meaningless without showing the comparable median that backs it; comparable count must be visible
-- Price Drop Alert (T3) — high-conversion signal; drop data already in `priceAnalysis.priceHistory`
-- Days on Market display (T5) — buyers expect this; `daysOnSite` field already exists
-- Comparable Count (T4) — anchors the deal badge with a concrete data point
-- Progressive Disclosure / Expand (T6) — headline + tap-to-expand methodology; required to avoid information overload
-- Methodology Transparency Panel (D5) — must show actual comparables list with year/type/price/DOM, sample count, and match criteria; not marketing copy
+**Must have (table stakes — users expect these):**
+- Headline stat bar (listing count, median price, avg DOM, price trend) — users anchor on numbers before reading narrative; every competitor leads with quantitative summary
+- AI narrative summary of current search results — Google AI Overviews and every automotive competitor have set this expectation
+- Confidence-gated rendering (4 tiers: full/medium/low/insufficient) — users distrust AI that speaks confidently from thin data; 65% of consumers want guardrails
+- Data grounding indicators ("Based on 24 listings") — attribution builds trust; mandatory on every data-derived claim
+- Contextual prompt chip suggestions — Amazon Rufus data shows chips outperform empty text inputs as the primary engagement driver
+- Chat input bar — minimum viable interaction point for an assistant
+- Text response messages from assistant — baseline response type; grounded in real search data
+- Responsive collapse behavior — three distinct states: desktop (full card), tablet (2x2 grid), mobile (single-line strip)
 
-**Should have (competitive, v9.0 scope):**
-- Avg Days on Market Card (D1) — category-level context alongside per-listing DOM; medium effort; no RV marketplace offers this
-- Supply & Demand Card (D2) — count + trend framing as buyer advice; leverages comparable computation already done
-- Seasonal Timing Card (D3) — standalone (uses only `Date()` + hardcoded coefficients); no RV marketplace offers inline seasonal advice
+**Should have (competitive differentiators):**
+- Expandable detail panel with price distribution histogram and deal quality breakdown — 44% of automotive shoppers want AI to compare vehicles (CarGurus 2025)
+- Comparison table response type in assistant — addresses the #1 stated AI use case for automotive shoppers
+- Listing card response type embedded in chat — more actionable than plain text; users can click through to VDP directly
+- Action response type with deep-link filter buttons — bridges conversational discovery to traditional filter browsing
+- Desktop side panel assistant (overlay, preserves search context while chatting)
+- Mobile bottom sheet assistant (FAB trigger, swipeable up)
+- Dynamic chip suggestions that evolve with conversation context
+- Trend chart in detail panel (6-month simulated price movement)
 
-**Defer (v9.x after core validation):**
-- Price Trend Indicator (D4) — directional arrow by type/condition; add after core cards validated
-- Price History Timeline (D7) — timeline UI; T3 already delivers 80% of the value with less work
-- Combined Market Summary Card (D6) — NLG synthesis of T1+D2+D3; highest complexity, requires all three predecessors working correctly
+**Anti-features (explicitly do not build):**
+- Purchase recommendations ("you should buy this one") — creates liability; 73% of consumers want AI to inform, not decide
+- Price predictions ("this will drop next month") — speculative claims erode trust; no marketplace ships this
+- Negotiation coaching — adversarial to dealers (platform customers); legal exposure
+- Real LLM integration in v10.0 — scope explosion; mock approach achieves the UX demonstration goal
+- Personalization / user history — requires auth and storage, both out of scope
+- Voice input — significant complexity; no automotive marketplace ships voice-first on web
 
-**Out of scope (v10+):**
-- SRP deal badges — extends VDP badge pattern to listing cards; significant SRP design work; validate VDP concept first
-- Saved price alerts — requires auth + backend infrastructure; PROJECT.md: no auth, no persistence
+See `.planning/research/FEATURES.md` for competitive landscape analysis and consumer research data.
 
 ### Architecture Approach
 
-The established generate-then-render pattern applies directly. A pure engine function `generateMarketInsights(listing: ListingData): MarketInsightsData` lives in `app/src/data/`, imports `sampleSrpListings` at module level for peer comparisons, and returns a fully-typed result object. `VehicleDetailPage` calls it via `useMemo` and passes `insights={marketInsights}` to `<MarketInsightsSection />`, which distributes typed sub-objects to four card components. Each card owns its own `isExpanded` state. No Context provider is needed — this is static data flowing one direction, not an async overlay system like DealKit.
-
-The insertion point in the VDP is between `PriceAnalysis` and `PaymentCalculator`, with an `id="market-insights"` anchor matching the existing `id="price"` and `id="payment"` pattern.
+The architecture is a two-layer feature grafted onto the existing `SearchResultsPage`: a passive summary layer (`SrpSummaryCard`) inserted between the header and the featured listings carousel, and an active assistant layer (`AiAssistantPanel` / `AssistantSheet`) that extends the existing `AiModeProvider`. All computation follows the established generate-then-render pattern: `generateSrpSummary(results, filters)` runs synchronously via `useMemo` in `SearchResultsPage`, producing a typed `SrpSummaryData` object that flows down as props. The assistant mock service receives a pre-computed `SearchContext` object and returns discriminated union responses (`text | comparison | listing | action`). The existing `AiModeProvider` is extended (not replaced) with an optional `searchContext` prop.
 
 **Major components:**
-1. `app/src/data/marketInsightsTypes.ts` — TypeScript types for `MarketInsightsData` and all four sub-insight types; must include `comparisonScope: 'local' | 'regional' | 'national' | 'type-only'` field for transparency
-2. `app/src/data/marketInsights.ts` — pure engine: `generateMarketInsights()` with `findComparables()`, all four sub-computation functions, `MIN_SAMPLE` constant guard, and DOM outlier exclusion; imports `sampleSrpListings` internally
-3. `components/sections/MarketInsights/MarketInsightsSection.tsx` — container section; receives `MarketInsightsData` prop; renders section heading and 2x2 card grid; all cards collapsed by default
-4. Four card sub-components (`PriceDropAlertCard`, `DaysOnMarketCard`, `SupplyDemandCard`, `SeasonalTimingCard`) — each self-contained with local `useState(isExpanded)`
+1. `srpSummaryEngine.ts` — pure function: `(SRPListing[], FilterCriteria) => SrpSummaryData`; O(n) computation, <1ms for 80 listings; computes stats, histogram bins, deal breakdowns, confidence tier, and narrative
+2. `SrpSummaryCard` — passive display: `StatBar` + `AiNarrative` + `SummaryDetailPanel` (expandable); receives typed props; no state except expand/collapse
+3. `mockSrpAssistantService.ts` — async mock: 5-category keyword classification, template responses interpolating real search context data, 500-1500ms simulated delay; hard import boundary from `claudeService.ts`
+4. `AssistantMessage` — polymorphic renderer: `text | comparison | listing | action` discriminated union; each type has a dedicated sub-component
+5. `AiAssistantPanel` / `AssistantSheet` — desktop overlay panel and mobile bottom sheet; extend existing `AiModePanel` pattern
+
+**Key patterns to follow:** Generate-Then-Render (4+ codebase precedents), Confidence-Gated Rendering via a `ConfidenceGate` wrapper component, CSS Modules + design tokens for all styling, React Context extension (not a new context) for chat state.
+
+See `.planning/research/ARCHITECTURE.md` for component boundary specifications, full data type definitions, build order, and anti-patterns to avoid.
 
 ### Critical Pitfalls
 
-1. **Small sample collapse** — With ~80 listings across 10+ RV types, rare subcategories (Fish House, Pop-Up Camper, Class B Van) produce 3-5 comparables. An engine with no minimum-n guard displays "Great Deal — 8% below market" backed by 3 data points. Prevention: define `MIN_SAMPLE = 8` as a named constant; suppress the card (return null) below threshold; build this guard into the engine API contract on day one.
+1. **Confidence state not propagated through the full UI stack** — `confidenceLevel` must be a required field in the API response schema and consumed by every component in the feature tree. Build a `ConfidenceGate` wrapper before writing any feature-specific UI. A 3-result search must suppress narrative, suppress charts, AND reduce prompt chips — not just show a badge on the stat bar. Address in the mock API layer phase.
 
-2. **Point estimates conveying false precision** — "Typically sells in 32 days" from a dataset with a 14-67 day spread is misleading. Buyers who cross-check feel deceived. Prevention: always show ranges ("typically 18–45 days"), round to nearest 5, use softening language ("typically," "around," "in our dataset").
+2. **Layout shift when summary card first renders** — reserve fixed minimum height for the summary card slot from initial render using a skeleton component. The collapsed card height must be a CSS custom property. Detail panel expand/collapse must use CSS `max-height` transition, not instant reflow. Target CLS < 0.1 (measurable with Chrome DevTools Performance panel). Address in the summary card layout phase — skeleton must be in the first commit, not retrofitted.
 
-3. **Methodology panel as trust facade** — A panel that says "We compare similar listings" without showing actual comparables, sample count, or match criteria provides the appearance of transparency without the substance. Sophisticated buyers notice and resent it. Prevention: panel must display the actual comparable listings used (year, type, price, DOM), the sample count ("Based on 12 listings"), and the match criteria ("same RV type, ±3 years").
+3. **Chat panel disrupts the 3-column listing grid** — use an overlay pattern (position: fixed, backdrop) not a layout-shifting side panel. A 400px side panel collapsing a 1400px main column forces the listing grid from 3 columns to 2, causing expensive re-renders and scroll position loss. If the spec requires layout shift, ensure the grid uses CSS `auto-fill minmax()`. Address before building any panel content.
 
-4. **VDP information overload** — Four new cards of 80-120px each (collapsed) risk pushing the Contact Dealer CTA below the fold on a 1080p display. Prevention: all four cards collapsed by default; auto-expand only the single highest-priority card (price drop if present, otherwise deal score); verify dealer CTA scroll-depth constraint before finalizing layout.
+4. **Assistant responses not grounded in current search context** — every response template must interpolate at least 2 data points from `SearchContext` (result count, price range, top makes, median price). Build the `SearchContext` data contract before writing any response templates. Detection: if the response text does not change when filters switch from "Travel Trailers" to "Class A Motorhomes," the mock service is failing.
 
-5. **Seasonal direction wrong for warm-weather states** — The national RV seasonal model (buy in Oct-Feb, avoid spring) inverts for Florida, Arizona, and coastal Texas where winter is peak RV season. Prevention: add a regional caveat to the seasonal card copy for FL/AZ/TX listings; suppress directional urgency language for these states.
+5. **Scope creep into real LLM integration** — the SRP mock service must not import from `claudeService.ts`. Hard boundary enforced at code review. Recovery cost is HIGH if real API is allowed to proceed. Add a comment at the top of the mock service: "This is a MOCK service. Real LLM integration is out of scope for v10.0."
+
+**Additional moderate pitfalls:** Accessibility gaps in chat panel (focus management, `role="log"`, ARIA live regions); misleading aggregates on mixed-type searches (need type diversity check before computing single median); charts rendering poorly with small datasets (minimum-n thresholds per chart type: histogram >= 15, trend >= 20, deal breakdown >= 10); mock service growing beyond 200 lines (cap at 5 response categories); dead-end prompt chips with no follow-up path (require follow-up chip mapping before building chip component).
+
+See `.planning/research/PITFALLS.md` for the complete 14-item "Looks Done But Isn't" checklist and recovery cost table.
 
 ---
 
 ## Implications for Roadmap
 
-The architecture's generate-then-render dependency chain suggests a 4-phase build order: engine first, container wiring second, individual cards third (simplest to most complex), progressive disclosure last.
+Based on combined research, the architecture's generate-then-render dependency chain and the pitfall phase warnings suggest a 6-phase build order.
 
-### Phase 1: Computation Engine + Types
+### Phase 1: Data Layer + Types
 
-**Rationale:** Every card depends on the engine. Statistical pitfalls (small sample, false precision, silent category broadening, DOM outlier inflation) must be addressed here — they cannot be patched later in card UI without refactoring the engine API. The engine bridges two different data types (`ListingData` vs. `SRPListing`) and must produce statistically defensible output for both dense and sparse subcategories. Build and unit-test the engine before any React work starts.
+**Rationale:** Everything downstream depends on the `SrpSummaryData` shape being correct and testable. Pure TypeScript with no React — fastest feedback loop and clearest test surface. The statistical pitfalls (misleading mixed-type aggregates, misleading aggregates from small n) must be addressed here because they cannot be patched in card UI without refactoring the engine API. This is the exact approach used for `marketInsightsEngine.ts` in v9.0.
 
-**Delivers:** `marketInsightsTypes.ts` with all types including `comparisonScope` field; `marketInsights.ts` with `generateMarketInsights()`, `findComparables()` (strict/loose/fallback tiers), all five sub-computation functions (deal score, DOM, supply/demand, seasonal, price drop), `MIN_SAMPLE` guard, outlier exclusion for DOM calculation, and median-not-mean for deal score; `marketInsights.test.ts` with Vitest unit tests including sparse-subcategory (Fish House) and dense-subcategory (Travel Trailer) cases.
+**Delivers:** `srpSummaryTypes.ts` (all types including `ConfidenceLevel`, `PriceBin`, `DealBreakdown`, `AssistantMessageData` discriminated union); `srpSummaryEngine.ts` (pure `generateSrpSummary()` function with type diversity check, minimum-n confidence gating, histogram binning, deal breakdown); `srpNarrativeTemplates.ts` (4-tier template functions); `srpSummaryEngine.test.ts` (Vitest unit tests covering histogram bucketing, confidence thresholds, mixed-type searches)
 
-**Addresses:** T2 (market value reference engine), T1 (deal score algorithm), T5 (DOM computation), T4 (comparable count), D1 (avg DOM per category), D2 (supply/demand), D3 (seasonal with hardcoded coefficients), T3 (price drop from priceHistory)
+**Addresses:** T1 (stat data), T2 (narrative pipeline), T7 (confidence gating), T8 (data grounding), assistant message type contract
 
-**Avoids:** Pitfall 1 (small sample collapse), Pitfall 2 (point estimates — engine returns range data, not just point), Pitfall 3 (silent broadening — `comparisonScope` in return type), Pitfall 10 (DOM outlier inflation)
+**Avoids:** Pitfall 4 (confidence not in response schema — required field from day one), Pitfall 7 (misleading mixed-type aggregates — type diversity check in engine)
 
-### Phase 2: Container Section + VDP Wiring
+**Research flag:** Standard pattern. Generate-then-render is well-established with 4+ codebase precedents. Skip research phase.
 
-**Rationale:** Validate the end-to-end data flow before building individual cards. This catches engine API shape mismatches early — far cheaper to find at the container prop boundary than deep inside a card component. Establish the section placement and default-collapsed constraint before adding card mass.
+---
 
-**Delivers:** `MarketInsightsSection.tsx` with 2x2 card grid layout (placeholder cards initially); `useMemo` call in `VehicleDetailPage.tsx` with `[listing]` dependency; VDP insertion between `PriceAnalysis` and `PaymentCalculator` with `id="market-insights"` anchor; confirmed dealer CTA scroll-depth constraint respected on 1080p.
+### Phase 2: Summary Card — Stat Bar + Narrative
 
-**Addresses:** T6 (progressive disclosure section structure), Pitfall 7 (VDP overload — default collapsed, single auto-expanded card)
+**Rationale:** The visible face of the feature; minimum viable product for the passive layer. Once the data layer exists, this phase makes it visible. Must include layout reservation (skeleton placeholder) in the first commit to prevent CLS from being retrofitted later. The subtitle text audit and Featured Listings placement decision must happen before this phase to prevent Pitfall 13 (summary card competing with existing SRP content).
 
-**Avoids:** Context provider anti-pattern (static data, one-way flow — no provider needed); computation-inside-cards anti-pattern
+**Delivers:** `SrpSummaryCard` with `StatBar`, `AiNarrative`, `ConfidenceBadge`, `ConfidenceGate` wrapper; all 3 responsive states built together (not retrofitted); skeleton placeholder reserving card height before data resolves; `SrpSummaryCard` inserted in `SearchResultsPage.tsx` between header and FeaturedListings
 
-### Phase 3: Individual Cards (Simplest to Most Complex)
+**Addresses:** T1, T2, T3 (responsive), T7, T8
 
-**Rationale:** Build in dependency order: price drop first (reads existing `priceHistory`, no dataset aggregation), DOM card second (mean/median of `daysOnSite` across peers), supply card third (count + state filtering + mock trend), seasonal card last (coefficient table + monthly index, regional edge case logic). Each card can be validated with real listing data in the browser before the next starts.
+**Avoids:** Pitfall 2 (layout shift — skeleton from first commit), Pitfall 11 (tablet breakpoint — design 2x2 grid state first), Pitfall 13 (competing with existing subtitle text — audit SRP content stack and replace, do not add alongside)
 
-**Delivers:**
-- `PriceDropAlertCard` — drop amount/percent/date in headline; date-aware urgency language (suppressed for drops >30 days old); "No price drops" empty state
-- `DaysOnMarketCard` — range format ("18–45 days"), category average vs. listing DOM, comparable count visible in card subtitle
-- `SupplyDemandCard` — count with "in our catalog" disclaimer, trend direction framing as buyer advice
-- `SeasonalTimingCard` — current-month position on seasonal index, best-month callout, regional caveat for FL/AZ/TX listings
+**Research flag:** Standard pattern. Skip research phase.
 
-**Addresses:** T3, D1, D2, D3, Pitfall 5 (stale price drops), Pitfall 6 (seasonal direction for warm states), Pitfall 8 (supply count credibility)
+---
 
-### Phase 4: Progressive Disclosure + Methodology Panels
+### Phase 3: Mock Assistant Service + Chat Input
 
-**Rationale:** The methodology panel design depends on the engine API being finalized — the panel must display actual engine output (comparables list, sample count, match criteria, comparison scope), not pre-written copy. Building this last ensures the panel reflects what the engine actually computed. Animation via `AnimatePresence` for `height: auto` is the correct pattern and is already installed.
+**Rationale:** The data-to-language pipeline is the core value proposition of the active layer. Build the mock service before any assistant UI — it defines the response discriminated union that drives all downstream rendering. Establishing the `SearchContext` contract and the 5-category / 200-line ceiling here prevents over-engineering and scope creep in later phases. The follow-up chip mapping must be designed in this phase (before building the chip component).
 
-**Delivers:** `isExpanded` toggle and detail panel on all four cards with `motion/react` `AnimatePresence`; methodology detail panel showing actual comparable listings (year, type, price, DOM), sample count ("Based on X listings"), comparison scope ("matched by: same RV type, ±3 years"), and data disclaimer; `aria-expanded` attribute on all toggle buttons.
+**Delivers:** `mockSrpAssistantService.ts` (5 categories, all templates interpolating real search data, 200-line ceiling); `SearchContext` data contract; follow-up chip mapping (initial → follow-up → terminal states); `AiAssistantInput` with contextual prompt chips embedded in summary card; `AiModeProvider` extended with optional `searchContext` prop
 
-**Addresses:** T6, D5, Pitfall 9 (trust facade — real comparables in panel), Pitfall 4 (deal score anchoring — comparable count visible before expanding)
+**Addresses:** T4 (prompt chips), T5 (chat input), T6 (text responses), D7 (conversation history), D8 (dynamic chips)
+
+**Avoids:** Pitfall 1 (over-engineered mock — 5-category cap, 200-line ceiling), Pitfall 5 (responses not grounded — `SearchContext` required in every template), Pitfall 9 (scope creep to real LLM — hard import boundary from `claudeService.ts`), Pitfall 10 (dead-end chips — follow-up mapping designed before chip component built)
+
+**Research flag:** Standard pattern. Mirrors existing `mockAiService.ts` pattern. Skip research phase.
+
+---
+
+### Phase 4: Assistant Panel + Rich Message Types
+
+**Rationale:** The full conversational experience. Depends on the mock service (Phase 3) for response data and the existing `AiModePanel` for layout patterns. The overlay-vs-layout-shift decision for the desktop panel must be resolved and implemented here. Accessibility attributes (focus management, `role="log"`, ARIA live regions) must be in the component skeleton, not added during polish.
+
+**Delivers:** `AiAssistantPanel` (desktop overlay, not layout-shifting); `AssistantSheet` (mobile bottom sheet, FAB trigger, swipeable); `AssistantMessage` polymorphic renderer with all 4 types (`text`, `comparison`, `listing`, `action`); `useTypewriter` hook (25 lines, `requestAnimationFrame`); `ConversationThread` with `role="log"`; focus management on panel open/close
+
+**Addresses:** D2 (comparison tables), D3 (listing cards), D4 (action responses), D5 (desktop panel), D6 (mobile bottom sheet)
+
+**Avoids:** Pitfall 3 (panel breaks grid — overlay pattern, not layout shift; test on 1366px laptop viewport before building panel content), Pitfall 6 (accessibility — focus management and ARIA in component skeleton), Pitfall 12 (typing indicator timing — 600-1000ms fixed delay, no character-by-character streaming)
+
+**Research flag:** Moderate complexity. The overlay-vs-layout-shift decision has performance and UX implications. Validate the exact panel behavior spec and test on 1366px viewport before starting implementation.
+
+---
+
+### Phase 5: Detail Panel + Charts
+
+**Rationale:** Enhancement layer behind an expand interaction; lower urgency than the passive summary and active assistant. The feature is shippable after Phase 4. Building charts last ensures minimum-n thresholds are informed by usage observed in Phases 2-4. Custom SVG follows the `DonutChart` and `PriceDistributionChart` precedents — no new dependencies.
+
+**Delivers:** `SummaryDetailPanel` with CSS `max-height` expand/collapse animation; `PriceDistributionChart` (SVG histogram, adaptive bin count `Math.min(Math.ceil(Math.sqrt(n)), 8)`); `DealQualityBreakdown` (SVG donut adapted from existing `DonutChart`); `TrendChart` (SVG line with simulated 6-month time-series data); all charts with minimum-n fallback to data tables
+
+**Addresses:** D1 (detail panel + histogram), D9 (trend chart)
+
+**Avoids:** Pitfall 8 (charts with small datasets — minimum-n thresholds: histogram >= 15, trend >= 20, deal breakdown >= 10; below threshold render data table, not empty bins)
+
+**Research flag:** Standard pattern. Custom SVG charts follow existing codebase precedents. Skip research phase. Define the simulated trend time-series data shape during phase planning.
+
+---
+
+### Phase 6: Responsive Polish + QA
+
+**Rationale:** Deliberate refinement pass after all components work at desktop width. The 14-item "Looks Done But Isn't" checklist from PITFALLS.md requires dedicated time and cannot be completed incidentally. CLS measurement, accessibility audit, and mock service size verification are not polish — they are correctness requirements.
+
+**Delivers:** Full responsive behavior verified across all new components at all 3 breakpoints; CLS < 0.1 measured and confirmed; accessibility audit complete (focus management, ARIA, keyboard navigation); mock service verified under 200 lines; confidence propagation verified on edge-case searches (0, 1, 3, 5, 10, 50 results); context grounding verified (response changes when filters change)
+
+**Addresses:** T3 (responsive collapse), Pitfall 11 (tablet breakpoint — design this state first, then desktop, then mobile)
+
+**Research flag:** Standard QA phase. No research needed.
+
+---
 
 ### Phase Ordering Rationale
 
-- Engine before UI because the card display logic is entirely downstream of the typed engine output; changing the engine API after cards are built forces cascading refactors across all four cards simultaneously
-- Container wiring before individual cards because it validates the data flow contract end-to-end at low cost, before any card rendering complexity is introduced
-- Card build order within Phase 3 follows aggregation complexity: price drop uses only the current listing (no dataset pass), DOM and supply require dataset filtering, seasonal requires both a coefficient table and regional edge case handling
-- Progressive disclosure last because the methodology panel must display real engine output — the panel must be built after the engine API is stable and the card content is known; pre-written methodology copy is the trust-facade anti-pattern
+- **Data before UI:** The generate-then-render pattern is non-negotiable. Components receive typed props, not raw listings. Getting the data shape correct in Phase 1 prevents cascading refactors across all downstream components.
+- **Passive before active:** The summary card (Phase 2) delivers visible value with no interaction required and validates the data layer integration before the assistant complexity is added.
+- **Service before panel:** The mock service (Phase 3) defines the response discriminated union that `AssistantMessage` renders. Building the panel before the service inverts the dependency.
+- **Charts deferred:** Charts (Phase 5) are behind an expand interaction and have the smallest impact on core UX. The feature is shippable after Phase 4 if timeline pressure arises.
+- **Polish separate:** The QA checklist (Phase 6) is extensive enough to deserve its own phase. Responsive refinement, CLS measurement, and accessibility are not incidental finishing touches.
 
 ### Research Flags
 
-Phases with well-documented patterns (can skip deeper research):
-- **Phase 2 (Container + VDP Wiring):** Direct mirror of `generateDealKit` integration already in the codebase. The `useMemo` + prop-passing pattern is established. No research needed.
-- **Phase 4 (Progressive Disclosure):** `AnimatePresence` with `height: auto` is documented in Motion v12 official docs. Expand/collapse pattern matches `TotalCostCalculator`. `aria-expanded` is standard. No research needed.
+Phases needing attention before or during planning:
+- **Phase 4 (Assistant Panel):** Validate the overlay-vs-layout-shift decision before writing code. Test candidate panel implementation on a 1366px laptop viewport. Determine whether the spec requires listings to be visible alongside the chat.
+- **Phase 5 (Charts):** Define the simulated 6-month trend time-series data shape during phase planning — specifically how `daysOnMarket` or listing dates map to monthly aggregates in the mock data.
+- **Phase 2 (Summary Card):** Audit the full SRP content stack and decide Featured Listings placement before implementation. This decision affects Phase 2 scope.
 
-Phases that benefit from pre-implementation codebase review:
-- **Phase 1 (Engine):** Before writing `extractRvType()`, read `types.ts` to confirm the actual spec label strings used in `ListingData.specs[]` (e.g., whether the value is "Class C", "class-c", or "Class C Motorhome") and map them correctly to the `RVType` union. Also run a quick tally of `rvType` distribution in `sampleSrpListings.ts` to confirm which subcategories fall below `MIN_SAMPLE = 8` — this determines which suppressed states need test coverage.
-- **Phase 3 (Seasonal Card):** Before building, check which listing states are present in the dataset to determine whether FL/AZ/TX regional inversion logic is actually triggered by any real listing, or whether it can be a documented caveat for future use.
+Phases with standard patterns (can skip research phase):
+- **Phase 1 (Data Layer):** Generate-then-render is established with 4+ codebase precedents. `srpFilterEngine.ts` and `srpTypes.ts` already provide the input types.
+- **Phase 2 (Summary Card):** CSS Modules + responsive breakpoints follow established patterns from `AiModePanel`, `FilterSidebar`, `MobileFilterBar`.
+- **Phase 3 (Mock Service):** Direct extension of `mockAiService.ts` pattern (1012 lines of precedent already in the codebase).
+- **Phase 6 (QA):** Checklist-driven verification. No research needed.
 
 ---
 
@@ -149,49 +214,50 @@ Phases that benefit from pre-implementation codebase review:
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All technologies verified directly in `app/package.json`; zero new dependencies; all computation patterns verified in existing codebase files with direct reads |
-| Features | MEDIUM-HIGH | Table stakes derived from automotive competitors (CarGurus, KBB) — well-documented. RV-specific DOM benchmarks from TITAN.AI 2024-2025 report. Seasonal data from multiple industry sources. Data is MEDIUM confidence for specific percentage values. |
-| Architecture | HIGH | Based entirely on direct codebase analysis (actual files read): `generateDealKit.ts`, `VehicleDetailPage.tsx`, `types.ts`, `srpTypes.ts`, `scrapedListings.ts`, `DealKitContext.tsx`, `PriceAnalysis.tsx`. No speculation. |
-| Pitfalls | HIGH | Statistical pitfalls grounded in peer-reviewed CHI 2024 research and established AVM principles. UX pitfalls grounded in CarGurus methodology analysis and OECD dark patterns publication. Direct codebase analysis confirms data shape availability. |
+| Stack | HIGH | Verified against production codebase. Every recommended approach has a working precedent. Zero new dependencies is well-justified with specific library-by-library rejection rationale. |
+| Features | MEDIUM-HIGH | Competitor analysis from press releases and product pages (MEDIUM); consumer data from CarGurus/Cars.com 2025 industry surveys (MEDIUM); UX patterns from NN/g and Shape of AI (HIGH). Feature priority ordering is well-grounded in both data and competitive analysis. |
+| Architecture | HIGH | Based on direct codebase analysis of existing patterns: generate-then-render, AiModeContext, SRP layout, AiModePanel, existing breakpoint tokens. Component boundaries follow established precedents with 0 speculation. |
+| Pitfalls | HIGH (UX/accessibility) / MEDIUM (mock AI specifics) | CLS, accessibility, layout shift pitfalls verified against authoritative sources (web.dev, WCAG, IBM Carbon). Mock AI behavior pitfalls based on codebase analysis and industry pattern observation. |
 
 **Overall confidence:** HIGH
 
 ### Gaps to Address
 
-- **Seasonal coefficient values:** The `SEASONAL_INDEX` table is based on RV market knowledge (spring peaks, fall discounts) but values are not sourced from a specific public dataset. The approach is correct; the specific percentages should be labeled "based on typical RV market seasonality patterns" in UI copy. Flag as demo data in methodology panel.
-- **`daysOnSite` distribution in dataset:** The actual distribution of `daysOnSite` values in `sampleSrpListings.ts` needs a quick sanity check before finalizing DOM outlier thresholds. If values are heavily clustered, the outlier exclusion logic (exclude <3 days, exclude >180 days) may behave unexpectedly.
-- **RV type coverage in dataset:** The minimum-n=8 threshold will suppress cards for some subcategories. A quick count of listings per `rvType` before Phase 1 reveals which suppressed states actually need test coverage and which card states will be most commonly seen in the demo.
+- **Featured Listings carousel placement:** PITFALLS.md flags that the carousel between the header and listing grid already pushes results down. Adding the summary card may require moving the carousel below the main grid or making it conditional. This architectural decision affects Phase 2 scope and must be resolved before Phase 2 implementation begins.
+
+- **Overlay vs. layout-shift for desktop panel:** Research strongly recommends the overlay pattern to avoid listing grid reflow, but if product requirements specify listings remaining visible alongside chat in a split layout, a CSS Grid restructure with `auto-fill minmax()` columns is needed. Validate the exact spec before Phase 4.
+
+- **Auth gating for SRP assistant:** The existing `AiModeContext` gates responses at conversation turn 2. Whether the SRP assistant uses the same gate, a different gate, or no gate for v10.0 is unspecified. Confirm during Phase 3 planning.
+
+- **Trend chart time-series data shape:** The detail panel trend chart uses simulated 6-month data. The exact computation (how `daysOnMarket` or listing timestamps map to monthly medians in mock data) needs to be defined during Phase 5 planning. The existing `sampleSrpListings.ts` data is a price snapshot, not a time series.
 
 ---
 
 ## Sources
 
-### Primary (HIGH confidence)
-- `/Users/adam/rv-marketplace/app/package.json` — verified all installed dependencies and versions
-- `/Users/adam/rv-marketplace/app/src/data/types.ts` — `ListingData`, `PriceHistoryEntry` field verification
-- `/Users/adam/rv-marketplace/app/src/data/srpTypes.ts` — `SRPListing` field verification (`daysOnSite`, `currentPrice`, `originalPrice`, `dealRating`, `rvType`, `year`, `condition`, `location`)
-- `/Users/adam/rv-marketplace/app/src/data/generateDealKit.ts` — generate-then-render pattern template
-- `/Users/adam/rv-marketplace/app/src/data/financingCalculations.ts` — pure function computation module pattern
-- `/Users/adam/rv-marketplace/components/pages/VehicleDetailPage/VehicleDetailPage.tsx` — `useMemo` integration and prop-passing pattern
-- `/Users/adam/rv-marketplace/components/sections/TotalCostCalculator/TotalCostCalculator.tsx` — expand/collapse `useState` pattern
-- CHI 2024 (ACM DL) — consumer perceived price fairness and anchoring bias research (peer-reviewed)
-- ScienceDirect — ethics, transparency, and consumer trust in AI-enabled pricing (peer-reviewed)
-- OECD — dark patterns in online shopping (official publication)
+### Primary (HIGH confidence — direct codebase analysis)
+- `components/sections/AiMode/` (10 files) — Complete chat UI patterns: context, input, messages, panel, prompts, mock service (1012 lines of established precedent)
+- `components/sections/PaymentCalculator/DonutChart.tsx` — Custom SVG donut chart pattern (direct precedent for `DealQualityBreakdown`)
+- `components/PriceDistributionChart.tsx` — Custom SVG gauge/bar chart pattern (direct precedent for `PriceHistogram`)
+- `app/src/data/marketInsightsEngine.ts` — Market computation engine pattern (median, scoring, confidence thresholds, seasonal coefficients)
+- `app/src/data/srpFilterEngine.ts` — Filter engine producing the `SRPListing[]` array that feeds `srpSummaryEngine`
+- `app/src/data/srpTypes.ts` — `SRPListing` type with `dealRating`, `daysOnMarket`, `make`, `price`, `rvType` fields
+- `components/pages/SearchResultsPage/` — Current SRP layout: 331px sidebar + flex main column, 1762px max-width container
+- `app/src/styles/tokens.css` — Breakpoints (768px, 992px, 1232px, 1920px) used for all responsive specs
 
-### Secondary (MEDIUM confidence)
-- CarGurus IMV one-pager and help docs — deal rating methodology and algorithm
-- KBB official b2b docs — Fair Market Range definition and pricing tools
-- TITAN.AI RV Inventory Aging Report 2024-2025 — DOM benchmarks by RV category
-- RV Trader blog 2024 price trends — RV-specific market data
-- Cox Automotive 2024 Car Buyer Journey Study — buyer behavior with pricing transparency signals
-- Lazydays seasonal buying patterns — RV seasonal pricing data
-- cardog.app CarGurus algorithm analysis — real-world failure modes of deal rating systems
+### Secondary (MEDIUM confidence — industry sources)
+- [CarGurus 2025 Consumer Insights Report](https://dealers.cargurus.com/blog/2025-cargurus-consumer-insights-report) — 44% want vehicle comparison, 80% open to AI, 26% already using AI for car shopping
+- [Autotrader AI Mode press release](https://press.autotrader.com/autotrader-powered-auto-intelligence-redefines-personalized-car-buying-experience) — 6x higher lead rate for AI-assisted shoppers
+- [Cars.com Carson AI Engine](https://www.cars.com/articles/meet-carson-cars-coms-new-ai-engine-for-car-shopping-518222/) — 30% higher SRP-to-VDP conversion; 15% of searches use natural language
+- [Amazon Rufus $10B impact](https://fortune.com/2025/11/02/amazon-rufus-ai-shopping-assistant-chatbot-10-billion-sales-monetization/) — 250M users; prompt chips are primary engagement mechanism; 60% higher purchase completion
+- [NN/g: Designing Use-Case Prompt Suggestions](https://www.nngroup.com/articles/designing-use-case-prompt-suggestions/) — chips outperform empty text inputs for AI discovery
+- [Cars.com AI Survey 2025](https://investor.cars.com/2025-11-20-Cars-com-Survey-Reveals-AIs-Growing-Influence-on-Car-Shopping) — 73% say AI is a time-saver; 65% want guardrails
 
-### Tertiary (MEDIUM-LOW confidence)
-- Bish's RV sales reports — supply dynamics and inventory conditions
-- RVShare blog — seasonal buying timing recommendations
-- RecNation / Progressive — seasonal pricing pattern corroboration
+### Tertiary (MEDIUM-LOW confidence — emerging patterns, single sources)
+- [web.dev: Cumulative Layout Shift](https://web.dev/articles/cls) — CLS measurement methodology and < 0.1 target (HIGH confidence source)
+- [Shape of AI: Summary Pattern](https://www.shapeof.ai/patterns/summary) — confidence-gated rendering pattern
+- [Agentic Design: Confidence Visualization Patterns](https://agentic-design.ai/patterns/ui-ux-patterns/confidence-visualization-patterns) — confidence state UX patterns
 
 ---
-*Research completed: 2026-03-02*
+*Research completed: 2026-03-03*
 *Ready for roadmap: yes*

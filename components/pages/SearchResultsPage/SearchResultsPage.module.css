@@ -480,10 +480,6 @@
     display: none;
   }
 
-  .sharedListToggle {
-    display: none;
-  }
-
   .mobileAdBanner {
     display: flex;
     justify-content: center;

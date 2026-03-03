@@ -1,329 +1,442 @@
-# Pitfalls Research: Market Insights (v9.0 Milestone)
+# Domain Pitfalls: AI-Powered SRP Summary + Research Assistant (v10.0)
 
-**Domain:** Marketplace pricing intelligence — deal scoring, market insight cards, pricing transparency derived from a small algorithmic dataset
-**Researched:** 2026-03-02
-**Confidence:** HIGH for UX and statistical fundamentals; MEDIUM for RV-specific patterns (limited public post-mortems); verified against CarGurus methodology analysis, CHI research, algorithmic pricing literature, and established statistical principles.
+**Domain:** Marketplace AI search summaries and conversational assistants on a Search Results Page
+**Researched:** 2026-03-03
+**Confidence:** HIGH for UX and accessibility patterns (verified against multiple authoritative sources, existing codebase analysis, and established design system patterns); MEDIUM for mock AI behavior specifics (based on industry patterns and codebase-specific constraints)
 
 ---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Small Sample Collapse — Metrics Implode on Rare Subcategories
+Mistakes that cause rewrites, major UX regressions, or feature removal.
+
+### Pitfall 1: Over-Engineering Mock AI — Template System Becomes a Poor LLM Simulator
 
 **What goes wrong:**
-The pricing engine is built to compute "average price" and "days on market" from ~80 listings. This works passably for the most common categories (Travel Trailer, Class C). But when the engine is asked about a Fish House, a Class B Van, or a Truck Camper, the pool collapses to 3-5 listings. Averages computed from 3 data points are statistically meaningless, but the UI renders them with full confidence — "Fish Houses like this typically sell in 14 days" — when the number was derived from 2 listings that happened to move quickly.
+The SRP summary narrative and assistant responses are template-generated (no real LLM). Developers try to make the mock system feel "smart" by adding increasingly complex template logic: NLP-like intent parsing, context-window simulation, multi-turn memory, entity extraction, sentiment detection. The template engine grows into a fragile pseudo-LLM with 50+ branching paths. Responses become unpredictable, hard to test, and produce uncanny valley output — sophisticated enough to set expectations of intelligence, but not sophisticated enough to meet them. Users probe edge cases and the illusion shatters immediately.
 
 **Why it happens:**
-Developers derive an algorithm that works well on the dominant category, confirm it on 2-3 example listings, and ship it uniformly across all subcategories. There is no minimum-n guard. The `~80 listing` count sounds large until you segment: with 10 RV types and 20+ makes, some cells have 2-3 samples. CarGurus documented the same issue at scale — even their large dataset produces unreliable ratings for "rare vehicles" with small comparable pools.
+The existing VDP `mockAiService.ts` already shows this trajectory: keyword-based classification across 10+ categories, multiple response variants per category, random selection. When adapted for SRP context (where queries reference filtered results, price ranges, and market conditions), the temptation is to thread listing data into every template branch. Each "just one more case" adds complexity without proportional value.
 
-**How to avoid:**
-1. Define a minimum sample threshold (n ≥ 8 is reasonable for this context) for each computed metric.
-2. When n < threshold, suppress the insight card entirely or replace it with a "not enough local data" state.
-3. Do NOT fall back to a broader category average and display it as if it were specific — this is a separate pitfall (see Pitfall 3).
-4. Log which subcategory/make combinations fall below threshold during development to understand coverage.
+**Consequences:**
+- Mock service becomes the largest, most bug-prone file in the codebase
+- Responses feel "almost right" which is worse than obviously canned — users expect follow-up capability that does not exist
+- Testing surface area explodes; every filter combination x query category x data state = thousands of paths
+- When real LLM integration eventually happens, the entire mock system is thrown away
 
-**Warning signs:**
-- No `if (comparables.length < MIN_SAMPLE)` guard in the pricing engine
-- Fish House, Pop-Up Camper, and Truck Camper cards show confident numbers during testing
-- Average was computed on 3 listings and matches no plausible market reality
+**Prevention:**
+1. Cap the mock response system at 3-5 response categories for the SRP assistant (market overview, type comparison, buying advice, specific listing questions, general). No more.
+2. Use simple template string interpolation with real data (listing count, median price, top makes) rather than simulated reasoning. The data IS the intelligence.
+3. Make responses explicitly feel curated rather than generated: "Based on your search for {rvType}, here's what we found..." not "I analyzed your results and believe..."
+4. The mock service should be under 200 lines. If it exceeds that, scope is creeping.
+5. Establish a `MockApiService` interface that mirrors the eventual real API shape, so the mock is swapped out, not refactored.
 
-**Phase to address:** Pricing Engine phase — before any card UI is built. The minimum-n guard must be a core contract of the engine API.
+**Detection (warning signs):**
+- `mockAiService.ts` or equivalent exceeds 300 lines
+- More than 3 nested conditionals in response generation
+- Developers spending time on "making the AI smarter" rather than on the UI/UX
+- Response quality varies wildly between searches — some great, some nonsensical
+- Unit tests needed for mock response logic (a mock that needs its own tests is over-engineered)
+
+**Phase to address:** Mock API layer phase -- define the mock service interface and complexity ceiling before building any responses.
 
 ---
 
-### Pitfall 2: Algorithmic Numbers Presented Without Uncertainty Bounds
+### Pitfall 2: SRP Summary Card Causes Layout Shift and Pushes Listings Below the Fold
 
 **What goes wrong:**
-The card reads "Travel trailers like this typically sell in 32 days." The true 80% confidence interval from the data might be 14–67 days. Showing "32 days" as a point estimate conveys false precision. When a buyer acts on this (e.g., makes a low offer citing fast market turnover) and discovers the listing actually sold in 58 days, they feel deceived. The feature erodes trust instead of building it.
+The SRP Summary Card is inserted between the header/breadcrumbs and the listing grid. On initial render, it is absent (data loading or computing). Once the summary data resolves, the card mounts into the DOM, pushing the entire listing grid down by 200-400px. This causes Cumulative Layout Shift (CLS) -- listings the user was about to click jump downward. On mobile, the effect is worse: the collapsed summary still takes 80-120px, and the 2x2 stat grid pushes the first listing card below the fold entirely.
 
 **Why it happens:**
-Point estimates are easier to implement and communicate. Ranges feel wishy-washy. Developers default to means and round to integers, which signals a precision the data does not support.
+The existing SRP layout (`SearchResultsPage.tsx`) has a tight vertical flow: leaderboard ad -> breadcrumbs/title -> featured listings -> listing grid. There is no reserved space for a summary card. Adding a new component between header and grid without reserving its height causes reflow. The summary card also has expand/collapse states that change its height dynamically, causing secondary layout shifts when users interact.
 
-**How to avoid:**
-1. Always display a range alongside the headline number: "typically 18–45 days" rather than "32 days."
-2. Round to the nearest 5 to avoid implying false precision: "typically 20–45 days," not "22–47 days."
-3. In the expanded methodology view, explain the basis: "Based on X similar listings in this region."
-4. Use softening language: "typically," "around," "in our dataset" — not "will sell in," "exactly," or "always."
+**Consequences:**
+- Users accidentally click the wrong listing card when content shifts under their cursor
+- CLS score degrades (target is < 0.1; a 300px shift on a 1080p viewport is ~0.28)
+- On mobile, the first listing card is pushed to second scroll position, reducing engagement
+- Expand/collapse animation of the detail panel causes additional shifts to the grid below
 
-**Warning signs:**
-- Headline copy uses a single number with no qualifier ("32 days," "8% lower," "$45,000 market price")
-- The data behind the number has a standard deviation larger than the mean
-- No range, qualifier, or uncertainty language anywhere in the card copy
+**Prevention:**
+1. Reserve a fixed minimum height for the summary card slot in the DOM from initial render, even before data loads. Use a skeleton/placeholder that matches the collapsed card height.
+2. The collapsed summary card height must be deterministic: define it as a CSS custom property (e.g., `--srp-summary-height: 120px`) and reserve that space in the layout.
+3. When the detail panel expands, push content down with a smooth CSS transition (`max-height` + `transition`) rather than an instant reflow. This converts a jarring shift into an intentional animation.
+4. On mobile, the collapsed state should be a single-line summary (< 48px) that does not meaningfully affect first-listing visibility.
+5. Test by measuring CLS with Chrome DevTools Performance panel before and after adding the summary card.
 
-**Phase to address:** Insight Card Copy phase — finalize language after the engine API is locked, not before.
+**Detection (warning signs):**
+- No skeleton/placeholder visible during summary data computation
+- The summary card component uses `display: none` then switches to `display: block` (creates layout shift)
+- No `min-height` or reserved space in the `.mainColumn` CSS for the summary slot
+- Mobile viewport shows summary card + stat grid before any listing card
+- Users report "jumping" when interacting with the summary card expand/collapse
+
+**Phase to address:** SRP Summary Card layout phase -- skeleton and height reservation must be in the first commit, not retrofitted after the card content is built.
 
 ---
 
-### Pitfall 3: Silent Category Broadening — Showing Incorrect Peer Group
+### Pitfall 3: Chat Assistant Panel Disrupts Existing SRP Two-Column Layout
 
 **What goes wrong:**
-The supply card says "47 similar Class C units in your area." In reality, the engine found 4 Class C listings in the dataset, all in Florida, and the current listing is in Texas. To produce a non-empty result, the engine silently broadened to all Class C units nationwide. "Similar" is no longer similar, but the UI does not disclose this. The buyer makes location-based decisions on misapplied data.
+The PROJECT.md spec says "Side panel assistant (desktop) -- Chat opens in right panel, listings shift left." The current SRP layout is a 331px sidebar + flexible main column within a 1762px container. When a ~400px chat panel opens on the right, the main column must shrink from ~1400px to ~1000px. This breaks the 3-column listing card grid (each card is ~403px), forcing a reflow to 2 columns. Cards resize, images rescale, and the entire grid re-renders. The layout shift is jarring, performance degrades from the mass re-render, and the experience feels like two features fighting for space.
 
 **Why it happens:**
-Engineers add fallback logic to prevent blank states: if regional count < threshold, try national; if national count < threshold, broaden the category. Each fallback is a silent contract change — the definition of "similar" has changed but the UI label has not. CarGurus's methodology analysis shows this is a documented real-world failure mode: regional comparisons in thin markets produce ratings that reflect national averages, not local market conditions.
+The existing `AiModePanel` on the VDP uses a right-side slide-in panel that works because the VDP has a simpler layout (single content column + sidebar). The SRP's 3-column card grid is sensitive to width changes. Naively copying the VDP panel pattern to SRP causes grid column collapse.
 
-**How to avoid:**
-1. Never broaden silently. If you broaden, disclose it: "47 Class C units nationally (limited local data)."
-2. Define the comparison scope in the card header or methodology panel: "Based on: same RV type, ±3 year model year, within 200 miles."
-3. Build scope transparency into the data model — the engine return type should include `comparisonScope: 'local' | 'regional' | 'national' | 'type-only'`.
-4. If all broadening scopes produce n < threshold, suppress the card.
+**Consequences:**
+- 3-column grid drops to 2 columns, causing a visual "collapse" effect
+- All listing card images resize, triggering expensive re-renders
+- Users lose their scroll position as content height changes
+- On tablets (768-1024px), there is no room for both the filter sidebar AND the chat panel
+- The filter sidebar and chat panel compete for attention and screen real estate
 
-**Warning signs:**
-- The engine has fallback logic but the card copy does not change based on which fallback triggered
-- "Similar" is defined differently in the engine vs. what the user would reasonably expect
-- Card shows a high count for a niche category in a thin market
+**Prevention:**
+1. Use an overlay panel (not layout-shifting panel) on the SRP. The chat panel should float over the listing grid with a semi-transparent backdrop, not push it aside. This avoids grid reflow entirely.
+2. If the spec requires layout shift, ensure the grid uses CSS `auto-fill` with `minmax()` so column count adjusts gracefully, and test the 2-column fallback as a first-class layout, not a degraded state.
+3. On tablet, the chat panel must be a full-screen bottom sheet or modal -- there is no room for three columns of UI (filter sidebar + listings + chat panel).
+4. On mobile, the existing `AiModePanel` pattern (bottom sheet with backdrop) works correctly and should be reused directly.
+5. Measure performance: opening the chat panel should not cause the listing grid to re-render. Use `React.memo` on `ListingGrid` and verify with React DevTools Profiler.
 
-**Phase to address:** Pricing Engine API design phase — the `comparisonScope` field must be in the return type from day one.
+**Detection (warning signs):**
+- Opening the chat panel causes visible listing card resizing
+- React DevTools shows `ListingGrid` and all `ListingCard` children re-rendering when the panel opens
+- On a 1366px laptop screen, the chat panel + filter sidebar + listings do not fit
+- No explicit handling for the tablet breakpoint (992px) with chat panel open
+- The chat panel uses `position: relative` and takes space in the flex flow
+
+**Phase to address:** Assistant Panel layout phase -- determine overlay vs. shift strategy and test on 1366px viewport BEFORE building any panel content.
 
 ---
 
-### Pitfall 4: Deal Score Anchoring That Overrides Buyer Judgment
+### Pitfall 4: Confidence States Not Propagated Through the Full UI Stack
 
 **What goes wrong:**
-A "Great Deal" badge on the deal score card causes buyers to anchor on the score and skip independent research. The badge is calculated from the ~80-listing internal dataset, which may not reflect what dealers, private sellers, and auctions are actually transacting at. A buyer sees "Great Deal" and pays without negotiating. Later they discover comparable units were $5,000 cheaper at a nearby dealer not in the dataset.
+The spec defines four confidence levels: full (50+ results), medium (10-49), low (< 10), insufficient (0-2). The mock API returns a confidence level, but it is only used to gate the headline stat bar. The AI narrative text, the detail panel charts, the prompt chip suggestions, and the assistant responses all render at full confidence regardless. A user searches for "Fish House under $20K within 50 miles" and gets 2 results. The stat bar correctly shows "Limited data." But the narrative reads "Fish houses in this price range typically sell within 30 days" (template text derived from 2 listings), the price histogram shows 2 bars (meaningless), and the assistant responds with confident market analysis. The confidence system is surface-level decoration, not structural.
 
 **Why it happens:**
-Deal scoring produces confident-sounding labels ("Great," "Good," "Fair," "High Price"). These labels exploit anchoring bias — the first piece of pricing information the buyer sees becomes their reference point. CarGurus's own critics document that its deal scores pressure sellers to price below market to earn "Great Deal" status, gaming the algorithm, while the scores still appear authoritative to buyers.
+Confidence is treated as a display flag on one component rather than a data contract that flows through the entire feature tree. The summary card, detail panel, and assistant are built by different phases/developers, each consuming the raw listing data directly rather than the confidence-gated API response.
 
-**How to avoid:**
-1. Avoid binary confidence labels ("Great Deal," "High Price"). Use descriptive positioning language instead: "Priced below similar listings in our dataset" or "Priced above comparable units we've seen."
-2. Always include the comparison basis in visible text, not just the expanded panel: "vs. 12 similar units."
-3. Do NOT display a deal score when n < MIN_SAMPLE. An empty state is better than a misleading score.
-4. Include a prominent disclaimer on the methodology panel: "Our dataset includes ~80 listings. We recommend checking current market listings before deciding."
+**Consequences:**
+- Users see contradictory signals: "Limited data" badge next to a confident paragraph of analysis
+- Charts with 2-3 data points look broken, not "low confidence"
+- Assistant gives authoritative answers about a market segment it has no data for
+- The feature appears unfinished or buggy rather than gracefully degraded
 
-**Warning signs:**
-- Deal score badge uses the same confident label regardless of how many comparables backed it
-- No minimum-n gate on deal score display
-- The score label does not change when only 3 comparables exist vs. 40
+**Prevention:**
+1. Define confidence as a top-level property of the API response shape that ALL downstream components consume. Every component in the feature tree receives `confidenceLevel` and renders accordingly.
+2. At `low` confidence: suppress the narrative entirely, replace with "We don't have enough data to summarize this search." Suppress the detail panel. Reduce prompt chips to generic questions only.
+3. At `insufficient` confidence: show only the result count and a message encouraging the user to broaden their search. No narrative, no charts, no assistant context.
+4. Build confidence rendering as a wrapper component (`ConfidenceGate`) that children use, not as per-component conditional logic.
+5. Test with edge-case searches: single result, zero results, 5 results of mixed types, 80 results of one type.
 
-**Phase to address:** Deal Score Card phase — the label system and disclaimer must be defined before the card is built.
+**Detection (warning signs):**
+- Components consume `listings` directly instead of the confidence-gated API response
+- Narrative template renders regardless of listing count
+- No visual difference between a 2-result search and a 50-result search in the summary card
+- Detail panel charts render with < 5 data points
+- Assistant responds to market questions when the search returned 1 listing
+
+**Phase to address:** Mock API layer phase -- the response schema must include `confidenceLevel` as a required field, and a `ConfidenceGate` component should be built before any feature-specific UI.
 
 ---
 
-### Pitfall 5: Price Drop Alert With No Date Awareness — Stale Drops Appear Fresh
+### Pitfall 5: Assistant Responses Not Grounded in Current Search Results
 
 **What goes wrong:**
-The price drop alert card reads "This listing dropped $3,200 (7%) on March 1st." The buyer is viewing the listing in August. The "drop" is 5 months old and the listing is still unsold at the same price. Displaying old price drops as if they were recent signals manipulates the buyer's urgency without basis. If the listing has been relisted (common in real estate and automotive — re-listing resets the days-counter), the drop may not even be a genuine price reduction.
+The user searches for "Class A Motorhomes, $80K-$150K, Used." The assistant responds with generic RV buying advice (copied from the existing `SRP_RESPONSES` in `mockAiService.ts`) that mentions travel trailers, new units, and price ranges outside the active filters. The response is topically relevant to "RVs" but not grounded in the specific search context. This makes the assistant feel like a generic FAQ bot, not a contextual research tool.
 
 **Why it happens:**
-Price history is stored in `PriceHistoryEntry` objects on the listing (already in the data model). Developers display the most recent entry without considering how old it is. In a static dataset where the current date is fixed (this is a demo app), all "recent" events are relative to the data's creation date, not the user's actual session date.
+The existing SRP mock responses in `mockAiService.ts` are category-based templates written for a generic "RV shopping" context. They were designed for the VDP assistant where listing-specific data was available. On the SRP, the assistant needs to reference the active filter state, the filtered result set, and the aggregate statistics -- but the mock response templates do not interpolate any of this data.
 
-**How to avoid:**
-1. Always display the drop date in the card headline, not just in the expanded view: "Dropped $3,200 on March 1 (31 days ago)."
-2. Compute recency explicitly: `daysSinceDrop = differenceInDays(today, dropDate)`. Adjust urgency language accordingly:
-   - 0–7 days: "Recently reduced" — high urgency language appropriate
-   - 8–30 days: "Reduced this month" — moderate urgency
-   - 31+ days: Suppress urgency language entirely; just show the historical fact
-3. For the demo app, compute dates relative to the hardcoded "today" (2026-03-02) to keep the display consistent.
-4. Guard against showing the "Listed" event as a "price drop" — filter `priceHistory` to only entries where `change === 'Price reduced'`.
+**Consequences:**
+- Users quickly realize the assistant is not actually analyzing their search results
+- The "research assistant" positioning falls flat -- it is an FAQ page with a chat skin
+- Users stop engaging after 1-2 generic responses
+- The feature fails to demonstrate the value proposition of AI-grounded search analysis
 
-**Warning signs:**
-- Card reads "dropped $X" without any date context in the headline
-- A listing that has been on the market for 90 days still shows "price reduced" urgency language
-- `priceHistory[priceHistory.length - 1]` used without checking whether it is a reduction or initial listing event
+**Prevention:**
+1. Every SRP assistant response template MUST interpolate at least 2 data points from the current search context: result count, price range, top makes, dominant RV type, median price, etc.
+2. Build a `SearchContext` object that the mock service receives alongside the user message: `{ totalResults, filters, priceRange, topMakes, medianPrice, avgDaysOnMarket }`.
+3. Template responses should read like: "Among the {totalResults} {rvType} listings in your search, prices range from {priceMin} to {priceMax}, with a median of {medianPrice}. The most common makes are {topMakes}."
+4. The prompt chips should be contextual too: if the user is searching Class A motorhomes, show "Compare diesel vs gas Class A" not generic "What RV should I buy?"
+5. Reuse the `srpFilterEngine.ts` aggregate functions to compute the context object from the current filtered results.
 
-**Phase to address:** Price Drop Alert Card phase — date-aware urgency logic must be defined in the engine, not as card-level copy.
+**Detection (warning signs):**
+- Assistant response text does not change when the user changes filters
+- Response mentions RV types not present in the current search results
+- Prompt chip text is identical regardless of search context
+- The `sendMessage` function does not receive the current filter state or results
+- Response templates contain no `{variable}` interpolation from search context
 
----
-
-### Pitfall 6: Seasonal Timing Card Gets the Direction Backwards for Regional Markets
-
-**What goes wrong:**
-The seasonal card says "Prices for travel trailers are typically 8% lower in October vs. spring." This is generally true nationally. But the listing is for a park model in Florida, where "winter" is peak camping season and prices are HIGHER in October, not lower. The algorithm applies a national seasonal model without checking region, and sends the buyer to make an offer at exactly the wrong time.
-
-**Why it happens:**
-Seasonal RV pricing patterns are documented at a national level (spring/summer peaks, fall/winter discounts). Developers implement this as a lookup table keyed by RV type and month. The dataset is small enough that regional analysis is impossible — but the engine applies the national model regardless of listing state.
-
-**How to avoid:**
-1. Do NOT show a seasonal card for listings in states with inverted seasonal patterns (FL, AZ, TX coastal areas) unless the dataset can support region-specific analysis.
-2. Add a regional caveat to seasonal cards in warm-weather states: "Note: pricing patterns in warmer states may differ."
-3. When the dataset is too small for regional validation, default the seasonal card to a nationally-scoped framing: "Nationally, prices for this type tend to..." and flag it as non-local.
-4. Verify the seasonal direction claim against the actual listing's state before displaying it.
-
-**Warning signs:**
-- Seasonal card logic uses `rvType + month` as the only lookup keys, with no `state` dimension
-- Florida, Arizona, and Texas listings show "buy in the fall" when peak season there is winter
-- The seasonal model was only tested on listings in northern/midwest states
-
-**Phase to address:** Seasonal Timing Card phase — add region-awareness to the seasonal lookup before building the card UI.
+**Phase to address:** Mock API layer and assistant response phase -- build the `SearchContext` data contract before writing any response templates.
 
 ---
 
 ## Moderate Pitfalls
 
-### Pitfall 7: VDP Information Overload — Four New Cards Push Critical CTAs Off-Screen
+### Pitfall 6: Chat Panel Accessibility Gaps -- Focus Trap, Screen Reader, and Keyboard Navigation
 
 **What goes wrong:**
-The four market insight cards (Days on Market, Supply & Demand, Seasonal Timing, Price Drop Alert) each take 80-120px of vertical space in a collapsed state, and 300-400px in an expanded state. Added sequentially after the price/dealer section, they push the loan calculator and the dealer contact CTA below the fold on standard 1080p monitors. Conversion rate (contact dealer button clicks) drops as users never scroll far enough to see the primary action.
+The chat panel opens but focus remains on the listing grid. Screen reader users do not know the panel opened. Keyboard users cannot tab into the panel without traversing the entire page. When the panel closes, focus is not returned to the trigger element. Messages in the conversation thread are not announced to screen readers. The chat input has no visible label. The typing indicator is visual-only with no ARIA live region announcement.
 
 **Why it happens:**
-Cards are designed in isolation. Each card looks right in its own design mockup. Only when all four are assembled does the cumulative scroll distance become apparent. VDP research consistently shows that content-overloaded pages have higher bounce rates and lower conversion.
+Accessibility is deferred to "polish" rather than built into the component contract. The existing `AiModePanel` has some accessibility attributes (`role="dialog"`, `aria-label`, `aria-hidden`) but is missing focus management, live region announcements, and keyboard trap handling. When adapted for the SRP context, the same gaps carry forward.
 
-**How to avoid:**
-1. Group all four insight cards into a single collapsible "Market Intelligence" section with a single toggle. Show only the most relevant card (e.g., Price Drop if a drop exists, otherwise Deal Score) expanded by default.
-2. OR present a compact card-stack: all four cards visible but minimal (icon + headline + single metric), with expand available on each.
-3. The dealer contact CTA must remain visible within the first two screens of the VDP without scrolling on a 1080p display. Test this constraint before finalizing card layout.
-4. Consider the total VDP height before and after this milestone — the VDP already has photo gallery, specs, AI summary, price analysis, loan calculator, dealer info, and similar listings.
+**Prevention:**
+1. On open: move focus to the chat panel (first focusable element, typically the input). Use `aria-live="polite"` region to announce "Research assistant opened."
+2. On close: return focus to the trigger button (the FAB or summary card CTA that opened it).
+3. Chat input must have a visible `<label>` element (not just `placeholder` or `aria-label` alone).
+4. Conversation thread should use `role="log"` with implicit `aria-live="polite"` so new messages are announced.
+5. Typing indicator must have a visually hidden text announcement: "Assistant is typing."
+6. Escape key should close the panel (already implemented in `AiModePanel`).
+7. Panel should NOT trap focus on desktop (user may need to interact with listings while panel is open). On mobile bottom sheet, focus trap IS appropriate since the sheet covers the page.
 
-**Warning signs:**
-- All four cards are fully expanded by default
-- The "Contact Dealer" or "Check Availability" CTA appears below 2000px from the top of the VDP
-- No scroll-depth testing on a 1080p viewport
+**Detection (warning signs):**
+- No `focus()` call when the panel opens
+- No `onClose` callback that restores focus to the trigger
+- Chat input uses `placeholder` as its only label
+- Conversation thread has no `role="log"` attribute
+- Typing indicator is a CSS animation with no ARIA announcement
+- Desktop panel traps focus (preventing interaction with listings)
 
-**Phase to address:** Card Layout and Integration phase — determine section placement and default collapsed state before building individual cards.
+**Phase to address:** Assistant Panel component phase -- accessibility attributes and focus management must be in the component skeleton, not added during polish.
 
 ---
 
-### Pitfall 8: Supply Count Credibility Collapse for Rare Categories
+### Pitfall 7: Summary Stat Bar Shows Misleading Aggregate Numbers for Mixed-Type Searches
 
 **What goes wrong:**
-The supply card reads "Only 3 Fish House units in your area — act fast!" The 3 units represent the entire fish house inventory in the dataset, which is a curated ~80-listing sample, not real inventory. The scarcity signal is an artifact of dataset coverage, not actual market scarcity. A savvy buyer checks RV Trader directly and finds 47 fish houses in the region. The feature destroys credibility.
+The user searches "RVs under $100K" with no type filter. Results include travel trailers at $25K, Class C motorhomes at $80K, and fifth wheels at $60K. The stat bar shows "Median price: $52,000" and "Avg days on market: 34." These aggregates mix fundamentally different market segments. A median that averages across travel trailers and Class A motorhomes is meaningless -- it does not represent any actual market segment. The stat bar looks authoritative but communicates noise.
 
 **Why it happens:**
-The supply count is computed from the internal dataset without acknowledging that the dataset is a sample, not a census. For common categories, the relative proportions may be meaningful. For rare categories, the raw counts are meaningless. The card does not distinguish between "rare category with little inventory" and "category underrepresented in our sample."
+The stat computation function receives the filtered results array and computes aggregates across ALL results regardless of type diversity. This works well for homogeneous searches (e.g., "Used Travel Trailers in Florida") but produces misleading numbers for broad, multi-type searches.
 
-**How to avoid:**
-1. Never display absolute inventory counts ("47 similar units") from a sample dataset. The number implies market-wide data.
-2. Use relative language tied to the sample: "This category represents X% of listings we track — relatively scarce in our dataset."
-3. OR suppress supply count cards entirely and focus on days-on-market and pricing (which are more defensible algorithmically).
-4. Add a permanent disclaimer in all supply/demand cards: "Based on listings in our catalog, not total market inventory."
+**Prevention:**
+1. When results span 3+ RV types with no single type > 60% of results, switch the stat bar to a "mixed results" mode that shows per-type breakdowns instead of a single aggregate.
+2. Alternatively, show the median price for the dominant type only, with a note: "Median price for travel trailers (42 of 67 results)."
+3. The AI narrative should acknowledge mixed results: "Your search returned a mix of {types}. Travel trailers dominate at {count}, with prices ranging from..."
+4. Detail panel price histogram should use per-type coloring or separate distributions when multiple types are present.
+5. The confidence level should degrade one tier for mixed-type searches (full -> medium) to signal reduced reliability.
 
-**Warning signs:**
-- Card copy says "X units available in your area" when the source is the internal 80-listing sample
-- No disclaimer distinguishing sample data from market census data
-- Fish House, Pop-Up Camper, and Class B Van cards show supply counts < 5
+**Detection (warning signs):**
+- Stat bar shows a single median price for a search spanning 4+ RV types
+- No conditional logic checking type diversity before computing aggregates
+- Price histogram shows a bimodal distribution (two humps) but is rendered as a single series
+- Narrative text uses "listings like these" for a search mixing $20K trailers and $200K motorhomes
 
-**Phase to address:** Supply & Demand Card phase — reframe the card concept from "inventory census" to "comparative scarcity in our dataset" before copy is written.
+**Phase to address:** Summary stat computation phase -- type diversity check must be built into the computation engine, not the card UI.
 
 ---
 
-### Pitfall 9: Tap-to-Expand Methodology Panel Is a Trust Facade, Not Real Transparency
+### Pitfall 8: Detail Panel Charts Render Poorly With Small Datasets
 
 **What goes wrong:**
-The progressive disclosure methodology panel says "How we calculate this: We compare this listing to similar units in our marketplace database, adjusting for RV type, model year, and condition." This describes the process at a high level but reveals nothing useful. A skeptical buyer taps it expecting to see comparables, methodology thresholds, or sample size — and finds marketing language. This is worse than no panel: it creates the appearance of transparency without the substance, which sophisticated buyers notice and resent.
+The spec calls for a price distribution histogram, trend chart, and deal quality breakdown in the expandable detail panel. With ~80 total listings and typical filter combinations producing 10-30 results, these charts have very few data points. A histogram with 8 data points across 5 bins shows mostly empty bins. A "trend chart" with 15 listings plotted by days-on-site shows a scatter of dots with no visible trend. The charts look broken rather than informative.
 
 **Why it happens:**
-Methodology panels are often spec'd as "marketing copy that sounds technical." The copy is written by someone who does not know the actual algorithm parameters. The panel ends up describing what the feature is supposed to do, not what it actually does.
+Chart components are designed assuming a dataset large enough to produce smooth distributions. With small n, statistical visualizations break down: histograms have insufficient bin density, trend lines have huge confidence intervals, and pie charts show 100% for a single category.
 
-**How to avoid:**
-1. The methodology panel MUST show the concrete comparables: a mini-list of "Listings we compared" with year, make, model, price, and days on market for each comparable used.
-2. Show the sample size explicitly: "Based on 12 listings" or "Based on 4 listings (limited data — interpret with caution)."
-3. Show the comparison criteria: "We matched listings within ±3 years, same RV type, within 300 miles."
-4. Do not write the methodology panel copy until the engine API is finalized — the panel should display actual engine output, not pre-written marketing text.
+**Prevention:**
+1. Define minimum data thresholds for each chart type: histogram needs n >= 15, trend chart needs n >= 20, deal quality breakdown needs n >= 10.
+2. Below threshold, replace the chart with a data table or simple text summary: "8 listings found -- not enough for a distribution view. Here's a list..."
+3. Histogram bin count should be `Math.min(Math.ceil(Math.sqrt(n)), 8)` -- adaptive to data size.
+4. Trend charts with < 20 points should suppress the trend line and show only the data points with a note: "Showing individual listings. More data needed for trend analysis."
+5. Build charts with CSS/SVG (no charting library) to keep bundle size in check -- the project has a no-new-dependencies constraint.
 
-**Warning signs:**
-- Methodology panel copy was written before the engine was built
-- Panel does not show any actual listings or counts
-- Panel text could apply to any listing regardless of how many comparables exist
+**Detection (warning signs):**
+- Histogram renders with most bins empty (3+ of 5 bins showing zero height)
+- Trend chart shows a line through 5 data points -- any "trend" is meaningless
+- Deal quality pie chart shows 100% "Fair" because all 4 results in a narrow filter are rated the same
+- Charts render identically for 5-result and 50-result searches
 
-**Phase to address:** Progressive Disclosure / Methodology Panel phase — design the panel as a data-driven component, not static copy.
+**Phase to address:** Detail panel charts phase -- define minimum-n thresholds in the chart component contract before building any visualization.
 
 ---
 
-### Pitfall 10: DOM-Computed Averages Inflated by Stale, Relisted Listings
+### Pitfall 9: Scope Creep Into Real AI Integration During Mock Implementation
 
 **What goes wrong:**
-The days-on-market calculation uses `daysOnSite` from the listing data. But in real marketplaces, dealers routinely relist units after 30-60 days to reset the counter (documented behavior in both real estate and automotive). If the dataset includes listings at their relisted `daysOnSite` value of 5, when the unit has actually been for sale for 90+ days, the computed average is artificially low. This makes the market seem faster-moving than it is, and "fast market" urgency messages misfire.
+While building the mock API layer, a developer notices the project already has a `claudeService.ts` with real Claude API integration for the VDP assistant. The temptation is irresistible: "Let's just hook up the real API for the SRP too -- we already have the pattern." This derails the milestone scope. Real API integration requires prompt engineering, token management, rate limiting, error handling for network failures, API key management, streaming response UI, and cost monitoring. A 2-day mock service task becomes a 2-week integration effort.
 
 **Why it happens:**
-`daysOnSite` is taken at face value. The sample dataset contains hand-crafted values where this inflation does not occur, but the same calculation logic will be applied post-demo with real scraped data where relisting is common. The algorithm inherits the flaw from the data model.
+The `AiModeContext.tsx` already has a branching pattern: `if (isClaudeAvailable()) { try claude, fallback to mock }`. Extending this to the SRP feels like a small change. But the SRP context is fundamentally different from the VDP context: the prompt needs to include filter state, result aggregates, and potentially listing summaries for 30+ results, which exceeds typical context window budgets.
 
-**How to avoid:**
-1. Acknowledge in the methodology panel that "days on market" reflects days since listing was posted, which may not reflect total time the unit has been for sale.
-2. When computing average DOM, exclude outliers at both extremes: listings at 1-3 days (too new to inform the model) and listings at 180+ days (may reflect exceptional circumstances, not typical turnover).
-3. Add a note in the Days on Market card: "New listings excluded from this calculation."
-4. For the demo dataset, verify that `daysOnSite` values in `sampleSrpListings.ts` are realistic and do not accidentally cluster in ways that distort the computed average.
+**Consequences:**
+- Milestone timeline blows out 2-3x
+- Real API responses are inconsistent, requiring prompt iteration
+- Cost surprises from API calls during development/testing
+- The "mock" path atrophies because everyone tests against the real API
+- When the API key expires or rate limits hit, the feature appears broken
 
-**Warning signs:**
-- DOM average is computed as a simple mean of all `daysOnSite` values without any outlier handling
-- The computed average is <10 days, which would be implausibly fast for RV sales
-- No minimum `daysOnSite` threshold in the calculation (listings at 1-2 days included)
+**Prevention:**
+1. The v10.0 milestone mock API service must NOT import or reference `claudeService.ts`. Hard boundary.
+2. The mock service interface should mirror a future real API shape, but the implementation is template strings only.
+3. Add a comment at the top of the mock service: `// This is a MOCK service. Real LLM integration is out of scope for v10.0.`
+4. If the Claude integration path is desired for a future milestone, document it as a v11.0 requirement, not a v10.0 stretch goal.
+5. Review PRs for any imports from `claudeService` in new SRP-related files.
 
-**Phase to address:** Pricing Engine phase — build outlier handling into the DOM calculation from the start.
+**Detection (warning signs):**
+- New files importing from `claudeService.ts`
+- Environment variable setup for API keys in SRP-related code
+- `async` fetch calls to external endpoints in the mock service
+- Discussion of "prompt engineering" during the mock service phase
+- Token counting or context window management appearing in SRP code
+
+**Phase to address:** Mock API layer phase -- establish the hard boundary in the phase plan and code review checklist.
 
 ---
 
-## Technical Debt Patterns
+### Pitfall 10: Prompt Chips Become a Dead End -- No Progressive Engagement Path
 
-| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
-|----------|-------------------|----------------|-----------------|
-| No minimum-n guard in engine | Simpler code, all cards always show | Statistically meaningless results for rare categories; trust erosion | Never — implement MIN_SAMPLE from day one |
-| Hard-coded seasonal lookup table | Fast to build | Wrong for regional market inversions; requires manual updates as market conditions shift | Acceptable for demo if regional caveat is displayed |
-| Point estimates instead of ranges | Cleaner card copy | Conveys false precision; erodes trust when buyers compare to reality | Never for headline metrics — ranges are mandatory |
-| Supply count from sample, not census | Avoids "no data" state | Absolute counts imply market census; misleads buyers | Acceptable only with a permanent disclaimer |
-| Static copy in methodology panel | Fast to build, always looks polished | Sophisticated buyers see through it; harms trust more than helping | Never — methodology panel must show real engine output |
-| Deal score labels with no n-gate | All VDP listings look analyzed | Score displays "Great Deal" with 2 comparables; no credibility | Never — suppress score below MIN_SAMPLE |
+**What goes wrong:**
+The spec includes contextual prompt chip suggestions like "Compare prices" or "What should I look for?" The user clicks a chip, gets a template response, and... the experience ends. No follow-up chips appear, no natural next question is surfaced, the conversation feels like a single-shot FAQ lookup. The user closes the panel and never returns.
 
-## UX Pitfalls
+**Why it happens:**
+Prompt chips are designed as entry points but not as part of a conversation flow. After the first response, the chip tray goes empty (or shows the same generic chips). There is no mapping from "user asked about prices" -> "now suggest: 'How does this compare to last year?' or 'Show me the best deals.'"
 
-| Pitfall | User Impact | Better Approach |
-|---------|-------------|-----------------|
-| Four insight cards all expanded by default | Critical CTAs (contact dealer, loan calculator) pushed below fold; lower conversion | Default all to collapsed; auto-expand only the most relevant card (price drop if exists, otherwise deal score) |
-| Urgency language on stale price drops | Creates false FOMO; buyer feels manipulated when they discover the drop was months ago | Show drop date in headline; reduce urgency language for drops >30 days old |
-| "X units available" from a sample dataset | Buyer checks RV Trader, sees different count; loses trust in the feature | Reframe as "in our catalog" or suppress raw counts |
-| Deal score label with no basis shown | Anchors buyer judgment; harms them if score is backed by thin data | Show comparable count in the badge or card subtitle |
-| Methodology panel with marketing language | Sophisticated buyers feel condescended to; unsophisticated buyers get false confidence | Show actual comparables list and sample size |
-| National seasonal model applied to warm-weather states | Wrong directional advice; buyer misses or chases deals based on bad timing | Add region caveat or suppress seasonal card for FL/AZ/TX listings |
+**Prevention:**
+1. Define a follow-up chip mapping: each response category generates 2-3 relevant next-step chips. This is already partially implemented in `generateFollowUpPrompts` in the existing `AiModeContext` -- extend it for SRP-specific categories.
+2. Follow-up chips should become more specific, not more generic: "Compare prices" -> "Compare Class C prices in your area" -> "Show me Class C listings under $80K."
+3. Limit the conversation to 3-5 exchanges before showing a terminal state: "Want to dive deeper? Save your search and we'll notify you of price changes." This gives the mock system a graceful exit.
+4. The auth gate (already at exchange 2 in the existing system) provides a natural conversation boundary. Use it intentionally as a feature, not just a limitation.
+5. Each prompt chip click should visually indicate it was used (dim or remove) to prevent re-asking the same question.
+
+**Detection (warning signs):**
+- After the first assistant response, the prompt chip tray is empty
+- Follow-up chips are identical to the initial chips
+- No defined limit on conversation length (infinite loop of increasingly irrelevant responses)
+- The same chips appear regardless of what the user asked about
+
+**Phase to address:** Assistant interaction design phase -- map the prompt chip flow (initial -> follow-up -> terminal) before building the chip component.
+
+---
+
+## Minor Pitfalls
+
+### Pitfall 11: Summary Card Responsive Behavior Not Tested at Tablet Breakpoint
+
+**What goes wrong:**
+The spec defines three responsive states: full card on desktop, collapsed single-line on mobile, and 2x2 stat grid on tablet. The desktop and mobile states are straightforward. The tablet breakpoint (992px) requires the stat bar to wrap from a horizontal row into a 2x2 grid. This wrap point is not tested, and the stat labels truncate, icons overlap, or the grid does not align because the card was designed at desktop width and shrunk, not designed responsively from the start.
+
+**Prevention:**
+1. Design the tablet 2x2 grid state first -- it is the most constrained and hardest to get right.
+2. Use CSS Grid with `grid-template-columns: 1fr 1fr` at the tablet breakpoint, not flexbox wrapping.
+3. Test stat label truncation: "Avg. Days on Market" is 19 characters, which truncates at narrow widths. Use abbreviations at tablet: "Avg. DOM."
+4. Ensure the expand/collapse toggle remains accessible at all breakpoints -- do not hide it behind a scroll.
+
+**Detection (warning signs):**
+- Stat labels overflow their containers at 992px
+- The 2x2 grid renders as 1x4 because flexbox wrapping was assumed instead of explicit grid
+- The expand/collapse control is cut off or overlaps stat values at tablet width
+
+**Phase to address:** Summary card responsive phase -- implement and test the tablet breakpoint before desktop or mobile.
+
+---
+
+### Pitfall 12: Typing Indicator Feels Wrong for Template Responses
+
+**What goes wrong:**
+A typing indicator (three bouncing dots) animates for 800-1500ms before the template response appears. For a real LLM, this would represent processing time. For a template system, the response is available instantly -- the delay is artificial. If the delay is too short (200ms), the response appears before the user's eyes reach the indicator, creating a jarring "flash." If too long (2000ms+), it wastes the user's time and feels patronizing.
+
+**Prevention:**
+1. Use a 600-1000ms delay -- long enough to be perceived as processing, short enough not to frustrate.
+2. Stagger the response: show the typing indicator immediately, then render the response text with a word-by-word or paragraph-by-paragraph reveal (not character-by-character, which simulates streaming and sets LLM expectations).
+3. Keep the delay consistent. Do not vary it randomly to simulate "thinking" -- this trains users to expect variable processing times that will not match real API behavior later.
+4. Do NOT add artificial "thinking" messages like "Let me analyze your results..." -- this implies intelligence that does not exist.
+
+**Detection (warning signs):**
+- Delay exceeds 1500ms for template responses (user frustration)
+- Delay varies wildly between responses (breaks expectations)
+- "Thinking" text messages appear before the actual response (simulates intelligence)
+- Character-by-character streaming animation (sets streaming LLM expectations)
+
+**Phase to address:** Assistant message rendering phase -- define the reveal timing constant early and keep it simple.
+
+---
+
+### Pitfall 13: Summary Card and Detail Panel Compete With Existing SRP Features
+
+**What goes wrong:**
+The SRP already has a Featured Listings section, nudge chips ("Looking for something else?"), sort controls, and filter sidebar. Adding a summary card with its own stat bar, AI narrative, expand/collapse detail panel, and prompt chips creates visual competition. The user sees two rows of chips (prompt chips + nudge chips), two blocks of introductory content (subtitle text + AI narrative), and the actual listing grid is pushed to the third or fourth screen of content.
+
+**Prevention:**
+1. Audit the existing SRP content stack before inserting the summary card. The current order is: leaderboard ad -> breadcrumbs/title/subtitle -> sort controls -> featured listings -> listing grid (with nudge chips after row 4). The summary card should replace the subtitle text, not be added alongside it.
+2. Consider removing the "Show more/Show less" subtitle text entirely -- the AI narrative supersedes its purpose.
+3. Prompt chips should replace or integrate with the nudge chips, not appear as a separate row. Use the same `ActionChip` component for visual consistency.
+4. The Featured Listings section between the header and the main grid already pushes listings down. With the summary card added, evaluate whether Featured Listings should move below the main grid or be removed from pages where the summary card is present.
+
+**Detection (warning signs):**
+- The first listing card appears below 800px from the top of the SRP on a 1080p desktop viewport
+- Two separate rows of chips are visible (prompt chips AND nudge chips)
+- The subtitle "Show more" text AND the AI narrative are both visible
+- Users need to scroll past 3+ content blocks before seeing listing cards
+
+**Phase to address:** Summary card integration phase -- map the full SRP content stack and define replacements/removals before adding new content.
+
+---
+
+## Phase-Specific Warnings
+
+| Phase Topic | Likely Pitfall | Mitigation |
+|-------------|---------------|------------|
+| Mock API layer | Scope creep into real LLM (Pitfall 9) | Hard import boundary; no `claudeService` references |
+| Mock API layer | Over-engineered template system (Pitfall 1) | Cap at 5 categories, 200-line limit |
+| Mock API layer | Confidence not in response schema (Pitfall 4) | `confidenceLevel` as required field in response type |
+| Summary card layout | Layout shift / CLS (Pitfall 2) | Reserve height with skeleton from first render |
+| Summary card layout | Competes with existing content (Pitfall 13) | Audit and replace subtitle text, integrate with nudge chips |
+| Summary stat computation | Misleading mixed-type aggregates (Pitfall 7) | Type diversity check before computing single median |
+| Detail panel charts | Poor rendering with small n (Pitfall 8) | Minimum-n thresholds per chart type |
+| Assistant panel | Layout disruption on SRP (Pitfall 3) | Overlay pattern, not layout-shift pattern |
+| Assistant panel | Accessibility gaps (Pitfall 6) | Focus management and ARIA in component skeleton |
+| Assistant responses | Not grounded in search context (Pitfall 5) | `SearchContext` object passed to mock service |
+| Prompt chips | Dead-end engagement (Pitfall 10) | Follow-up chip mapping with terminal state |
+| Responsive behavior | Tablet breakpoint untested (Pitfall 11) | Design tablet state first |
+| Message rendering | Typing indicator uncanny valley (Pitfall 12) | 600-1000ms fixed delay, no streaming simulation |
 
 ## "Looks Done But Isn't" Checklist
 
-- [ ] **Minimum-n gate:** Do Fish House and Pop-Up Camper listings show suppressed/limited-data states instead of confident metrics?
-- [ ] **Ranges not points:** Does the Days on Market card show a range ("18–45 days") rather than a single number ("32 days")?
-- [ ] **Price drop date:** Does the Price Drop Alert show the date in the card headline, not just the expanded panel?
-- [ ] **Stale drop handling:** Does a listing with a 60-day-old price drop use softened urgency language ("reduced earlier this season") rather than "recently dropped"?
-- [ ] **Comparison scope disclosure:** Does the methodology panel show the actual scope used (local, regional, or national)?
-- [ ] **Comparable list:** Does the methodology panel list the actual listings used in the comparison, with year/type/price?
-- [ ] **Sample count:** Does the methodology panel show "Based on X listings"?
-- [ ] **VDP scroll depth:** With all four cards in collapsed state, is the Contact Dealer CTA visible without scrolling on a 1080p viewport?
-- [ ] **Supply disclaimer:** Does the supply card include "based on our catalog, not total market inventory"?
-- [ ] **Regional seasonal check:** For a Florida listing, does the seasonal card either show a regional caveat or suppress the urgency direction?
-- [ ] **Deal score suppressed:** Is the deal score badge absent (not just empty) when fewer than MIN_SAMPLE comparables exist?
+- [ ] **Confidence propagation:** Does a 3-result search show suppressed narrative AND suppressed charts AND reduced prompt chips?
+- [ ] **Layout shift:** Is CLS < 0.1 when the summary card first renders? Measure with Chrome DevTools.
+- [ ] **Chat panel on 1366px laptop:** Does opening the assistant panel NOT cause listing cards to resize?
+- [ ] **Context grounding:** Does the assistant response change when you switch filters from "Travel Trailers" to "Class A Motorhomes"?
+- [ ] **Focus management:** After opening the chat panel with keyboard, is focus on the chat input? After closing, is focus on the trigger button?
+- [ ] **Screen reader:** Does a screen reader announce "Research assistant opened" when the panel opens?
+- [ ] **Conversation thread:** Does `role="log"` exist on the message container?
+- [ ] **Mixed-type search:** Does a search with no type filter show per-type breakdowns instead of a single misleading median?
+- [ ] **Chart minimum-n:** Does a histogram with 5 data points show a table instead of mostly-empty bins?
+- [ ] **Follow-up chips:** After the first assistant response, do contextual follow-up chips appear (not generic)?
+- [ ] **Scope boundary:** Does any new SRP file import from `claudeService.ts`? (Should be NO)
+- [ ] **Mobile first listing:** On a 375px viewport, is the first listing card visible within the first 500px of scroll?
+- [ ] **Subtitle replacement:** Is the old subtitle text ("Shopping for RVs? Let us help...") removed or replaced by the AI narrative?
+- [ ] **Mock service size:** Is the SRP mock service under 200 lines?
 
 ## Recovery Strategies
 
 | Pitfall | Recovery Cost | Recovery Steps |
 |---------|---------------|----------------|
-| No minimum-n guard shipped | LOW | Add `if (comparables.length < MIN_SAMPLE) return null` to engine; cards already handle null data |
-| Point estimates in card copy | LOW | Update copy strings and add range logic; no engine changes needed |
-| Static methodology panel copy | MEDIUM | Refactor panel to accept engine output; requires engine API to expose comparables list |
-| Urgency language on stale drops | LOW | Add date-aware copy selector function; no structural changes |
-| All four cards expanded by default | LOW | Change defaultExpanded prop to false; add logic to auto-expand highest-priority card |
-| Supply count implying census data | LOW | Update copy strings and add disclaimer; no engine changes |
-| Wrong seasonal direction for region | MEDIUM | Add `state` dimension to seasonal lookup table; requires regional data validation |
-| VDP scroll depth problem | MEDIUM | Restructure cards into a single collapsible section; requires layout refactor |
-
-## Pitfall-to-Phase Mapping
-
-| Pitfall | Prevention Phase | Verification |
-|---------|------------------|--------------|
-| Small sample collapse | Pricing Engine | Fish House listing shows suppressed state; minimum-n is a named constant |
-| False precision (point estimates) | Pricing Engine + Card Copy | All headline metrics show ranges with softening language |
-| Silent category broadening | Pricing Engine API | Engine return type includes `comparisonScope`; card copy changes per scope |
-| Deal score anchoring without basis | Deal Score Card | Score badge absent when n < MIN_SAMPLE; comparable count visible |
-| Stale price drop urgency | Price Drop Alert Card | Listings with drops >30 days old use non-urgent language |
-| Seasonal direction error for warm states | Seasonal Timing Card | FL/AZ/TX listings show regional caveat or suppressed directional advice |
-| VDP information overload | Card Layout and Integration | All cards collapsed by default; CTA visible above fold on 1080p |
-| Supply count from sample, not census | Supply & Demand Card | Card copy uses "in our catalog" language; no absolute market-wide count |
-| Trust-facade methodology panel | Progressive Disclosure Panel | Panel shows comparable list, sample count, and comparison criteria |
-| DOM average inflated by relisted units | Pricing Engine | Outlier exclusion logic present; min/max thresholds for `daysOnSite` inclusion |
+| Over-engineered mock AI | MEDIUM | Extract data-interpolation layer; replace branching with simple template + context injection |
+| Layout shift from summary card | LOW | Add `min-height` reservation to summary slot; add skeleton component |
+| Chat panel breaks grid layout | HIGH | Refactor from layout-shift to overlay pattern; requires CSS restructure of panel |
+| Confidence not propagated | MEDIUM | Add `ConfidenceGate` wrapper component; thread `confidenceLevel` through all children |
+| Responses not grounded | LOW | Build `SearchContext` object; update templates with interpolation variables |
+| Accessibility gaps | MEDIUM | Add focus management hooks, ARIA attributes, and live regions to panel component |
+| Mixed-type aggregate misleading | LOW | Add type-diversity check to stat computation; switch to per-type display |
+| Charts with small n | LOW | Add `if (n < minThreshold) return <DataTable>` fallback in each chart |
+| Scope creep to real AI | HIGH (if allowed to proceed) | Revert Claude integration; re-establish mock service boundary |
+| Dead-end prompt chips | LOW | Add follow-up chip mapping to response handler |
 
 ## Sources
 
-- [Is CarGurus Accurate? Deal Rating Analysis — cardog.app](https://cardog.app/blog/is-cargurus-accurate) — MEDIUM confidence (WebSearch verified against CarGurus methodology page)
-- [How Does CarGurus Work? Pricing Algorithm Explained — cardog.app](https://cardog.app/blog/how-cargurus-works) — MEDIUM confidence (multi-source corroboration)
-- [Can Algorithmic Pricing Disclosures Build Consumer Trust? — PYMNTS.com](https://www.pymnts.com/business/2025/can-algorithmic-pricing-disclosures-build-consumer-trust/) — MEDIUM confidence
-- [Ethics, Transparency, and Consumer Trust in AI-Enabled Pricing — ScienceDirect](https://www.sciencedirect.com/science/article/pii/S2773032826000040) — HIGH confidence (peer-reviewed)
-- [I lose vs. I earn: Consumer perceived price fairness toward algorithmic pricing — CHI 2024 (ACM DL)](https://dl.acm.org/doi/10.1145/3613904.3642280) — HIGH confidence (peer-reviewed CHI paper)
-- [The Anchoring Bias: Consumers, Beware! — Harvard Program on Negotiation](https://www.pon.harvard.edu/daily/negotiation-skills-daily/the-anchoring-bias-consumers-beware/) — HIGH confidence
-- [Seasonal Buying Patterns in the RV Market — Lazydays](https://www.lazydays.com/research/seasonal-buying-patterns-the-rv-market-what-expect) — MEDIUM confidence
-- [RV Industry Market Update — Fall 2025 — Bish's RV](https://www.bishs.com/blog/rv-industry-market-update-fall-2025/) — MEDIUM confidence
-- [Average Days on Market — The Balance Money (relisting distortion)](https://www.thebalancemoney.com/why-days-on-market-matter-to-home-buyers-1798769) — MEDIUM confidence
-- [Don't Let CarGurus Set Your Price — ACV MAX](https://www.acvmax.com/blog/dont-let-cargurus-price-your-inventory) — MEDIUM confidence (dealer-side perspective)
-- [Dark Patterns — OECD](https://www.oecd.org/en/blogs/2024/09/six-dark-patterns-used-to-manipulate-you-when-shopping-online.html) — HIGH confidence (official OECD publication)
-- [Progressive Disclosure — Interaction Design Foundation](https://www.interaction-design.org/literature/topics/progressive-disclosure) — HIGH confidence
-- [Data Freshness best practices — Metaplane](https://www.metaplane.dev/blog/data-freshness-definition-examples) — MEDIUM confidence
-- Codebase direct analysis: `/Users/adam/rv-marketplace/app/src/data/types.ts`, `/Users/adam/rv-marketplace/app/src/data/srpTypes.ts`, `/Users/adam/rv-marketplace/app/src/data/sampleSrpListings.ts` — HIGH confidence (primary source)
+- [Cumulative Layout Shift (CLS) -- web.dev](https://web.dev/articles/cls) -- HIGH confidence (Google official documentation)
+- [How to build an accessible chatbot -- Make Things Accessible](https://www.makethingsaccessible.com/guides/how-to-build-an-accessible-chatbot/) -- MEDIUM confidence (verified against WCAG 2.2 criteria)
+- [Web Chat accessibility considerations -- Craig Abbott](https://www.craigabbott.co.uk/blog/web-chat-accessibility-considerations/) -- MEDIUM confidence (accessibility practitioner with detailed WCAG mapping)
+- [Confidence Visualization UI Patterns -- Agentic Design](https://agentic-design.ai/patterns/ui-ux-patterns/confidence-visualization-patterns) -- MEDIUM confidence (emerging pattern library)
+- [Rethinking UX for conversational shopping -- Medium/Bootcamp](https://medium.com/design-bootcamp/rethinking-ux-for-conversational-shopping-83073ca09db3) -- MEDIUM confidence (design analysis with A/B test references)
+- [AI Side Effect: Human Scope Creep -- Product Discovery Group](https://productdiscoverygroup.com/learn/ai-side-effect-human-scope-creep) -- MEDIUM confidence (industry observation)
+- [Frontend in the Age of AI: How to Integrate LLM Agents Right into the UI -- Medium](https://medium.com/@ignatovich.dm/frontend-in-the-age-of-ai-how-to-integrate-llm-agents-right-into-the-ui-0514cd7a20fe) -- LOW confidence (single source, WebSearch only)
+- [Change of Context vs Change of Content -- WCAG -- 216digital](https://216digital.com/wcag-basics-change-of-context-or-change-of-content/) -- HIGH confidence (direct WCAG criteria reference)
+- [Empty states pattern -- Carbon Design System](https://carbondesignsystem.com/patterns/empty-states-pattern/) -- HIGH confidence (IBM official design system)
+- Codebase direct analysis: `SearchResultsPage.tsx`, `AiModeContext.tsx`, `AiModePanel.tsx`, `mockAiService.ts`, `srpTypes.ts`, `srpFilterEngine.ts`, `marketInsightsEngine.ts`, `SearchResultsPage.module.css` -- HIGH confidence (primary source)
 
 ---
-*Pitfalls research for: Market Insights (v9.0 Milestone) — deal scoring, pricing intelligence, market cards on VDP*
-*Researched: 2026-03-02*
+*Pitfalls research for: AI-Powered SRP Summary + Research Assistant (v10.0 Milestone)*
+*Researched: 2026-03-03*

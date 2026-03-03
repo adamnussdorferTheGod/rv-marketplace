@@ -1,482 +1,801 @@
-# Architecture Research
+# Architecture Patterns
 
-**Domain:** Client-side market insights engine — VDP integration for RV marketplace SPA
-**Researched:** 2026-03-02
-**Confidence:** HIGH (based on direct codebase analysis, not speculation)
+**Domain:** AI-powered SRP summary card + conversational research assistant for RV marketplace SPA
+**Researched:** 2026-03-03
+**Confidence:** HIGH (based on direct codebase analysis of existing patterns, component hierarchy, and data flow)
 
 ---
 
-## Standard Architecture
+## Recommended Architecture
 
 ### System Overview
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│               VehicleDetailPage.tsx (orchestrator)               │
-│  useCurrentListing() → listing: ListingData                      │
-│  useMemo: generateMarketInsights(listing) → MarketInsightsData   │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│   app/src/data/marketInsights.ts  (pure engine, no React)        │
-│   ───────────────────────────────────────────────────           │
-│   Input:  ListingData + SRPListing[] (internal import)           │
-│   Output: MarketInsightsData (typed, all 4 metrics)              │
-│                                                                  │
-├──────────────────────────────────────────────────────────────────┤
-│           TwoColumnLayout — left column (main content)           │
-│  ...                                                             │
-│  <PriceAnalysis />                                               │
-│  <Divider />                                                     │
-│  <MarketInsightsSection insights={marketInsights} />   ← NEW     │
-│  │  ┌────────────────┐ ┌───────────────┐                        │
-│  │  │ DaysOnMarket   │ │ SupplyDemand  │                        │
-│  │  │ Card           │ │ Card          │                        │
-│  │  │ useState(open) │ │ useState(open)│                        │
-│  │  └────────────────┘ └───────────────┘                        │
-│  │  ┌────────────────┐ ┌───────────────┐                        │
-│  │  │ SeasonalTiming │ │ PriceDropAlert│                        │
-│  │  │ Card           │ │ Card          │                        │
-│  │  │ useState(open) │ │ useState(open)│                        │
-│  │  └────────────────┘ └───────────────┘                        │
-│  <Divider />                                                     │
-│  <PaymentCalculator />                                           │
-│  ...                                                             │
-└──────────────────────────────────────────────────────────────────┘
+SearchResultsPage.tsx (orchestrator)
+  |
+  useSrpFilters() --> { filters, results, totalCount, sort, ... }
+  |
+  useMemo: generateSrpSummary(results, filters) --> SrpSummaryData
+  |
+  +-- <AiModeProvider>  (already wraps SRP -- reuse for assistant context)
+  |     |
+  |     +-- <SrpSummaryCard summary={summaryData} />
+  |     |     |
+  |     |     +-- <StatBar stats={summaryData.stats} confidence={...} />
+  |     |     +-- <AiNarrative text={summaryData.narrative} confidence={...} />
+  |     |     +-- <SummaryDetailPanel>  (expand/collapse)
+  |     |     |     +-- <PriceDistributionChart data={...} />
+  |     |     |     +-- <DealQualityBreakdown data={...} />
+  |     |     |     +-- <TrendIndicators data={...} />
+  |     |     +-- <AiAssistantInput onSend={...} chips={...} />
+  |     |
+  |     +-- <FilterSidebar ... />
+  |     +-- <ListingGrid ... />
+  |     +-- <AiAssistantPanel />  (replaces current AiModePanel on SRP)
+  |           |
+  |           +-- <AssistantHeader />
+  |           +-- <ConversationThread />
+  |           |     +-- <AssistantMessage type="text|comparison|listing|action" />
+  |           +-- <ChatInput />
 ```
 
-### Component Responsibilities
+### Layout Integration on SRP
 
-| Component | Responsibility | Typical Implementation |
-|-----------|----------------|------------------------|
-| `generateMarketInsights()` | Pure computation — derives all 4 insight metrics from listing + comparables dataset | `app/src/data/marketInsights.ts` — mirrors `generateDealKit()` pattern exactly |
-| `marketInsightsTypes.ts` | TypeScript types for `MarketInsightsData` and all 4 sub-types | `app/src/data/marketInsightsTypes.ts` — follows `dealKitTypes.ts` pattern |
-| `MarketInsightsSection` | Container section — receives pre-computed `MarketInsightsData` prop, renders heading + 2x2 card grid | `components/sections/MarketInsights/MarketInsightsSection.tsx` |
-| `DaysOnMarketCard` | Headline insight ("typically sells in N days") + expandable detail with comparables list | Sub-component within `MarketInsights/` section folder |
-| `SupplyDemandCard` | Headline count + trend direction + regional context | Sub-component within `MarketInsights/` section folder |
-| `SeasonalTimingCard` | Current-month price position on seasonal index + best-month callout | Sub-component within `MarketInsights/` section folder |
-| `PriceDropAlertCard` | Drop amount, drop %, date; or "No drops" state if history is flat | Sub-component within `MarketInsights/` section folder |
+The current SRP layout is a two-column structure: 331px sidebar + flex-1 main column, wrapped in a 1762px max-width container. The AI summary card slots into the main column between the header row and the FeaturedListings carousel.
+
+```
+DESKTOP (>= 992px)
++-----------------------------------------------------------------------+
+|                         Leaderboard Ad                                 |
++-----------------------------------------------------------------------+
+| content (max-width: 1762px, padding 32px 64px)                        |
+| +----------+--------------------------------------------------------+ |
+| | Sidebar  | Main Column                                            | |
+| | 331px    | +----------------------------------------------------+ | |
+| |          | | Header: Title + Sort Controls                       | | |
+| | Filters  | +----------------------------------------------------+ | |
+| |          | | >>> SrpSummaryCard (NEW) <<<                        | | |
+| |          | | StatBar | AI Narrative | Expand Detail Panel        | | |
+| |          | | AiAssistantInput with prompt chips                  | | |
+| |          | +----------------------------------------------------+ | |
+| |          | | Featured Listings carousel                          | | |
+| |          | +----------------------------------------------------+ | |
+| |          | | Listing Grid (3-col, paginated)                     | | |
+| | SellOnRV | |                                                    | | |
+| |          | |                                                    | | |
+| | Ad 300x  | +----------------------------------------------------+ | |
+| | 600      | | Pagination                                         | | |
+| +----------+--------------------------------------------------------+ |
++-----------------------------------------------------------------------+
+
+WHEN ASSISTANT PANEL IS OPEN (desktop):
++-----------------------------------------------------------------------+
+| content                                           | AiAssistantPanel  |
+| +----------+------------------------------------+ | 420-520px fixed   |
+| | Sidebar  | Main Column (compressed)           | | right panel       |
+| | 331px    | Summary + Grid (reflowed)           | | z-index: 1000     |
+| +----------+------------------------------------+ |                   |
++-----------------------------------------------------------------------+
+
+TABLET (768-991px):
++-----------------------------------------------------------------------+
+| Main Column (single column, no sidebar)                                |
+| +------------------------------------------------------------------+  |
+| | Mobile Filter Bar                                                 |  |
+| +------------------------------------------------------------------+  |
+| | SrpSummaryCard (collapsed to single-line stat strip)              |  |
+| | Tap to expand --> 2x2 stat grid + narrative                       |  |
+| +------------------------------------------------------------------+  |
+| | Listing Grid (2-col)                                              |  |
++-----------------------------------------------------------------------+
+
+MOBILE (<768px):
++-----------------------------------------------------------------------+
+| Mobile Filter Bar                                                      |
+| +------------------------------------------------------------------+  |
+| | SrpSummaryCard (single-line: "82 listings | $45K median")         |  |
+| | Tap to expand full card                                           |  |
+| +------------------------------------------------------------------+  |
+| | Listing Grid (1-col)                                              |  |
+| +------------------------------------------------------------------+  |
+| FAB button (bottom-right) --> AiAssistantPanel as bottom sheet       |
++-----------------------------------------------------------------------+
+```
 
 ---
 
-## Recommended Project Structure
+### Component Boundaries
+
+| Component | Responsibility | Communicates With |
+|-----------|---------------|-------------------|
+| `SearchResultsPage` | Orchestrator. Calls `generateSrpSummary()`, passes data down. Owns page-level state. | `useSrpFilters`, `SrpSummaryCard`, `AiAssistantPanel`, `ListingGrid` |
+| `SrpSummaryCard` | Renders stat bar, AI narrative, and expandable detail panel. Passive display only. | Receives `SrpSummaryData` as props. Calls `openPanel()` from `useAiMode` when user clicks "Ask about these results" |
+| `StatBar` | 4-stat horizontal strip: listing count, median price, price trend arrow, avg DOM. | Pure presentational. Receives `StatBarData` props |
+| `AiNarrative` | Renders AI-generated summary paragraph with confidence badge. | Pure presentational. Receives `narrative: string` and `confidence: ConfidenceLevel` |
+| `SummaryDetailPanel` | Expandable section with charts: price distribution histogram, deal quality pie/bar, trend line. | Receives `SrpSummaryData.details`. Pure presentational with internal `useState(expanded)` |
+| `PriceDistributionChart` | SVG histogram of listing prices with current search median marked. | Receives `bins: PriceBin[]`. Pure presentational |
+| `DealQualityBreakdown` | Visual breakdown of deal ratings (great/good/fair/high) in current results. | Receives `breakdown: DealBreakdown`. Pure presentational |
+| `AiAssistantInput` | Chat input bar embedded in summary card. Prompt chip suggestions above input. | Calls `sendMessage()` / `openPanel()` from `useAiMode` context |
+| `AiAssistantPanel` | Side panel (desktop) / bottom sheet (mobile) for full conversation. Reuses existing AiModePanel pattern. | Consumes `useAiMode` context. Contains `ConversationThread`, `ChatInput` |
+| `AssistantMessage` | Polymorphic message bubble supporting text, comparison table, listing card embed, and action responses. | Receives `AssistantMessageData` with `type` discriminant |
+| `ConfidenceBadge` | Small badge showing data confidence (Full/Medium/Low/Insufficient). | Receives `confidence: ConfidenceLevel`. Pure presentational |
+| `generateSrpSummary` | Pure data function. Computes all summary stats from filtered listings. No React dependency. | Called by `SearchResultsPage` via `useMemo`. Consumes `SRPListing[]` + `FilterCriteria` |
+| `generateSrpNarrative` | Pure function. Template-based narrative generation from summary stats. | Called by `generateSrpSummary`. No external dependencies |
+| `mockSrpAssistantService` | Mock API service for assistant responses. Keyword-matching + template responses grounded in listing data. | Called by `SrpAiModeProvider` (or extended `AiModeProvider`). Receives conversation history + current search context |
+
+---
+
+### Data Flow
+
+```
+User changes filters/sort on SRP
+       |
+       v
+useSrpFilters() recomputes
+  filters: FilterCriteria
+  results: SRPListing[]  (filtered + sorted)
+  totalCount: number
+       |
+       v
+SearchResultsPage.tsx
+  const summaryData = useMemo(
+    () => generateSrpSummary(results, filters),
+    [results, filters]
+  );
+       |
+       v
+<SrpSummaryCard summary={summaryData} />
+  - StatBar reads summaryData.stats
+  - AiNarrative reads summaryData.narrative
+  - SummaryDetailPanel reads summaryData.details
+  - AiAssistantInput is connected to AiModeContext
+
+User types question in AiAssistantInput
+       |
+       v
+useAiMode().openPanel() + useAiMode().sendMessage(text)
+       |
+       v
+AiModeProvider.sendMessage() handler
+  - Passes { question, searchContext: { filters, results, summaryData } }
+  - to mockSrpAssistantService (or Claude if API key available)
+       |
+       v
+Mock service generates response grounded in actual listing data
+  - Template-based for common questions
+  - Keyword classification (price, type, comparison, etc.)
+  - Returns structured response: { type, content, listings?, comparison? }
+       |
+       v
+AiAssistantPanel renders AssistantMessage with appropriate type
+```
+
+---
+
+## Patterns to Follow
+
+### Pattern 1: Generate-Then-Render (Established Pattern)
+
+**What:** Separate pure data computation from React rendering. A `generate*` function produces a typed data object; components receive it as props and render it.
+
+**When:** Always, for any new data computation. This is the established codebase pattern.
+
+**Why this matters here:** `generateSrpSummary` follows the exact same pattern as `generateDealKit`, `generateMarketInsights`, `generateNarrations`, and `generateVideoWalkthrough`. The codebase has 4+ examples of this pattern already.
+
+**Example:**
+```typescript
+// app/src/data/srpSummaryEngine.ts  (pure data, no React)
+
+import type { SRPListing, FilterCriteria } from './srpTypes';
+
+export interface SrpSummaryStats {
+  listingCount: number;
+  medianPrice: number;
+  priceChange: { direction: 'up' | 'down' | 'flat'; percent: number };
+  avgDaysOnMarket: number;
+}
+
+export type ConfidenceLevel = 'full' | 'medium' | 'low' | 'insufficient';
+
+export interface DealBreakdown {
+  great: number;
+  good: number;
+  fair: number;
+  high: number;
+}
+
+export interface PriceBin {
+  rangeLabel: string;
+  min: number;
+  max: number;
+  count: number;
+}
+
+export interface SrpSummaryData {
+  stats: SrpSummaryStats;
+  confidence: ConfidenceLevel;
+  narrative: string;
+  details: {
+    priceDistribution: PriceBin[];
+    dealBreakdown: DealBreakdown;
+    topMakes: Array<{ make: string; count: number; avgPrice: number }>;
+    rvTypeBreakdown: Array<{ type: string; count: number }>;
+  };
+  searchContext: {
+    filters: FilterCriteria;
+    searchTitle: string;
+  };
+}
+
+export function generateSrpSummary(
+  listings: SRPListing[],
+  filters: FilterCriteria,
+): SrpSummaryData {
+  // Pure computation - no side effects, no React
+  // ...
+}
+```
+
+**In SearchResultsPage.tsx:**
+```typescript
+const summaryData = useMemo(
+  () => generateSrpSummary(towFilteredResults, filters),
+  [towFilteredResults, filters],
+);
+```
+
+### Pattern 2: Context Provider for Chat State (Established Pattern)
+
+**What:** React Context wrapping the page component provides chat state (messages, loading, prompts) to all child components. Already used by `AiModeProvider` on SRP.
+
+**When:** For all AI assistant state management.
+
+**Why reuse vs. new:** The SRP already wraps its content in `<AiModeProvider>`. The existing context has `sendMessage`, `openPanel`, `closePanel`, `messages`, `isLoading`, `suggestedPrompts`. Extend this rather than creating a parallel context.
+
+**Extension approach:**
+```typescript
+// Extend AiModeProvider to accept search context
+interface AiModeProviderProps {
+  listing?: ListingData;       // existing (VDP)
+  searchContext?: {             // new (SRP)
+    filters: FilterCriteria;
+    results: SRPListing[];
+    summary: SrpSummaryData;
+  };
+  children: ReactNode;
+}
+```
+
+The mock service (`mockAiService.ts` / new `mockSrpAssistantService.ts`) already uses keyword classification to route questions. Extend the same pattern with SRP-specific categories (market overview, price analysis, type comparison, recommendation).
+
+### Pattern 3: Confidence-Gated Rendering
+
+**What:** Components render different levels of detail based on data availability, rather than showing empty states or hiding entirely.
+
+**When:** Summary card content varies by result count.
+
+**Thresholds (from PROJECT.md):**
+```typescript
+function computeConfidence(listingCount: number): ConfidenceLevel {
+  if (listingCount >= 50) return 'full';       // All stats + narrative + charts
+  if (listingCount >= 10) return 'medium';     // Stats + simplified narrative
+  if (listingCount >= 3)  return 'low';        // Basic stats only, no narrative
+  return 'insufficient';                        // "Not enough data" message
+}
+```
+
+**Rendering tiers:**
+| Confidence | Stat Bar | Narrative | Detail Panel | Assistant |
+|------------|----------|-----------|--------------|-----------|
+| `full` (50+) | All 4 stats | Full paragraph | Charts + breakdown | Full prompts |
+| `medium` (10-49) | All 4 stats | Shortened 1-2 sentences | Simplified | Reduced prompts |
+| `low` (3-9) | Count + median only | "Limited data" disclaimer | Hidden | Basic only |
+| `insufficient` (<3) | Count only | Hidden | Hidden | Generic prompts |
+
+### Pattern 4: CSS Modules with Design Tokens (Established Pattern)
+
+**What:** Every component gets a `.module.css` file using TIDE 2.0 design tokens via CSS custom properties.
+
+**When:** Always. No inline styles, no Tailwind, no CSS-in-JS.
+
+**Example file structure:**
+```
+components/sections/SrpSummary/
+  SrpSummaryCard.tsx
+  SrpSummaryCard.module.css
+  StatBar/
+    StatBar.tsx
+    StatBar.module.css
+  AiNarrative/
+    AiNarrative.tsx
+    AiNarrative.module.css
+  SummaryDetailPanel/
+    SummaryDetailPanel.tsx
+    SummaryDetailPanel.module.css
+    PriceDistributionChart.tsx
+    PriceDistributionChart.module.css
+    DealQualityBreakdown.tsx
+    DealQualityBreakdown.module.css
+  AiAssistantInput/
+    AiAssistantInput.tsx
+    AiAssistantInput.module.css
+  ConfidenceBadge/
+    ConfidenceBadge.tsx
+    ConfidenceBadge.module.css
+```
+
+### Pattern 5: Responsive Collapse with Mobile-Specific Rendering
+
+**What:** Summary card has three distinct layouts at the established breakpoints, using CSS media queries plus minimal conditional rendering in JSX.
+
+**When:** For the summary card which has significantly different desktop/tablet/mobile experiences.
+
+**Breakpoints (from tokens.css):**
+- `>= 992px`: Full desktop card with horizontal stat bar, narrative paragraph, expand button
+- `768px - 991px`: Collapsed card, tap to expand to 2x2 stat grid
+- `< 768px`: Single-line strip with key stats, tap to expand
+
+**Implementation approach:**
+```css
+/* SrpSummaryCard.module.css */
+
+.card {
+  background: var(--rv-surface-secondary);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-md);
+  padding: var(--space-24);
+  margin-bottom: var(--space-24);
+}
+
+/* Desktop: full horizontal layout */
+.statBar {
+  display: flex;
+  gap: var(--space-24);
+  align-items: center;
+}
+
+/* Tablet: 2x2 grid */
+@media (max-width: 991px) {
+  .statBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+  .narrative { display: none; }  /* Hidden until expanded */
+  .detailPanel { display: none; }
+}
+
+/* Mobile: single line */
+@media (max-width: 767px) {
+  .card { padding: var(--space-12) var(--space-16); }
+  .statBar {
+    display: flex;
+    gap: var(--space-8);
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### Anti-Pattern 1: Separate Context for SRP Assistant
+
+**What:** Creating a new `SrpAssistantProvider` separate from the existing `AiModeProvider`.
+
+**Why bad:** The SRP already wraps content in `<AiModeProvider>`. A separate context would mean duplicating state management, message handling, loading states, and authentication gating. The existing `AiSearchCard` component already uses `useAiMode()` to send messages.
+
+**Instead:** Extend `AiModeProvider` to accept an optional `searchContext` prop. Add a new `PanelMode` value (e.g., `'srp-summary'`) if needed to differentiate VDP vs SRP behavior in the mock service.
+
+### Anti-Pattern 2: Real-Time Summary Computation on Every Keystroke
+
+**What:** Recomputing the full summary on every filter change while the user is still typing in keyword or price range inputs.
+
+**Why bad:** `generateSrpSummary` iterates all listings, computes medians, builds histograms. Running this on every keystroke of a price input creates unnecessary CPU churn.
+
+**Instead:** The existing `useSrpFilters` already debounces URL updates. The summary computation via `useMemo` will naturally batch because React batches state updates. But for the narrative generation (template interpolation), ensure it only runs when the computed stats actually change, not on every filter identity change.
+
+### Anti-Pattern 3: Fetching AI Responses Before Panel Opens
+
+**What:** Pre-fetching assistant responses or generating narrative text before the user has interacted with the summary card.
+
+**Why bad:** The summary card's stats and narrative are computed synchronously from listing data (no API call). Only the conversational assistant needs async mock-API-style responses. Pre-fetching wastes computation and complicates the initial render path.
+
+**Instead:** Summary card renders synchronously from `generateSrpSummary()`. Assistant responses are generated only when the user sends a message.
+
+### Anti-Pattern 4: Embedding Charts as Images or Canvas
+
+**What:** Using `<canvas>` or image-based charts for the price distribution histogram.
+
+**Why bad:** The codebase uses pure SVG/CSS for all visual elements (see PriceHistogramSlider in FilterSidebar, DonutChart in PaymentCalculator). Canvas breaks the CSS-modules-only constraint and adds a dependency.
+
+**Instead:** Pure SVG histogram with CSS custom properties for colors. The existing `PriceHistogramSlider` in the filter sidebar already implements a histogram as pure SVG -- reuse the same bar-rendering approach.
+
+### Anti-Pattern 5: Tightly Coupling Summary Data to Assistant Responses
+
+**What:** Having the assistant mock service directly import and call `generateSrpSummary` internally.
+
+**Why bad:** Creates circular dependencies and makes testing harder. The assistant should receive pre-computed context, not recompute it.
+
+**Instead:** Pass the already-computed `SrpSummaryData` into the assistant service as context:
+```typescript
+// In AiModeProvider.sendMessage():
+const response = await mockSrpAssistantService({
+  question: content,
+  context: searchContextRef.current,  // { filters, results, summary }
+  history: messages,
+});
+```
+
+---
+
+## File Organization
+
+### New Files to Create
 
 ```
 app/src/data/
-├── marketInsightsTypes.ts         # TypeScript types (MarketInsightsData + sub-types)
-└── marketInsights.ts              # Pure engine — all computation, no React
+  srpSummaryTypes.ts           -- Type definitions for summary data
+  srpSummaryEngine.ts          -- generateSrpSummary() pure function
+  srpSummaryEngine.test.ts     -- Unit tests for engine
+  srpNarrativeTemplates.ts     -- Template strings for AI narrative generation
+  mockSrpAssistantService.ts   -- Mock API for assistant responses
 
-components/sections/
-└── MarketInsights/
-    ├── MarketInsightsSection.tsx        # Container section, receives MarketInsightsData prop
-    ├── MarketInsightsSection.module.css
-    ├── DaysOnMarketCard/
-    │   ├── DaysOnMarketCard.tsx
-    │   └── DaysOnMarketCard.module.css
-    ├── SupplyDemandCard/
-    │   ├── SupplyDemandCard.tsx
-    │   └── SupplyDemandCard.module.css
-    ├── SeasonalTimingCard/
-    │   ├── SeasonalTimingCard.tsx
-    │   └── SeasonalTimingCard.module.css
-    └── PriceDropAlertCard/
-        ├── PriceDropAlertCard.tsx
-        └── PriceDropAlertCard.module.css
+components/sections/SrpSummary/
+  SrpSummaryCard.tsx           -- Main summary card component
+  SrpSummaryCard.module.css
+  StatBar/
+    StatBar.tsx
+    StatBar.module.css
+  AiNarrative/
+    AiNarrative.tsx
+    AiNarrative.module.css
+  SummaryDetailPanel/
+    SummaryDetailPanel.tsx
+    SummaryDetailPanel.module.css
+    PriceDistributionChart.tsx
+    PriceDistributionChart.module.css
+    DealQualityBreakdown.tsx
+    DealQualityBreakdown.module.css
+  AiAssistantInput/
+    AiAssistantInput.tsx
+    AiAssistantInput.module.css
+  ConfidenceBadge/
+    ConfidenceBadge.tsx
+    ConfidenceBadge.module.css
+
+components/sections/SrpAssistant/
+  AssistantMessage/
+    AssistantMessage.tsx
+    AssistantMessage.module.css
+    ComparisonTable.tsx
+    ComparisonTable.module.css
+    ListingEmbed.tsx
+    ListingEmbed.module.css
 ```
 
-### Structure Rationale
+### Files to Modify
 
-- **`app/src/data/marketInsights.ts`:** Follows the existing pattern of `generateDealKit.ts`, `generateNarrations.ts`, `generateVideoWalkthrough.ts` — all pure functions that accept a `ListingData` and return a typed data object. Keeps computation separate from rendering, unit-testable without React.
-- **`app/src/data/marketInsightsTypes.ts`:** Follows `dealKitTypes.ts` — types in their own file, imported by both the engine and the section components.
-- **`components/sections/MarketInsights/`:** Every VDP section lives in `components/sections/`. Sub-components as named folders mirrors how `DealKit` organizes `DealKitCard/`, `DealKitNav/`, `DealKitOverlay/`.
-- **No context provider:** Market insights are static, pre-computed data passed as a prop. No async, no overlay, no cross-component coordination — a provider would be over-engineering. Pass `MarketInsightsData` as a prop, same as `PriceAnalysis` receives `PriceAnalysisData`.
+```
+components/pages/SearchResultsPage/SearchResultsPage.tsx
+  -- Import SrpSummaryCard, add useMemo for generateSrpSummary
+  -- Pass searchContext to AiModeProvider
+  -- Insert SrpSummaryCard between headerRow and FeaturedListings
+
+components/pages/SearchResultsPage/SearchResultsPage.module.css
+  -- Add responsive styles for summary card placement
+
+components/sections/AiMode/AiModeContext.tsx
+  -- Add optional searchContext prop to AiModeProvider
+  -- Extend sendMessage to pass search context to mock service
+
+components/sections/AiMode/types.ts
+  -- Add 'srp-assistant' to PanelMode union (optional)
+  -- Add SearchContext interface
+
+components/sections/AiMode/AiModePanel/AiModePanel.tsx
+  -- Enhance to render AssistantMessage types (or create SRP-specific variant)
+```
 
 ---
 
-## Architectural Patterns
-
-### Pattern 1: Generate-Then-Render (established codebase pattern)
-
-**What:** A pure function in `app/src/data/` computes a typed data object from `ListingData`. `VehicleDetailPage` calls it via `useMemo`, passes the result as a prop to the section component.
-
-**When to use:** Any time section content is derived from static listing data with no user interaction driving the computation. The section renders data; it does not compute data.
-
-**Trade-offs:** Components stay dumb and testable. Engine is decoupled from React lifecycle. VehicleDetailPage accumulates one more `useMemo` call — acceptable at current scale.
-
-**Example (follows existing `generateDealKit` integration exactly):**
+## Data Types Specification
 
 ```typescript
-// VehicleDetailPage.tsx — add alongside existing useMemo calls
-const marketInsights = useMemo(
-  () => generateMarketInsights(listing),
-  [listing]
-);
+// app/src/data/srpSummaryTypes.ts
 
-// In JSX left column — follows existing PriceAnalysis prop pattern
-<MarketInsightsSection insights={marketInsights} />
-```
+import type { FilterCriteria, SRPListing, RVType } from './srpTypes';
 
-```typescript
-// app/src/data/marketInsights.ts — pure function, no React imports
-import type { ListingData } from './types';
-import type { MarketInsightsData } from './marketInsightsTypes';
-import { sampleSrpListings } from './sampleSrpListings';
+// ---- Confidence ----
 
-export function generateMarketInsights(
-  listing: ListingData,
-): MarketInsightsData {
-  const rvType = extractRvType(listing);
-  const peers = sampleSrpListings.filter(l => l.rvType === rvType);
+export type ConfidenceLevel = 'full' | 'medium' | 'low' | 'insufficient';
 
-  return {
-    daysOnMarket: computeDaysOnMarket(listing, peers),
-    supplyDemand: computeSupplyDemand(listing, peers),
-    seasonalTiming: computeSeasonalTiming(listing, peers),
-    priceDropAlert: computePriceDropAlert(listing),
+// ---- Stat Bar ----
+
+export interface SrpSummaryStats {
+  listingCount: number;
+  medianPrice: number;
+  meanPrice: number;
+  priceRange: { min: number; max: number };
+  priceTrend: {
+    direction: 'up' | 'down' | 'flat';
+    percentChange: number;
+  };
+  avgDaysOnMarket: number;
+}
+
+// ---- Detail Panel ----
+
+export interface PriceBin {
+  rangeLabel: string;  // e.g. "$20K-$30K"
+  min: number;
+  max: number;
+  count: number;
+  percentage: number;
+}
+
+export interface DealBreakdown {
+  great: number;
+  good: number;
+  fair: number;
+  high: number;
+  unrated: number;
+}
+
+export interface MakeBreakdown {
+  make: string;
+  count: number;
+  avgPrice: number;
+  medianPrice: number;
+}
+
+export interface RvTypeBreakdown {
+  rvType: RVType;
+  label: string;
+  count: number;
+  avgPrice: number;
+}
+
+// ---- Summary (top-level) ----
+
+export interface SrpSummaryData {
+  stats: SrpSummaryStats;
+  confidence: ConfidenceLevel;
+  narrative: string;
+  details: {
+    priceDistribution: PriceBin[];
+    dealBreakdown: DealBreakdown;
+    topMakes: MakeBreakdown[];
+    rvTypeBreakdown: RvTypeBreakdown[];
+    conditionSplit: { new: number; used: number };
+  };
+  searchContext: {
+    filters: FilterCriteria;
+    searchTitle: string;
+    timestamp: number;
   };
 }
+
+// ---- Assistant Message Types ----
+
+export type AssistantMessageType = 'text' | 'comparison' | 'listing' | 'action';
+
+export interface AssistantTextMessage {
+  type: 'text';
+  content: string;
+  citations?: string[];
+}
+
+export interface ComparisonRow {
+  label: string;
+  values: string[];
+}
+
+export interface AssistantComparisonMessage {
+  type: 'comparison';
+  title: string;
+  headers: string[];
+  rows: ComparisonRow[];
+  summary: string;
+}
+
+export interface AssistantListingMessage {
+  type: 'listing';
+  content: string;
+  listings: SRPListing[];
+  reason: string;
+}
+
+export interface AssistantActionMessage {
+  type: 'action';
+  content: string;
+  actions: Array<{
+    label: string;
+    filterChange?: Partial<FilterCriteria>;
+    url?: string;
+  }>;
+}
+
+export type AssistantMessageData =
+  | AssistantTextMessage
+  | AssistantComparisonMessage
+  | AssistantListingMessage
+  | AssistantActionMessage;
+
+// ---- Search Context for Assistant ----
+
+export interface SrpSearchContext {
+  filters: FilterCriteria;
+  results: SRPListing[];
+  summary: SrpSummaryData;
+}
 ```
 
-The engine imports `sampleSrpListings` directly at module level so `VehicleDetailPage` does not need to pass the full comparables array as a second argument. Keeps the call site clean.
+---
 
-### Pattern 2: Inline Expand State Per Card (no shared overlay context)
+## Mock API Service Layer
 
-**What:** Each insight card owns its own `isExpanded` boolean via `useState`. Tapping a card toggles its own in-place detail panel.
-
-**When to use:** When disclosure panels are visually contained within the card (not a full-screen overlay). DealKit uses Context + Overlay because it takes over the viewport and needs cross-component coordination. Insight cards expand inline — simpler local state is correct here.
-
-**Trade-offs:** Each card is independent. No coordination logic. Two cards can be expanded simultaneously — acceptable, arguably useful for comparison.
-
-**Example:**
+The assistant mock service follows the established pattern from `components/sections/AiMode/mockAiService.ts` -- keyword-based classification with template-based responses grounded in actual listing data.
 
 ```typescript
-// DaysOnMarketCard.tsx
-export default function DaysOnMarketCard({ data }: { data: DaysOnMarketInsight }) {
-  const [expanded, setExpanded] = useState(false);
+// app/src/data/mockSrpAssistantService.ts
 
-  return (
-    <div className={styles.card}>
-      <button
-        className={styles.header}
-        onClick={() => setExpanded(e => !e)}
-        aria-expanded={expanded}
-      >
-        <span className={styles.headline}>{data.headlineSentence}</span>
-        <Icon name={expanded ? 'chevron_up' : 'chevron_down'} size={16} />
-      </button>
-      {expanded && (
-        <div className={styles.detail}>
-          <p className={styles.methodology}>{data.methodology}</p>
-          <ul className={styles.comparables}>
-            {data.comparables.map(c => (
-              <li key={c.id}>{c.title} — {c.daysOnSite} days</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+interface AssistantRequest {
+  question: string;
+  context: SrpSearchContext;
+  history: ConversationMessage[];
+}
+
+interface AssistantResponse {
+  message: AssistantMessageData;
+  suggestedFollowups: string[];
+}
+
+// Categories specific to SRP context
+type SrpCategory =
+  | 'market-overview'    // "How's the market?"
+  | 'price-analysis'     // "Are these good deals?"
+  | 'type-comparison'    // "Class A vs Class C?"
+  | 'recommendation'     // "What should I look at?"
+  | 'specific-listing'   // "Tell me about the Winnebago"
+  | 'filter-help'        // "Show me under $50K"
+  | 'general';           // Fallback
+
+export async function generateSrpAssistantResponse(
+  request: AssistantRequest,
+): Promise<AssistantResponse> {
+  // 1. Classify question by keywords
+  // 2. Extract relevant data from context
+  // 3. Fill response template
+  // 4. Return typed AssistantMessageData
+  // 5. Add simulated 500-1500ms delay
 }
 ```
 
-### Pattern 3: Deterministic Computation from Dataset Statistics
+### Guardrails (from PROJECT.md)
 
-**What:** All metrics derived algorithmically from the real ~80 `SRPListing` dataset. No hardcoded display numbers. Computations read actual field values (`currentPrice`, `daysOnSite`, `rvType`, `location.state`) and derive statistical summaries.
-
-**When to use:** Every insight metric — this is the entire v9.0 value proposition.
-
-**Trade-offs:** Metrics vary by listing (they reflect actual dataset composition, which is correct behavior). With ~80 listings, statistical confidence is limited — the engine should express this in copy ("Based on 12 similar listings in your region") rather than hiding it.
-
-**Key computations per metric:**
-
-```
-Days on Market:
-  peers = srpListings.filter(rvType matches listing's RV type)
-  avgDays = mean(peers.map(p => p.daysOnSite))
-  comparables = peers.slice(0, 5) for detail panel
-  → headline: "Travel trailers like this typically sell within [N] days"
-
-Supply & Demand:
-  state = extract state code from listing.location ("Sacramento, CA" → "CA")
-  typeInState = srpListings.filter(rvType matches AND location.state matches)
-  supplyCount = typeInState.length
-  trendPct = deterministic mock from listing slug hash (stable, avoids hydration issues)
-  → headline: "[N] similar [RV type] units in [State] right now"
-
-Seasonal Timing:
-  currentMonth = "March" (hardcoded to today's date: 2026-03-02, or derived from Date())
-  SEASONAL_INDEX: Record<RVType, Record<Month, number>> — hardcoded coefficients
-    (RV market knowledge: spring +8–12%, fall/winter −5–8% vs. spring for towables;
-     motorhomes slightly flatter curve)
-  priceDelta = coefficient for current month vs. peak-spring (May)
-  bestMonth = month with lowest coefficient for this RV type
-  → headline: "Prices for this type are typically [N]% lower in [month] vs. spring"
-
-Price Drop Alert:
-  drops = listing.priceAnalysis.priceHistory.filter(entry includes 'reduc' or 'drop')
-  if drops.length > 0:
-    listedPrice = priceHistory[0].price
-    dropAmount = listedPrice - listing.currentPrice
-    dropPct = (dropAmount / listedPrice) * 100
-    dropDate = most recent 'Price reduced' entry date
-    → headline: "This listing dropped $[N] ([N]%) on [date]"
-  else:
-    daysListed = listing.daysOnSite
-    → headline: "No price drops — listed at [price] for [N] days"
-```
+The mock service must enforce:
+- **No purchase recommendations:** "Based on the data, here's what stands out" not "You should buy this"
+- **No price predictions:** "Current median is $X" not "Prices will drop next month"
+- **Grounded claims only:** Every stat references actual listing data, with counts
+- **Confidence disclaimers:** "Based on N listings in your search" prefixed to data-driven responses
 
 ---
 
-## Data Flow
+## Integration Points with Existing SRP
 
-### Request Flow
+### 1. Insertion Point in SearchResultsPage.tsx
 
-```
-Route /listing/:id
-    ↓
-VehicleDetailPage — useCurrentListing() hook
-    ↓
-listing = listingsBySlug[id] | sunseekerListing    (ListingData from scrapedListings.ts)
-    ↓
-useMemo: generateMarketInsights(listing)
-  — engine imports sampleSrpListings internally for peer comparisons
-    ↓ synchronous, <1ms for 80 listings
-MarketInsightsData {
-  daysOnMarket:   DaysOnMarketInsight
-  supplyDemand:   SupplyDemandInsight
-  seasonalTiming: SeasonalTimingInsight
-  priceDropAlert: PriceDropAlertInsight
-}
-    ↓
-<MarketInsightsSection insights={marketInsights} />
-    ↓
-props flow to 4 card components
-    ↓
-User taps a card header → local useState(isExpanded) toggles within that card
-```
-
-### State Management
-
-No global state required. All market insights state is:
-
-1. **Computed once** via `useMemo` in `VehicleDetailPage` (recomputes when `listing` changes on route navigation)
-2. **Rendered as props** to `MarketInsightsSection`, which distributes typed sub-objects to each card
-3. **Expand/collapse** as local `useState` within each card — four independent booleans, not coordinated
-
-```
-VehicleDetailPage
-    ↓ insights: MarketInsightsData prop
-MarketInsightsSection
-    ↓ data: DaysOnMarketInsight   → DaysOnMarketCard   — useState(isExpanded)
-    ↓ data: SupplyDemandInsight   → SupplyDemandCard   — useState(isExpanded)
-    ↓ data: SeasonalTimingInsight → SeasonalTimingCard — useState(isExpanded)
-    ↓ data: PriceDropAlertInsight → PriceDropAlertCard — useState(isExpanded)
-```
-
-### Key Data Flows
-
-1. **Engine receives ListingData, peers are SRPListing.** These are different types (`ListingData` from `types.ts` vs. `SRPListing` from `srpTypes.ts`). Bridge them in the engine with a local helper:
+The summary card inserts between the header row and the FeaturedListings carousel. This is the natural "above-the-fold" position for aggregated search insights.
 
 ```typescript
-function extractRvType(listing: ListingData): RVType | null {
-  const rvTypeSpec = listing.specs.find(s =>
-    s.label.toLowerCase() === 'rv type'
-  )?.value.toLowerCase();
-  // Map "class c" → 'class-c', "travel trailer" → 'travel-trailer', etc.
-  return RV_TYPE_MAP[rvTypeSpec ?? ''] ?? null;
-}
+// In SearchResultsPage render(), after headerRow, before FeaturedListings:
+
+{/* AI Summary Card -- only show when we have results */}
+{summaryData.confidence !== 'insufficient' && (
+  <SrpSummaryCard summary={summaryData} />
+)}
+
+<FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
 ```
 
-2. **Price drop data lives in existing `priceHistory`.** The `PriceDropAlertInsight` does not require any new data fields. `listing.priceAnalysis.priceHistory` already has `{ date, change, price }` entries, and `listing.daysOnSite` provides the listing age. No changes to `ListingData` or `scrapedListings.ts`.
+### 2. AiModeProvider Extension
 
-3. **Seasonal coefficients are static knowledge, not computed from dataset.** The ~80 SRP listings are a price snapshot, not a time series. Hardcode a `SEASONAL_INDEX` table in `marketInsights.ts` based on RV industry pricing patterns. The engine selects the right row by `rvType` and the right column by current month.
-
----
-
-## Scaling Considerations
-
-| Scale | Architecture Adjustments |
-|-------|--------------------------|
-| ~80 listings (current) | All computation synchronous in-memory — `useMemo` prevents recomputation on re-render. No optimization needed. |
-| ~500 listings | Still fine client-side. Consider memoizing `peersByRvType` as a module-level precomputed map to avoid re-filtering on every listing visit. |
-| ~5000+ listings | Pre-aggregate peers by RV type at module load time (group-by on import). Statistical operations remain fast. No Web Worker needed unless P99 latency exceeds 50ms. |
-
-### Scaling Priorities
-
-1. **First constraint:** Data shape mismatch between `ListingData` and `SRPListing` — bridge cleanly in the engine at authoring time with a stable `extractRvType()` helper. If the bridge is fragile, insights silently return null/undefined.
-2. **Second constraint:** Seasonal coefficient table is hardcoded — if a real price-by-date corpus becomes available, replace with computed coefficients from `priceHistory` records. The type contracts stay the same; only the coefficient source changes.
-
----
-
-## Anti-Patterns
-
-### Anti-Pattern 1: Computation Inside Card Components
-
-**What people do:** Write `const avgDays = peers.filter(...).reduce(...) / peers.length` inside `DaysOnMarketCard.tsx`.
-
-**Why it's wrong:** Mixes computation with rendering. Every card render triggers a full dataset pass. Breaks the established codebase pattern (every other section receives pre-computed props). Makes the engine un-testable without rendering. Cards need to know about `allListings`, which is a wrong-direction dependency.
-
-**Do this instead:** All computation in `app/src/data/marketInsights.ts`. Components receive typed data objects and only render. This is the pattern for `generateDealKit`, `generateNarrations`, and `generateVideoWalkthrough` — follow it exactly.
-
-### Anti-Pattern 2: Creating a Context Provider for Market Insights
-
-**What people do:** Create `MarketInsightsProvider` by analogy with `DealKitProvider` or `AiModeProvider`.
-
-**Why it's wrong:** DealKit and AiMode use Context because they have async loading sequences, overlay state, and cross-component coordination (card triggers overlay, overlay has its own navigation). Market insights have none of this — they are static data that flows one direction (engine → section → cards). Context adds indirection for zero benefit.
-
-**Do this instead:** Pass `MarketInsightsData` as a prop to `MarketInsightsSection`. It's a data prop, not a shared imperative API.
-
-### Anti-Pattern 3: Adding Computed Fields to `ListingData`
-
-**What people do:** Add `marketInsights: MarketInsightsData` to `types.ts` and pre-populate it in every listing in `scrapedListings.ts`.
-
-**Why it's wrong:** Blurs source data vs. derived metrics. Requires hand-authoring analytics for every listing. Prevents the engine from being regenerated when the dataset changes. `ListingData` is already 40+ fields.
-
-**Do this instead:** Keep `ListingData` as raw listing facts. Derive `MarketInsightsData` at render time via `generateMarketInsights()`. This is how every other derived section works in this codebase.
-
-### Anti-Pattern 4: Attempting Statistical Seasonality from the Dataset
-
-**What people do:** Try to compute seasonal pricing trends from `priceHistory` entries across the 80 listings, then discover the data doesn't span a full year.
-
-**Why it's wrong:** The static dataset is a snapshot of one point in time. There is no temporal distribution to compute seasonal coefficients from. The result would be noise.
-
-**Do this instead:** Hardcode a `SEASONAL_INDEX` by RV type and month in `marketInsights.ts`. Present it as market knowledge ("Based on historical RV market pricing patterns") — which is accurate. The methodology disclosure copy should be transparent that this is industry-pattern data, not dataset-derived.
-
----
-
-## Integration Points
-
-### VDP Insertion Point
-
-Current VDP left-column sequence (relevant excerpt):
-
-```
-<PriceAnalysis ... />
-<Divider />
-<PaymentCalculator ... />
-<Divider />
-<LifestyleContext />
-```
-
-Recommended insertion after `PriceAnalysis`:
-
-```tsx
-<PriceAnalysis ... />
-<Divider />
-<div id="market-insights">
-  <MarketInsightsSection insights={marketInsights} />
-</div>
-<Divider />
-<PaymentCalculator ... />
-```
-
-Rationale: User has just seen price context (`PriceAnalysis`). Market insights extend that context ("here's what the broader market looks like for this type"). Then payment calculator follows naturally ("now let's figure out your payment"). The `id="market-insights"` anchor mirrors the existing `id="price"`, `id="payment"` pattern for future section nav.
-
-### Internal Boundaries
-
-| Boundary | Communication | Notes |
-|----------|---------------|-------|
-| `marketInsights.ts` ↔ `sampleSrpListings.ts` | Module-level import of `sampleSrpListings` array | Engine uses `SRPListing[]` for peer comparisons; `ListingData` for the current listing |
-| `marketInsights.ts` ↔ `VehicleDetailPage` | `generateMarketInsights(listing)` call inside `useMemo` | No second argument needed — engine imports peers internally |
-| `VehicleDetailPage` ↔ `MarketInsightsSection` | `insights: MarketInsightsData` prop | Single typed prop |
-| `MarketInsightsSection` ↔ individual cards | Each card receives its typed sub-object (e.g., `data: DaysOnMarketInsight`) | Cards are self-contained, no shared state |
-| `marketInsights.ts` ↔ `types.ts` / `srpTypes.ts` | Import `ListingData`, `SRPListing`, `RVType` | Bridge via local `extractRvType()` helper |
-
-### TypeScript Type Shape
+The SRP already wraps its content in `<AiModeProvider>`. Pass search context:
 
 ```typescript
-// app/src/data/marketInsightsTypes.ts
-
-export interface DaysOnMarketInsight {
-  avgDays: number;
-  rvTypeLabel: string;        // "Travel trailers"
-  headlineSentence: string;   // "Travel trailers like this typically sell within 32 days"
-  methodology: string;        // for detail panel
-  comparables: Array<{ id: string; title: string; daysOnSite: number; price: number }>;
-  peerCount: number;
-}
-
-export interface SupplyDemandInsight {
-  count: number;
-  rvTypeLabel: string;
-  stateCode: string;
-  stateName: string;
-  trendPct: number;           // positive = more inventory than "last month" (mock)
-  trendDirection: 'up' | 'down' | 'flat';
-  headlineSentence: string;
-  methodology: string;
-}
-
-export interface SeasonalTimingInsight {
-  currentMonth: string;       // "March"
-  currentMonthIndex: number;  // 1–12
-  priceDeltaPct: number;      // vs. peak-spring (negative = cheaper now)
-  bestMonth: string;          // month with lowest prices for this type
-  rvTypeLabel: string;
-  headlineSentence: string;
-  methodology: string;
-  monthlyIndex: Array<{ month: string; relativePrice: number }>;  // for chart if desired
-}
-
-export interface PriceDropAlertInsight {
-  hasDrop: boolean;
-  dropAmount: number;         // 0 if no drop
-  dropPct: number;            // 0 if no drop
-  dropDate: string | null;    // null if no drop
-  currentPrice: number;
-  originalListPrice: number;
-  daysListed: number;
-  headlineSentence: string;
-}
-
-export interface MarketInsightsData {
-  daysOnMarket: DaysOnMarketInsight;
-  supplyDemand: SupplyDemandInsight;
-  seasonalTiming: SeasonalTimingInsight;
-  priceDropAlert: PriceDropAlertInsight;
-}
+<AiModeProvider searchContext={{ filters, results: towFilteredResults, summary: summaryData }}>
+  {/* ... existing SRP content ... */}
+</AiModeProvider>
 ```
+
+### 3. Existing AiSearchCard Replacement
+
+The existing `AiSearchCard` component (in `SearchResultsPage/AiSearchCard/`) appears to be defined but not rendered in the current SRP. The new `AiAssistantInput` embedded in the `SrpSummaryCard` replaces this functionality with search-context-aware prompt chips.
+
+### 4. AiModePanel Reuse
+
+The existing `<AiModePanel />` at the bottom of `SearchResultsPage` renders a slide-in panel. For SRP, enhance it to:
+- Show search context in the header ("82 Travel Trailers | $30K-$80K")
+- Render `AssistantMessage` components with polymorphic types
+- Generate SRP-specific follow-up prompts
 
 ---
 
 ## Suggested Build Order
 
-Dependencies flow cleanly: types → engine → container section → individual cards → VDP wiring → expand detail panels.
+Build order follows dependency chains. Each phase produces independently testable, shippable increments.
 
-**Phase 1 — Engine (pure TypeScript, no React):**
-1. `app/src/data/marketInsightsTypes.ts` — defines all types above
-2. `app/src/data/marketInsights.ts` — `generateMarketInsights()` with all four sub-functions
+### Phase 1: Data Layer + Types (Foundation)
 
-These can be authored and validated without touching any React component. The engine is the riskiest part (data bridging, edge cases) and should be solid before UI work begins.
+**Build:** `srpSummaryTypes.ts`, `srpSummaryEngine.ts`, `srpSummaryEngine.test.ts`, `srpNarrativeTemplates.ts`
 
-**Phase 2 — Container Section:**
-3. `MarketInsightsSection.tsx` — receives `MarketInsightsData`, renders section heading and card grid layout with placeholder card divs
-4. Wire into `VehicleDetailPage.tsx` with `useMemo` call and JSX insertion between `PriceAnalysis` and `PaymentCalculator`
+**Rationale:** Pure TypeScript, no React. Testable independently. Everything downstream depends on the data shape. Following the generate-then-render pattern means getting the data right first.
 
-Validate end-to-end data flow before building individual cards. Ensures engine output shape matches what the section expects.
+**Depends on:** Existing `srpTypes.ts`, `srpFilterEngine.ts` (both exist)
 
-**Phase 3 — Cards, simplest to most complex:**
-5. `PriceDropAlertCard` — simplest: reads `priceHistory` from existing data, no dataset aggregation needed
-6. `DaysOnMarketCard` — average of `daysOnSite` across peers
-7. `SupplyDemandCard` — count filtering by state + type, mock trend
-8. `SeasonalTimingCard` — most complex due to coefficient table + monthly index visualization
+### Phase 2: Summary Card (Core UI)
 
-**Phase 4 — Progressive Disclosure:**
-9. Add `isExpanded` toggle and detail panel to each card (methodology text + comparables list)
+**Build:** `SrpSummaryCard`, `StatBar`, `AiNarrative`, `ConfidenceBadge`
 
-Each card gets its expand state independently. Do not coordinate them — there is no need.
+**Rationale:** The visible face of the feature. Once the data layer exists, the card renders it. Start with desktop layout, add responsive breakpoints after core rendering works.
+
+**Depends on:** Phase 1 (data types and engine)
+
+### Phase 3: Detail Panel + Charts
+
+**Build:** `SummaryDetailPanel`, `PriceDistributionChart`, `DealQualityBreakdown`
+
+**Rationale:** Secondary content behind an expand interaction. Lower priority than the stat bar + narrative. Can ship summary card without the detail panel initially.
+
+**Depends on:** Phase 2 (card structure exists to expand into)
+
+### Phase 4: Assistant Input + Mock Service
+
+**Build:** `AiAssistantInput`, `mockSrpAssistantService.ts`, extend `AiModeProvider` with search context
+
+**Rationale:** The interactive entry point. Needs the mock service to generate responses. Extends the existing AiMode infrastructure.
+
+**Depends on:** Phase 1 (data types for context), existing `AiModeContext`
+
+### Phase 5: Assistant Panel + Message Types
+
+**Build:** `AssistantMessage` (text, comparison, listing, action variants), enhance `AiModePanel` for SRP
+
+**Rationale:** The full conversational experience. Builds on the input and mock service from Phase 4. Most complex UI work.
+
+**Depends on:** Phase 4 (input + service exist)
+
+### Phase 6: Responsive + Polish
+
+**Build:** Responsive breakpoints for all new components, mobile bottom sheet refinements, animation polish, confidence state testing across all breakpoints
+
+**Rationale:** Refinement pass after all components work at desktop width. Follow the desktop-first pattern established by the rest of the codebase.
+
+**Depends on:** Phases 2-5 (all components exist)
+
+---
+
+## Scalability Considerations
+
+| Concern | Current (~80 listings) | At 500 listings | At 5,000 listings |
+|---------|------------------------|-----------------|-------------------|
+| Summary computation | <1ms, `useMemo` is fine | ~5ms, still fine | Consider web worker or throttle |
+| Histogram binning | Trivial | ~2ms | Profile, possibly pre-bin in engine |
+| Narrative generation | Template interpolation, instant | Same | Same |
+| Assistant response | Mock delay 500-1500ms | Same (mocked) | Same (mocked) |
+| Re-render on filter change | Full card re-render | Same | Memoize child components |
+
+The 500ms render budget (from PROJECT.md constraints) is easily met. `generateSrpSummary` doing median/mean/histogram computation over 80 listings is sub-millisecond. Even at 5,000 listings this stays well under budget.
 
 ---
 
 ## Sources
 
-- Direct codebase analysis: `/Users/adam/rv-marketplace/app/src/data/generateDealKit.ts` — established generate-then-render pattern (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/app/src/data/srpFilterEngine.ts` — client-side computation from SRPListing array (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/components/pages/VehicleDetailPage/VehicleDetailPage.tsx` — useMemo integration pattern (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/app/src/data/types.ts` + `srpTypes.ts` — data shapes for engine input/output design (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/app/src/data/scrapedListings.ts` — `priceHistory` structure, available `daysOnSite` field confirms no new data fields needed (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/components/sections/DealKit/DealKitContext.tsx` — establishes when Context is and isn't warranted; market insights lack async/overlay/coordination requirements (HIGH confidence)
-- Direct codebase analysis: `/Users/adam/rv-marketplace/components/sections/PriceAnalysis/PriceAnalysis.tsx` — confirms prop-passing pattern for analytics sections without Context (HIGH confidence)
-
----
-*Architecture research for: RV Marketplace v9.0 Market Insights — client-side engine and VDP integration*
-*Researched: 2026-03-02*
+- Direct codebase analysis of `/Users/adam/rv-marketplace/` (HIGH confidence)
+- Existing patterns from `generateDealKit.ts`, `generateMarketInsights.ts`, `AiModeContext.tsx` (HIGH confidence)
+- Current SRP layout from `SearchResultsPage.tsx` and `SearchResultsPage.module.css` (HIGH confidence)
+- Breakpoints from `tokens.css` and existing responsive patterns (HIGH confidence)
+- PROJECT.md specifications for v10.0 feature requirements (HIGH confidence)
