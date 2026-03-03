@@ -14,6 +14,8 @@ type PanelTab = 'list' | 'compare';
 interface SharedListPanelProps {
   className?: string;
   onTabChange?: (tab: 'list' | 'compare', listingCount: number) => void;
+  showInvite?: boolean;
+  onShowInviteChange?: (show: boolean) => void;
 }
 
 function relativeTime(isoDate: string): string {
@@ -38,19 +40,19 @@ function relativeTime(isoDate: string): string {
 
 const FREE_SAVE_LIMIT = 3;
 
-export default function SharedListPanel({ className, onTabChange }: SharedListPanelProps) {
+export default function SharedListPanel({ className, onTabChange, showInvite, onShowInviteChange }: SharedListPanelProps) {
   const { activeList, lists, addMember, getReactionsForListing } = useCoShopping();
-  const [showInviteModal, setShowInviteModal] = useState(false);
   const [activeTab, setActiveTab] = useState<PanelTab>('list');
+
+  // Support both external control (via props) and internal fallback
+  const [internalShowInvite, setInternalShowInvite] = useState(false);
+  const showInviteModal = showInvite ?? internalShowInvite;
+  const setShowInviteModal = onShowInviteChange ?? setInternalShowInvite;
 
   const handleTabChange = (tab: PanelTab) => {
     setActiveTab(tab);
     const count = activeList?.listings.length ?? 0;
     onTabChange?.(tab, count);
-  };
-
-  const handleInvite = () => {
-    setShowInviteModal(true);
   };
 
   const handleInviteSent = (email: string) => {
@@ -126,96 +128,34 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
     );
   }
 
-  // ─── Solo state: 1 member with listings ────────────────────────────
-  if (!isShared) {
-    return (
-      <div className={`${styles.panel} ${className ?? ''}`}>
-        {/* Invite CTA card */}
-        <button type="button" className={styles.inviteCta} onClick={handleInvite}>
-          <Icon name="person_add" size={24} />
-          <div className={styles.inviteCtaText}>
-            <span className={styles.inviteCtaTitle}>Invite a co-shopper</span>
-            <span className={styles.inviteCtaDescription}>Share this list to compare, react, and decide together.</span>
-          </div>
-        </button>
-
-        {showInviteModal && activeList && (
-          <InviteModal
-            listName={activeList.name}
-            members={activeList.members}
-            onClose={() => setShowInviteModal(false)}
-            onInviteSent={handleInviteSent}
-          />
-        )}
-
-        {/* Compact cards for solo mode — show first 2 freely */}
-        <div className={styles.cardList}>
-          {sortedListings.slice(0, FREE_SAVE_LIMIT - 1).map((sl) => (
-            <SharedListCard
-              key={sl.listingId}
-              listId={activeList.id}
-              listingId={sl.listingId}
-              addedBy={sl.addedBy}
-              addedAt={sl.addedAt}
-              compact
-            />
-          ))}
-        </div>
-
-        {/* Auth gate — 3rd card onwards, blurred behind frosted glass */}
-        {sortedListings.length >= FREE_SAVE_LIMIT && (
-          <SavedRVsAuthGate>
-            {sortedListings.slice(FREE_SAVE_LIMIT - 1).map((sl) => (
-              <SharedListCard
-                key={sl.listingId}
-                listId={activeList.id}
-                listingId={sl.listingId}
-                addedBy={sl.addedBy}
-                addedAt={sl.addedAt}
-                compact
-              />
-            ))}
-          </SavedRVsAuthGate>
-        )}
-      </div>
-    );
-  }
-
-  // ─── Shared state: 2+ members ──────────────────────────────────────
+  // ─── Has listings: show List/Compare tabs always ───────────────────
   return (
     <div className={`${styles.panel} ${className ?? ''}`}>
       {/* Header */}
       <div className={styles.header}>
-        <div className={styles.membersRow}>
-          <div className={styles.memberAvatars}>
-            {members.map((member) => (
-              <div
-                key={member.id}
-                className={styles.memberAvatar}
-                style={member.avatarUrl ? undefined : { backgroundColor: member.avatarColor }}
-                title={member.displayName}
-              >
-                {member.avatarUrl ? (
-                  <img src={member.avatarUrl} alt={member.displayName} className={styles.avatarImg} />
-                ) : (
-                  member.avatarInitials
-                )}
-              </div>
-            ))}
+        {isShared && (
+          <div className={styles.membersRow}>
+            <div className={styles.memberAvatars}>
+              {members.map((member) => (
+                <div
+                  key={member.id}
+                  className={styles.memberAvatar}
+                  style={member.avatarUrl ? undefined : { backgroundColor: member.avatarColor }}
+                  title={member.displayName}
+                >
+                  {member.avatarUrl ? (
+                    <img src={member.avatarUrl} alt={member.displayName} className={styles.avatarImg} />
+                  ) : (
+                    member.avatarInitials
+                  )}
+                </div>
+              ))}
+            </div>
+            <span className={styles.memberCount}>
+              {members.length} member{members.length !== 1 ? 's' : ''}
+            </span>
           </div>
-          <span className={styles.memberCount}>
-            {members.length} member{members.length !== 1 ? 's' : ''}
-          </span>
-          <button
-            type="button"
-            className={styles.inviteButton}
-            onClick={handleInvite}
-            title="Invite member"
-          >
-            <Icon name="person_add" size={20} />
-            <span>Invite</span>
-          </button>
-        </div>
+        )}
 
         {showInviteModal && activeList && (
           <InviteModal
@@ -226,11 +166,11 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
           />
         )}
 
-        <span className={styles.lastUpdated}>
-          Updated {relativeTime(activeList.updatedAt)}
-        </span>
-
-        <div className={styles.headerDivider} />
+        {isShared && (
+          <span className={styles.lastUpdated}>
+            Updated {relativeTime(activeList.updatedAt)}
+          </span>
+        )}
 
         <SegmentedButtons
           options={TAB_OPTIONS}
@@ -261,6 +201,7 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
                 listingId={sl.listingId}
                 addedBy={sl.addedBy}
                 addedAt={sl.addedAt}
+                compact={!isShared}
               />
             ))}
           </div>
@@ -275,6 +216,7 @@ export default function SharedListPanel({ className, onTabChange }: SharedListPa
                   listingId={sl.listingId}
                   addedBy={sl.addedBy}
                   addedAt={sl.addedAt}
+                  compact={!isShared}
                 />
               ))}
             </SavedRVsAuthGate>

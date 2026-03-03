@@ -171,6 +171,7 @@ export default function SearchResultsPage() {
   });
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
   const [sharedListOpen, setSharedListOpen] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [activeNudge, setActiveNudge] = useState<string | null>(null);
   const nudgeRowRef = useRef<HTMLDivElement>(null);
@@ -474,17 +475,32 @@ export default function SearchResultsPage() {
           >
             <div className={styles.sharedListSidebarHeader}>
               <span className={styles.sharedListSidebarTitle}>Saved RVs</span>
-              <button
-                type="button"
-                className={styles.sharedListCloseBtn}
-                onClick={() => setSharedListOpen(false)}
-                aria-label="Close saved RVs"
-              >
-                <Icon name="x_close" size={24} />
-              </button>
+              <div className={styles.sharedListHeaderActions}>
+                <button
+                  type="button"
+                  className={styles.sharedListInviteBtn}
+                  onClick={() => setShowInviteModal(true)}
+                  title="Invite a co-shopper"
+                >
+                  <Icon name="person_add" size={20} />
+                  <span>Invite</span>
+                </button>
+                <button
+                  type="button"
+                  className={styles.sharedListCloseBtn}
+                  onClick={() => setSharedListOpen(false)}
+                  aria-label="Close saved RVs"
+                >
+                  <Icon name="x_close" size={24} />
+                </button>
+              </div>
             </div>
             <div className={styles.sharedListSidebarBody}>
-              <SharedListPanel onTabChange={(tab, count) => setCompareListingCount(tab === 'compare' ? count : 0)} />
+              <SharedListPanel
+                onTabChange={(tab, count) => setCompareListingCount(tab === 'compare' ? count : 0)}
+                showInvite={showInviteModal}
+                onShowInviteChange={setShowInviteModal}
+              />
             </div>
           </div>
         </>

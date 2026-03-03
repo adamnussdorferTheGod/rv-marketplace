@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { sampleSrpListings } from '../../../../app/src/data/sampleSrpListings';
 import { listingPath } from '../../../../app/src/routes';
 import type { SRPListing } from '../../../../app/src/data/srpTypes';
+import { RV_TYPE_LABELS } from '../../../../app/src/data/srpTypes';
 import { useCoShopping } from '../CoShoppingContext';
 import Icon from '../../../ui/Icon/Icon';
 import styles from './CompareView.module.css';
@@ -32,33 +33,107 @@ const formatLength = (ft: number | null | undefined): string =>
 const formatSleeps = (capacity: number | null | undefined): string =>
   capacity ? `${capacity}` : '--';
 
+const formatMileage = (mi: number | null | undefined): string =>
+  mi ? `${mi.toLocaleString('en-US')} mi` : '--';
+
+const formatMonthly = (amount: number | null | undefined): string =>
+  amount ? `${formatPrice(amount)}/mo` : '--';
+
+const formatDealRating = (rating: string | null | undefined): string => {
+  if (!rating) return '--';
+  return rating.charAt(0).toUpperCase() + rating.slice(1);
+};
+
+const formatFuel = (fuel: string | null | undefined): string => {
+  if (!fuel || fuel === 'n/a') return '--';
+  return fuel.charAt(0).toUpperCase() + fuel.slice(1);
+};
+
 // ─── Spec row definitions ────────────────────────────────────────────
 
 interface SpecRow {
   label: string;
   getValue: (listing: SRPListing) => string;
+
 }
 
 const specRows: SpecRow[] = [
+  // Pricing
   {
     label: 'Price',
     getValue: (listing) => formatPrice(listing.currentPrice),
+
+  },
+  {
+    label: 'Est. Monthly',
+    getValue: (listing) => formatMonthly(listing.monthlyPayment),
+
+  },
+  {
+    label: 'Deal Rating',
+    getValue: (listing) => formatDealRating(listing.dealRating),
+
+  },
+
+  // Specs
+  {
+    label: 'Year',
+    getValue: (listing) => `${listing.year}`,
+
+  },
+  {
+    label: 'Type',
+    getValue: (listing) => RV_TYPE_LABELS[listing.rvType] ?? '--',
+
+  },
+  {
+    label: 'Condition',
+    getValue: (listing) => listing.condition === 'new' ? 'New' : 'Used',
+
   },
   {
     label: 'Length',
     getValue: (listing) => formatLength(listing.lengthFt),
+
   },
   {
     label: 'Weight',
     getValue: (listing) => formatWeight(listing.grossVehicleWeight ?? listing.gvwr ?? null),
+
   },
+  {
+    label: 'Fuel',
+    getValue: (listing) => formatFuel(listing.fuelType),
+
+  },
+  {
+    label: 'Mileage',
+    getValue: (listing) => formatMileage(listing.mileage),
+
+  },
+
+  // Layout
   {
     label: 'Sleeps',
     getValue: (listing) => formatSleeps(listing.sleepingCapacity),
+
   },
   {
-    label: 'Slides',
-    getValue: () => '--',
+    label: 'Floor Plan',
+    getValue: (listing) => listing.floorPlan ?? '--',
+
+  },
+
+  // Dealer
+  {
+    label: 'Dealer',
+    getValue: (listing) => listing.dealer.name,
+
+  },
+  {
+    label: 'Location',
+    getValue: (listing) => `${listing.location.city}, ${listing.location.state}`,
+
   },
 ];
 

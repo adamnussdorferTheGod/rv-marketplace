@@ -382,6 +382,33 @@
   color: #252526;
 }
 
+.sharedListHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sharedListInviteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  color: #252526;
+  background: white;
+  border: 1px solid #939598;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 19.6px;
+}
+
+.sharedListInviteBtn:hover {
+  background: #f5f5f5;
+}
+
 .sharedListCloseBtn {
   display: flex;
   align-items: center;
