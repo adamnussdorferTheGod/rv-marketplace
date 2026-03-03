@@ -45,6 +45,9 @@ import { sunseekerListing, listingsBySlug, allListings } from '../../../app/src/
 import { generateNarrations } from '../../../app/src/data/generateNarrations';
 import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
 import { generateDealKit } from '../../../app/src/data/generateDealKit';
+import MarketInsights from '@components/sections/MarketInsights/MarketInsights';
+import { generateMarketInsights } from '../../../app/src/data/marketInsightsEngine';
+import { mockListings } from '../../../app/src/data/sampleSrpListings';
 // import VdpSectionNav from '@components/sections/VdpSectionNav/VdpSectionNav';
 import styles from './VehicleDetailPage.module.css';
 
@@ -73,6 +76,7 @@ function VehicleDetailPageContent() {
     tongueWeight: listing.tongueWeight,
     hitchType: listing.hitchType,
   }), [listing.gvwr, listing.tongueWeight, listing.hitchType]);
+  const marketInsights = useMemo(() => generateMarketInsights(listing, mockListings), [listing]);
   const { saveViewed } = useRecentlyViewed();
 
   // Track this listing as recently viewed
@@ -175,6 +179,10 @@ function VehicleDetailPageContent() {
                   estimatedTotal={formattedTotal}
                   onTotalCostClick={openTotalCostPanel}
                 />
+                </div>
+                <Divider />
+                <div id="market-insights">
+                  <MarketInsights data={marketInsights} />
                 </div>
                 <Divider />
                 <div id="payment">
