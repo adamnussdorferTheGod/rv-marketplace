@@ -181,7 +181,7 @@ export function PriceGauge({
           <span className={styles.avgValue}>{formatPrice(averagePrice)}</span>
           <div className={styles.avgLine} />
         </div>
-        <div className={styles.dealPill}>
+        <div className={styles.dealPill} style={{ left: `${dotPos}%` }}>
           <span className={styles.dealPillPrice}>{formatPrice(listPrice)}</span>
         </div>
       </div>

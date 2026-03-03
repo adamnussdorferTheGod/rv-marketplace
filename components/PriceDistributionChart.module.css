@@ -49,8 +49,11 @@
   border-left: 1px dashed var(--rv-on-surface-variant);
 }
 
-/* Deal card pill */
+/* Deal card pill — positioned above the dot */
 .dealPill {
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -59,8 +62,9 @@
   border-radius: var(--radius-full);
   padding: var(--space-8) var(--space-16);
   box-shadow: var(--rv-shadow-bottom);
-  width: fit-content;
+  white-space: nowrap;
   opacity: 0;
+  z-index: 2;
 }
 
 .gaugeVisible .dealPill {
