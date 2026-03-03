@@ -139,17 +139,13 @@ function TrackPriceBanner({ listingTitle, formattedPrice }: { listingTitle: stri
   );
 }
 
-export default function PriceDistributionChart({
+/** Gauge-only component — renders just the price visualization bar. */
+export function PriceGauge({
   listPrice,
   rangeMin,
   rangeMax,
   averagePrice,
-  priceHistory,
-  listingTitle,
-  estimatedTotal,
-  onTotalCostClick,
-}: PriceDistributionChartProps) {
-  const [historyOpen, setHistoryOpen] = useState(true);
+}: Pick<PriceDistributionChartProps, 'listPrice' | 'rangeMin' | 'rangeMax' | 'averagePrice'>) {
   const [gaugeVisible, setGaugeVisible] = useState(false);
   const gaugeRef = useRef<HTMLDivElement>(null);
 
@@ -169,60 +165,59 @@ export default function PriceDistributionChart({
     return () => observer.disconnect();
   }, []);
 
-  // Scale: 3 equal segments. rangeMin..rangeMax = middle third
   const rangeSpan = rangeMax - rangeMin;
   const scaleMin = rangeMin - rangeSpan;
   const scaleMax = rangeMax + rangeSpan;
   const totalSpan = scaleMax - scaleMin;
 
-  // Dot position (% along full bar, clamped)
   const dotPos = Math.min(97, Math.max(3, ((listPrice - scaleMin) / totalSpan) * 100));
-
-  // Average line position (% along full bar)
   const avgPos = Math.min(95, Math.max(5, ((averagePrice - scaleMin) / totalSpan) * 100));
 
+  return (
+    <div ref={gaugeRef} className={`${styles.gaugeArea} ${gaugeVisible ? styles.gaugeVisible : ''}`}>
+      <div className={styles.gaugeTop}>
+        <div className={styles.avgGroup}>
+          <span className={styles.avgLabel}>Average price</span>
+          <span className={styles.avgValue}>{formatPrice(averagePrice)}</span>
+        </div>
+        <div className={styles.avgLine} style={{ right: `${100 - avgPos}%` }} />
+        <div className={styles.dealPill}>
+          <span className={styles.dealPillPrice}>{formatPrice(listPrice)}</span>
+        </div>
+      </div>
+
+      <div className={styles.barRow}>
+        <div className={`${styles.barSegment} ${styles.segmentTeal}`} />
+        <div className={`${styles.barSegment} ${styles.segmentGreen}`} />
+        <div className={`${styles.barSegment} ${styles.segmentLime}`} />
+        <div className={styles.barDot} style={{ left: `${dotPos}%` }} />
+      </div>
+
+      <div className={styles.rangeLabels}>
+        <span className={styles.rangeLabel} style={{ left: '33%' }}>
+          {formatPrice(rangeMin)}
+        </span>
+        <span className={styles.rangeLabel} style={{ left: '66%' }}>
+          {formatPrice(rangeMax)}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/** Full-width sections: price history, estimated total, track price. */
+export function PriceDetails({
+  listPrice,
+  priceHistory,
+  listingTitle,
+  estimatedTotal,
+  onTotalCostClick,
+}: Pick<PriceDistributionChartProps, 'listPrice' | 'priceHistory' | 'listingTitle' | 'estimatedTotal' | 'onTotalCostClick'>) {
+  const [historyOpen, setHistoryOpen] = useState(true);
   const formattedPrice = formatPrice(listPrice);
 
   return (
     <div className={styles.container}>
-      {/* ── Gauge Visualization ── */}
-      <div ref={gaugeRef} className={`${styles.gaugeArea} ${gaugeVisible ? styles.gaugeVisible : ''}`}>
-        <div className={styles.gaugeTop}>
-          {/* Average price label — top right */}
-          <div className={styles.avgGroup}>
-            <span className={styles.avgLabel}>Average price</span>
-            <span className={styles.avgValue}>{formatPrice(averagePrice)}</span>
-          </div>
-
-          {/* Average vertical dashed line */}
-          <div className={styles.avgLine} style={{ right: `${100 - avgPos}%` }} />
-
-          {/* Deal card pill */}
-          <div className={styles.dealPill}>
-            <span className={styles.dealPillPrice}>{formattedPrice}</span>
-          </div>
-        </div>
-
-        {/* 3-segment bar with dot */}
-        <div className={styles.barRow}>
-          <div className={`${styles.barSegment} ${styles.segmentTeal}`} />
-          <div className={`${styles.barSegment} ${styles.segmentGreen}`} />
-          <div className={`${styles.barSegment} ${styles.segmentLime}`} />
-          <div className={styles.barDot} style={{ left: `${dotPos}%` }} />
-        </div>
-
-        {/* Range labels below bar */}
-        <div className={styles.rangeLabels}>
-          <span className={styles.rangeLabel} style={{ left: '33%' }}>
-            {formatPrice(rangeMin)}
-          </span>
-          <span className={styles.rangeLabel} style={{ left: '66%' }}>
-            {formatPrice(rangeMax)}
-          </span>
-        </div>
-      </div>
-
-      {/* ── Price History ── */}
       <div className={styles.historySection}>
         <button
           className={styles.historyToggle}
@@ -272,7 +267,6 @@ export default function PriceDistributionChart({
         )}
       </div>
 
-      {/* ── Estimated Total Cost ── */}
       {onTotalCostClick && estimatedTotal && (
         <button
           type="button"
@@ -283,8 +277,28 @@ export default function PriceDistributionChart({
         </button>
       )}
 
-      {/* ── Track the Price ── */}
       <TrackPriceBanner listingTitle={listingTitle} formattedPrice={formattedPrice} />
+    </div>
+  );
+}
+
+/** @deprecated Use PriceGauge + PriceDetails separately instead. */
+export default function PriceDistributionChart(props: PriceDistributionChartProps) {
+  return (
+    <div>
+      <PriceGauge
+        listPrice={props.listPrice}
+        rangeMin={props.rangeMin}
+        rangeMax={props.rangeMax}
+        averagePrice={props.averagePrice}
+      />
+      <PriceDetails
+        listPrice={props.listPrice}
+        priceHistory={props.priceHistory}
+        listingTitle={props.listingTitle}
+        estimatedTotal={props.estimatedTotal}
+        onTotalCostClick={props.onTotalCostClick}
+      />
     </div>
   );
 }
