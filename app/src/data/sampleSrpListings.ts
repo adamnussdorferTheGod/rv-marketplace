@@ -598,7 +598,7 @@ const realListings: SRPListing[] = allListings.map(({ slug, data }) =>
 // ─── Export ──────────────────────────────────────────────────────────
 
 /** Mock listings kept for filter engine variety (not displayed first) */
-const mockListings: SRPListing[] = listingDefs.map((def, i) =>
+export const mockListings: SRPListing[] = listingDefs.map((def, i) =>
   buildListing(i, def),
 );
 
