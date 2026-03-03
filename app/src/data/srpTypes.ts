@@ -70,6 +70,7 @@ export interface SRPListing {
   mileage: number | null;
   daysOnSite: number;
   isTrustedPartner: boolean;
+  description?: string;
 }
 
 // ─── Filter state ────────────────────────────────────────────────────

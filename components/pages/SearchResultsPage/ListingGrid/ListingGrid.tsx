@@ -11,6 +11,7 @@ import styles from './ListingGrid.module.css';
 interface ListingGridProps {
   listings: SRPListing[];
   towVerdicts?: Map<string, TowVerdict>;
+  viewMode?: 'grid' | 'list';
   afterRow4?: React.ReactNode;
 }
 
@@ -33,6 +34,7 @@ const SELL_RV_PROMO_POSITION = 23;
 export default function ListingGrid({
   listings,
   towVerdicts,
+  viewMode = 'grid',
   afterRow4,
 }: ListingGridProps) {
   if (listings.length === 0) {
@@ -47,11 +49,14 @@ export default function ListingGrid({
   }
 
   // Build flat list of card-level nodes (listings + special cards)
-  const specialSlots: Record<number, React.ReactNode> = {
-    [INLINE_AD_POSITION]: <InlineAdCard key="inline-ad" />,
-    [SELL_RV_POSITION]: <SellRvCard key="sell-rv" />,
-    [SELL_RV_PROMO_POSITION]: <SellRvPromoCard key="sell-rv-promo" />,
-  };
+  const isList = viewMode === 'list';
+  const specialSlots: Record<number, React.ReactNode> = isList
+    ? { [INLINE_AD_POSITION]: <InlineAdCard key="inline-ad" /> }
+    : {
+        [INLINE_AD_POSITION]: <InlineAdCard key="inline-ad" />,
+        [SELL_RV_POSITION]: <SellRvCard key="sell-rv" />,
+        [SELL_RV_PROMO_POSITION]: <SellRvPromoCard key="sell-rv-promo" />,
+      };
 
   const cardNodes: React.ReactNode[] = [];
   let listingIndex = 0;
@@ -67,6 +72,7 @@ export default function ListingGrid({
           key={listing.id}
           listing={listing}
           towVerdict={towVerdicts?.get(listing.id)}
+          variant={viewMode}
         />,
       );
       listingIndex++;
@@ -122,5 +128,9 @@ export default function ListingGrid({
     }
   });
 
-  return <div className={styles.grid}>{elements}</div>;
+  const gridClass = viewMode === 'list'
+    ? `${styles.grid} ${styles.listView}`
+    : styles.grid;
+
+  return <div className={gridClass}>{elements}</div>;
 }

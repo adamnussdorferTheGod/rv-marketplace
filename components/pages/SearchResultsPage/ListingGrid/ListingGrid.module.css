@@ -4,8 +4,17 @@
   gap: 32px;
 }
 
+.listView {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
 .interleavedSection {
   grid-column: 1 / -1;
+}
+
+.listView .interleavedSection {
+  margin: var(--space-16) 0;
 }
 
 /* Force AdSlot to fill full width inside the interleaved section */

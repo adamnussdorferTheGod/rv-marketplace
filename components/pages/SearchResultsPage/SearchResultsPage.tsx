@@ -171,6 +171,7 @@ export default function SearchResultsPage() {
   });
   const [sortSheetOpen, setSortSheetOpen] = useState(false);
   const [sharedListOpen, setSharedListOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [activeNudge, setActiveNudge] = useState<string | null>(null);
   const nudgeRowRef = useRef<HTMLDivElement>(null);
   const [compareListingCount, setCompareListingCount] = useState(0);
@@ -349,6 +350,24 @@ export default function SearchResultsPage() {
               )}
               <div className={styles.sortControlsDesktop}>
                 <SortControls sort={sort} onSortChange={setSort} />
+                <div className={styles.viewToggle}>
+                  <button
+                    type="button"
+                    className={`${styles.viewToggleBtn} ${viewMode === 'grid' ? styles.viewToggleBtnActive : ''}`}
+                    onClick={() => setViewMode('grid')}
+                    aria-label="Grid view"
+                  >
+                    <Icon name="grid_view" size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.viewToggleBtn} ${viewMode === 'list' ? styles.viewToggleBtnActive : ''}`}
+                    onClick={() => setViewMode('list')}
+                    aria-label="List view"
+                  >
+                    <Icon name="list" size={20} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -368,6 +387,7 @@ export default function SearchResultsPage() {
             <ListingGrid
               listings={paginatedResults}
               towVerdicts={towVerdicts}
+              viewMode={viewMode}
               afterRow4={
                 <>
                 <h3 className={styles.nudgeHeading}>Looking for something else?</h3>

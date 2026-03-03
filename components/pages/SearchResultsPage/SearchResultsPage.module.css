@@ -111,6 +111,45 @@
 
 .sortControlsDesktop {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+/* ─── View toggle (grid / list) ─────────────────────────────────── */
+
+.viewToggle {
+  display: flex;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.viewToggleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: var(--rv-surface);
+  color: var(--rv-on-surface-variant);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.viewToggleBtn:not(:last-child) {
+  border-right: 1px solid var(--rv-border);
+}
+
+.viewToggleBtn:hover {
+  background: var(--rv-surface-variant);
+}
+
+.viewToggleBtnActive {
+  background: var(--rv-surface-variant);
+  color: var(--rv-on-surface);
 }
 
 /* ─── Nudge chips ────────────────────────────────────────────────── */

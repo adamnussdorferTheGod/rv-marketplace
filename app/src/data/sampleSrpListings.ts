@@ -587,6 +587,7 @@ function toSRPListing(slug: string, data: ListingData): SRPListing {
     mileage: null,
     daysOnSite: data.daysOnSite,
     isTrustedPartner: data.dealer.isTop50,
+    description: data.description || undefined,
   };
 }
 
