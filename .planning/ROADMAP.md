@@ -10,6 +10,7 @@
 - [ ] **v6.0 Tow Vehicle Match** - Phases 30-35 (planned)
 - [ ] **v7.0 Co-Shopping & Shared Lists** - Phases 36-46 (planned)
 - [ ] **v8.0 Total Cost Calculator** - Phases 47-51 (planned)
+- [ ] **v9.0 Market Insights** - Phases 52-55 (planned)
 
 ## Phases
 
@@ -868,6 +869,86 @@ Plans:
 - [ ] 51-01-PLAN.md — Insurance estimate engine + state tip engine with display components (INS-01, INS-02, TIP-01, TIP-02)
 - [ ] 51-02-PLAN.md — Odometer-style value animation, mobile responsive stacking, collapsible accordion breakdown (UX-01, UX-02)
 
+## v9.0 Market Insights
+
+**Milestone Goal:** Give buyers transparent, data-driven market intelligence on every VDP -- showing how long similar units take to sell, current supply levels, seasonal pricing patterns, and recent price drops -- all computed algorithmically from the existing ~80-listing dataset.
+
+**Dependencies:** Phase 9 (VDP complete), Phase 24 (SRP listing data exists with ~80 listings)
+
+**Reused components:** Button, Icon, Divider, existing VDP left column layout, design tokens, Motion 12.34.3 AnimatePresence
+
+**Constraints:**
+- Frontend-only: All metrics computed client-side from existing static listing dataset
+- No new dependencies: Uses React, TypeScript, CSS Modules, Motion (all already installed)
+- Minimum sample guard: Cards suppressed when fewer than sufficient comparables exist
+- VDP-only: Cards appear on VDP, not SRP cards (SRP integration deferred to v2)
+
+- [ ] **Phase 52: Computation Engine & Types** - TypeScript types for all market insight data, pure computation engine with comparable matching, minimum-sample guards, and Vitest unit tests
+- [ ] **Phase 53: MarketInsightsSection & VDP Wiring** - Section container with card grid layout, VDP integration via useMemo, default-collapsed cards, insufficient-data state, TIDE 2.0 styling
+- [ ] **Phase 54: Insight Cards** - Days on Market, Supply & Demand, Seasonal Timing, and Price Drop Alert cards with headline insights and contextual buyer advice
+- [ ] **Phase 55: Methodology Panels & Progressive Disclosure** - Expand/collapse on all cards, methodology detail showing comparables and match criteria, data disclaimer, AnimatePresence animation
+
+### Phase 52: Computation Engine & Types
+**Goal**: A pure TypeScript engine computes all market insight metrics from the existing listing dataset, with typed output and minimum-sample guards that prevent misleading display on sparse subcategories
+**Depends on**: Phase 9 (VDP listing data exists), Phase 24 (SRP listing data with ~80 listings exists)
+**Requirements**: DATA-01, DATA-02, DATA-03
+**Success Criteria** (what must be TRUE):
+  1. A `generateMarketInsights(listing)` function accepts a listing and returns a fully-typed result object containing days-on-market stats, supply count with trend, seasonal timing data, and price drop info -- all derived from comparable listings in the existing dataset
+  2. The comparable-matching algorithm finds peer listings by RV type with year range tolerance, and the return type includes a `comparisonScope` field indicating how broadly the engine had to search to find enough comparables
+  3. When fewer than a minimum threshold of comparables exist for a listing's type (e.g., Fish House, Pop-Up Camper), the engine returns a clearly typed insufficient-data result rather than low-confidence metrics
+  4. Vitest unit tests cover both dense subcategories (Travel Trailer with many comparables) and sparse subcategories (rare types that trigger the insufficient-data path), confirming the engine produces correct output in both cases
+  5. Listing data includes `daysOnSite` and price history fields that the engine consumes, and seasonal multipliers are defined as a hardcoded lookup table per RV type based on industry patterns
+**Plans**: 2 plans
+
+Plans:
+- [ ] 52-01-PLAN.md — TypeScript types for MarketInsightsResult discriminated union, all sub-insight types, seasonal coefficient table, and export mockListings
+- [ ] 52-02-PLAN.md — TDD: generateMarketInsights engine with findComparables, all sub-computations, MIN_SAMPLE guard, and Vitest tests
+
+### Phase 53: MarketInsightsSection & VDP Wiring
+**Goal**: A "Market Insights" section appears on the VDP left column with proper placement, layout, and data flow -- rendering card placeholders that prove the engine-to-UI pipeline works end-to-end
+**Depends on**: Phase 52 (engine exists and returns typed data)
+**Requirements**: UX-01, UX-02, UX-03, UX-04
+**Success Criteria** (what must be TRUE):
+  1. A "Market Insights" section renders in the VDP left column between PriceAnalysis and PaymentCalculator (or TotalCostCalculator) with an `id="market-insights"` anchor
+  2. The section calls `generateMarketInsights` via `useMemo` with the current listing as dependency, and passes typed sub-objects to card positions in a grid layout
+  3. All card positions default to a collapsed state (headline only, no expanded detail) to minimize VDP scroll impact
+  4. When the engine returns insufficient data for the current listing, the section shows a "Limited market data available" state rather than hiding entirely
+  5. The section and all card containers use TIDE 2.0 design tokens and CSS Modules, matching the established VDP section styling patterns
+**Plans**: TBD
+
+Plans:
+- [ ] 53-01: MarketInsightsSection container with card grid layout, VDP integration via useMemo, insufficient-data state, and TIDE 2.0 styling
+
+### Phase 54: Insight Cards
+**Goal**: Users see four distinct market intelligence cards on the VDP, each providing a specific buyer-relevant insight with contextual advice framing
+**Depends on**: Phase 53 (section container and data flow established)
+**Requirements**: DOM-01, DOM-02, DOM-03, SUPP-01, SUPP-02, SUPP-03, SEAS-01, SEAS-02, SEAS-03, DROP-01, DROP-02, DROP-03
+**Success Criteria** (what must be TRUE):
+  1. The Days on Market card shows how many days the current listing has been on market, the average days on market for comparable RVs of the same type as a range (not a point estimate), and contextualizes the listing's DOM relative to the category average (e.g., "Listed 18 days -- faster than average for travel trailers")
+  2. The Supply & Demand card shows how many comparable listings of the same type are currently available in the dataset, a simulated trend direction vs. prior period (more/fewer/stable), and frames supply level as buyer advice (e.g., "Supply is high -- more negotiating room")
+  3. The Seasonal Timing card shows whether the current month is a good or bad time to buy this RV type, estimated savings percentage vs. peak season pricing, and uses hardcoded seasonal multipliers per RV type with regional caveats for warm-weather states
+  4. The Price Drop Alert card shows a prominent alert when a listing has had a recent price reduction with dollar amount, percentage, and date -- and does not render when no price drops exist for the listing
+  5. Each card renders its headline insight in a compact collapsed format, uses consistent TIDE 2.0 card styling with appropriate status colors, and displays the comparable count used to derive its metrics
+**Plans**: TBD
+
+Plans:
+- [ ] 54-01: PriceDropAlertCard and DaysOnMarketCard components with headline insights and contextual copy
+- [ ] 54-02: SupplyDemandCard and SeasonalTimingCard components with buyer advice framing and regional caveats
+
+### Phase 55: Methodology Panels & Progressive Disclosure
+**Goal**: Users can expand any insight card to see exactly how the metric was calculated, with real comparable data and a clear disclaimer -- building trust through genuine transparency rather than marketing copy
+**Depends on**: Phase 54 (all four cards exist with stable engine output)
+**Requirements**: METH-01, METH-02, METH-03
+**Success Criteria** (what must be TRUE):
+  1. Each insight card has a clickable expand/collapse toggle that reveals a methodology detail panel below the headline, with `aria-expanded` attribute on the toggle button for accessibility
+  2. The expanded panel displays the actual comparable listings used in the computation (showing year, type, price, and days on market for each), the sample count ("Based on X listings"), and the match criteria used ("Same RV type, within 3 model years")
+  3. Every expanded panel includes a data disclaimer: "Based on sample marketplace data" -- clearly communicating the demo nature of the dataset
+  4. The expand/collapse animation uses Motion `AnimatePresence` for smooth height transitions, matching the established pattern from TotalCostCalculator
+**Plans**: TBD
+
+Plans:
+- [ ] 55-01: Expand/collapse toggle with AnimatePresence animation, methodology panel showing comparables list, sample count, match criteria, and data disclaimer
+
 ## Progress
 
 **Execution Order:**
@@ -879,6 +960,7 @@ Plans:
 - v6.0 (Phases 30-35): 30 -> 31 -> 32 -> 33, and 30 -> 31 -> 34 (Phases 32/33 and 34 can run in parallel after 31; Phase 35 only needs 30)
 - v7.0 (Phases 36-46): 36 -> 37 -> 38 -> 39 -> 40 -> 41 -> 42, and 36 -> 37 -> 43, and 38+40+41 -> 44
 - v8.0 (Phases 47-51): 47 -> 48 -> 49, 48 -> 50, 48 -> 51 (Phases 49, 50, 51 can run in parallel after 48; Phase 47 is foundation for all)
+- v9.0 (Phases 52-55): 52 -> 53 -> 54 -> 55 (strict linear dependency: engine -> container -> cards -> methodology)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -899,7 +981,7 @@ Plans:
 | 15. Data Layer and Section Shell | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 16. Destination Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
 | 17. Route Cards | v3.0 | 2/2 | Complete | 2026-02-25 |
-| 18. Mobile Polish | 2/2 | Complete    | 2026-02-28 | - |
+| 18. Mobile Polish | v3.0 | 2/2 | Complete | 2026-02-28 |
 | 19. Routing & Homepage Shell | v5.0 | 1/1 | Complete | 2026-02-26 |
 | 20. Hero Banner & Search | v5.0 | 2/2 | Complete | 2026-02-26 |
 | 21. Listing Carousels & Dealer Showcase | v5.0 | 2/2 | Complete | 2026-02-26 |
@@ -912,7 +994,7 @@ Plans:
 | 28. Page Chrome & Content Sections | v4.0 | 1/1 | Complete | 2026-02-27 |
 | 29. Responsive Breakpoints | v4.0 | 2/2 | Complete | 2026-02-27 |
 | 30. Vehicle Data Layer | v6.0 | 3/3 | Complete | 2026-02-28 |
-| 31. Tow Vehicle Setup | v6.0 | Complete | 2026-02-28 | 2026-02-28 |
+| 31. Tow Vehicle Setup | v6.0 | 3/3 | Complete | 2026-02-28 |
 | 32. VDP Tow Match Display | v6.0 | 0/3 | Not started | - |
 | 33. VDP Prompts & Education | v6.0 | 0/2 | Not started | - |
 | 34. SRP Tow Filter & Badges | v6.0 | 0/2 | Not started | - |
@@ -928,8 +1010,12 @@ Plans:
 | 44. Mobile Co-Shopping Experience | v7.0 | 0/2 | Not started | - |
 | 45. Co-Shopping Shared List UI | v7.0 | 2/2 | Complete | 2026-02-28 |
 | 46. SRP Co-Shopping Sidebar | v7.0 | 1/1 | Complete | 2026-02-28 |
-| 47. State Tax & Fee Data Layer | 2/2 | Complete    | 2026-02-28 | - |
-| 48. Calculator Shell & Core Display | 2/2 | Complete    | 2026-02-28 | - |
-| 49. Dealer Fees, Trade-In & Editable Inputs | 2/2 | Complete    | 2026-02-28 | - |
-| 50. Financing Calculator | 1/1 | Complete    | 2026-02-28 | - |
-| 51. Insurance, State Tips & Responsive Polish | 2/2 | Complete    | 2026-02-28 | - |
+| 47. State Tax & Fee Data Layer | v8.0 | 2/2 | Complete | 2026-02-28 |
+| 48. Calculator Shell & Core Display | v8.0 | 2/2 | Complete | 2026-02-28 |
+| 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 2/2 | Complete | 2026-02-28 |
+| 50. Financing Calculator | v8.0 | 1/1 | Complete | 2026-02-28 |
+| 51. Insurance, State Tips & Responsive Polish | v8.0 | 2/2 | Complete | 2026-02-28 |
+| 52. Computation Engine & Types | 1/2 | In Progress|  | - |
+| 53. MarketInsightsSection & VDP Wiring | v9.0 | 0/1 | Not started | - |
+| 54. Insight Cards | v9.0 | 0/2 | Not started | - |
+| 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
