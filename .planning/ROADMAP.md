@@ -11,6 +11,7 @@
 - [ ] **v7.0 Co-Shopping & Shared Lists** - Phases 36-46 (planned)
 - [ ] **v8.0 Total Cost Calculator** - Phases 47-51 (planned)
 - [ ] **v9.0 Market Insights** - Phases 52-55 (planned)
+- [ ] **v10.0 AI-Powered SRP Summary** - Phases 56-60 (planned)
 
 ## Phases
 
@@ -375,7 +376,7 @@ Plans:
 
 **Dependency:** Phase 19 (react-router-dom routing with `/search` route must exist)
 
-- [x] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL query sync, active filter chips (completed 2026-02-26)
+- [x] **Phase 24: Data Layer & Filter Engine** - SRP TypeScript types, ~80 sample listings, client-side filter/sort engine, URL sync, active filter chips (completed 2026-02-26)
 - [x] **Phase 25: Listing Cards** - Standard card, featured compact card, sponsored showcase, PAA card, dealer ad card with all visual treatments (completed 2026-02-27)
 - [x] **Phase 26: Filter Sidebar** - All filter groups (keyword, location, condition, type, make/model, price, collapsible extras) with result count header and mobile overlay (completed 2026-02-27)
 - [x] **Phase 27: SRP Page Assembly** - Two-column layout, breadcrumbs, sort controls, 3-col grid, interleaved carousels/ads, pagination (completed 2026-02-27)
@@ -949,6 +950,108 @@ Plans:
 Plans:
 - [ ] 55-01: Expand/collapse toggle with AnimatePresence animation, methodology panel showing comparables list, sample count, match criteria, and data disclaimer
 
+## v10.0 AI-Powered SRP Summary
+
+**Milestone Goal:** Add an AI-powered summary module at the top of every SRP -- a passive Summary Card showing market stats + AI narrative for the current search, plus an active Research Assistant chat where buyers ask questions about their results. Both grounded in real listing data. Data in, language out. Zero new npm dependencies.
+
+**Dependencies:** Phase 24 (SRP data layer and filter engine), Phase 29 (SRP responsive breakpoints)
+
+**Reused components:** Button, Icon, Divider, ActionChip, existing SRP layout, existing AiMode components (~80% reusable), DonutChart, PriceDistributionChart patterns, CSS Modules + design tokens
+
+**Constraints:**
+- Frontend-only: Mock API layer, no real LLM calls (hard boundary from claudeService.ts)
+- Zero new dependencies: All capabilities built on existing React + TypeScript + CSS Modules + custom SVG
+- Generate-then-render: Pure engine computes typed data, components receive pre-computed props
+- Confidence-gated: 4 tiers (full/medium/low/insufficient) flow through entire component tree
+- Render budget: Section renders within 500ms (all data pre-cached/static)
+
+- [x] **Phase 56: Summary Data Layer & Types** - Pure TypeScript summary engine with headline stats, histogram bins, deal breakdown, confidence tiers, narrative templates, and Vitest tests (completed 2026-03-04)
+- [ ] **Phase 57: Summary Card -- Stat Bar & Narrative** - SrpSummaryCard with StatBar, AiNarrative, ConfidenceGate, responsive 3-state layout (desktop/tablet/mobile), dismiss/restore, skeleton placeholder, and summary card accessibility
+- [ ] **Phase 58: Mock Assistant Service & Chat Input** - mockSrpAssistantService with 5-category keyword classification, SearchContext contract, AiAssistantInput with contextual prompt chips, follow-up chip mapping, and AiModeProvider extension
+- [ ] **Phase 59: Assistant Panel & Rich Message Types** - AiAssistantPanel (desktop overlay), AssistantSheet (mobile bottom sheet with FAB), AssistantMessage polymorphic renderer (text/comparison/listing/action), useTypewriter hook, conversation thread with accessibility
+- [ ] **Phase 60: Detail Panel & Charts** - SummaryDetailPanel with expand/collapse animation, price distribution histogram (SVG), deal quality breakdown (SVG donut), 6-month trend chart (SVG line), minimum-n fallbacks, and chart accessibility
+
+### Phase 56: Summary Data Layer & Types
+**Goal**: A pure TypeScript engine computes all SRP summary metrics from the filtered listing array, with typed output, confidence gating, and AI narrative generation -- so every downstream component receives pre-computed props rather than raw listings
+**Depends on**: Phase 24 (SRP filter engine and SRPListing type exist)
+**Requirements**: SUMM-01, SUMM-02, SUMM-03, SUMM-04, SUMM-05, SUMM-06
+**Success Criteria** (what must be TRUE):
+  1. A `generateSrpSummary(listings, filters)` function accepts filtered SRP listings and returns a typed `SrpSummaryData` object containing headline stats (listing count, median price, price trend percentage, average days on market), price distribution histogram bins, and deal quality breakdown counts
+  2. The engine assigns a confidence tier (full/medium/low/insufficient) based on result count thresholds (50+ full, 10-49 medium, 3-9 low, <3 insufficient) and the confidence level is a required field in the return type consumed by all downstream components
+  3. The engine generates a 2-3 sentence AI narrative via template interpolation that adapts tone based on search context type (broad/filtered/narrow/price-focused/low-results) and interpolates real computed stats into every sentence
+  4. Vitest unit tests verify histogram bucketing produces correct bin counts, confidence thresholds trigger at exact boundaries (2/3/10/50 listings), and narrative output changes when switching between search context types
+  5. All types are exported (SrpSummaryData, ConfidenceLevel, PriceBin, DealBreakdown, SearchContextType, AssistantMessageData discriminated union) as the data contract for all downstream phases
+**Plans**: 2 plans
+
+Plans:
+- [ ] 56-01-PLAN.md — TypeScript type contracts, constants (CATEGORY_BASELINES), narrative templates (OPENING_TEMPLATES, BODY_TEMPLATES), and AssistantMessageData union
+- [ ] 56-02-PLAN.md — Pure generateSrpSummary engine with headline stats, histogram binning, deal breakdown, confidence gating, narrative generation, and Vitest test suite
+
+### Phase 57: Summary Card -- Stat Bar & Narrative
+**Goal**: Users see a market intelligence card above the SRP results showing headline stats and an AI narrative for their current search, with confidence-appropriate content at every data level and responsive behavior across all breakpoints
+**Depends on**: Phase 56 (summary engine returns typed data)
+**Requirements**: CARD-01, CARD-02, CARD-07, CARD-08, CARD-09, RESP-01, RESP-02, RESP-03, RESP-04, RESP-05, A11Y-01, A11Y-02, A11Y-03, A11Y-05
+**Success Criteria** (what must be TRUE):
+  1. A headline stat bar with 3-4 key metrics (listing count, median price, price trend with directional arrow, avg DOM) renders above the SRP results between the search controls and the first listing row, with each stat showing a grounding indicator ("Based on N listings")
+  2. An AI-generated narrative paragraph below the stat bar summarizes the current search in 2-3 sentences, with an "Updated {date}" timestamp, and both stat bar and narrative re-render when filters change
+  3. The card renders confidence-gated content: full card (stat bar + narrative) at 50+ results, stat bar + shortened narrative at 10-49, stat bar only at 3-9, and the card hides entirely below 3 results
+  4. Desktop shows the full-width card; tablet wraps the stat bar to a 2x2 grid with narrative visible; mobile collapses to a single-line summary ("247 listings - Median $62,400 - Prices down 4%") with tap to expand
+  5. User can dismiss the summary card (preference persisted in localStorage), and a subtle "View market insights" link allows re-enabling; the card uses `role="region"` with `aria-label`, expand/collapse uses `aria-expanded`, all stats have sr-only context labels, and trend indicators use direction + color (not color alone)
+**Plans**: TBD
+
+Plans:
+- [ ] 57-01: SrpSummaryCard shell with StatBar, ConfidenceGate wrapper, skeleton placeholder, and SearchResultsPage integration
+- [ ] 57-02: AiNarrative component, responsive 3-state layout (desktop/tablet/mobile), dismiss/restore with localStorage, timestamp, and accessibility attributes
+
+### Phase 58: Mock Assistant Service & Chat Input
+**Goal**: A mock assistant service classifies buyer questions and returns data-grounded responses, and users see a chat input bar with contextual prompt chip suggestions that adapt to conversation context
+**Depends on**: Phase 56 (SrpSummaryData types and SearchContext shape exist)
+**Requirements**: ASST-01, ASST-02, ASST-03, ASST-04, CHAT-01, CHAT-02, CHAT-08
+**Success Criteria** (what must be TRUE):
+  1. A `mockSrpAssistantService` accepts a query string plus a `SearchContext` object (result count, price range, top makes, median price, deal breakdown) and returns typed responses (text/comparison/listing/action) with a simulated 500-1500ms delay
+  2. The service classifies queries into 5 categories (market-overview, price-analysis, type-comparison, deal-quality, recommendation) via keyword matching, and every response template interpolates at least 2 data points from `SearchContext` so responses change when filters change
+  3. The service enforces guardrails: purchase recommendation queries, price prediction queries, and dealer commentary queries receive a graceful redirect response explaining what the assistant can help with instead
+  4. A chat input bar with placeholder text ("Ask about these results...") renders below the summary card, with 3-5 contextual prompt chip suggestions that adapt to the current search context (e.g., different chips for "travel trailers" vs "Class A motorhomes")
+  5. Prompt chips evolve after each conversation turn based on what was discussed, following a designed initial-to-follow-up-to-terminal state mapping so users never hit dead-end chips
+**Plans**: TBD
+
+Plans:
+- [ ] 58-01: mockSrpAssistantService with 5-category classifier, SearchContext contract, response templates with data interpolation, guardrail redirects, and simulated delay
+- [ ] 58-02: AiAssistantInput component with prompt chips, AiModeProvider extension with searchContext prop, and follow-up chip state mapping
+
+### Phase 59: Assistant Panel & Rich Message Types
+**Goal**: Users can have a full conversation with the research assistant in a side panel (desktop) or bottom sheet (mobile), receiving text, comparison tables, listing cards, and actionable filter buttons as response types
+**Depends on**: Phase 58 (mock service and chat input exist)
+**Requirements**: CHAT-03, CHAT-04, CHAT-05, CHAT-06, CHAT-07, LAYT-01, LAYT-02, LAYT-03, LAYT-04, RESP-06, A11Y-06, A11Y-07, A11Y-08
+**Success Criteria** (what must be TRUE):
+  1. On desktop, clicking the chat input or a prompt chip opens an overlay side panel (position: fixed, not layout-shifting) showing the full conversation thread with input at the bottom, and the listings grid remains visible behind/beside the panel
+  2. On mobile, a floating action button (FAB) triggers a bottom sheet that is draggable (half-screen default, swipe to full, swipe down to dismiss) with the conversation thread and input
+  3. The assistant renders 4 response types: plain text messages, comparison tables (side-by-side data for "Compare X vs Y" queries), embedded mini listing cards (clickable to VDP), and action responses with "Apply filter" / "Sort by" buttons that modify the actual SRP filters when clicked
+  4. Assistant responses render with a typewriter effect (character-by-character reveal) that respects `prefers-reduced-motion`, and the conversation maintains context within the current session with scrollable message history
+  5. The conversation thread uses `role="log"` with an ARIA live region for new messages, all interactive elements are keyboard-accessible with proper tab navigation, and focus is managed on panel open (focus moves to input) and close (focus returns to trigger)
+**Plans**: TBD
+
+Plans:
+- [ ] 59-01: AiAssistantPanel (desktop overlay) and AssistantSheet (mobile bottom sheet with FAB), panel open/close with focus management
+- [ ] 59-02: AssistantMessage polymorphic renderer (text/comparison/listing/action types), useTypewriter hook, ConversationThread with role="log" and ARIA live region, and prefers-reduced-motion support
+
+### Phase 60: Detail Panel & Charts
+**Goal**: Users can expand the summary card to see deeper analysis with interactive charts showing price distribution, deal quality breakdown, and price trends -- all rendered as accessible custom SVG with graceful fallbacks for small datasets
+**Depends on**: Phase 56 (summary engine provides histogram bins, deal breakdown, trend data), Phase 57 (summary card with expand/collapse exists)
+**Requirements**: CARD-03, CARD-04, CARD-05, CARD-06, A11Y-04
+**Success Criteria** (what must be TRUE):
+  1. Clicking "See more details" below the narrative expands a detail panel with a smooth CSS `max-height` transition (no layout shift), and the expand/collapse toggle uses `aria-expanded` and `aria-controls`
+  2. A price distribution histogram renders as custom SVG with adaptive bin count (`Math.min(Math.ceil(Math.sqrt(n)), 8)`) showing the price spread of current results, with the current listing's price range highlighted
+  3. A deal quality breakdown renders as an SVG donut chart (adapted from existing DonutChart pattern) showing great/good/fair/above market distribution with count labels
+  4. A 6-month price trend chart renders as an SVG line chart with simulated time-series data, showing monthly median price movement for the current search category
+  5. All charts have accessible fallbacks: below minimum-n thresholds (histogram < 15, trend < 20, deal breakdown < 10) they render as data tables instead of empty charts, and every chart provides a text summary via sr-only or accessible data table
+
+**Plans**: TBD
+
+Plans:
+- [ ] 60-01: SummaryDetailPanel with expand/collapse animation, price distribution histogram (SVG), and deal quality donut chart (SVG)
+- [ ] 60-02: 6-month trend chart (SVG line), minimum-n fallback data tables, sr-only text summaries, and responsive chart sizing
+
 ## Progress
 
 **Execution Order:**
@@ -961,6 +1064,7 @@ Plans:
 - v7.0 (Phases 36-46): 36 -> 37 -> 38 -> 39 -> 40 -> 41 -> 42, and 36 -> 37 -> 43, and 38+40+41 -> 44
 - v8.0 (Phases 47-51): 47 -> 48 -> 49, 48 -> 50, 48 -> 51 (Phases 49, 50, 51 can run in parallel after 48; Phase 47 is foundation for all)
 - v9.0 (Phases 52-55): 52 -> 53 -> 54 -> 55 (strict linear dependency: engine -> container -> cards -> methodology)
+- v10.0 (Phases 56-60): 56 -> 57, 56 -> 58 -> 59, 57 -> 60 (Phase 57 and 58 can run in parallel after 56; Phase 59 needs 58; Phase 60 needs 56 + 57)
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -1015,7 +1119,12 @@ Plans:
 | 49. Dealer Fees, Trade-In & Editable Inputs | v8.0 | 2/2 | Complete | 2026-02-28 |
 | 50. Financing Calculator | v8.0 | 1/1 | Complete | 2026-02-28 |
 | 51. Insurance, State Tips & Responsive Polish | v8.0 | 2/2 | Complete | 2026-02-28 |
-| 52. Computation Engine & Types | 2/2 | Complete   | 2026-03-03 | - |
+| 52. Computation Engine & Types | v9.0 | 2/2 | Complete | 2026-03-03 |
 | 53. MarketInsightsSection & VDP Wiring | v9.0 | 0/1 | Not started | - |
 | 54. Insight Cards | v9.0 | 0/2 | Not started | - |
 | 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
+| 56. Summary Data Layer & Types | 2/2 | Complete   | 2026-03-04 | - |
+| 57. Summary Card -- Stat Bar & Narrative | v10.0 | 0/2 | Not started | - |
+| 58. Mock Assistant Service & Chat Input | v10.0 | 0/2 | Not started | - |
+| 59. Assistant Panel & Rich Message Types | v10.0 | 0/2 | Not started | - |
+| 60. Detail Panel & Charts | v10.0 | 0/2 | Not started | - |

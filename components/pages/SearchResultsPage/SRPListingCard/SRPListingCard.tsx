@@ -50,6 +50,8 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
 
   const isList = variant === 'list';
 
+  const shortTitle = `${listing.year} ${listing.make} ${listing.model}`;
+
   const specPills = isList
     ? [
         RV_TYPE_LABELS[listing.rvType],
@@ -195,7 +197,7 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
             <div className={styles.mainGroup}>
               <div className={styles.textBlock}>
                 <span className={styles.condition}>{listing.condition}</span>
-                <h3 className={styles.title}>{listing.title}</h3>
+                <h3 className={styles.title} title={listing.title}>{shortTitle}</h3>
                 <div className={styles.priceRow}>
                   <span className={styles.currentPrice}>
                     ${listing.currentPrice.toLocaleString()}

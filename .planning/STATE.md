@@ -2,17 +2,19 @@
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-02)
+See: .planning/PROJECT.md (updated 2026-03-03)
 
-**Core value:** A pixel-accurate marketplace experience implementing Figma designs with TIDE 2.0 and dynamic client-side filtering
-**Current focus:** v9.0 Market Insights -- Phase 52: Computation Engine & Types
+**Core value:** Give buyers instant, data-grounded market intelligence on every search -- stats, narrative, and conversational research
+**Current focus:** Phase 56 - Summary Data Layer & Types (v10.0)
 
 ## Current Position
 
-Phase: 52 of 55 (Computation Engine & Types)
-Plan: 2 of 2 in current phase (PHASE COMPLETE)
-Status: Phase 52 Complete
-Last activity: 2026-03-03 -- Completed 52-02 (market insights computation engine + 10 tests)
+Phase: 56 of 60 (Summary Data Layer & Types)
+Plan: 2 of 2 in current phase
+Status: Phase Complete
+Last activity: 2026-03-03 -- Completed 56-02 (SRP summary engine)
+
+Progress: [==============================....] ~93% overall (56/60 phases)
 
 ## Performance Metrics
 
@@ -21,50 +23,47 @@ Last activity: 2026-03-03 -- Completed 52-02 (market insights computation engine
 - Average duration: 4.4min
 - Total execution time: 1.25 hours
 
-**v6.0:**
-- Completed: 6 plans
-- 30-01: 2min, 30-02: 3min, 30-03: 2min, 31-01: 1min, 31-02: 2min, 31-03: 3min
+**v8.0:** 9 plans, avg 3.2min
+**v9.0 (partial):** 2 plans (52-01: 1min, 52-02: 2min)
 
-**v7.0:**
-- Completed: 5 plans
-- 36-01: 1min, 36-02: 2min, 45-01: 2min, 45-02: 2min, 46-01: 3min
+**v10.0:**
 
-**v8.0:**
-- Completed: 9 plans
-- 47-01: 4min, 47-02: 6min, 48-01: 2min, 48-02: 2min, 49-01: 2min, 49-02: 4min, 50-01: 3min, 51-01: 3min, 51-02: 3min
-
-**v9.0:**
-- 52-01: 1min, 52-02: 2min
+| Phase | Plans | Total | Avg/Plan |
+|-------|-------|-------|----------|
+| 56 | 2/2 | 4min | 2min |
+| 57 | 0/2 | - | - |
+| 58 | 0/2 | - | - |
+| 59 | 0/2 | - | - |
+| 60 | 0/2 | - | - |
 
 ## Accumulated Context
 
 ### Decisions
 
-- [v9.0]: Algorithmic market data from existing ~80 listings -- no external data source
-- [v9.0]: Market insights VDP-only -- cards on VDP, not SRP cards; SRP integration deferred
-- [v9.0]: Seasonal coefficients hardcoded per RV type -- dataset is a snapshot, not time series
-- [v9.0]: MIN_SAMPLE guard to suppress cards on sparse subcategories -- prevents misleading display
-- [v9.0]: Generate-then-render pattern -- mirrors generateDealKit.ts established in VDP
-- [52-01]: Object.freeze on SEASONAL_MULTIPLIERS for runtime immutability
-- [52-01]: PriceDropData nullable on MarketInsightsOk for listings without price history
-- [52-02]: Duplicated parseRvType locally as resolveRvType to avoid import coupling
-- [52-02]: computePriceDrop always returns PriceDropData with hasRecentDrop flag (not null)
+- [v10.0]: Generate-then-render architecture -- pure engine produces typed props, components receive pre-computed data
+- [v10.0]: Zero new npm dependencies -- custom SVG charts, existing AiMode patterns, CSS Modules
+- [v10.0]: Mock AI via template interpolation -- hard boundary from claudeService.ts (no real LLM)
+- [v10.0]: Confidence-gated rendering -- 4 tiers (50/10/3) flow through entire component tree
+- [v10.0]: Desktop assistant as overlay panel (position: fixed) -- not layout-shifting side panel
+- [v10.0]: Mobile assistant as FAB-triggered bottom sheet -- draggable half/full/dismiss
+- [Phase 56]: All SrpSummaryData fields required (no optionals) -- UI decides rendering based on confidence level
+- [Phase 56]: No 'above market' deal category -- high and null dealRating excluded silently per business constraint
+- [Phase 56]: Histogram remainder counting (length - assigned) prevents off-by-one when bin boundaries exceed data range
+- [Phase 56]: Price trend 70/30 data-baseline blend with muted 50% baseline when no reductions exist
+- [Phase 56]: Narrative uses first template from each array for deterministic output (no randomness)
 
 ### Pending Todos
 
 None yet.
 
-### Roadmap Evolution
-
-- Phases 47-51 added: v8.0 Total Cost Calculator milestone
-- Phases 52-55 added: v9.0 Market Insights milestone
-
 ### Blockers/Concerns
 
-None.
+- Featured Listings carousel placement: summary card may require moving carousel or making it conditional
+- Overlay vs. layout-shift spec confirmation needed before Phase 59
+- Trend chart time-series data shape: define during Phase 60 planning
 
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 52-02-PLAN.md (Phase 52 complete)
+Stopped at: Completed 56-02-PLAN.md (Phase 56 complete)
 Resume file: None
