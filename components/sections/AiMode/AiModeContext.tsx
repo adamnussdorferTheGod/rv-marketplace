@@ -127,10 +127,7 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
   }, [searchContext, filters, towVehicle, listings, buildChipInput]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(() => {
-    const h = typeof window !== 'undefined' ? window.location.hash : '';
-    return !!h.match(/^#ai=.+$/);
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const thread = threadMap[panelMode];
   const messages = thread.messages;
