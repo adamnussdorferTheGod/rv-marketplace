@@ -67,7 +67,7 @@ function CheckIcon() {
   );
 }
 
-function TrackPriceBanner({ listingTitle, formattedPrice }: { listingTitle: string; formattedPrice: string }) {
+export function TrackPriceBanner({ listingTitle, formattedPrice }: { listingTitle: string; formattedPrice: string }) {
   const [tracking, setTracking] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -276,8 +276,6 @@ export function PriceDetails({
           Estimated total cost: {estimatedTotal}
         </button>
       )}
-
-      <TrackPriceBanner listingTitle={listingTitle} formattedPrice={formattedPrice} />
     </div>
   );
 }

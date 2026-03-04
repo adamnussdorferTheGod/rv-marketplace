@@ -46,6 +46,7 @@ import { generateNarrations } from '../../../app/src/data/generateNarrations';
 import { generateVideoWalkthrough } from '../../../app/src/data/generateVideoWalkthrough';
 import { generateDealKit } from '../../../app/src/data/generateDealKit';
 import MarketInsights from '@components/sections/MarketInsights/MarketInsights';
+import { TrackPriceBanner } from '../../PriceDistributionChart';
 import { generateMarketInsights } from '../../../app/src/data/marketInsightsEngine';
 import { mockListings } from '../../../app/src/data/sampleSrpListings';
 // import VdpSectionNav from '@components/sections/VdpSectionNav/VdpSectionNav';
@@ -184,6 +185,7 @@ function VehicleDetailPageContent() {
                 <div id="market-insights">
                   <MarketInsights data={marketInsights} />
                 </div>
+                <TrackPriceBanner listingTitle={listing.title} formattedPrice={formattedPrice} />
                 <Divider />
                 <div id="payment">
                 <PaymentCalculator currentPrice={listing.currentPrice} />
