@@ -30,21 +30,21 @@ Requirements for v10.0 milestone. Each maps to roadmap phases.
 
 ### Assistant Data Layer
 
-- [ ] **ASST-01**: Mock assistant service accepts a query + search context and returns typed responses (text/comparison/listing/action)
-- [ ] **ASST-02**: Assistant responses interpolate real search data (result count, price range, top makes, median) — responses change when filters change
-- [ ] **ASST-03**: Mock service classifies queries into categories (market-overview, price-analysis, type-comparison, deal-quality, recommendation) via keyword matching
-- [ ] **ASST-04**: Mock service enforces guardrails — no purchase recommendations, no price predictions, no dealer commentary; out-of-scope queries get graceful redirect
+- [x] **ASST-01**: Mock assistant service accepts a query + search context and returns typed responses (text/comparison/listing/action)
+- [x] **ASST-02**: Assistant responses interpolate real search data (result count, price range, top makes, median) — responses change when filters change
+- [x] **ASST-03**: Mock service classifies queries into categories (market-overview, price-analysis, type-comparison, deal-quality, recommendation) via keyword matching
+- [x] **ASST-04**: Mock service enforces guardrails — no purchase recommendations, no price predictions, no dealer commentary; out-of-scope queries get graceful redirect
 
 ### Assistant UI
 
 - [ ] **CHAT-01**: User sees a chat input bar with placeholder text ("Ask about these results...") below the summary card
-- [ ] **CHAT-02**: User sees 3-5 contextual prompt chip suggestions below the input (adapt to search context)
+- [x] **CHAT-02**: User sees 3-5 contextual prompt chip suggestions below the input (adapt to search context)
 - [ ] **CHAT-03**: User can type a question and receive a text response grounded in search data
 - [ ] **CHAT-04**: Assistant can return comparison table responses for "Compare X vs Y" queries (side-by-side data)
 - [ ] **CHAT-05**: Assistant can return embedded mini listing cards in responses when referencing specific listings
 - [ ] **CHAT-06**: Assistant can return action responses with "Apply filter" / "Sort by" buttons that modify the actual SRP
 - [ ] **CHAT-07**: Conversation maintains context within the current session (user can scroll back through messages)
-- [ ] **CHAT-08**: Prompt chips evolve after each turn based on conversation context
+- [x] **CHAT-08**: Prompt chips evolve after each turn based on conversation context
 
 ### Assistant Layout
 
@@ -132,18 +132,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CARD-07 | Phase 57 | Complete |
 | CARD-08 | Phase 57 | Complete |
 | CARD-09 | Phase 57 | Complete |
-| ASST-01 | Phase 58 | Pending |
-| ASST-02 | Phase 58 | Pending |
-| ASST-03 | Phase 58 | Pending |
-| ASST-04 | Phase 58 | Pending |
+| ASST-01 | Phase 58 | Complete |
+| ASST-02 | Phase 58 | Complete |
+| ASST-03 | Phase 58 | Complete |
+| ASST-04 | Phase 58 | Complete |
 | CHAT-01 | Phase 58 | Pending |
-| CHAT-02 | Phase 58 | Pending |
+| CHAT-02 | Phase 58 | Complete |
 | CHAT-03 | Phase 59 | Pending |
 | CHAT-04 | Phase 59 | Pending |
 | CHAT-05 | Phase 59 | Pending |
 | CHAT-06 | Phase 59 | Pending |
 | CHAT-07 | Phase 59 | Pending |
-| CHAT-08 | Phase 58 | Pending |
+| CHAT-08 | Phase 58 | Complete |
 | LAYT-01 | Phase 59 | Pending |
 | LAYT-02 | Phase 59 | Pending |
 | LAYT-03 | Phase 59 | Pending |

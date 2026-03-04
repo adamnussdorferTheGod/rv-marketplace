@@ -1,20 +1,30 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import type { SrpSummaryData } from '@app/src/data/srpSummaryTypes';
+import type { SRPListing } from '@app/src/data/srpTypes';
+import { buildSearchContext, mockSrpAssistantService, classifyQuery } from '@app/src/data/srpAssistantService';
+import { generateSrpChips, advanceChipContext, INITIAL_CHIP_CONTEXT } from '@app/src/data/srpAssistantChips';
+import type { ChipContext } from '@app/src/data/srpAssistantChips';
 import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import Icon from '../../ui/Icon/Icon';
 import StatBar from './StatBar';
 import AiNarrative from './AiNarrative';
 import OverflowMenu from './OverflowMenu';
+import SrpChatInput from './SrpChatInput';
+import SrpPromptChips from './SrpPromptChips';
 import styles from './SrpSummaryCard.module.css';
 
 interface SrpSummaryCardProps {
   data: SrpSummaryData;
+  listings?: SRPListing[];
+  activeRvType?: string;
   onDismiss?: () => void;
 }
 
-export default function SrpSummaryCard({ data, onDismiss }: SrpSummaryCardProps) {
+export default function SrpSummaryCard({ data, listings = [], activeRvType, onDismiss }: SrpSummaryCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState(false);
+  const [chipContext, setChipContext] = useState<ChipContext>(INITIAL_CHIP_CONTEXT);
+  const [isSending, setIsSending] = useState(false);
   const isMobile = useIsMobile(767);
   const prevKeyRef = useRef(
     `${data.resultCount}-${data.headlineStats.medianPrice}`
@@ -26,10 +36,39 @@ export default function SrpSummaryCard({ data, onDismiss }: SrpSummaryCardProps)
     if (newKey !== prevKeyRef.current) {
       prevKeyRef.current = newKey;
       setIsLoading(true);
+      setChipContext(INITIAL_CHIP_CONTEXT);
       const timer = setTimeout(() => setIsLoading(false), 300);
       return () => clearTimeout(timer);
     }
   }, [data.resultCount, data.headlineStats.medianPrice]);
+
+  // Build SearchContext and chips
+  const searchContext = useMemo(
+    () => buildSearchContext(data, listings, activeRvType ?? null),
+    [data, listings, activeRvType]
+  );
+
+  const currentChips = useMemo(
+    () => generateSrpChips(searchContext, chipContext),
+    [searchContext, chipContext]
+  );
+
+  // Handle send
+  const handleSend = useCallback(async (message: string) => {
+    setIsSending(true);
+    try {
+      await mockSrpAssistantService(message, searchContext);
+      const category = classifyQuery(message);
+      setChipContext(prev => advanceChipContext(prev, category));
+    } finally {
+      setIsSending(false);
+    }
+  }, [searchContext]);
+
+  // Handle chip select
+  const handleChipSelect = useCallback((chip: string) => {
+    handleSend(chip);
+  }, [handleSend]);
 
   // Confidence gating: hide card when insufficient data
   if (data.confidence === 'insufficient') {
@@ -74,6 +113,21 @@ export default function SrpSummaryCard({ data, onDismiss }: SrpSummaryCardProps)
       )}
       {confidence === 'medium' && (
         <AiNarrative narrative={data.narrative} generatedAt={data.generatedAt} shortened />
+      )}
+
+      {(confidence === 'full' || confidence === 'medium') && (
+        <div className={styles.chatSection}>
+          <SrpChatInput
+            onSend={handleSend}
+            placeholder="Ask about these results..."
+            disabled={isSending}
+          />
+          <SrpPromptChips
+            chips={currentChips}
+            onSelect={handleChipSelect}
+            disabled={isSending}
+          />
+        </div>
       )}
     </>
   );

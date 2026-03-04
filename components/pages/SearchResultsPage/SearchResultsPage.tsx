@@ -393,16 +393,18 @@ export default function SearchResultsPage() {
               </div>
             </div>
 
-            {summaryDismissed ? (
-              <button
-                type="button"
-                className={styles.restoreInsightsLink}
-                onClick={handleSummaryRestore}
-              >
-                View market insights
-              </button>
-            ) : (
-              <SrpSummaryCard data={summaryData} onDismiss={handleSummaryDismiss} />
+            {import.meta.env.DEV && (
+              summaryDismissed ? (
+                <button
+                  type="button"
+                  className={styles.restoreInsightsLink}
+                  onClick={handleSummaryRestore}
+                >
+                  View market insights
+                </button>
+              ) : (
+                <SrpSummaryCard data={summaryData} listings={towFilteredResults} onDismiss={handleSummaryDismiss} />
+              )
             )}
 
             {/* Mobile filter/sort bar */}

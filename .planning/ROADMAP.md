@@ -1013,11 +1013,11 @@ Plans:
   3. The service enforces guardrails: purchase recommendation queries, price prediction queries, and dealer commentary queries receive a graceful redirect response explaining what the assistant can help with instead
   4. A chat input bar with placeholder text ("Ask about these results...") renders below the summary card, with 3-5 contextual prompt chip suggestions that adapt to the current search context (e.g., different chips for "travel trailers" vs "Class A motorhomes")
   5. Prompt chips evolve after each conversation turn based on what was discussed, following a designed initial-to-follow-up-to-terminal state mapping so users never hit dead-end chips
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 58-01: mockSrpAssistantService with 5-category classifier, SearchContext contract, response templates with data interpolation, guardrail redirects, and simulated delay
-- [ ] 58-02: AiAssistantInput component with prompt chips, AiModeProvider extension with searchContext prop, and follow-up chip state mapping
+- [ ] 58-01-PLAN.md — Mock assistant service with 5-category keyword classifier, SearchContext builder, response templates with data interpolation, guardrail redirects, and prompt chip state machine
+- [ ] 58-02-PLAN.md — SrpChatInput and SrpPromptChips components, CSS styling, SrpSummaryCard integration with confidence gating and mobile responsiveness
 
 ### Phase 59: Assistant Panel & Rich Message Types
 **Goal**: Users can have a full conversation with the research assistant in a side panel (desktop) or bottom sheet (mobile), receiving text, comparison tables, listing cards, and actionable filter buttons as response types
@@ -1124,7 +1124,7 @@ Plans:
 | 54. Insight Cards | v9.0 | 0/2 | Not started | - |
 | 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
 | 56. Summary Data Layer & Types | 2/2 | Complete    | 2026-03-04 | - |
-| 57. Summary Card -- Stat Bar & Narrative | 2/2 | Complete   | 2026-03-04 | - |
-| 58. Mock Assistant Service & Chat Input | v10.0 | 0/2 | Not started | - |
+| 57. Summary Card -- Stat Bar & Narrative | 2/2 | Complete    | 2026-03-04 | - |
+| 58. Mock Assistant Service & Chat Input | 1/2 | In Progress|  | - |
 | 59. Assistant Panel & Rich Message Types | v10.0 | 0/2 | Not started | - |
 | 60. Detail Panel & Charts | v10.0 | 0/2 | Not started | - |

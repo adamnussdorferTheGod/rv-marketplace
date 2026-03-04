@@ -241,6 +241,98 @@
   color: var(--rv-on-surface);
 }
 
+/* ─── Chat input ──────────────────────────────────────────────────── */
+
+.chatSection {
+  margin-top: var(--space-16);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--rv-border-low);
+}
+
+.chatInputWrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  padding: var(--space-8) var(--space-12);
+}
+
+.chatInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+}
+
+.chatInput::placeholder {
+  color: var(--rv-on-surface-variant);
+}
+
+.chatSendBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--rv-primary);
+  flex-shrink: 0;
+}
+
+.chatSendBtn:hover:not(:disabled) {
+  background: var(--rv-surface-variant);
+}
+
+.chatSendBtn:disabled {
+  color: var(--rv-on-surface-variant);
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* ─── Prompt chips ────────────────────────────────────────────────── */
+
+.chipRow {
+  display: flex;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px; /* prevents clipping of focus ring */
+}
+
+.chipRow::-webkit-scrollbar {
+  display: none;
+}
+
+.promptChip {
+  flex-shrink: 0;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: 999px;
+  padding: var(--space-4) var(--space-12);
+  font: var(--font-label-3);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.promptChip:hover {
+  background: var(--rv-surface-variant);
+  border-color: var(--rv-on-surface-variant);
+}
+
+.promptChip:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* ─── Responsive: Tablet (768-991px) ─────────────────────────────── */
 
 @media (max-width: 991px) {

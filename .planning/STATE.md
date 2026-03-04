@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** Give buyers instant, data-grounded market intelligence on every search -- stats, narrative, and conversational research
-**Current focus:** Phase 57 - Summary Card, Stat Bar & Narrative (v10.0)
+**Current focus:** Phase 58 - Mock Assistant Service & Chat Input (v10.0)
 
 ## Current Position
 
-Phase: 57 of 60 (Summary Card, Stat Bar & Narrative)
-Plan: 2 of 2 in current phase (COMPLETE)
-Status: Phase 57 Complete
-Last activity: 2026-03-03 -- Completed 57-02 (AiNarrative, OverflowMenu, responsive, dismiss/restore)
+Phase: 58 of 60 (Mock Assistant Service & Chat Input)
+Plan: 1 of 2 in current phase (COMPLETE)
+Status: Executing Phase 58
+Last activity: 2026-03-04 -- Completed 58-01 (Mock assistant service, classifier, guardrails, chip state machine)
 
-Progress: [==============================....] ~95% overall (57/60 phases)
+Progress: [===============================...] ~96% overall (58/60 phases)
 
 ## Performance Metrics
 
@@ -32,7 +32,7 @@ Progress: [==============================....] ~95% overall (57/60 phases)
 |-------|-------|-------|----------|
 | 56 | 2/2 | 4min | 2min |
 | 57 | 2/2 | 5min | 2.5min |
-| 58 | 0/2 | - | - |
+| 58 | 1/2 | 2min | 2min |
 | 59 | 0/2 | - | - |
 | 60 | 0/2 | - | - |
 
@@ -55,6 +55,10 @@ Progress: [==============================....] ~95% overall (57/60 phases)
 - [Phase 57]: Used 18px stat value font-size since --text-lg token does not exist in design system
 - [Phase 57]: Used useIsMobile(767) for mobile collapse instead of CSS-only -- expand/collapse is stateful requiring React
 - [Phase 57]: Continued CSS variable mapping from 57-01 for AiNarrative and OverflowMenu styles
+- [Phase 58]: Copied interpolate() locally rather than importing from srpSummaryEngine (not exported)
+- [Phase 58]: Multi-word guardrail phrases prevent false positives (e.g., "deal" alone does NOT trigger guardrails)
+- [Phase 58]: Default category is market-overview (not 'general') since we always have useful market data
+- [Phase 58]: Deterministic template selection (always index 0) per Phase 56 precedent
 
 ### Pending Todos
 
@@ -68,6 +72,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-03
-Stopped at: Completed 57-02-PLAN.md (Phase 57 complete)
+Last session: 2026-03-04
+Stopped at: Completed 58-01-PLAN.md
 Resume file: None
