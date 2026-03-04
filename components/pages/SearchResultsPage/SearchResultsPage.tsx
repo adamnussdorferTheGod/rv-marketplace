@@ -18,7 +18,7 @@ import Icon from '../../ui/Icon/Icon';
 import SrpSummaryCard from '@components/sections/SrpSummaryCard/SrpSummaryCard';
 import ActionChip from '../../ui/ActionChip/ActionChip';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
-import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
+
 import SortControls from './SortControls/SortControls';
 import SortBottomSheet from './SortControls/SortBottomSheet';
 import MobileFilterBar from './MobileFilterBar/MobileFilterBar';
@@ -31,6 +31,7 @@ import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import FeaturedListings from '../HomePage/FeaturedListings/FeaturedListings';
 import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
+import { buildSearchContext } from '@app/src/data/srpAssistantService';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import SharedListPanel from '../../sections/CoShopping/SharedListPanel/SharedListPanel';
 import { useCoShopping } from '../../sections/CoShopping/CoShoppingContext';
@@ -54,11 +55,6 @@ const NUDGE_CHIPS = [
   'Outdoor kitchen',
 ] as const;
 
-const SHORT_SUBTITLE = 'Shopping for RVs? Let us help with your purchase experience.';
-const FULL_SUBTITLE =
-  'Browse thousands of new and used RVs for sale from trusted dealers and private sellers across the country. ' +
-  'Compare prices, features, and floor plans to find the perfect recreational vehicle for your next adventure. ' +
-  'Whether you\'re looking for a compact camper van or a luxurious Class A motorhome, filter by type, make, price, and more to narrow your search.';
 
 const RESULTS_PER_PAGE = 30;
 
@@ -161,21 +157,13 @@ export default function SearchResultsPage() {
     [towFilteredResults, filters]
   );
 
-  // Dismiss/restore state for SRP Summary Card
-  const [summaryDismissed, setSummaryDismissed] = useState(
-    () => sessionStorage.getItem('srpSummaryDismissed') === 'true'
+  // Build search context for SRP assistant
+  const srpSearchContext = useMemo(
+    () => buildSearchContext(summaryData, towFilteredResults, filters.rvTypes.length === 1 ? RV_TYPE_LABELS[filters.rvTypes[0]] : null),
+    [summaryData, towFilteredResults, filters.rvTypes]
   );
-  const handleSummaryDismiss = useCallback(() => {
-    sessionStorage.setItem('srpSummaryDismissed', 'true');
-    setSummaryDismissed(true);
-  }, []);
-  const handleSummaryRestore = useCallback(() => {
-    sessionStorage.removeItem('srpSummaryDismissed');
-    setSummaryDismissed(false);
-  }, []);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [showFullSubtitle, setShowFullSubtitle] = useState(false);
   // Capture scroll restore target during init (before effects overwrite sessionStorage)
   const scrollRestoreRef = useRef<number>(0);
   const [currentPage, setCurrentPage] = useState(() => {
@@ -287,7 +275,7 @@ export default function SearchResultsPage() {
     : 'New and used RVs for sale';
 
   return (
-    <AiModeProvider>
+    <AiModeProvider searchContext={srpSearchContext} filters={filters} towVehicle={savedVehicle ?? null} listings={towFilteredResults}>
     <div className={styles.searchResultsPage}>
       <div className={styles.leaderboardAd}>
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
@@ -329,33 +317,7 @@ export default function SearchResultsPage() {
           <div className={styles.mainColumn}>
             <div className={styles.headerRow}>
               <div className={styles.headerLeft}>
-                <Breadcrumbs rvType={activeRvTypeLabel} />
                 <h1 className={styles.title}>{titleText}</h1>
-                {!showFullSubtitle ? (
-                  <div className={styles.subtitleRow}>
-                    <span className={styles.subtitle}>{SHORT_SUBTITLE}</span>
-                    <button
-                      type="button"
-                      className={styles.showMore}
-                      onClick={() => setShowFullSubtitle(true)}
-                    >
-                      Show more
-                      <Icon name="expand_more" size={20} />
-                    </button>
-                  </div>
-                ) : (
-                  <div>
-                    <p className={styles.subtitleFull}>{FULL_SUBTITLE}</p>
-                    <button
-                      type="button"
-                      className={styles.showMore}
-                      onClick={() => setShowFullSubtitle(false)}
-                    >
-                      Show less
-                      <Icon name="expand_less" size={20} />
-                    </button>
-                  </div>
-                )}
               </div>
               <div className={styles.sortControlsDesktop}>
                 <SortControls sort={sort} onSortChange={setSort} />
@@ -394,17 +356,7 @@ export default function SearchResultsPage() {
             </div>
 
             {import.meta.env.DEV && (
-              summaryDismissed ? (
-                <button
-                  type="button"
-                  className={styles.restoreInsightsLink}
-                  onClick={handleSummaryRestore}
-                >
-                  View market insights
-                </button>
-              ) : (
-                <SrpSummaryCard data={summaryData} listings={towFilteredResults} onDismiss={handleSummaryDismiss} />
-              )
+              <SrpSummaryCard data={summaryData} listings={towFilteredResults} filters={filters} towVehicle={savedVehicle ?? null} />
             )}
 
             {/* Mobile filter/sort bar */}

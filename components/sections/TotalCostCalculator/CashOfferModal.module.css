@@ -1,0 +1,307 @@
+/* ─── Backdrop ────────────────────────────────────────────────────── */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-16);
+}
+
+/* ─── Modal ───────────────────────────────────────────────────────── */
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  background: #f5f7f2;
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Subtle decorative curve at top-right */
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle at 100% 0%, rgba(200, 210, 190, 0.3) 0%, transparent 70%);
+  border-radius: 0 var(--radius-lg) 0 0;
+  pointer-events: none;
+}
+
+/* ─── Close button ────────────────────────────────────────────────── */
+
+.closeBtn {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-16);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--rv-on-surface);
+  opacity: 0.5;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 150ms;
+  z-index: 1;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+/* ─── Header ──────────────────────────────────────────────────────── */
+
+.heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-8) 0;
+  line-height: 1.2;
+}
+
+.subheading {
+  font: var(--font-body-1);
+  color: var(--rv-on-surface-variant);
+  margin: 0 0 var(--space-24) 0;
+  line-height: 1.5;
+}
+
+/* ─── Accordion sections ──────────────────────────────────────────── */
+
+.accordion {
+  border-top: 1px solid var(--rv-border);
+}
+
+.accordionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-16) 0;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.accordionHeader.disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.accordionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font: var(--font-label-1-semibold);
+  color: var(--rv-on-surface);
+  font-size: 16px;
+}
+
+.accordionIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--rv-on-surface);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chevron {
+  font-size: 18px;
+  color: var(--rv-on-surface-variant);
+  transition: transform 200ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.accordionBody {
+  padding: 0 0 var(--space-16) 0;
+}
+
+/* ─── Option selector (Sell to dealer / Trade-In / Not Sure) ──────── */
+
+.optionLabel {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  margin: 0 0 var(--space-12) 0;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-20);
+}
+
+.optionCard {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  border: 2px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  background: white;
+  cursor: pointer;
+  transition: border-color 150ms;
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.optionCard:hover {
+  border-color: var(--rv-on-surface-variant);
+}
+
+.optionCard.selected {
+  border-color: var(--rv-on-surface);
+}
+
+.radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--rv-border);
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 150ms;
+}
+
+.optionCard.selected .radio {
+  border-color: var(--rv-on-surface);
+}
+
+.optionCard.selected .radio::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rv-on-surface);
+}
+
+/* ─── Form fields ─────────────────────────────────────────────────── */
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+}
+
+.fieldWrap {
+  position: relative;
+}
+
+.fieldWrapFull {
+  grid-column: 1;
+}
+
+.fieldInput {
+  width: 100%;
+  height: 56px;
+  padding: 22px 16px 8px;
+  border: 1px solid var(--rv-border);
+  border-radius: var(--radius-base);
+  font-size: 16px;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+  background: white;
+  box-sizing: border-box;
+  transition: border-color 150ms;
+}
+
+.fieldInput:focus {
+  outline: none;
+  border-color: var(--rv-on-surface);
+}
+
+.fieldInput::placeholder {
+  color: transparent;
+}
+
+.fieldLabel {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--rv-on-surface-variant);
+  pointer-events: none;
+  transition: all 150ms ease;
+  transform-origin: left;
+}
+
+.fieldInput:focus + .fieldLabel,
+.fieldInput:not(:placeholder-shown) + .fieldLabel {
+  top: 12px;
+  transform: translateY(0);
+  font-size: 12px;
+}
+
+/* ─── Next button ─────────────────────────────────────────────────── */
+
+.nextBtn {
+  display: block;
+  width: 260px;
+  height: 48px;
+  margin: var(--space-20) auto 0;
+  border: none;
+  border-radius: var(--radius-base);
+  background: #f0c040;
+  color: var(--rv-on-surface);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.nextBtn:hover {
+  background: #e5b530;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .modal {
+    max-width: 100%;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 95vh;
+    align-self: flex-end;
+    padding: var(--space-24);
+  }
+
+  .heading {
+    font-size: 22px;
+  }
+
+  .optionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .nextBtn {
+    width: 100%;
+  }
+}

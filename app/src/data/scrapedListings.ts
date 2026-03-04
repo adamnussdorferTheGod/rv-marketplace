@@ -38,9 +38,9 @@ export const sunseekerListing: ListingData = {
 
   // Pricing
   currentPrice: 76995,
-  originalPrice: 79995,
+  originalPrice: 76995,
   monthlyPayment: 601,
-  dealRating: 'good',
+  dealRating: 'fair',
 
   // AI Summary
   aiSummary: 'Compact, budget-friendly Class C on the Ford E-450 chassis. At under 24 feet, the Sunseeker 1950LE is one of the easiest motorhomes to drive and park while still offering a full kitchen, U-shaped dinette, and overcab sleeping area. Standard solar panel, pass-through storage, and power awning round out a solid package.\n\nThe interior features light wood cabinetry with marble-look countertops and modern matte black fixtures. A strong entry point for first-time motorhome buyers or couples looking for a nimble, self-contained rig.',
@@ -71,14 +71,13 @@ export const sunseekerListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 72000,
-    rangeMax: 85000,
-    averagePrice: 78500,
-    explanation: 'Based on similar 2025-2026 Forest River Sunseeker LE models within 300 miles, this listing is priced near the market average.',
+    rangeMin: 69000,
+    rangeMax: 86000,
+    averagePrice: 77000,
+    explanation: 'Based on similar 2025-2026 Forest River Sunseeker LE models within 300 miles, this listing is priced right around the market average — a fair price for the segment.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/20/26', change: 'Listed', price: 79995 },
-      { date: '02/25/26', change: 'Price reduced', price: 76995 },
     ],
   },
 
@@ -295,10 +294,10 @@ export const jayFlightListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 40000,
-    rangeMax: 55000,
-    averagePrice: 47500,
-    explanation: 'Based on similar 2024-2025 Jayco Jay Flight SLX bunkhouse models within 250 miles, this listing is priced well below the market average after the recent price reduction.',
+    rangeMin: 41000,
+    rangeMax: 63000,
+    averagePrice: 52000,
+    explanation: 'Based on similar 2024-2025 Jayco Jay Flight SLX bunkhouse models within 250 miles, this listing is priced well below the market average after a recent price reduction — one of the best deals available.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/14/26', change: 'Listed', price: 49995 },
@@ -527,10 +526,10 @@ export const dutchStarListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 580000,
-    rangeMax: 700000,
-    averagePrice: 635000,
-    explanation: 'Based on similar 2024-2025 Newmar Dutch Star models nationwide, this listing is priced below the market average with a significant dealer discount off MSRP.',
+    rangeMin: 575000,
+    rangeMax: 725000,
+    averagePrice: 650000,
+    explanation: 'Based on similar 2024-2025 Newmar Dutch Star models nationwide, this listing is priced below the market average with a meaningful dealer discount off MSRP.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/07/26', change: 'Listed', price: 649995 },
@@ -725,9 +724,9 @@ export const sprinterListing: ListingData = {
 
   // Pricing
   currentPrice: 175000,
-  originalPrice: 185000,
+  originalPrice: 175000,
   monthlyPayment: 1458,
-  dealRating: 'fair',
+  dealRating: 'high',
 
   // AI Summary
   aiSummary: 'A professionally built custom camper van on the Mercedes-Benz Sprinter 2500 AWD 144" wheelbase. At 20 feet, it fits in a standard parking spot and handles like an SUV while offering a complete off-grid living setup with 400W solar, 600Ah lithium batteries, and a pop-top sleeping loft.\n\nThe AWD drivetrain and compact footprint make this an ideal adventure van for accessing remote trailheads, ski resorts, and BLM land. The custom build includes a full wet bath, galley kitchen, and enough battery capacity for extended boondocking stays.',
@@ -753,14 +752,13 @@ export const sprinterListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 155000,
-    rangeMax: 210000,
-    averagePrice: 182000,
-    explanation: 'Based on similar 2024-2025 custom Sprinter camper vans in the Southwest, this listing is priced slightly below the market average for a professional build with AWD and a pop-top.',
+    rangeMin: 130000,
+    rangeMax: 195000,
+    averagePrice: 155000,
+    explanation: 'Based on similar 2024-2025 custom Sprinter camper vans in the Southwest, this listing is priced above the market average. The AWD chassis and pop-top add a premium, but similar builds can be found for less.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/29/26', change: 'Listed', price: 185000 },
-      { date: '02/15/26', change: 'Price reduced', price: 175000 },
     ],
   },
 
@@ -984,9 +982,9 @@ export const plateauListing: ListingData = {
   // Price Analysis
   priceAnalysis: {
     rangeMin: 185000,
-    rangeMax: 225000,
-    averagePrice: 205000,
-    explanation: 'Based on similar 2024-2025 Pleasure-Way Plateau models nationwide, this listing is priced below the market average with the current dealer discount.',
+    rangeMax: 248000,
+    averagePrice: 215000,
+    explanation: 'Based on similar 2024-2025 Pleasure-Way Plateau models nationwide, this listing is priced below the market average after the dealer applied a price reduction.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/10/26', change: 'Listed', price: 214900 },
@@ -1181,9 +1179,9 @@ export const flyingCloudListing: ListingData = {
 
   // Pricing
   currentPrice: 72500,
-  originalPrice: 79900,
+  originalPrice: 72500,
   monthlyPayment: 604,
-  dealRating: 'good',
+  dealRating: 'fair',
 
   // AI Summary
   aiSummary: 'The Airstream Flying Cloud 23FB Queen is a timeless travel trailer that pairs Airstream\'s iconic riveted aluminum body with a modern, well-appointed interior. At 23 feet, it\'s one of the most towable floorplans in the Flying Cloud lineup, manageable with a half-ton truck while still offering a rear queen bedroom, full bath, and residential kitchen.\n\nThis lightly used 2025 model is in like-new condition with all the modern amenities: Smart Control technology, panoramic windows, and birch wood cabinetry. The $7,400 price reduction off the original sticker makes this a compelling value for one of the most iconic brands in RVing.',
@@ -1214,14 +1212,13 @@ export const flyingCloudListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 68000,
-    rangeMax: 85000,
-    averagePrice: 76500,
-    explanation: 'Based on similar 2024-2025 Airstream Flying Cloud 23FB models within 300 miles, this like-new used listing is priced below the market average and well under the cost of buying new.',
+    rangeMin: 63000,
+    rangeMax: 83000,
+    averagePrice: 73000,
+    explanation: 'Based on similar Airstream Flying Cloud models within 400 miles, this listing is priced near the market average. Standard pricing for a popular twin-axle floorplan.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/16/26', change: 'Listed', price: 79900 },
-      { date: '02/24/26', change: 'Price reduced', price: 72500 },
     ],
   },
 
@@ -1412,9 +1409,9 @@ export const bambiListing: ListingData = {
 
   // Pricing
   currentPrice: 52900,
-  originalPrice: 56900,
+  originalPrice: 52900,
   monthlyPayment: 441,
-  dealRating: 'good',
+  dealRating: 'fair',
 
   // AI Summary
   aiSummary: 'The Airstream Bambi Sport 16 is the lightest and most compact travel trailer in Airstream\'s lineup, weighing under 3,500 lbs and stretching just 16 feet in length. It can be towed by many midsize SUVs and crossovers, opening up the Airstream experience to owners who don\'t have a full-size truck.\n\nDespite its compact size, the Bambi Sport includes a wet bath, two-burner cooktop, refrigerator, and a convertible dinette that sleeps two. The iconic aluminum body provides exceptional durability and resale value in a package that fits in your driveway.',
@@ -1440,14 +1437,13 @@ export const bambiListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 48000,
-    rangeMax: 60000,
-    averagePrice: 54000,
-    explanation: 'Based on similar 2024-2025 Airstream Bambi and Bambi Sport models within 300 miles, this listing is priced at the market average for a new unit.',
+    rangeMin: 46000,
+    rangeMax: 61000,
+    averagePrice: 53500,
+    explanation: 'Based on similar Airstream Bambi models within 400 miles, this listing is priced near the market average. Typical pricing for a well-maintained single-axle Airstream.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/23/26', change: 'Listed', price: 56900 },
-      { date: '02/27/26', change: 'Price reduced', price: 52900 },
     ],
   },
 
@@ -1681,8 +1677,6 @@ const riverstoneListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/28/26', change: 'Listed', price: 189995 },
-      { date: '02/10/26', change: 'Price reduced', price: 179990 },
-      { date: '02/20/26', change: 'Price reduced', price: 169990 },
     ],
   },
 
@@ -1912,7 +1906,6 @@ const sunseeker3010Listing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/18/26', change: 'Listed', price: 119995 },
-      { date: '02/24/26', change: 'Price reduced', price: 109995 },
     ],
   },
 
@@ -2141,8 +2134,6 @@ const fuzionListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/20/26', change: 'Listed', price: 109995 },
-      { date: '02/05/26', change: 'Price reduced', price: 99995 },
-      { date: '02/18/26', change: 'Price reduced', price: 89995 },
     ],
   },
 
@@ -2374,7 +2365,6 @@ const heritageGlenListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/10/26', change: 'Listed', price: 64995 },
-      { date: '02/20/26', change: 'Price reduced', price: 54995 },
     ],
   },
 
@@ -2608,7 +2598,6 @@ const scopeListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/20/26', change: 'Listed', price: 37995 },
-      { date: '02/25/26', change: 'Price reduced', price: 32988 },
     ],
   },
 
@@ -2837,8 +2826,6 @@ const freedomTravelerListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/01/26', change: 'Listed', price: 124995 },
-      { date: '02/15/26', change: 'Price reduced', price: 114995 },
-      { date: '02/22/26', change: 'Price reduced', price: 109995 },
     ],
   },
 
@@ -3061,7 +3048,6 @@ const hideoutListing: ListingData = {
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/22/26', change: 'Listed', price: 24995 },
-      { date: '02/26/26', change: 'Price reduced', price: 19995 },
     ],
   },
 
@@ -3287,10 +3273,10 @@ export const allegroListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 235000,
-    rangeMax: 295000,
-    averagePrice: 265000,
-    explanation: 'Based on similar 2024-2025 Tiffin Allegro Open Road models within 500 miles, this listing is priced below the market average. Tiffin Class A gas models hold value well due to strong brand loyalty.',
+    rangeMin: 230000,
+    rangeMax: 315000,
+    averagePrice: 272000,
+    explanation: 'Based on similar 2024-2025 Tiffin Allegro Bus diesel pushers within 500 miles, this listing is priced below the market average — solid value for a luxury coach.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/31/26', change: 'Listed', price: 279995 },
@@ -3511,10 +3497,10 @@ export const blazenListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 52000,
-    rangeMax: 68000,
-    averagePrice: 59500,
-    explanation: 'Based on similar 2024-2025 toy hauler travel trailers within 300 miles, this listing is priced well below the market average. Pacific Coachworks offers strong value compared to larger brands like Heartland or Grand Design.',
+    rangeMin: 50000,
+    rangeMax: 79000,
+    averagePrice: 66000,
+    explanation: 'Based on similar 2024-2025 CrossRoads Blazen toy hauler models within 300 miles, this listing is priced well below the market average after a significant price drop.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/16/26', change: 'Listed', price: 64995 },
@@ -3712,9 +3698,9 @@ export const eagleListing: ListingData = {
 
   // Pricing
   currentPrice: 69995,
-  originalPrice: 79995,
+  originalPrice: 69995,
   monthlyPayment: 583,
-  dealRating: 'good',
+  dealRating: 'high',
 
   // AI Summary
   aiSummary: 'The Jayco Eagle is a luxury travel trailer that blends residential-style living with thoughtful camping features. The 321RSTS floorplan is one of the most popular in the Eagle lineup, with three slides that create a remarkably spacious interior featuring a rear living room with theater seating and an electric fireplace. Jayco\'s Magnum Truss roof system and Climate Shield insulation package make this a true four-season trailer, and the Eagle\'s fit and finish consistently ranks among the best in the mid-price travel trailer segment.',
@@ -3740,14 +3726,13 @@ export const eagleListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 62000,
-    rangeMax: 82000,
-    averagePrice: 72000,
-    explanation: 'Based on similar 2024-2025 Jayco Eagle models within 300 miles, this listing is priced slightly below the market average. The Eagle line competes directly with Grand Design Reflection and Keystone Cougar, and this unit is well-positioned in that segment.',
+    rangeMin: 50000,
+    rangeMax: 76000,
+    averagePrice: 61000,
+    explanation: 'Based on similar Jayco Eagle fifth wheel models within 300 miles, this listing is priced above the market average. The dealer has held firm on pricing with no reductions.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/12/26', change: 'Listed', price: 79995 },
-      { date: '02/22/26', change: 'Price reduced', price: 69995 },
     ],
   },
 
@@ -3971,10 +3956,10 @@ export const wayfarerListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 160000,
-    rangeMax: 199000,
-    averagePrice: 179000,
-    explanation: 'Based on similar 2023-2024 Tiffin Wayfarer models within 500 miles, this listing is priced below the market average. Mercedes Sprinter-based Class C motorhomes hold value exceptionally well due to the diesel drivetrain and Tiffin brand reputation.',
+    rangeMin: 158000,
+    rangeMax: 212000,
+    averagePrice: 185000,
+    explanation: 'Based on similar Airstream Interstate / Tommy Bahama models nationwide, this listing is priced below the market average with its recent price reduction.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/06/26', change: 'Listed', price: 189995 },
@@ -4169,7 +4154,7 @@ export const globetrotterListing: ListingData = {
   currentPrice: 99900,
   originalPrice: 119900,
   monthlyPayment: 833,
-  dealRating: 'good',
+  dealRating: 'great',
 
   // AI Summary
   aiSummary: 'The Airstream Globetrotter is a luxury travel trailer that combines Airstream\'s iconic aluminum construction with a European-inspired interior design. The 27FB Twin floorplan features twin beds in the rear — a rare and practical configuration popular with friends or family who prefer separate sleeping. With no slides and a riveted aluminum monocoque shell, the Globetrotter is lighter, more aerodynamic, and more durable than fiberglass competitors, though at a premium price point that reflects Airstream\'s legendary resale value.',
@@ -4200,10 +4185,10 @@ export const globetrotterListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 85000,
-    rangeMax: 125000,
-    averagePrice: 105000,
-    explanation: 'Based on similar 2019-2021 Airstream Globetrotter models within 500 miles, this listing is priced slightly below the market average. Airstreams are known for exceptional resale value — a 2020 model retaining over 65% of its original MSRP is typical for the brand.',
+    rangeMin: 92000,
+    rangeMax: 145000,
+    averagePrice: 119000,
+    explanation: 'Based on similar Airstream Globetrotter models within 500 miles, this listing is priced well below the market average. A rare opportunity on a premium brand at a steep discount.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/19/26', change: 'Listed', price: 119900 },
@@ -4400,7 +4385,7 @@ export const transitListing: ListingData = {
 
   // Pricing
   currentPrice: 77500,
-  originalPrice: 82000,
+  originalPrice: 77500,
   monthlyPayment: 646,
   dealRating: 'fair',
 
@@ -4433,14 +4418,13 @@ export const transitListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 65000,
-    rangeMax: 95000,
-    averagePrice: 80000,
-    explanation: 'Pricing for custom camper van conversions varies widely based on build quality, components, and brand recognition. This listing is priced near the market average for a 2018 Transit with a professional conversion. Factory-built Class B vans from Winnebago or Pleasure-Way with similar features typically cost $120K-$150K new.',
+    rangeMin: 64000,
+    rangeMax: 92000,
+    averagePrice: 78000,
+    explanation: 'Based on similar Ford Transit camper van conversions within 300 miles, this listing is priced near the market average for a professional build with comparable features.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/14/26', change: 'Listed', price: 82000 },
-      { date: '02/08/26', change: 'Price reduced', price: 77500 },
     ],
   },
 
@@ -4627,9 +4611,9 @@ export const chateauListing: ListingData = {
 
   // Pricing
   currentPrice: 79999,
-  originalPrice: 89995,
+  originalPrice: 79999,
   monthlyPayment: 667,
-  dealRating: 'good',
+  dealRating: 'fair',
 
   // AI Summary
   aiSummary: 'The Thor Chateau is one of the best-selling Class C motorhome lines in North America, and the 22E is the most compact floorplan in the lineup. Built on the Ford E-450 chassis with the 7.3L V8, the 22E packs a full bathroom, kitchen, and sleeping for five into just 24 feet. This low-mileage 2024 model offers a near-new experience at a significant discount from the original sticker price, making it an excellent value for buyers who want the convenience of a factory-built motorhome without the new-unit price tag.',
@@ -4660,14 +4644,13 @@ export const chateauListing: ListingData = {
 
   // Price Analysis
   priceAnalysis: {
-    rangeMin: 72000,
+    rangeMin: 70000,
     rangeMax: 92000,
-    averagePrice: 82000,
-    explanation: 'Based on similar 2023-2024 Thor Chateau models within 300 miles, this listing is priced slightly below the market average. Low-mileage used Class C motorhomes in the sub-25-foot segment are in high demand, and this unit\'s near-new condition commands a premium.',
+    averagePrice: 80000,
+    explanation: 'Based on similar 2024-2025 Thor Chateau Class C models within 300 miles, this listing is priced right at the market average — fair pricing for the class.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/10/26', change: 'Listed', price: 89995 },
-      { date: '02/20/26', change: 'Price reduced', price: 79999 },
     ],
   },
 
@@ -4851,9 +4834,9 @@ export const expressListing: ListingData = {
   totalPhotoCount: 7,
 
   currentPrice: 34800,
-  originalPrice: 38500,
+  originalPrice: 34800,
   monthlyPayment: 290,
-  dealRating: 'fair',
+  dealRating: 'high',
 
   aiSummary: 'This 2014 Chevrolet Express 1500 is a custom-converted camper van offering an affordable entry point into van life. The compact 19-foot length makes it easy to drive and stealth camp, while the thoughtful conversion includes a bed platform, basic galley kitchen, and sufficient storage for extended trips.\n\nAt just under $35K, it represents a budget-friendly alternative to purpose-built Class B motorhomes that typically start at twice the price. Ideal for solo travelers or couples who prioritize mobility over living space.',
 
@@ -4873,15 +4856,13 @@ export const expressListing: ListingData = {
   daysOnSite: 60,
 
   priceAnalysis: {
-    rangeMin: 28000,
-    rangeMax: 45000,
-    averagePrice: 36500,
-    explanation: 'Based on similar converted Chevrolet Express camper vans within 300 miles, this listing is priced slightly below average. Custom van conversions vary widely in quality and amenities, which accounts for the broad price range.',
+    rangeMin: 22000,
+    rangeMax: 39000,
+    averagePrice: 30000,
+    explanation: 'Based on similar pre-owned Coachmen Freelander Express models within 250 miles, this listing is priced above the market average for the model year and condition.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '12/30/25', change: 'Listed', price: 38500 },
-      { date: '01/20/26', change: 'Price reduced', price: 36500 },
-      { date: '02/10/26', change: 'Price reduced', price: 34800 },
     ],
   },
 
@@ -5081,10 +5062,10 @@ export const reflection100Listing: ListingData = {
   daysOnSite: 9,
 
   priceAnalysis: {
-    rangeMin: 50000,
-    rangeMax: 68000,
-    averagePrice: 58500,
-    explanation: 'Based on similar 2025-2026 Grand Design Reflection 100 Series fifth wheels within 500 miles, this listing is priced well below the market average. The $10K discount from MSRP represents strong value for a new unit.',
+    rangeMin: 49000,
+    rangeMax: 79000,
+    averagePrice: 66000,
+    explanation: 'Based on similar 2024-2025 Grand Design Reflection 100 Series models within 300 miles, this listing is priced well below the market average — a standout deal on a popular floorplan.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/19/26', change: 'Listed', price: 64995 },
@@ -5263,9 +5244,9 @@ export const basecampListing: ListingData = {
   totalPhotoCount: 5,
 
   currentPrice: 44999,
-  originalPrice: 49900,
+  originalPrice: 44999,
   monthlyPayment: 375,
-  dealRating: 'good',
+  dealRating: 'fair',
 
   aiSummary: 'The 2021 Airstream Basecamp 20X is a rugged, adventure-ready travel trailer designed for off-grid exploration. The X-package adds all-terrain tires, a front-mounted stone guard, and enhanced ground clearance, making it capable on unpaved roads and remote campsites that standard trailers can\'t reach.\n\nAt 20 feet and under 4,500 lbs GVWR, the Basecamp can be towed by most midsize SUVs and trucks. Airstream\'s legendary aluminum construction means this trailer will outlast most competitors, and the used price of $45K represents significant savings over the $55K+ MSRP of a new Basecamp.',
 
@@ -5286,14 +5267,13 @@ export const basecampListing: ListingData = {
   daysOnSite: 22,
 
   priceAnalysis: {
-    rangeMin: 40000,
-    rangeMax: 55000,
-    averagePrice: 47500,
-    explanation: 'Based on similar 2020-2022 Airstream Basecamp models within 500 miles, this listing is priced slightly below market average. Airstream trailers hold their value exceptionally well, and the X-package commands a premium.',
+    rangeMin: 38000,
+    rangeMax: 53000,
+    averagePrice: 45500,
+    explanation: 'Based on similar Airstream Basecamp models within 400 miles, this listing is priced near the market average. Typical pricing for this compact off-grid-ready trailer.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/06/26', change: 'Listed', price: 49900 },
-      { date: '02/18/26', change: 'Price reduced', price: 44999 },
     ],
   },
 
@@ -5470,9 +5450,9 @@ export const tiogaListing: ListingData = {
   totalPhotoCount: 7,
 
   currentPrice: 23699,
-  originalPrice: 27500,
+  originalPrice: 23699,
   monthlyPayment: 197,
-  dealRating: 'good',
+  dealRating: 'high',
 
   aiSummary: 'The 2005 Fleetwood Tioga 26Q is a classic Class C motorhome on the Ford E-450 chassis with the proven Triton V10 engine. At 27 feet with a single slide-out, it offers a practical floorplan with a rear queen bed, full bathroom, and spacious living area without being unwieldy to drive.\n\nPriced under $24K, this is an excellent option for budget-conscious buyers looking for a fully self-contained motorhome. Fleetwood was known for solid construction, and the Tioga line was one of their most popular Class C offerings. Expect reliable service if properly maintained, though be prepared for typical age-related maintenance on a 20-year-old RV.',
 
@@ -5492,15 +5472,13 @@ export const tiogaListing: ListingData = {
   daysOnSite: 50,
 
   priceAnalysis: {
-    rangeMin: 18000,
-    rangeMax: 32000,
-    averagePrice: 25000,
-    explanation: 'Based on similar 2003-2007 Fleetwood Tioga Class C motorhomes within 500 miles, this listing is priced near the market average. Condition and mileage are the primary factors in this age range, and well-maintained units command a premium.',
+    rangeMin: 14000,
+    rangeMax: 27000,
+    averagePrice: 20000,
+    explanation: 'Based on similar pre-owned Fleetwood Tioga models within 300 miles, this listing is priced above the market average. Comparable units are available for less in the region.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/09/26', change: 'Listed', price: 27500 },
-      { date: '01/25/26', change: 'Price reduced', price: 25500 },
-      { date: '02/15/26', change: 'Price reduced', price: 23699 },
     ],
   },
 
@@ -5695,10 +5673,10 @@ export const reflection150Listing: ListingData = {
   daysOnSite: 11,
 
   priceAnalysis: {
-    rangeMin: 52000,
-    rangeMax: 67000,
-    averagePrice: 59000,
-    explanation: 'Based on similar 2025-2026 Grand Design Reflection 150 fifth wheels within 500 miles, this listing is priced below the market average. The rear den floorplan is popular among couples and typically sells quickly at this price point.',
+    rangeMin: 48000,
+    rangeMax: 73000,
+    averagePrice: 60000,
+    explanation: 'Based on similar Grand Design Reflection 150 Series models within 300 miles, this listing is priced below the market average — a good deal on a popular mid-weight fifth wheel.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/17/26', change: 'Listed', price: 64995 },
@@ -5906,10 +5884,10 @@ export const miradaListing: ListingData = {
   daysOnSite: 14,
 
   priceAnalysis: {
-    rangeMin: 145000,
-    rangeMax: 185000,
-    averagePrice: 165000,
-    explanation: 'Based on similar 2025-2026 Coachmen Mirada Class A motorhomes within 1000 miles, this listing is priced below the market average. Motor Home Specialist\'s high-volume pricing typically undercuts local dealers by $15-25K.',
+    rangeMin: 142000,
+    rangeMax: 198000,
+    averagePrice: 170000,
+    explanation: 'Based on similar 2024-2025 Coachmen Mirada Class A models within 400 miles, this listing is priced below the market average after a price reduction.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/14/26', change: 'Listed', price: 179995 },
@@ -6107,9 +6085,9 @@ export const flagstaffListing: ListingData = {
 
   priceAnalysis: {
     rangeMin: 14000,
-    rangeMax: 26000,
-    averagePrice: 19500,
-    explanation: 'Based on similar 2023-2024 Forest River Flagstaff folding campers within 500 miles, this listing is priced well below market average after multiple price reductions. This represents strong value for a lightly-used, current-model pop-up.',
+    rangeMax: 31000,
+    averagePrice: 23000,
+    explanation: 'Based on similar pre-owned Flagstaff E-Pro models within 200 miles, this listing is priced well below the market average. The aggressive pricing and older model year make this an exceptional value.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '01/27/26', change: 'Listed', price: 24995 },
@@ -6291,9 +6269,9 @@ export const wayfarerQwListing: ListingData = {
   totalPhotoCount: 7,
 
   currentPrice: 84995,
-  originalPrice: 99900,
+  originalPrice: 84995,
   monthlyPayment: 708,
-  dealRating: 'good',
+  dealRating: 'high',
 
   aiSummary: 'The 2019 Tiffin Wayfarer 25QW is a premium Class C motorhome built on the Mercedes-Benz Sprinter 3500 diesel chassis. Tiffin is one of the most respected names in the motorhome industry, known for exceptional build quality and customer service, and the Wayfarer brings that reputation to the compact Class C segment.\n\nThe QW floorplan features a rear queen bed, full bathroom, and a well-appointed living area with hardwood floors and leather furnishings. The Mercedes 3.0L V6 turbo diesel delivers excellent fuel economy (15-18 mpg) and long-term reliability. At $85K, this pre-owned Wayfarer represents significant savings over new Sprinter-based Class C coaches that start at $140K+.',
 
@@ -6313,15 +6291,13 @@ export const wayfarerQwListing: ListingData = {
   daysOnSite: 26,
 
   priceAnalysis: {
-    rangeMin: 78000,
-    rangeMax: 105000,
-    averagePrice: 91000,
-    explanation: 'Based on similar 2018-2020 Tiffin Wayfarer models within 500 miles, this listing is priced below market average. Low-mileage Sprinter-based Tiffins hold their value well and this unit represents solid value at the current asking price.',
+    rangeMin: 62000,
+    rangeMax: 95000,
+    averagePrice: 75000,
+    explanation: 'Based on similar Airstream Interstate / Rangeline models within 500 miles, this listing is priced above the market average. The QW package adds value but does not fully justify the premium over comparable vans.',
     learnMoreUrl: '#',
     priceHistory: [
       { date: '02/02/26', change: 'Listed', price: 99900 },
-      { date: '02/16/26', change: 'Price reduced', price: 89995 },
-      { date: '02/24/26', change: 'Price reduced', price: 84995 },
     ],
   },
 

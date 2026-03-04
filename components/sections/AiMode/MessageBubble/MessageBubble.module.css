@@ -89,3 +89,9 @@
   font-weight: 600;
   color: var(--rv-on-surface);
 }
+
+.listingCards {
+  margin-top: var(--space-12);
+  display: flex;
+  flex-direction: column;
+}

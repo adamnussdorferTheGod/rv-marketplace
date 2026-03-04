@@ -164,6 +164,42 @@
   margin: var(--space-8) 0 0 0;
 }
 
+/* Cash offer promo */
+.promoCallout {
+  background: rgba(224, 237, 231, 0.6);
+  border: 1px solid rgba(3, 108, 108, 0.2);
+  padding: 14px 16px;
+  border-radius: var(--radius-base);
+  margin-top: var(--space-12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.promoText {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.promoBtn {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border: none;
+  border-radius: var(--radius-base);
+  background: #f0c040;
+  color: var(--rv-on-surface);
+  font: var(--font-label-2-semibold);
+  cursor: pointer;
+  transition: background 150ms;
+  white-space: nowrap;
+}
+
+.promoBtn:hover {
+  background: #e5b530;
+}
+
 /* Tax credit callout (green) */
 .creditCallout {
   background: rgba(224, 237, 231, 0.8);

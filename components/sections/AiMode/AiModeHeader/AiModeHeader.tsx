@@ -16,10 +16,11 @@ export default function AiModeHeader({
   const { closePanel, panelMode } = useAiMode();
   const isFitcheck = panelMode === 'fitcheck';
   const isPlan = panelMode === 'plan';
+  const isSrpAssistant = panelMode === 'srp-assistant';
 
-  const title = isPlan ? 'Plan with AI' : isFitcheck ? 'Fitcheck' : 'Ask a question';
+  const title = isPlan ? 'Plan with AI' : isSrpAssistant ? 'Search Assistant' : isFitcheck ? 'Fitcheck' : 'Ask a question';
   const showSparkles = true;
-  const useLargeStyle = isFitcheck || panelMode === 'default';
+  const useLargeStyle = isFitcheck || panelMode === 'default' || isSrpAssistant;
 
   return (
     <div className={styles.header}>

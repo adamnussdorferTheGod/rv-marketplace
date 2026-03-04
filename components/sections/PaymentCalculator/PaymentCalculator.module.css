@@ -447,6 +447,41 @@
   color: var(--rv-on-surface);
 }
 
+/* ── Cash offer promo ────────────────────────────────────────────── */
+.cashOfferPromo {
+  background: rgba(224, 237, 231, 0.6);
+  border: 1px solid rgba(3, 108, 108, 0.2);
+  padding: 12px 16px;
+  border-radius: var(--radius-base);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.cashOfferText {
+  font: var(--font-label-2-semibold);
+  color: var(--rv-on-surface);
+}
+
+.cashOfferBtn {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border: none;
+  border-radius: var(--radius-base);
+  background: var(--rv-primary);
+  color: white;
+  font: var(--font-label-2-semibold);
+  cursor: pointer;
+  transition: background 150ms;
+  white-space: nowrap;
+  border-radius: 100px;
+}
+
+.cashOfferBtn:hover {
+  background: var(--rv-primary-dark);
+}
+
 /* ── Disclaimer ──────────────────────────────────────────────────── */
 /* Figma: Label 3 (Medium 12px/16.8px), #6e7072 */
 .disclaimer {

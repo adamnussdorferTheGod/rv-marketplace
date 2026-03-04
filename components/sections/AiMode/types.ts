@@ -1,11 +1,14 @@
+import type { SRPListing } from '../../../app/src/data/srpTypes';
+
 export interface ConversationMessage {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: number;
+  listings?: SRPListing[];
 }
 
-export type PanelMode = 'default' | 'fitcheck' | 'plan';
+export type PanelMode = 'default' | 'fitcheck' | 'plan' | 'srp-assistant';
 
 export interface AiModeState {
   isOpen: boolean;

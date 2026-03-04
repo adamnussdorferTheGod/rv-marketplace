@@ -7,6 +7,7 @@ import {
   type TradeInSelection,
   type TradeInEstimate,
 } from './tradeInEstimator';
+import CashOfferModal from './CashOfferModal';
 import styles from './TradeInSection.module.css';
 
 interface TradeInSectionProps {
@@ -47,6 +48,7 @@ export default function TradeInSection({
   });
   const [manualOverride, setManualOverride] = useState('');
   const [isOverriding, setIsOverriding] = useState(false);
+  const [cashOfferOpen, setCashOfferOpen] = useState(false);
 
   const estimate = estimateTradeInValue(selection);
 
@@ -221,6 +223,22 @@ export default function TradeInSection({
               )}
             </div>
           )}
+
+          {/* Cash offer promo (once estimate is visible) */}
+          {estimate && (
+            <div className={styles.promoCallout}>
+              <p className={styles.promoText}>Get an instant cash offer for your RV</p>
+              <button
+                type="button"
+                className={styles.promoBtn}
+                onClick={() => setCashOfferOpen(true)}
+              >
+                Get Cash Offer
+              </button>
+            </div>
+          )}
+
+          <CashOfferModal isOpen={cashOfferOpen} onClose={() => setCashOfferOpen(false)} />
 
           {/* Tax credit callout (credit state + value > 0) */}
           {tradeInCredit && effectiveValue > 0 && (

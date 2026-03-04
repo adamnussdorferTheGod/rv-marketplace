@@ -70,6 +70,7 @@ export interface SrpSummaryData {
 export interface AssistantTextMessage {
   type: 'text';
   content: string;
+  recommendedListings?: import('./srpTypes').SRPListing[];
 }
 
 export interface AssistantComparisonMessage {

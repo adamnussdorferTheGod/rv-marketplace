@@ -3,20 +3,31 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   type ReactNode,
 } from 'react';
 import type { ListingData } from '../../../app/src/data/types';
+import type { FilterCriteria, SRPListing } from '../../../app/src/data/srpTypes';
+import type { TowVehicle } from '../../../app/src/data/towTypes';
 import type { ConversationMessage, AiModeContextValue, PanelMode } from './types';
 import { generateAiResponse } from './mockAiService';
 import { isClaudeAvailable, generateClaudeResponse } from './claudeService';
 import { generateInitialPrompts, generateFollowUpPrompts } from './generatePrompts';
+import type { SearchContext } from '../../../app/src/data/srpAssistantService';
+import { mockSrpAssistantService, classifyQuery } from '../../../app/src/data/srpAssistantService';
+import { generateSrpChips, advanceChipHistory, mapAssistantCategoryToChipCategory, INITIAL_CHIP_HISTORY } from '../../../app/src/data/srpAssistantChips';
+import type { ChipHistory, ChipEngineInput } from '../../../app/src/data/srpAssistantChips';
 
 const AiModeContext = createContext<AiModeContextValue | null>(null);
 
 interface AiModeProviderProps {
   listing?: ListingData;
+  searchContext?: SearchContext;
+  filters?: FilterCriteria;
+  towVehicle?: TowVehicle | null;
+  listings?: SRPListing[];
   children: ReactNode;
 }
 
@@ -25,7 +36,7 @@ function nextId(): string {
   return `msg-${++messageIdCounter}-${Date.now()}`;
 }
 
-export function AiModeProvider({ listing, children }: AiModeProviderProps) {
+export function AiModeProvider({ listing, searchContext, filters, towVehicle, listings, children }: AiModeProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [panelMode, setPanelModeState] = useState<PanelMode>('default');
   const panelModeRef = useRef<PanelMode>(panelMode);
@@ -33,6 +44,17 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
     panelModeRef.current = mode;
     setPanelModeState(mode);
   }, []);
+  const searchContextRef = useRef(searchContext);
+  searchContextRef.current = searchContext;
+  const filtersRef = useRef(filters);
+  filtersRef.current = filters;
+  const towVehicleRef = useRef(towVehicle);
+  towVehicleRef.current = towVehicle;
+  const listingsRef = useRef(listings);
+  listingsRef.current = listings;
+  const [srpChipHistory, setSrpChipHistory] = useState<ChipHistory>(INITIAL_CHIP_HISTORY);
+  const srpChipHistoryRef = useRef(srpChipHistory);
+  srpChipHistoryRef.current = srpChipHistory;
   const [threadMap, setThreadMap] = useState<Record<PanelMode, {
     messages: ConversationMessage[];
     exchangeCount: number;
@@ -41,9 +63,47 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
     default: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
     fitcheck: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
     plan: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+    'srp-assistant': { messages: [], exchangeCount: 0, suggestedPrompts: [] },
   });
   const threadMapRef = useRef(threadMap);
   threadMapRef.current = threadMap;
+
+  // Build ChipEngineInput for srp-assistant chips
+  const buildChipInput = useCallback((): ChipEngineInput | null => {
+    const sc = searchContextRef.current;
+    if (!sc) return null;
+    return {
+      search: sc,
+      filters: filtersRef.current ?? {
+        keyword: '', rvTypes: [], makes: [], models: [],
+        priceMin: null, priceMax: null, yearMin: null, yearMax: null,
+        condition: 'all', zipCode: '', radiusMiles: 150,
+        lengthMin: null, lengthMax: null, floorPlans: [],
+        sleepingCapacity: null, fuelTypes: [], grossVehicleWeightMax: null,
+      },
+      towVehicle: towVehicleRef.current ?? null,
+      listings: listingsRef.current ?? [],
+    };
+  }, []);
+
+  // Update srp-assistant initial prompts when searchContext arrives
+  useEffect(() => {
+    if (!searchContext) return;
+    const chipInput = buildChipInput();
+    if (!chipInput) return;
+    setThreadMap((prev) => {
+      const srpThread = prev['srp-assistant'];
+      if (srpThread.messages.length > 0) return prev;
+      return {
+        ...prev,
+        'srp-assistant': {
+          ...srpThread,
+          suggestedPrompts: generateSrpChips(chipInput, INITIAL_CHIP_HISTORY),
+        },
+      };
+    });
+  }, [searchContext, filters, towVehicle, listings, buildChipInput]);
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -82,7 +142,23 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
       try {
         const history = [...currentThread.messages, userMsg];
         let response: string;
-        if (isClaudeAvailable()) {
+        let followUpPrompts: string[];
+        let recommendedListings: import('../../../app/src/data/srpTypes').SRPListing[] | undefined;
+
+        if (mode === 'srp-assistant' && searchContextRef.current) {
+          const srpResponse = await mockSrpAssistantService(content, searchContextRef.current, listingsRef.current ?? []);
+          response = srpResponse.content;
+          if (srpResponse.type === 'text' && srpResponse.recommendedListings) {
+            recommendedListings = srpResponse.recommendedListings;
+          }
+          const assistantCategory = classifyQuery(content);
+          const chipCategory = mapAssistantCategoryToChipCategory(assistantCategory);
+          const newHistory = advanceChipHistory(srpChipHistoryRef.current, chipCategory);
+          setSrpChipHistory(newHistory);
+          srpChipHistoryRef.current = newHistory;
+          const chipInput = buildChipInput();
+          followUpPrompts = chipInput ? generateSrpChips(chipInput, newHistory) : [];
+        } else if (isClaudeAvailable()) {
           try {
             response = await generateClaudeResponse(listing, content, history, mode);
             console.log('[AiMode] Claude response received');
@@ -90,9 +166,11 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
             console.warn('[AiMode] Claude failed, falling back to mock:', err);
             response = await generateAiResponse(listing, content, history);
           }
+          followUpPrompts = generateFollowUpPrompts(response, listing, mode);
         } else {
           console.log('[AiMode] No API key, using mock service');
           response = await generateAiResponse(listing, content, history);
+          followUpPrompts = generateFollowUpPrompts(response, listing, mode);
         }
 
         const assistantMsg: ConversationMessage = {
@@ -100,6 +178,7 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
           role: 'assistant',
           content: response,
           timestamp: Date.now(),
+          ...(recommendedListings && recommendedListings.length > 0 && { listings: recommendedListings }),
         };
 
         setThreadMap((prev) => ({
@@ -108,14 +187,14 @@ export function AiModeProvider({ listing, children }: AiModeProviderProps) {
             ...prev[mode],
             messages: [...prev[mode].messages, assistantMsg],
             exchangeCount: prev[mode].exchangeCount + 1,
-            suggestedPrompts: generateFollowUpPrompts(response, listing, mode),
+            suggestedPrompts: followUpPrompts,
           },
         }));
       } finally {
         setIsLoading(false);
       }
     },
-    [isLoading, isAuthenticated, listing],
+    [isLoading, isAuthenticated, listing, buildChipInput],
   );
 
   const value = useMemo<AiModeContextValue>(

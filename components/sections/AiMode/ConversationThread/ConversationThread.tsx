@@ -44,8 +44,9 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
 
   const showAuthGate = exchangeCount >= 2 && !isAuthenticated;
   const hasMessages = messages.length > 0;
-  const isFitcheck = panelMode !== 'plan';
+  const isFitcheck = panelMode === 'default' || panelMode === 'fitcheck';
   const isPlan = panelMode === 'plan';
+  const isSrpAssistant = panelMode === 'srp-assistant';
 
   return (
     <div className={styles.thread} ref={scrollRef}>
@@ -99,6 +100,23 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
         </div>
       )}
 
+      {!hasMessages && isSrpAssistant && (
+        <div className={styles.welcome}>
+          <div className={styles.welcomeIcon}>
+            <Icon name="sparkles" size={32} />
+          </div>
+          <h3 className={styles.welcomeTitle}>Ask about these search results</h3>
+          <p className={styles.welcomeBody}>
+            Get instant insights about pricing, deals, market trends, and how listings in your search compare.
+          </p>
+          <SuggestedPrompts
+            prompts={suggestedPrompts}
+            onSelect={sendMessage}
+            variant="vertical"
+          />
+        </div>
+      )}
+
       {!hasMessages && isPlan && (
         <div className={styles.welcome}>
           <div className={styles.welcomeIcon}>
@@ -127,6 +145,7 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
               isLatest={
                 msg.role === 'assistant' && i === messages.length - 1 && !isLoading
               }
+              listings={msg.listings}
             />
           ))}
 
@@ -148,12 +167,13 @@ export default function ConversationThread({ listingTitle }: ConversationThreadP
         <>
           <div className={styles.gatedOuter}>
             <div className={styles.messages}>
-              {messages.map((msg, i) => (
+              {messages.map((msg) => (
                 <MessageBubble
                   key={msg.id}
                   role={msg.role}
                   content={msg.content}
                   isLatest={false}
+                  listings={msg.listings}
                 />
               ))}
             </div>
