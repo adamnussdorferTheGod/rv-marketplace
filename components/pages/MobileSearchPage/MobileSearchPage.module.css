@@ -262,23 +262,26 @@
 /* ─── Ask anything section ─── */
 .askSection {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: var(--radius-base);
   padding: var(--space-16);
 }
 
 .askGlow {
   position: absolute;
-  inset: 0;
+  top: -40px;
+  left: -60px;
+  right: -60px;
+  bottom: -40px;
   pointer-events: none;
-  filter: blur(60px);
-  background: radial-gradient(
-    ellipse 45% 75% at 50% 50%,
-    rgba(200, 190, 100, 0.7) 0%,
-    rgba(180, 190, 130, 0.35) 40%,
-    transparent 85%
-  );
+  filter: blur(50px);
+  background:
+    radial-gradient(ellipse 250px 150px at 25% 50%, rgba(178, 164, 63, 0.25) 0%, transparent 100%),
+    radial-gradient(ellipse 300px 150px at 70% 50%, rgba(0, 94, 74, 0.10) 0%, transparent 100%),
+    radial-gradient(ellipse 400px 250px at 45% 55%, rgba(247, 248, 237, 0.7) 0%, transparent 100%);
   z-index: 0;
+  mask-image: radial-gradient(ellipse 65% 75% at 55% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 65% 75% at 55% 50%, black 30%, transparent 100%);
 }
 
 .askInner {
