@@ -138,15 +138,10 @@
   min-width: 0;
 }
 
-/* Row 1: wraps if chips don't fit */
-.chipRow:first-child {
-  flex-wrap: wrap;
-}
-
-/* Row 2: only the last chip before Ask truncates */
-.chipRow:last-child .chip:last-of-type {
+/* Last chip in each row truncates if needed to fit */
+.chipRow .chip:last-of-type {
   flex-shrink: 1;
-  min-width: 0;
+  min-width: 60px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
