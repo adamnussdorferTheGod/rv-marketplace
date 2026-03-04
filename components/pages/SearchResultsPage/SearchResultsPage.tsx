@@ -355,9 +355,7 @@ export default function SearchResultsPage() {
               </div>
             </div>
 
-            {import.meta.env.DEV && (
-              <SrpSummaryCard data={summaryData} listings={towFilteredResults} filters={filters} towVehicle={savedVehicle ?? null} />
-            )}
+            <SrpSummaryCard data={summaryData} listings={towFilteredResults} filters={filters} towVehicle={savedVehicle ?? null} />
 
             {/* Mobile filter/sort bar */}
             <MobileFilterBar
