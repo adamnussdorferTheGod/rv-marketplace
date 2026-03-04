@@ -248,7 +248,7 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
             {/* Two chip rows — ask button always ends row 2 */}
             <div className={styles.chipRows}>
               <div className={styles.chipRow}>
-                {currentChips.slice(0, Math.ceil(currentChips.length / 2)).map((chip) => (
+                {currentChips.slice(0, currentChips.length - 3).map((chip) => (
                   <button
                     key={chip}
                     type="button"
@@ -260,7 +260,7 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
                 ))}
               </div>
               <div className={styles.chipRow}>
-                {currentChips.slice(Math.ceil(currentChips.length / 2)).map((chip) => (
+                {currentChips.slice(currentChips.length - 3).map((chip) => (
                   <button
                     key={chip}
                     type="button"
