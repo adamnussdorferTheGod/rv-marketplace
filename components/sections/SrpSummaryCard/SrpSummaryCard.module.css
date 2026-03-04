@@ -300,6 +300,9 @@
   border: none;
   border-radius: var(--radius-base);
   padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
 }
 
 .minimizedInner {
