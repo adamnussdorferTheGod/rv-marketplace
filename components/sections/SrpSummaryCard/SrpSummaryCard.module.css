@@ -133,7 +133,8 @@
 
 .chipRow {
   display: flex;
-  gap: var(--space-16);
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-16);
   align-items: center;
   min-width: 0;
 }
