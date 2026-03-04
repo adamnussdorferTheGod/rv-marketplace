@@ -13,6 +13,7 @@ export type PanelMode = 'default' | 'fitcheck' | 'plan' | 'srp-assistant';
 export interface AiModeState {
   isOpen: boolean;
   panelMode: PanelMode;
+  discoveryMode: boolean;
   messages: ConversationMessage[];
   exchangeCount: number;
   isAuthenticated: boolean;
@@ -21,7 +22,7 @@ export interface AiModeState {
 }
 
 export interface AiModeActions {
-  openPanel: (mode?: PanelMode) => void;
+  openPanel: (mode?: PanelMode, discovery?: boolean) => void;
   closePanel: () => void;
   sendMessage: (content: string) => void;
   authenticate: () => void;

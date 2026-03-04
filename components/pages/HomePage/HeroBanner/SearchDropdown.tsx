@@ -16,12 +16,12 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
   };
 
   const handleAiChipClick = (chipText: string) => {
-    navigate(`/search?aiChip=${encodeURIComponent(chipText)}`);
+    navigate(`/search#ai=${encodeURIComponent(chipText)}`);
     onClose();
   };
 
   const handleAskAnything = () => {
-    navigate('/search?aiOpen=1');
+    navigate('/search#aiOpen');
     onClose();
   };
 

@@ -13,6 +13,7 @@ interface AiModePanelProps {
 export default function AiModePanel({ listingTitle, listingPrice }: AiModePanelProps) {
   const {
     isOpen,
+    discoveryMode,
     closePanel,
     sendMessage,
     exchangeCount,
@@ -50,17 +51,17 @@ export default function AiModePanel({ listingTitle, listingPrice }: AiModePanelP
 
   return (
     <>
-      {/* Mobile backdrop */}
+      {/* Backdrop — mobile always, desktop only in discovery mode */}
       {isOpen && (
         <div
-          className={styles.backdrop}
+          className={discoveryMode ? styles.backdropDiscovery : styles.backdrop}
           onClick={closePanel}
           aria-hidden="true"
         />
       )}
 
       <div
-        className={`${styles.panel} ${isOpen ? styles.open : ''}`}
+        className={`${styles.panel} ${isOpen ? styles.open : ''} ${discoveryMode ? styles.discovery : ''}`}
         role="dialog"
         aria-label="AI Mode conversation"
         aria-hidden={!isOpen}

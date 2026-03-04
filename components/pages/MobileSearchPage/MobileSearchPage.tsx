@@ -224,12 +224,12 @@ export default function MobileSearchPage() {
                     <Icon name="sparkles" size={20} />
                   </h3>
                   <div className={styles.askChipScroll}>
-                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('Help me choose an RV type'))}>Help me choose an RV type</button>
-                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('Towable or motorhome?'))}>Towable or motorhome?</button>
-                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('What are the best RV brands?'))}>What are the best RV brands?</button>
-                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('First RV — where do I start?'))}>First RV — where do I start?</button>
-                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('What can I get for my budget?'))}>What can I get for my budget?</button>
-                    <button type="button" className={styles.askCta} onClick={() => navigate('/search?aiOpen=1')}>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search#ai=' + encodeURIComponent('Help me choose an RV type'))}>Help me choose an RV type</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search#ai=' + encodeURIComponent('Towable or motorhome?'))}>Towable or motorhome?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search#ai=' + encodeURIComponent('What are the best RV brands?'))}>What are the best RV brands?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search#ai=' + encodeURIComponent('First RV — where do I start?'))}>First RV — where do I start?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search#ai=' + encodeURIComponent('What can I get for my budget?'))}>What can I get for my budget?</button>
+                    <button type="button" className={styles.askCta} onClick={() => navigate('/search#aiOpen')}>
                       <Icon name="sparkles" size={16} />
                       Ask any question
                     </button>

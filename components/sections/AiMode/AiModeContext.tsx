@@ -37,8 +37,19 @@ function nextId(): string {
 }
 
 export function AiModeProvider({ listing, searchContext, filters, towVehicle, listings, children }: AiModeProviderProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [panelMode, setPanelModeState] = useState<PanelMode>('default');
+  // Read from URL hash so state survives component remounts (AnimatePresence/StrictMode)
+  const [isOpen, setIsOpen] = useState(() => {
+    const h = typeof window !== 'undefined' ? window.location.hash : '';
+    return h.startsWith('#ai=') || h === '#aiOpen';
+  });
+  const [discoveryMode, setDiscoveryMode] = useState(() => {
+    const h = typeof window !== 'undefined' ? window.location.hash : '';
+    return h.startsWith('#ai=') || h === '#aiOpen';
+  });
+  const [panelMode, setPanelModeState] = useState<PanelMode>(() => {
+    const h = typeof window !== 'undefined' ? window.location.hash : '';
+    return (h.startsWith('#ai=') || h === '#aiOpen') ? 'srp-assistant' : 'default';
+  });
   const panelModeRef = useRef<PanelMode>(panelMode);
   const setPanelMode = useCallback((mode: PanelMode) => {
     panelModeRef.current = mode;
@@ -112,11 +123,15 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
   const exchangeCount = thread.exchangeCount;
   const suggestedPrompts = thread.suggestedPrompts;
 
-  const openPanel = useCallback((mode?: PanelMode) => {
+  const openPanel = useCallback((mode?: PanelMode, discovery?: boolean) => {
     if (mode && typeof mode === 'string') setPanelMode(mode);
+    setDiscoveryMode(!!discovery);
     setIsOpen(true);
   }, [setPanelMode]);
-  const closePanel = useCallback(() => setIsOpen(false), []);
+  const closePanel = useCallback(() => {
+    setIsOpen(false);
+    setDiscoveryMode(false);
+  }, []);
   const authenticate = useCallback(() => setIsAuthenticated(true), []);
 
   const sendMessage = useCallback(
@@ -201,6 +216,7 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
     () => ({
       isOpen,
       panelMode,
+      discoveryMode,
       messages,
       exchangeCount,
       isAuthenticated,
@@ -214,6 +230,7 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
     [
       isOpen,
       panelMode,
+      discoveryMode,
       messages,
       exchangeCount,
       isAuthenticated,

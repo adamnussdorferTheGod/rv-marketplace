@@ -175,7 +175,7 @@ export function useSrpFilters(listings?: SRPListing[]): {
   // Sync state -> URL on change
   useEffect(() => {
     const queryString = serializeFiltersToURL(filters, sort);
-    const newURL = window.location.pathname + queryString;
+    const newURL = window.location.pathname + queryString + window.location.hash;
     window.history.replaceState(null, '', newURL);
   }, [filters, sort]);
 

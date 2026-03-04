@@ -22,6 +22,20 @@
   transform: translateX(0);
 }
 
+/* Discovery mode — wider panel + desktop backdrop */
+.panel.discovery {
+  width: clamp(520px, 55vw, 720px);
+}
+
+.backdropDiscovery {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 999;
+  animation: fadeIn 300ms ease-out;
+}
+
 /* Mobile: full-screen bottom sheet */
 @media (max-width: 1023px) {
   .backdrop {

@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useMemo, useRef, type ReactNode } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import { useRecentSearches } from '@app/src/hooks/useRecentSearches';
@@ -85,38 +84,32 @@ function buildSearchTitle(filters: FilterCriteria): string {
   return parts.join(' ') || 'RV Search';
 }
 
-/** Reads aiChip / aiOpen URL params and triggers AI panel. Must be inside AiModeProvider. */
-function AiChipLoader({ children }: { children: ReactNode }) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { openPanel, sendMessage } = useAiMode();
-  const handled = useRef(false);
+/** Reads AI chip from URL hash. Panel state initialized by AiModeProvider useState.
+ *  Uses cleanup to ensure only the LAST (stable) mount sends the message. */
+function AiChipSender({ children }: { children: ReactNode }) {
+  const { sendMessage, isOpen, panelMode } = useAiMode();
 
   useEffect(() => {
-    if (handled.current) return;
-    const aiChip = searchParams.get('aiChip');
-    const aiOpen = searchParams.get('aiOpen');
+    if (!isOpen || panelMode !== 'srp-assistant') return;
 
-    if (aiChip) {
-      handled.current = true;
-      openPanel('srp-assistant');
-      // Small delay so panel mounts before sending
-      setTimeout(() => sendMessage(aiChip), 300);
-      // Clean up param
-      setSearchParams((prev) => {
-        const next = new URLSearchParams(prev);
-        next.delete('aiChip');
-        return next;
-      }, { replace: true });
-    } else if (aiOpen) {
-      handled.current = true;
-      openPanel('srp-assistant');
-      setSearchParams((prev) => {
-        const next = new URLSearchParams(prev);
-        next.delete('aiOpen');
-        return next;
-      }, { replace: true });
-    }
-  }, [searchParams, openPanel, sendMessage, setSearchParams]);
+    const hash = window.location.hash;
+    const aiMatch = hash.match(/^#ai=(.+)$/);
+    if (!aiMatch) return;
+
+    const chip = decodeURIComponent(aiMatch[1]);
+
+    // Delay so cleanup from remounts cancels earlier timers.
+    // Only the LAST mount's timer survives → sends on stable instance.
+    const timer = window.setTimeout(() => {
+      sendMessage(chip);
+      // Clear hash
+      window.setTimeout(() => {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }, 1000);
+    }, 800);
+
+    return () => clearTimeout(timer);
+  }, [sendMessage, isOpen, panelMode]);
 
   return <>{children}</>;
 }
@@ -313,7 +306,7 @@ export default function SearchResultsPage() {
 
   return (
     <AiModeProvider searchContext={srpSearchContext} filters={filters} towVehicle={savedVehicle ?? null} listings={towFilteredResults}>
-    <AiChipLoader>
+    <AiChipSender>
     <div className={styles.searchResultsPage}>
       <div className={styles.leaderboardAd}>
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
@@ -531,7 +524,7 @@ export default function SearchResultsPage() {
 
       <AiModePanel />
     </div>
-    </AiChipLoader>
+    </AiChipSender>
     </AiModeProvider>
   );
 }
