@@ -1,9 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from '@components/ui/Icon/Icon';
-import {
-  RV_TYPES,
-  POPULAR_SEARCHES,
-} from './heroData';
+import { RV_TYPES } from './heroData';
 import styles from './SearchDropdown.module.css';
 
 interface SearchDropdownProps {
@@ -15,11 +12,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
   const handleTypeClick = (slug: string) => {
     navigate(`/search?rvTypes=${slug}`);
-    onClose();
-  };
-
-  const handleSearchClick = (query: string) => {
-    navigate(`/search?${query}`);
     onClose();
   };
 
@@ -89,24 +81,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
               </button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Section 3: Popular searches */}
-      <section>
-        <h3 className={styles.sectionHeading}>Popular searches</h3>
-        <div className={styles.chipWrap}>
-          {POPULAR_SEARCHES.slice(0, 3).map((search) => (
-            <button
-              key={search.label}
-              type="button"
-              className={styles.searchChip}
-              onClick={() => handleSearchClick(search.query)}
-            >
-              <Icon name="search" size={20} />
-              {search.label}
-            </button>
-          ))}
         </div>
       </section>
     </div>
