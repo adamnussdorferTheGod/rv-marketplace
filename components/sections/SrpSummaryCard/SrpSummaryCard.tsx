@@ -163,8 +163,8 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
     );
   }
 
-  // Minimized view — full narrative with inline badges
-  if (minimized) {
+  // Minimized view — full narrative with inline badges (always on mobile)
+  if (minimized || isMobile) {
     return (
       <section
         role="region"
@@ -191,15 +191,39 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
                 </>
               )}
             </p>
-            <button
-              type="button"
-              className={styles.expandBtn}
-              onClick={() => setMinimized(false)}
-              aria-label="Expand market insights"
-            >
-              <Icon name="expand_more" size={20} />
-            </button>
+            {!isMobile && (
+              <button
+                type="button"
+                className={styles.expandBtn}
+                onClick={() => setMinimized(false)}
+                aria-label="Expand market insights"
+              >
+                <Icon name="expand_more" size={20} />
+              </button>
+            )}
           </div>
+          {isMobile && (
+            <div className={styles.chipScroll}>
+              {currentChips.map((chip) => (
+                <button
+                  key={chip}
+                  type="button"
+                  className={styles.chip}
+                  onClick={() => handleChipSelect(chip)}
+                >
+                  {chip}
+                </button>
+              ))}
+              <button
+                type="button"
+                className={styles.askButton}
+                onClick={handleAskClick}
+              >
+                <Icon name="sparkles" size={16} />
+                <span>Help</span>
+              </button>
+            </div>
+          )}
         </div>
       </section>
     );

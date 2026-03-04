@@ -360,7 +360,15 @@
 
 @media (max-width: 767px) {
   .wrapper {
-    padding: 12px 15px;
+    padding: 8px 0;
+  }
+
+  .minimizedWrapper {
+    padding: 8px 0;
+  }
+
+  .minimizedCard {
+    padding: 8px 0;
   }
 
   .glow {
