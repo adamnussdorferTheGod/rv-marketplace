@@ -231,36 +231,29 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
             <p className={styles.narrativeText}>
               <span>Your search returned</span>
               <strong>{headlineStats.listingCount.toLocaleString('en-US')}</strong>
-              <span>listings. The median asking price is</span>
-              {!trendIsFlat && <TrendArrow direction={arrowDirection} />}
-              <strong>{medianFormatted}</strong>
-              <MiniChart direction={chartDirection} id="price" />
-              <span>and the current price trend is {trendWord}</span>
-              {!trendIsFlat && (
+              <span>listings.</span>
+              {!isMobile && (
                 <>
-                  <TrendArrow direction={arrowDirection} />
-                  <strong>{trendAbs}%</strong>
-                  <MiniChart direction={chartDirection} id="trend" />
+                  <span>The median asking price is</span>
+                  {!trendIsFlat && <TrendArrow direction={arrowDirection} />}
+                  <strong>{medianFormatted}</strong>
+                  <MiniChart direction={chartDirection} id="price" />
+                  <span>and the current price trend is {trendWord}</span>
+                  {!trendIsFlat && (
+                    <>
+                      <TrendArrow direction={arrowDirection} />
+                      <strong>{trendAbs}%</strong>
+                      <MiniChart direction={chartDirection} id="trend" />
+                    </>
+                  )}
                 </>
               )}
             </p>
 
-            {/* Two chip rows — ask button always ends row 2 */}
-            <div className={styles.chipRows}>
-              <div className={styles.chipRow}>
-                {currentChips.slice(0, Math.ceil(currentChips.length / 2)).map((chip) => (
-                  <button
-                    key={chip}
-                    type="button"
-                    className={styles.chip}
-                    onClick={() => handleChipSelect(chip)}
-                  >
-                    {chip}
-                  </button>
-                ))}
-              </div>
-              <div className={styles.chipRow}>
-                {currentChips.slice(Math.ceil(currentChips.length / 2)).map((chip) => (
+            {/* Desktop: two chip rows. Mobile: single scrollable row */}
+            {isMobile ? (
+              <div className={styles.chipScroll}>
+                {currentChips.map((chip) => (
                   <button
                     key={chip}
                     type="button"
@@ -279,7 +272,42 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
                   <span>Ask any question</span>
                 </button>
               </div>
-            </div>
+            ) : (
+              <div className={styles.chipRows}>
+                <div className={styles.chipRow}>
+                  {currentChips.slice(0, Math.ceil(currentChips.length / 2)).map((chip) => (
+                    <button
+                      key={chip}
+                      type="button"
+                      className={styles.chip}
+                      onClick={() => handleChipSelect(chip)}
+                    >
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+                <div className={styles.chipRow}>
+                  {currentChips.slice(Math.ceil(currentChips.length / 2)).map((chip) => (
+                    <button
+                      key={chip}
+                      type="button"
+                      className={styles.chip}
+                      onClick={() => handleChipSelect(chip)}
+                    >
+                      {chip}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    className={styles.askButton}
+                    onClick={handleAskClick}
+                  >
+                    <Icon name="sparkles" size={16} />
+                    <span>Ask any question</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

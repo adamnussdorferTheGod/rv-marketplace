@@ -170,6 +170,21 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* ─── Mobile: single horizontal scroll row ─────────────────────── */
+
+.chipScroll {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+
+.chipScroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── "Ask any question" CTA ────────────────────────────────────── */
 
 .askButton {
