@@ -5,19 +5,20 @@
   position: relative;
   margin-bottom: var(--space-16);
   padding: 20px 30px;
+  overflow: visible;
 }
 
-/* Glow — warm golden-green, wider ellipse so sides fade faster */
+/* Glow — soft ambient, bleeds beyond container */
 .glow {
   position: absolute;
-  inset: 0;
+  inset: -40px -60px;
   pointer-events: none;
-  filter: blur(60px);
+  filter: blur(80px);
   background: radial-gradient(
-    ellipse 35% 28% at 50% 50%,
-    rgba(200, 190, 100, 0.65) 0%,
-    rgba(180, 190, 130, 0.25) 35%,
-    transparent 70%
+    ellipse 50% 50% at 50% 50%,
+    rgba(210, 200, 120, 0.35) 0%,
+    rgba(190, 195, 130, 0.15) 40%,
+    transparent 75%
   );
   z-index: 0;
 }
@@ -26,8 +27,8 @@
 .card {
   position: relative;
   z-index: 1;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.4));
-  border: 1px solid white;
+  background: none;
+  border: none;
   border-radius: var(--radius-base);
   padding: 12px 10px;
 }
@@ -270,18 +271,19 @@
   position: relative;
   margin-bottom: var(--space-16);
   padding: 12px 20px;
+  overflow: visible;
 }
 
 .minimizedGlow {
   position: absolute;
-  inset: 0;
+  inset: -30px -50px;
   pointer-events: none;
-  filter: blur(40px);
+  filter: blur(60px);
   background: radial-gradient(
-    ellipse 40% 28% at 50% 50%,
-    rgba(200, 190, 100, 0.45) 0%,
-    rgba(180, 190, 130, 0.2) 35%,
-    transparent 70%
+    ellipse 50% 50% at 50% 50%,
+    rgba(210, 200, 120, 0.3) 0%,
+    rgba(190, 195, 130, 0.12) 40%,
+    transparent 75%
   );
   z-index: 0;
 }
@@ -289,8 +291,8 @@
 .minimizedCard {
   position: relative;
   z-index: 1;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.45));
-  border: 1px solid white;
+  background: none;
+  border: none;
   border-radius: var(--radius-base);
   padding: 10px 12px;
 }
