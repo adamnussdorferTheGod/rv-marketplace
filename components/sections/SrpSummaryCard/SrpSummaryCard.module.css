@@ -14,7 +14,7 @@
   pointer-events: none;
   filter: blur(60px);
   background: radial-gradient(
-    ellipse 35% 65% at 50% 50%,
+    ellipse 35% 40% at 50% 50%,
     rgba(200, 190, 100, 0.65) 0%,
     rgba(180, 190, 130, 0.25) 35%,
     transparent 70%
@@ -278,7 +278,7 @@
   pointer-events: none;
   filter: blur(40px);
   background: radial-gradient(
-    ellipse 40% 65% at 50% 50%,
+    ellipse 40% 40% at 50% 50%,
     rgba(200, 190, 100, 0.45) 0%,
     rgba(180, 190, 130, 0.2) 35%,
     transparent 70%
