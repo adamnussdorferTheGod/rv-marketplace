@@ -139,6 +139,10 @@
   min-width: 0;
 }
 
+.chipRow:last-child {
+  flex-wrap: nowrap;
+}
+
 .chip {
   background: white;
   border: none;
