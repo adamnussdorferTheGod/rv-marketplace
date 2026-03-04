@@ -364,7 +364,7 @@
   }
 
   .glow {
-    filter: blur(30px);
+    display: none;
   }
 
   .card {
