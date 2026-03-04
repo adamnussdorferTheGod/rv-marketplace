@@ -6,6 +6,9 @@
   border-bottom: 1px solid var(--rv-border-low);
   background: var(--rv-surface);
   flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .left {
