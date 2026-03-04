@@ -90,7 +90,7 @@ const POPULAR_FILTERS: PopularFilterDef[] = [
   },
   {
     key: 'great-deal',
-    label: 'Great deal',
+    label: 'Well below market price',
     isActive: (f) => f.keyword === 'great deal',
     apply: (set) => set('keyword', 'great deal'),
     count: (all) => all.filter((l) => l.dealRating === 'great').length,

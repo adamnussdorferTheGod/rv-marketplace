@@ -46,21 +46,21 @@ export default function DetailPanel({ priceDistribution, dealBreakdown, headline
               <div
                 className={`${styles.dealSegment} ${styles.dealGreat}`}
                 style={{ flex: great }}
-                title={`${great} great deals`}
+                title={`${great} well below market price`}
               />
             )}
             {good > 0 && (
               <div
                 className={`${styles.dealSegment} ${styles.dealGood}`}
                 style={{ flex: good }}
-                title={`${good} good deals`}
+                title={`${good} below market price`}
               />
             )}
             {fair > 0 && (
               <div
                 className={`${styles.dealSegment} ${styles.dealFair}`}
                 style={{ flex: fair }}
-                title={`${fair} fair deals`}
+                title={`${fair} around market price`}
               />
             )}
           </div>
@@ -68,19 +68,19 @@ export default function DetailPanel({ priceDistribution, dealBreakdown, headline
             {great > 0 && (
               <span className={styles.legendItem}>
                 <span className={`${styles.legendDot} ${styles.dotGreat}`} />
-                Great ({great})
+                Well below ({great})
               </span>
             )}
             {good > 0 && (
               <span className={styles.legendItem}>
                 <span className={`${styles.legendDot} ${styles.dotGood}`} />
-                Good ({good})
+                Below ({good})
               </span>
             )}
             {fair > 0 && (
               <span className={styles.legendItem}>
                 <span className={`${styles.legendDot} ${styles.dotFair}`} />
-                Fair ({fair})
+                Around ({fair})
               </span>
             )}
           </div>

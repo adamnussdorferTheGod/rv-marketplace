@@ -239,8 +239,8 @@ const RESPONSE_TEMPLATES: Record<AssistantCategory, string[]> = {
     'Your search covers {resultCount} {rvTypeLabel}. The top makes by volume are {topMakesText}, with a median price of {medianPrice}. {dealSentence}',
   ],
   'deal-quality': [
-    '{dealSummary}\n\n**Deal Breakdown**\n- **{greatCount}** great deals (well below market)\n- **{goodCount}** good deals (below market)\n- **{fairCount}** fair deals (around market)\n\nOut of **{totalRated}** rated listings, the median asking price is {medianPrice}.',
-    '{dealSummary} {greatCount} listings stand out as great deals, with {goodCount} more priced below market. The median asking price is {medianPrice}. {trendSentence}',
+    '{dealSummary}\n\n**Price Breakdown**\n- **{greatCount}** well below market price\n- **{goodCount}** below market price\n- **{fairCount}** around market price\n\nOut of **{totalRated}** rated listings, the median asking price is {medianPrice}.',
+    '{dealSummary} {greatCount} listings are well below market price, with {goodCount} more priced below market. The median asking price is {medianPrice}. {trendSentence}',
   ],
   recommendation: [
     "Based on your current search of **{resultCount} listings**, here's what stands out:\n\n- Median asking price: **{medianPrice}**\n- Avg days on market: **{avgDom} days**\n- {dealSentence}\n\n{trendSentence}",

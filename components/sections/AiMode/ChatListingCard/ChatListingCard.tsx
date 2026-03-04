@@ -8,9 +8,9 @@ interface ChatListingCardProps {
 }
 
 const DEAL_DOT: Record<string, { label: string; color: string }> = {
-  great: { label: 'Great deal', color: '#036c6c' },
-  good:  { label: 'Good deal',  color: '#49a46c' },
-  fair:  { label: 'Fair deal',  color: '#acb646' },
+  great: { label: 'Well below market price', color: '#036c6c' },
+  good:  { label: 'Below market price',      color: '#49a46c' },
+  fair:  { label: 'Around market price',      color: '#acb646' },
 };
 
 export default function ChatListingCard({ listing }: ChatListingCardProps) {
