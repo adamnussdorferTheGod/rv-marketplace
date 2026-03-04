@@ -355,8 +355,6 @@ export default function SearchResultsPage() {
               </div>
             </div>
 
-            <SrpSummaryCard data={summaryData} listings={towFilteredResults} filters={filters} towVehicle={savedVehicle ?? null} />
-
             {/* Mobile filter/sort bar */}
             <MobileFilterBar
               activeFilterCount={activeFilters.length}
@@ -366,6 +364,8 @@ export default function SearchResultsPage() {
               savedCount={activeList?.listings.length ?? 0}
               onSavedClick={() => setSharedListOpen(true)}
             />
+
+            <SrpSummaryCard data={summaryData} listings={towFilteredResults} filters={filters} towVehicle={savedVehicle ?? null} />
 
             <FeaturedListings maxItems={5} titleClassName={styles.featuredTitle} />
             <div className={styles.featuredDivider} />
