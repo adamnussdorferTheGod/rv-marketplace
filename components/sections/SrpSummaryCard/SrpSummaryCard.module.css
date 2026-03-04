@@ -1,0 +1,113 @@
+/* ─── SrpSummaryCard ─────────────────────────────────────────────── */
+
+.card {
+  background: var(--rv-surface-accent);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-base);
+  padding: 20px 24px;
+  margin-bottom: var(--space-16);
+}
+
+/* ─── Stat bar ───────────────────────────────────────────────────── */
+
+.statBar {
+  display: flex;
+  gap: var(--space-24);
+  align-items: flex-start;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25.2px;
+  font-family: var(--font-family);
+  color: var(--rv-on-surface);
+}
+
+/* ─── Trend direction indicators ─────────────────────────────────── */
+
+.trendDown {
+  color: var(--color-green-200);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.trendUp {
+  color: var(--color-red-200);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.trendFlat {
+  color: var(--rv-on-surface-variant);
+}
+
+/* ─── Grounding label ────────────────────────────────────────────── */
+
+.groundingLabel {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--rv-border-low);
+}
+
+/* ─── Visually hidden (screen readers only) ──────────────────────── */
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Skeleton loading state ─────────────────────────────────────── */
+
+.skeletonBar {
+  display: flex;
+  gap: var(--space-24);
+}
+
+.skeleton {
+  flex: 1;
+  background: var(--rv-surface-variant);
+  border-radius: var(--radius-sm);
+  height: 48px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ─── Narrative placeholder (Plan 02 replaces with AiNarrative) ── */
+
+.narrativePlaceholder {
+  /* Empty placeholder — AiNarrative component added in Plan 02 */
+}

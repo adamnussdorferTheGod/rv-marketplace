@@ -985,6 +985,14 @@ const ICONS: Record<string, IconDefinition> = {
     fill: ['currentColor'],
     strokeWidth: 0,
   },
+  // Vertical three-dot overflow menu (Material Design)
+  more_vert: {
+    paths: [
+      'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+    ],
+    fill: ['currentColor'],
+    strokeWidth: 0,
+  },
 };
 
 export { ICONS };
