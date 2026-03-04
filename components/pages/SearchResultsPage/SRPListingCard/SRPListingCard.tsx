@@ -150,15 +150,17 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
                   <p className={styles.listDescription}>{listing.description}</p>
                 )}
               </div>
-              <div className={styles.priceRow}>
-                <span className={styles.currentPrice}>
-                  ${listing.currentPrice.toLocaleString()}
-                </span>
-                {showOriginalPrice && (
-                  <span className={styles.originalPrice}>
-                    ${listing.originalPrice!.toLocaleString()}
+              <div className={styles.listPriceBlock}>
+                <div className={styles.priceRow}>
+                  <span className={styles.currentPrice}>
+                    ${listing.currentPrice.toLocaleString()}
                   </span>
-                )}
+                  {showOriginalPrice && (
+                    <span className={styles.originalPrice}>
+                      ${listing.originalPrice!.toLocaleString()}
+                    </span>
+                  )}
+                </div>
                 {dealBadge && (
                   <span className={styles.dealBadge} style={{ background: dealBadge.bg }}>
                     <span className={styles.dealBadgeIcon} style={{ background: dealBadge.iconBg }}>

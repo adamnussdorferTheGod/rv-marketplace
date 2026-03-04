@@ -323,10 +323,19 @@
   margin-top: 0;
 }
 
+/* List: price block — stacks price + deal badge vertically */
+.listPriceBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
 /* List: top row — title left, price + button right */
 .listTopRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-16);
 }
 
