@@ -106,8 +106,100 @@
   }
 }
 
-/* ─── Narrative placeholder (Plan 02 replaces with AiNarrative) ── */
+/* ─── Card header (stat bar + overflow menu) ────────────────────── */
 
-.narrativePlaceholder {
-  /* Empty placeholder — AiNarrative component added in Plan 02 */
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* ─── AiNarrative ────────────────────────────────────────────────── */
+
+.narrativeSection {
+  margin-top: var(--space-16);
+  padding-top: var(--space-12);
+}
+
+.narrativeHeadline {
+  font: var(--font-label-2);
+  color: var(--rv-on-surface);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.narrativeBody {
+  font: var(--font-body-2);
+  color: var(--rv-on-surface-variant);
+  line-height: 1.5;
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+}
+
+.timestamp {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  margin-top: var(--space-8);
+}
+
+/* ─── OverflowMenu ───────────────────────────────────────────────── */
+
+.overflowWrapper {
+  position: relative;
+  margin-left: auto;
+}
+
+.overflowBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--rv-on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overflowBtn:hover {
+  color: var(--rv-on-surface);
+}
+
+.dropdownMenu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 200px;
+  z-index: 10;
+  background: var(--rv-surface);
+  border: 1px solid var(--rv-border-low);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  padding: var(--space-4) 0;
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  padding: var(--space-8) var(--space-16);
+  font: var(--font-body-2);
+  color: var(--rv-on-surface);
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background: var(--rv-surface-variant);
+}
+
+/* ─── Mobile collapsed line ──────────────────────────────────────── */
+
+.collapsedLine {
+  display: none;
+}
+
+.desktopContent {
+  /* Visible by default; hidden on mobile when collapsed */
 }
