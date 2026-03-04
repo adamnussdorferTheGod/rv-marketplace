@@ -13,7 +13,9 @@ import {
 } from '@app/src/data/towCompatibility.ts';
 import type { TowVerdict } from '@app/src/data/towTypes.ts';
 import { findNearMissListings } from '@app/src/data/srpFilterEngine.ts';
+import { generateSrpSummary } from '@app/src/data/srpSummaryEngine';
 import Icon from '../../ui/Icon/Icon';
+import SrpSummaryCard from '@components/sections/SrpSummaryCard/SrpSummaryCard';
 import ActionChip from '../../ui/ActionChip/ActionChip';
 import FilterSidebar from './FilterSidebar/FilterSidebar';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
@@ -152,6 +154,12 @@ export default function SearchResultsPage() {
     }
     return map;
   }, [savedVehicle, nearMiss]);
+
+  // Compute SRP summary data from filtered results
+  const summaryData = useMemo(
+    () => generateSrpSummary(towFilteredResults, filters),
+    [towFilteredResults, filters]
+  );
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
@@ -371,6 +379,8 @@ export default function SearchResultsPage() {
                 </div>
               </div>
             </div>
+
+            <SrpSummaryCard data={summaryData} />
 
             {/* Mobile filter/sort bar */}
             <MobileFilterBar
