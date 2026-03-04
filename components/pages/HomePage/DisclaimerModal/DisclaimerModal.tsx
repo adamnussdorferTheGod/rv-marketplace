@@ -26,7 +26,7 @@ export default function DisclaimerModal({ onClose }: DisclaimerModalProps) {
         </div>
         <div className={styles.body}>
           <p className={styles.message}>
-            This is a prototype. Not a live product or committed roadmap feature.
+            This is a prototype built to explore, ideate, and test possible features. Not a live product or committed roadmap item.
           </p>
           <button className={styles.gotItBtn} onClick={onClose}>
             Got it

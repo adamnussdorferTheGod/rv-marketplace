@@ -72,7 +72,7 @@
   background: var(--rv-primary);
   color: var(--color-white);
   border: none;
-  border-radius: var(--radius-base);
+  border-radius: var(--radius-full);
   font: var(--font-button-1);
   cursor: pointer;
   transition: background 150ms;
