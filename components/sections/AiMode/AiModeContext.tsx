@@ -70,11 +70,22 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
     messages: ConversationMessage[];
     exchangeCount: number;
     suggestedPrompts: string[];
-  }>>({
-    default: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
-    fitcheck: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
-    plan: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
-    'srp-assistant': { messages: [], exchangeCount: 0, suggestedPrompts: [] },
+  }>>(() => {
+    // Pre-populate srp-assistant thread with user message from hash
+    const h = typeof window !== 'undefined' ? window.location.hash : '';
+    const m = h.match(/^#ai=(.+)$/);
+    const chipMsg: ConversationMessage[] = m ? [{
+      id: `msg-chip-${Date.now()}`,
+      role: 'user',
+      content: decodeURIComponent(m[1]),
+      timestamp: Date.now(),
+    }] : [];
+    return {
+      default: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+      fitcheck: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+      plan: { messages: [], exchangeCount: 0, suggestedPrompts: generateInitialPrompts(listing) },
+      'srp-assistant': { messages: chipMsg, exchangeCount: 0, suggestedPrompts: [] },
+    };
   });
   const threadMapRef = useRef(threadMap);
   threadMapRef.current = threadMap;
@@ -116,7 +127,10 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
   }, [searchContext, filters, towVehicle, listings, buildChipInput]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(() => {
+    const h = typeof window !== 'undefined' ? window.location.hash : '';
+    return !!h.match(/^#ai=.+$/);
+  });
 
   const thread = threadMap[panelMode];
   const messages = thread.messages;
@@ -141,21 +155,27 @@ export function AiModeProvider({ listing, searchContext, filters, towVehicle, li
       const currentThread = threadMapRef.current[mode];
       if (currentThread.exchangeCount >= 2 && !isAuthenticated) return;
 
-      const userMsg: ConversationMessage = {
+      // Skip adding user message if it's already the last message (pre-populated from hash)
+      const lastMsg = currentThread.messages[currentThread.messages.length - 1];
+      const alreadyAdded = lastMsg?.role === 'user' && lastMsg.content === content;
+
+      const userMsg: ConversationMessage = alreadyAdded ? lastMsg : {
         id: nextId(),
         role: 'user',
         content,
         timestamp: Date.now(),
       };
 
-      setThreadMap((prev) => ({
-        ...prev,
-        [mode]: { ...prev[mode], messages: [...prev[mode].messages, userMsg], suggestedPrompts: [] },
-      }));
+      if (!alreadyAdded) {
+        setThreadMap((prev) => ({
+          ...prev,
+          [mode]: { ...prev[mode], messages: [...prev[mode].messages, userMsg], suggestedPrompts: [] },
+        }));
+      }
       setIsLoading(true);
 
       try {
-        const history = [...currentThread.messages, userMsg];
+        const history = alreadyAdded ? currentThread.messages : [...currentThread.messages, userMsg];
         let response: string;
         let followUpPrompts: string[];
         let recommendedListings: import('../../../app/src/data/srpTypes').SRPListing[] | undefined;
