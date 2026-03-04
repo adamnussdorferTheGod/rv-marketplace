@@ -138,22 +138,15 @@
   min-width: 0;
 }
 
-/* Row 1: chips show full text, row wraps if needed */
+/* Row 1: wraps if chips don't fit */
 .chipRow:first-child {
   flex-wrap: wrap;
 }
 
-.chipRow:first-child .chip {
-  flex-shrink: 0;
-}
-
-/* Row 2: single line, last chip truncates to keep Ask button visible */
-.chipRow:last-child .chip {
-  white-space: nowrap;
-}
-
+/* Row 2: only the last chip before Ask truncates */
 .chipRow:last-child .chip:last-of-type {
-  flex: 1 1 0;
+  flex-shrink: 1;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -166,8 +159,8 @@
   font: var(--font-label-2);
   color: #6e7072;
   cursor: pointer;
-  min-width: 0;
-  flex: 0 1 auto;
+  white-space: nowrap;
+  flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
