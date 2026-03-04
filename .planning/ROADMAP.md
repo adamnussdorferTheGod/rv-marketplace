@@ -966,7 +966,7 @@ Plans:
 - Render budget: Section renders within 500ms (all data pre-cached/static)
 
 - [x] **Phase 56: Summary Data Layer & Types** - Pure TypeScript summary engine with headline stats, histogram bins, deal breakdown, confidence tiers, narrative templates, and Vitest tests (completed 2026-03-04)
-- [ ] **Phase 57: Summary Card -- Stat Bar & Narrative** - SrpSummaryCard with StatBar, AiNarrative, ConfidenceGate, responsive 3-state layout (desktop/tablet/mobile), dismiss/restore, skeleton placeholder, and summary card accessibility
+- [x] **Phase 57: Summary Card -- Stat Bar & Narrative** - SrpSummaryCard with StatBar, AiNarrative, ConfidenceGate, responsive 3-state layout (desktop/tablet/mobile), dismiss/restore, skeleton placeholder, and summary card accessibility (completed 2026-03-04)
 - [ ] **Phase 58: Mock Assistant Service & Chat Input** - mockSrpAssistantService with 5-category keyword classification, SearchContext contract, AiAssistantInput with contextual prompt chips, follow-up chip mapping, and AiModeProvider extension
 - [ ] **Phase 59: Assistant Panel & Rich Message Types** - AiAssistantPanel (desktop overlay), AssistantSheet (mobile bottom sheet with FAB), AssistantMessage polymorphic renderer (text/comparison/listing/action), useTypewriter hook, conversation thread with accessibility
 - [ ] **Phase 60: Detail Panel & Charts** - SummaryDetailPanel with expand/collapse animation, price distribution histogram (SVG), deal quality breakdown (SVG donut), 6-month trend chart (SVG line), minimum-n fallbacks, and chart accessibility
@@ -1124,7 +1124,7 @@ Plans:
 | 54. Insight Cards | v9.0 | 0/2 | Not started | - |
 | 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
 | 56. Summary Data Layer & Types | 2/2 | Complete    | 2026-03-04 | - |
-| 57. Summary Card -- Stat Bar & Narrative | 1/2 | In Progress|  | - |
+| 57. Summary Card -- Stat Bar & Narrative | 2/2 | Complete   | 2026-03-04 | - |
 | 58. Mock Assistant Service & Chat Input | v10.0 | 0/2 | Not started | - |
 | 59. Assistant Panel & Rich Message Types | v10.0 | 0/2 | Not started | - |
 | 60. Detail Panel & Charts | v10.0 | 0/2 | Not started | - |
