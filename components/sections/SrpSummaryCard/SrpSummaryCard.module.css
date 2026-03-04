@@ -270,18 +270,20 @@
   gap: 8px;
 }
 
-.minimizedText {
+.minimizedNarrative {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
   font: var(--font-body-2);
   color: #505050;
   line-height: 24px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0;
 }
 
-.minimizedText strong {
+.minimizedNarrative strong {
   font-weight: 700;
 }
 

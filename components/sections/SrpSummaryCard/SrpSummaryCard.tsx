@@ -144,9 +144,6 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
   const arrowDirection = trendIsDown ? 'down' : 'up' as const;
   const chartDirection: 'up' | 'down' | 'flat' = trendIsDown ? 'down' : trendIsUp ? 'up' : 'flat';
 
-  // First sentence for minimized view
-  const firstSentence = `Your search returned ${headlineStats.listingCount.toLocaleString('en-US')} listings. The median asking price is ${medianFormatted}`;
-
   // Skeleton
   if (isLoading) {
     return (
@@ -166,7 +163,7 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
     );
   }
 
-  // Minimized view — first sentence only
+  // Minimized view — full narrative with inline badges
   if (minimized) {
     return (
       <section
@@ -178,11 +175,22 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
         <div className={styles.minimizedCard}>
           <div className={styles.minimizedInner}>
             <span className={styles.sparkleIcon}>
-              <Icon name="sparkles" size={16} />
+              <Icon name="sparkles" size={24} />
             </span>
-            <span className={styles.minimizedText}>
-              {firstSentence}
-            </span>
+            <p className={styles.minimizedNarrative}>
+              <span>Your search returned</span>
+              <strong>{headlineStats.listingCount.toLocaleString('en-US')}</strong>
+              <span>listings. The median asking price is</span>
+              <strong>{medianFormatted}</strong>
+              <span>and the current price trend is {trendWord}</span>
+              {!trendIsFlat && (
+                <>
+                  <TrendArrow direction={arrowDirection} />
+                  <strong>{trendAbs}%</strong>
+                  <MiniChart direction={chartDirection} id="min-trend" />
+                </>
+              )}
+            </p>
             <button
               type="button"
               className={styles.expandBtn}
