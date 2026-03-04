@@ -133,14 +133,15 @@
 
 .chipRow {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8) var(--space-16);
+  gap: var(--space-16);
   align-items: center;
   min-width: 0;
 }
 
-.chipRow:last-child {
-  flex-wrap: nowrap;
+.chipRow:last-child .chip:last-of-type {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chip {
