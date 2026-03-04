@@ -1,4 +1,5 @@
-import type { SRPListing } from './srpTypes';
+import type { SRPListing, RVType } from './srpTypes';
+import { RV_TYPE_LABELS } from './srpTypes';
 import type {
   AssistantMessageData,
   SearchContextType,
@@ -479,6 +480,319 @@ function pickRecommendedListings(
   }
 }
 
+// ---- Direct chip responses ----
+// Purpose-built responses for specific chip intents. These bypass the generic
+// classifier to actually answer what the user asked.
+
+interface DirectResponse {
+  content: string;
+  listings: SRPListing[];
+}
+
+function buildTypeBreakdown(listings: SRPListing[]): string {
+  const counts = new Map<RVType, { count: number; minPrice: number; maxPrice: number }>();
+  for (const l of listings) {
+    const entry = counts.get(l.rvType) ?? { count: 0, minPrice: Infinity, maxPrice: -Infinity };
+    entry.count++;
+    if (l.currentPrice < entry.minPrice) entry.minPrice = l.currentPrice;
+    if (l.currentPrice > entry.maxPrice) entry.maxPrice = l.currentPrice;
+    counts.set(l.rvType, entry);
+  }
+  const sorted = [...counts.entries()].sort((a, b) => b[1].count - a[1].count);
+  const rows = sorted.map(([type, data]) => {
+    const label = RV_TYPE_LABELS[type] ?? type;
+    const priceRange = data.minPrice === data.maxPrice
+      ? `$${data.minPrice.toLocaleString()}`
+      : `$${data.minPrice.toLocaleString()} – $${data.maxPrice.toLocaleString()}`;
+    return `| ${label} | ${data.count} | ${priceRange} |`;
+  });
+  return rows.join('\n');
+}
+
+function buildMakeBreakdown(listings: SRPListing[]): string {
+  const counts = new Map<string, { count: number; avgPrice: number; totalPrice: number }>();
+  for (const l of listings) {
+    const entry = counts.get(l.make) ?? { count: 0, avgPrice: 0, totalPrice: 0 };
+    entry.count++;
+    entry.totalPrice += l.currentPrice;
+    counts.set(l.make, entry);
+  }
+  const sorted = [...counts.entries()]
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 8);
+  const rows = sorted.map(([make, data]) => {
+    const avg = Math.round(data.totalPrice / data.count);
+    return `| ${make} | ${data.count} | $${avg.toLocaleString()} |`;
+  });
+  return rows.join('\n');
+}
+
+function buildPriceTierBreakdown(listings: SRPListing[]): string {
+  const tiers = [
+    { label: 'Under $25K', min: 0, max: 25000 },
+    { label: '$25K – $50K', min: 25000, max: 50000 },
+    { label: '$50K – $100K', min: 50000, max: 100000 },
+    { label: '$100K – $200K', min: 100000, max: 200000 },
+    { label: '$200K+', min: 200000, max: Infinity },
+  ];
+  const rows: string[] = [];
+  for (const tier of tiers) {
+    const inTier = listings.filter(l => l.currentPrice >= tier.min && l.currentPrice < tier.max);
+    if (inTier.length === 0) continue;
+    const types = new Map<string, number>();
+    for (const l of inTier) {
+      types.set(RV_TYPE_LABELS[l.rvType] ?? l.rvType, (types.get(RV_TYPE_LABELS[l.rvType] ?? l.rvType) ?? 0) + 1);
+    }
+    const topTypes = [...types.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([t]) => t).join(', ');
+    rows.push(`| ${tier.label} | ${inTier.length} | ${topTypes} |`);
+  }
+  return rows.join('\n');
+}
+
+function tryDirectResponse(
+  query: string,
+  context: SearchContext,
+  listings: SRPListing[],
+): DirectResponse | null {
+  const lower = query.toLowerCase();
+
+  // ── "Help me choose an RV type" ──
+  if (lower.includes('choose an rv type') || lower.includes('choose a type')) {
+    const typeRows = buildTypeBreakdown(listings);
+    const content =
+`**RV Types in Your Search**
+
+| Type | Listings | Price Range |
+| --- | --- | --- |
+${typeRows}
+
+**Quick guide by lifestyle:**
+
+- **Travel Trailers** — most popular, huge variety, towable by many SUVs and trucks. Great all-around choice.
+- **Fifth Wheels** — spacious, stable towing, but require a pickup truck with a bed-mounted hitch.
+- **Class A** — largest motorhomes, full residential feel, best for full-time living or long trips.
+- **Class B** — camper vans, easiest to drive and park, ideal for couples or solo adventurers.
+- **Class C** — mid-size motorhomes, good family option with sleeping over the cab.
+- **Toy Haulers** — built-in garage for ATVs, bikes, or gear.
+
+Start by thinking about **how you'll use it** (weekends vs. full-time), **who's coming** (couple vs. family), and **what you'll tow with** (or if you want to drive it).`;
+
+    // Pick one listing from each type for variety
+    const seen = new Set<string>();
+    const picks: SRPListing[] = [];
+    for (const l of listings) {
+      if (seen.has(l.rvType)) continue;
+      seen.add(l.rvType);
+      picks.push(l);
+      if (picks.length >= 3) break;
+    }
+    return { content, listings: picks };
+  }
+
+  // ── "Towable or motorhome?" ──
+  if (lower.includes('towable or motorhome') || lower.includes('towable vs motor')) {
+    const towable = listings.filter(l => ['travel-trailer', 'fifth-wheel', 'toy-hauler', 'pop-up', 'truck-camper'].includes(l.rvType));
+    const motorized = listings.filter(l => ['class-a', 'class-b', 'class-c'].includes(l.rvType));
+    const towAvg = towable.length > 0 ? Math.round(towable.reduce((s, l) => s + l.currentPrice, 0) / towable.length) : 0;
+    const motAvg = motorized.length > 0 ? Math.round(motorized.reduce((s, l) => s + l.currentPrice, 0) / motorized.length) : 0;
+
+    const content =
+`**Towable vs. Motorhome — In Your Search**
+
+| | Towable | Motorhome |
+| --- | --- | --- |
+| Listings | ${towable.length} | ${motorized.length} |
+| Avg Price | $${towAvg.toLocaleString()} | $${motAvg.toLocaleString()} |
+
+**Towable (Travel Trailers, Fifth Wheels, etc.)**
+- Usually less expensive — your tow vehicle doubles as a daily driver
+- Unhitch at camp and drive to town
+- More floor plan variety per dollar
+- Need a capable tow vehicle (check weight ratings)
+
+**Motorhome (Class A, B, C)**
+- All-in-one — just get in and go
+- No separate tow vehicle needed (but many tow a car behind)
+- Class B vans fit in a normal parking spot
+- Higher upfront cost, but only one vehicle to maintain
+
+**Bottom line:** If you already own a truck or SUV, towable gives you more RV for the money. If you want simplicity or plan to travel frequently, a motorhome keeps things easy.`;
+
+    const picks: SRPListing[] = [];
+    if (towable.length > 0) picks.push(towable[0]);
+    if (motorized.length > 0) picks.push(motorized[0]);
+    if (towable.length > 1) picks.push(towable[Math.floor(towable.length / 2)]);
+    return { content, listings: picks.slice(0, 3) };
+  }
+
+  // ── "What are the best RV brands?" ──
+  if (lower.includes('best rv brands') || lower.includes('best brands')) {
+    const makeRows = buildMakeBreakdown(listings);
+    const content =
+`**Top Brands in Your Search**
+
+| Brand | Listings | Avg Price |
+| --- | --- | --- |
+${makeRows}
+
+**Brand reputation tiers** (general industry consensus):
+
+**Premium** — Airstream, Tiffin, Newmar, Entegra. Higher price, excellent build quality and resale value.
+
+**Upper-mid** — Grand Design, Winnebago, Jayco. Strong owner satisfaction, good quality-to-price ratio.
+
+**Volume** — Forest River, Thor, Keystone, Coachmen. Wide model range, competitive pricing, mixed quality across lines — their premium sub-brands (e.g. Grand Design under Winnebago, Riverstone under Forest River) are notably better.
+
+Brand matters less than the specific **model and model year**. Check owner forums for the exact unit you're considering.`;
+
+    // Show one from top 3 makes
+    const picks: SRPListing[] = [];
+    const seenMakes = new Set<string>();
+    for (const l of listings) {
+      if (seenMakes.has(l.make)) continue;
+      seenMakes.add(l.make);
+      picks.push(l);
+      if (picks.length >= 3) break;
+    }
+    return { content, listings: picks };
+  }
+
+  // ── "What's popular right now?" ──
+  if (lower.includes('popular right now') || lower.includes("what's popular")) {
+    const typeCounts = new Map<string, number>();
+    const makeCounts = new Map<string, number>();
+    for (const l of listings) {
+      typeCounts.set(l.rvType, (typeCounts.get(l.rvType) ?? 0) + 1);
+      makeCounts.set(l.make, (makeCounts.get(l.make) ?? 0) + 1);
+    }
+    const topType = [...typeCounts.entries()].sort((a, b) => b[1] - a[1])[0];
+    const topMakes = [...makeCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const topTypeLabel = topType ? (RV_TYPE_LABELS[topType[0] as RVType] ?? topType[0]) : 'Travel Trailers';
+
+    const greatDeals = listings.filter(l => l.dealRating === 'great').length;
+    const fastMovers = listings.filter(l => l.daysOnSite <= 14).length;
+
+    const content =
+`**What's Trending Across ${context.resultCount} Listings**
+
+**Most listed type:** ${topTypeLabel} (${topType?.[1] ?? 0} listings)
+**Top brands:** ${topMakes.map(([m, c]) => `${m} (${c})`).join(', ')}
+**Median price:** ${formatPrice(context.medianPrice)}
+
+${greatDeals > 0 ? `**${greatDeals} listings** are priced well below market — worth a look.` : ''}
+${fastMovers > 0 ? `**${fastMovers} listings** were added in the last 2 weeks — the freshest inventory.` : ''}
+
+${context.priceTrend < -1 ? `Prices are trending **down ${Math.abs(context.priceTrend)}%** vs the 6-month average — buyer leverage is strong right now.` : context.priceTrend > 1 ? `Prices are trending **up ${Math.abs(context.priceTrend)}%** — demand is rising.` : 'Prices are stable compared to recent months.'}`;
+
+    // Show the freshest or best-deal listings
+    const sorted = [...listings].sort((a, b) => a.daysOnSite - b.daysOnSite);
+    return { content, listings: sorted.slice(0, 3) };
+  }
+
+  // ── "What can I get for my budget?" ──
+  if (lower.includes('get for my budget') || lower.includes('for my budget')) {
+    const tierRows = buildPriceTierBreakdown(listings);
+    const content =
+`**What's Available by Price**
+
+| Price Range | Listings | Mostly |
+| --- | --- | --- |
+${tierRows}
+
+**Budget guide:**
+
+- **Under $25K** — Used travel trailers, pop-ups, older Class C motorhomes. Good entry point.
+- **$25K–$50K** — Sweet spot for used mid-size travel trailers and fifth wheels. Some newer entry-level units.
+- **$50K–$100K** — Newer models, larger floor plans, used Class A and C motorhomes. Good variety.
+- **$100K–$200K** — New mid-range to premium units. Used luxury motorhomes.
+- **$200K+** — New luxury Class A diesels, high-end fifth wheels, premium brands.
+
+The best **value** is usually a **3–5 year old unit** — past the steepest depreciation but still in great shape.`;
+
+    // Show one from low, mid, high price
+    const sorted = [...listings].sort((a, b) => a.currentPrice - b.currentPrice);
+    const picks: SRPListing[] = [];
+    if (sorted.length >= 3) {
+      picks.push(sorted[0], sorted[Math.floor(sorted.length / 2)], sorted[sorted.length - 1]);
+    } else {
+      picks.push(...sorted.slice(0, 3));
+    }
+    return { content, listings: picks };
+  }
+
+  // ── "First RV — where do I start?" / "Best pick for a first-timer?" ──
+  if (lower.includes('first rv') || lower.includes('first-timer') || lower.includes('where do i start') || lower.includes('for beginners')) {
+    const entryLevel = [...listings]
+      .filter(l => l.currentPrice <= 50000 && l.lengthFt <= 30)
+      .sort((a, b) => {
+        const aScore = (a.dealRating === 'great' ? 3 : a.dealRating === 'good' ? 2 : 1);
+        const bScore = (b.dealRating === 'great' ? 3 : b.dealRating === 'good' ? 2 : 1);
+        return bScore - aScore;
+      });
+
+    const content =
+`**First-Timer's Guide**
+
+If you're new to RVing, here's how to narrow it down:
+
+**1. How will you use it?**
+- Weekend campgrounds → Travel Trailer or Pop-Up (easiest, most affordable)
+- Road trips → Class C or Class B (drive, park, done)
+- Extended travel → Class A or Fifth Wheel (most space and comfort)
+
+**2. Can you tow?**
+- Own a truck or SUV? → Towable RVs give you more space per dollar
+- No tow vehicle? → Class B van or Class C motorhome — self-contained
+
+**3. How many people?**
+- Couple → Class B, small travel trailer (under 25 ft)
+- Family → Bunkhouse travel trailer, Class C with bunks
+- Solo → Truck camper, small Class B
+
+**4. Start small.** Your first RV doesn't have to be your forever RV. Smaller units (under 28 ft) are easier to tow, park, and back into a campsite. You can always upgrade once you know what you like.
+
+${entryLevel.length > 0 ? `There are **${entryLevel.length} beginner-friendly options** in your search (under $50K, under 30 ft).` : ''}`;
+
+    return { content, listings: entryLevel.slice(0, 3) };
+  }
+
+  // ── "What's the market like?" (generic, no filters) ──
+  if (lower === "what's the market like?" || lower === 'what is the market like') {
+    const { dealBreakdown } = context;
+    const belowMarket = dealBreakdown.great + dealBreakdown.good;
+    const belowPct = dealBreakdown.totalRated > 0
+      ? Math.round((belowMarket / dealBreakdown.totalRated) * 100)
+      : 0;
+
+    const typeRows = buildTypeBreakdown(listings);
+    const content =
+`**Market Overview — ${context.resultCount} Listings**
+
+| Type | Listings | Price Range |
+| --- | --- | --- |
+${typeRows}
+
+**Key metrics:**
+- **Median price:** ${formatPrice(context.medianPrice)}
+- **Price range:** ${formatPrice(context.priceRange.min)} – ${formatPrice(context.priceRange.max)}
+- **Avg days on market:** ${context.avgDaysOnMarket} days
+${belowPct > 0 ? `- **${belowPct}% of rated listings** are priced below market value` : ''}
+
+${context.priceTrend < -1 ? `Prices are trending **down ${Math.abs(context.priceTrend)}%** — it's a buyer's market.` : context.priceTrend > 1 ? `Prices are trending **up ${context.priceTrend}%** — sellers have leverage.` : 'Prices are stable — no strong pressure in either direction.'}`;
+
+    const sorted = [...listings].sort((a, b) => a.currentPrice - b.currentPrice);
+    const picks: SRPListing[] = [];
+    if (sorted.length >= 3) {
+      picks.push(sorted[0], sorted[Math.floor(sorted.length / 2)], sorted[sorted.length - 1]);
+    } else {
+      picks.push(...sorted.slice(0, 3));
+    }
+    return { content, listings: picks };
+  }
+
+  return null;
+}
+
 // ---- Main service ----
 
 export async function mockSrpAssistantService(
@@ -494,25 +808,33 @@ export async function mockSrpAssistantService(
     return { type: 'text', content: guardrailResponse };
   }
 
-  // 2. Classify query
+  // 2. Try direct chip responses (purpose-built answers for known intents)
+  const direct = tryDirectResponse(query, context, listings);
+  if (direct) {
+    const delay = 500 + Math.random() * 1000;
+    await new Promise((resolve) => setTimeout(resolve, delay));
+    return { type: 'text', content: direct.content, recommendedListings: direct.listings };
+  }
+
+  // 3. Classify query (generic fallback)
   const category = classifyQuery(query);
 
-  // 3. Build template vars (now also receives query for make extraction)
+  // 4. Build template vars (now also receives query for make extraction)
   const vars = buildTemplateVars(context, query);
 
-  // 4. Get first template (deterministic)
+  // 5. Get first template (deterministic)
   const template = RESPONSE_TEMPLATES[category][0];
 
-  // 5. Interpolate
+  // 6. Interpolate
   const content = interpolate(template, vars);
 
-  // 6. Pick recommended listings
+  // 7. Pick recommended listings
   const recommendedListings = pickRecommendedListings(category, listings, context);
 
-  // 7. Simulate async delay
+  // 8. Simulate async delay
   const delay = 500 + Math.random() * 1000;
   await new Promise((resolve) => setTimeout(resolve, delay));
 
-  // 8. Return typed response with recommended listings
+  // 9. Return typed response with recommended listings
   return { type: 'text', content, recommendedListings };
 }

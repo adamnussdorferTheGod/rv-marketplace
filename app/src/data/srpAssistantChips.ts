@@ -181,9 +181,22 @@ function buildInterpolationMap(input: ChipEngineInput): InterpolationMap {
   };
 }
 
+// Helper: user explicitly filtered by make?
+function hasExplicitMakeFilter(input: ChipEngineInput): boolean {
+  return input.filters.makes.length > 0;
+}
+
 // Helper: does this input have a clear make context?
+// True when user filtered by make OR listings have a dominant make.
 function hasMakeContext(input: ChipEngineInput): boolean {
   return input.filters.makes.length > 0 || input.search.topMakes.length > 0;
+}
+
+// Helper: damping factor for make-specificity.
+// Full score when user explicitly filtered by make, reduced when make is
+// just incidentally the most common in unfiltered results.
+function makeSpecificityMultiplier(input: ChipEngineInput): number {
+  return hasExplicitMakeFilter(input) ? 1.0 : 0.45;
 }
 
 // Helper: does this input have multiple distinct models?
@@ -261,9 +274,12 @@ function isUsedOnly(input: ChipEngineInput): boolean {
   return input.filters.condition === 'used';
 }
 
-// Helper: totally broad search (no meaningful filters)?
+// Helper: totally broad search (no meaningful explicit filters)?
+// Only checks what the USER chose, not what the listings happen to contain.
 function isBroadSearch(input: ChipEngineInput): boolean {
-  return !hasMakeContext(input) && !hasRvTypeContext(input) && !hasMultipleRvTypes(input);
+  return input.filters.makes.length === 0
+    && input.filters.models.length === 0
+    && input.filters.rvTypes.length === 0;
 }
 
 // ─── Text interpolation ────────────────────────────────────────────
@@ -361,7 +377,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Can I tow a {rvTypeShort}?',
     score: (input) => {
       if (input.towVehicle) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.listings.some(l => isTowableType(l.rvType)) ? 55 : 0;
     },
@@ -371,7 +387,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'tow-compatibility',
     text: '{rvType} weight range?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.listings.some(l => isTowableType(l.rvType)) ? 45 : 0;
     },
@@ -423,7 +439,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'floor-plan',
     text: 'Best {rvTypeShort} floor plans?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 55 : 0;
     },
   },
@@ -432,7 +448,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'floor-plan',
     text: 'Which {rvTypeShort} sleeps most?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       const caps = input.listings.map(l => l.sleepingCapacity).filter(c => c > 0);
       return new Set(caps).size >= 2 ? 50 : 15;
@@ -443,7 +459,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'floor-plan',
     text: '{rvTypeShort} bunkhouse options?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.listings.some(l => l.floorPlan?.toLowerCase().includes('bunk')) ? 45 : 0;
     },
@@ -515,7 +531,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'price-validation',
     text: '{medianPrice} fair for {rvTypeShort}s?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.search.resultCount >= 3 ? 60 : 20;
     },
@@ -525,7 +541,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'price-validation',
     text: '{greatDeals} great {rvTypeShort} deals',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.search.dealBreakdown.great > 0 ? 70 : 0;
     },
@@ -535,7 +551,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'price-validation',
     text: '{rvTypeShort} price range?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 50 : 0;
     },
   },
@@ -545,8 +561,8 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'price-validation',
     text: 'Show me the {greatDeals} great deals',
     score: (input) => {
-      if (hasMakeContext(input) || hasRvTypeContext(input)) return 0;
-      return input.search.dealBreakdown.great > 0 ? 55 : 0;
+      if (hasExplicitMakeFilter(input) || hasRvTypeContext(input)) return 0;
+      return input.search.dealBreakdown.great > 0 ? 60 : 0;
     },
   },
 
@@ -594,7 +610,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'model-comparison',
     text: 'Top {rvTypeShort} brands?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.search.topMakes.length >= 2 ? 55 : 20;
     },
@@ -604,7 +620,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'model-comparison',
     text: 'Most popular {rvTypeShort}?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 50 : 0;
     },
   },
@@ -668,7 +684,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'condition-inspection',
     text: 'Common {rvTypeShort} issues?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.filters.condition !== 'new' ? 55 : 20;
     },
@@ -678,7 +694,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'condition-inspection',
     text: 'Used {rvTypeShort} checklist?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.filters.condition === 'used' ? 50 : 10;
     },
@@ -724,7 +740,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'lifestyle-fit',
     text: 'Best {rvTypeShort} for families?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       const familyFriendly = input.listings.filter(l => l.sleepingCapacity >= 6);
       return familyFriendly.length > 2 ? 55 : 20;
@@ -735,7 +751,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'lifestyle-fit',
     text: '{rvTypeShort}s for full-time living?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       const large = input.listings.filter(l => l.lengthFt >= 30);
       return large.length > 2 ? 50 : 10;
@@ -746,7 +762,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'lifestyle-fit',
     text: '{rvTypeShort}s good for beginners?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 45 : 0;
     },
   },
@@ -756,8 +772,8 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'lifestyle-fit',
     text: 'Best pick for a first-timer?',
     score: (input) => {
-      if (hasMakeContext(input) || hasRvTypeContext(input)) return 0;
-      return 45;
+      if (hasExplicitMakeFilter(input) || hasRvTypeContext(input)) return 0;
+      return 55;
     },
   },
 
@@ -811,7 +827,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'depreciation-value',
     text: 'Do {rvTypeShort}s hold value?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 50 : 0;
     },
   },
@@ -820,7 +836,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'depreciation-value',
     text: 'New vs used {rvTypeShort} savings?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       const hasNew = input.listings.some(l => l.condition === 'new');
       const hasUsed = input.listings.some(l => l.condition === 'used');
@@ -875,7 +891,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'regional-seasonal',
     text: '{rvTypeShort} market overview?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       if (!hasRvTypeContext(input)) return 0;
       return input.search.resultCount >= 5 ? 50 : 25;
     },
@@ -885,7 +901,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'regional-seasonal',
     text: 'Best time to buy {rvTypeShort}s?',
     score: (input) => {
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 45 : 0;
     },
   },
@@ -895,8 +911,8 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     category: 'regional-seasonal',
     text: "What's the market like?",
     score: (input) => {
-      if (hasMakeContext(input) || hasRvTypeContext(input)) return 0;
-      return 40;
+      if (hasExplicitMakeFilter(input) || hasRvTypeContext(input)) return 0;
+      return 55;
     },
   },
 
@@ -910,7 +926,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: '{rvTypeAShort} vs {rvTypeBShort}?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 30; // lower when make context exists
+      if (hasExplicitMakeFilter(input)) return 30; // lower when make filter exists
       return 65;
     },
   },
@@ -920,7 +936,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Which type holds value better?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return 55;
     },
   },
@@ -930,7 +946,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Which type fits my budget?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return 60;
     },
   },
@@ -940,7 +956,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Towing: {rvTypeAShort} vs {rvTypeBShort}?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return input.listings.some(l => isTowableType(l.rvType)) ? 55 : 0;
     },
   },
@@ -950,7 +966,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Which type suits my lifestyle?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return 50;
     },
   },
@@ -960,7 +976,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Best deals across these types?',
     score: (input) => {
       if (!hasMultipleRvTypes(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return input.search.dealBreakdown.great > 0 ? 55 : 25;
     },
   },
@@ -1103,7 +1119,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Fifth wheel vs travel trailer?',
     score: (input) => {
       if (!isFifthWheelSearch(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return 45;
     },
   },
@@ -1124,7 +1140,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Toy hauler vs travel trailer?',
     score: (input) => {
       if (!isToyHaulerSearch(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return 45;
     },
   },
@@ -1235,7 +1251,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'New {rvTypeShort} warranty?',
     score: (input) => {
       if (!isNewOnly(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 50 : 0;
     },
   },
@@ -1275,7 +1291,7 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     text: 'Used {rvTypeShort} buying guide?',
     score: (input) => {
       if (!isUsedOnly(input)) return 0;
-      if (hasMakeContext(input)) return 0;
+      if (hasExplicitMakeFilter(input)) return 0;
       return hasRvTypeContext(input) ? 50 : 0;
     },
   },
@@ -1343,37 +1359,37 @@ const CHIP_TEMPLATES: ChipTemplate[] = [
     id: 'bs-choose-type',
     category: 'model-comparison',
     text: 'Help me choose an RV type',
-    score: (input) => isBroadSearch(input) ? 55 : 0,
+    score: (input) => isBroadSearch(input) ? 70 : 0,
   },
   {
     id: 'bs-popular-now',
     category: 'regional-seasonal',
     text: "What's popular right now?",
-    score: (input) => isBroadSearch(input) ? 50 : 0,
+    score: (input) => isBroadSearch(input) ? 65 : 0,
   },
   {
     id: 'bs-budget-guide',
     category: 'price-validation',
     text: 'What can I get for my budget?',
-    score: (input) => isBroadSearch(input) ? 50 : 0,
+    score: (input) => isBroadSearch(input) ? 65 : 0,
   },
   {
     id: 'bs-first-rv',
     category: 'lifestyle-fit',
     text: 'First RV — where do I start?',
-    score: (input) => isBroadSearch(input) ? 45 : 0,
+    score: (input) => isBroadSearch(input) ? 60 : 0,
   },
   {
     id: 'bs-best-brands',
     category: 'model-comparison',
     text: 'What are the best RV brands?',
-    score: (input) => isBroadSearch(input) ? 45 : 0,
+    score: (input) => isBroadSearch(input) ? 60 : 0,
   },
   {
     id: 'bs-towable-vs-motorhome',
     category: 'model-comparison',
     text: 'Towable or motorhome?',
-    score: (input) => isBroadSearch(input) ? 50 : 0,
+    score: (input) => isBroadSearch(input) ? 65 : 0,
   },
 
   // ══════════════════════════════════════════════════════════════════
@@ -1464,6 +1480,14 @@ export function generateSrpChips(
   for (const template of CHIP_TEMPLATES) {
     let rawScore = template.score(input);
     if (rawScore <= 0) continue;
+
+    // Make-specificity damping: if a chip references {make} but the user
+    // didn't explicitly filter by make, reduce its score so discovery/broad
+    // chips can compete. Without this, incidental top-make from listings
+    // (e.g. Forest River) dominates every unfiltered search.
+    if (template.text.includes('{make}') && !hasExplicitMakeFilter(input)) {
+      rawScore *= makeSpecificityMultiplier(input);
+    }
 
     // History modifiers
     const lastCategory = history.turns[history.turns.length - 1] ?? null;
