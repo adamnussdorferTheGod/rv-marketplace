@@ -3,6 +3,7 @@
 /* Wrapper: contains the glow + card together */
 .wrapper {
   position: relative;
+  margin-top: -20px;
   margin-bottom: var(--space-16);
   padding: 12px 0;
 }
