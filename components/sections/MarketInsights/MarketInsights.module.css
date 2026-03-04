@@ -30,7 +30,7 @@
 .cardContent {
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
+  gap: var(--space-4);
 }
 
 /* 40px icon circle */
