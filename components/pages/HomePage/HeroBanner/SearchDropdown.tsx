@@ -29,6 +29,16 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
     onClose();
   };
 
+  const handleAiChipClick = (chipText: string) => {
+    navigate(`/search?aiChip=${encodeURIComponent(chipText)}`);
+    onClose();
+  };
+
+  const handleAskAnything = () => {
+    navigate('/search?aiOpen=1');
+    onClose();
+  };
+
   return (
     <div className={styles.dropdown}>
       <button
@@ -62,7 +72,33 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
         </div>
       </section>
 
-      {/* Section 2: Popular searches */}
+      {/* Section 2: Ask anything — AI chips */}
+      <section className={styles.askSection}>
+        <div className={styles.askGlow} />
+        <div className={styles.askInner}>
+          <h3 className={styles.askHeading}>
+            <Icon name="sparkle" size={20} />
+            Ask anything
+          </h3>
+          <div className={styles.askChipRows}>
+            <div className={styles.askChipRow}>
+              <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('Help me choose an RV type')}>Help me choose an RV type</button>
+              <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('Towable or motorhome?')}>Towable or motorhome?</button>
+              <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('What are the best RV brands?')}>What are the best RV brands?</button>
+            </div>
+            <div className={styles.askChipRow}>
+              <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('First RV — where do I start?')}>First RV — where do I start?</button>
+              <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('What can I get for my budget?')}>What can I get for my budget?</button>
+              <button type="button" className={styles.askCta} onClick={handleAskAnything}>
+                <Icon name="sparkle" size={16} />
+                Ask any question
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Popular searches */}
       <section>
         <h3 className={styles.sectionHeading}>Popular searches</h3>
         <div className={styles.chipWrap}>
@@ -83,7 +119,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
       {/* Section 4: Featured dealers */}
       <section>
         <div className={styles.sectionHeadingRow}>
-          <h3 className={styles.sectionHeading}>Featured from dealers near you</h3>
+          <h3 className={styles.sectionHeading}>Dealers near you</h3>
           <span className={styles.sponsoredBadge}>Sponsored</span>
         </div>
         <div className={styles.chipWrap}>
