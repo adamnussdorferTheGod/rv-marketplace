@@ -133,15 +133,29 @@
 
 .chipRow {
   display: flex;
-  gap: var(--space-16);
+  gap: var(--space-8);
   align-items: center;
   min-width: 0;
 }
 
+/* Row 1: chips show full text, row wraps if needed */
+.chipRow:first-child {
+  flex-wrap: wrap;
+}
+
+.chipRow:first-child .chip {
+  flex-shrink: 0;
+}
+
+/* Row 2: single line, last chip truncates to keep Ask button visible */
+.chipRow:last-child .chip {
+  white-space: nowrap;
+}
+
 .chipRow:last-child .chip:last-of-type {
+  flex: 1 1 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .chip {
