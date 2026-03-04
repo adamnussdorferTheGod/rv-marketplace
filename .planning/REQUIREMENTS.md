@@ -18,14 +18,14 @@ Requirements for v10.0 milestone. Each maps to roadmap phases.
 
 ### Summary Card UI
 
-- [ ] **CARD-01**: User sees a headline stat bar with 3-4 key metrics (listing count, median price, trend, avg DOM) above the SRP results
+- [x] **CARD-01**: User sees a headline stat bar with 3-4 key metrics (listing count, median price, trend, avg DOM) above the SRP results
 - [ ] **CARD-02**: User sees an AI-generated narrative paragraph below the stat bar summarizing the current search
 - [ ] **CARD-03**: User can expand a detail panel below the narrative to see charts and deeper analysis
 - [ ] **CARD-04**: Detail panel shows a price distribution histogram for the current search results
 - [ ] **CARD-05**: Detail panel shows a deal quality breakdown (great/good/fair/above market distribution)
 - [ ] **CARD-06**: Detail panel shows a 6-month price trend chart (simulated time-series data)
-- [ ] **CARD-07**: Summary card renders with confidence-gated content — full card at 50+ results, reduced at 10-49, stat bar only at 3-9, hidden at <3
-- [ ] **CARD-08**: Every data claim shows a grounding indicator (e.g., "Based on 24 listings matching your search")
+- [x] **CARD-07**: Summary card renders with confidence-gated content — full card at 50+ results, reduced at 10-49, stat bar only at 3-9, hidden at <3
+- [x] **CARD-08**: Every data claim shows a grounding indicator (e.g., "Based on 24 listings matching your search")
 - [ ] **CARD-09**: Card shows "Updated {date}" timestamp below narrative
 
 ### Assistant Data Layer
@@ -55,20 +55,20 @@ Requirements for v10.0 milestone. Each maps to roadmap phases.
 
 ### Responsive Behavior
 
-- [ ] **RESP-01**: Desktop (1024px+): full-width summary card between search bar and first listing row, stat bar + narrative visible by default
+- [x] **RESP-01**: Desktop (1024px+): full-width summary card between search bar and first listing row, stat bar + narrative visible by default
 - [ ] **RESP-02**: Tablet (768-1023px): stat bar wraps to 2x2 grid, narrative visible, detail panel collapsed
 - [ ] **RESP-03**: Mobile (<768px): collapsed single-line ("247 listings - Median $62,400 - Prices down 4%"), tap to expand
-- [ ] **RESP-04**: User can dismiss the summary card; preference persists in localStorage
-- [ ] **RESP-05**: Dismissed state shows subtle "View market insights" link; resets after 30 days
+- [ ] **RESP-04**: User can dismiss the summary card; preference persists in sessionStorage (returns on next visit)
+- [ ] **RESP-05**: Dismissed state shows subtle "View market insights" link; resets on new session
 - [ ] **RESP-06**: Assistant responses render with typewriter effect (character-by-character reveal)
 
 ### Accessibility
 
-- [ ] **A11Y-01**: Summary card has `role="region"` with `aria-label="Market insights for your search"`
+- [x] **A11Y-01**: Summary card has `role="region"` with `aria-label="Market insights for your search"`
 - [ ] **A11Y-02**: Expand/collapse uses `aria-expanded` and `aria-controls`
-- [ ] **A11Y-03**: All stats have sr-only context labels ("Median asking price: $62,400" not just "$62,400")
+- [x] **A11Y-03**: All stats have sr-only context labels ("Median asking price: $62,400" not just "$62,400")
 - [ ] **A11Y-04**: Charts have text summary via sr-only or accessible data table fallback
-- [ ] **A11Y-05**: Trend arrows use direction + color (not color alone) for accessibility
+- [x] **A11Y-05**: Trend arrows use direction + color (not color alone) for accessibility
 - [ ] **A11Y-06**: All interactive elements are keyboard-accessible (tab navigation)
 - [ ] **A11Y-07**: Chat conversation thread has `role="log"` with ARIA live region for new messages
 - [ ] **A11Y-08**: Respects `prefers-reduced-motion` for typewriter and expand animations
@@ -123,14 +123,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SUMM-04 | Phase 56 | Complete |
 | SUMM-05 | Phase 56 | Complete |
 | SUMM-06 | Phase 56 | Complete |
-| CARD-01 | Phase 57 | Pending |
+| CARD-01 | Phase 57 | Complete |
 | CARD-02 | Phase 57 | Pending |
 | CARD-03 | Phase 60 | Pending |
 | CARD-04 | Phase 60 | Pending |
 | CARD-05 | Phase 60 | Pending |
 | CARD-06 | Phase 60 | Pending |
-| CARD-07 | Phase 57 | Pending |
-| CARD-08 | Phase 57 | Pending |
+| CARD-07 | Phase 57 | Complete |
+| CARD-08 | Phase 57 | Complete |
 | CARD-09 | Phase 57 | Pending |
 | ASST-01 | Phase 58 | Pending |
 | ASST-02 | Phase 58 | Pending |
@@ -148,17 +148,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LAYT-02 | Phase 59 | Pending |
 | LAYT-03 | Phase 59 | Pending |
 | LAYT-04 | Phase 59 | Pending |
-| RESP-01 | Phase 57 | Pending |
+| RESP-01 | Phase 57 | Complete |
 | RESP-02 | Phase 57 | Pending |
 | RESP-03 | Phase 57 | Pending |
 | RESP-04 | Phase 57 | Pending |
 | RESP-05 | Phase 57 | Pending |
 | RESP-06 | Phase 59 | Pending |
-| A11Y-01 | Phase 57 | Pending |
+| A11Y-01 | Phase 57 | Complete |
 | A11Y-02 | Phase 57 | Pending |
-| A11Y-03 | Phase 57 | Pending |
+| A11Y-03 | Phase 57 | Complete |
 | A11Y-04 | Phase 60 | Pending |
-| A11Y-05 | Phase 57 | Pending |
+| A11Y-05 | Phase 57 | Complete |
 | A11Y-06 | Phase 59 | Pending |
 | A11Y-07 | Phase 59 | Pending |
 | A11Y-08 | Phase 59 | Pending |

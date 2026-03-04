@@ -996,7 +996,7 @@ Plans:
   2. An AI-generated narrative paragraph below the stat bar summarizes the current search in 2-3 sentences, with an "Updated {date}" timestamp, and both stat bar and narrative re-render when filters change
   3. The card renders confidence-gated content: full card (stat bar + narrative) at 50+ results, stat bar + shortened narrative at 10-49, stat bar only at 3-9, and the card hides entirely below 3 results
   4. Desktop shows the full-width card; tablet wraps the stat bar to a 2x2 grid with narrative visible; mobile collapses to a single-line summary ("247 listings - Median $62,400 - Prices down 4%") with tap to expand
-  5. User can dismiss the summary card (preference persisted in localStorage), and a subtle "View market insights" link allows re-enabling; the card uses `role="region"` with `aria-label`, expand/collapse uses `aria-expanded`, all stats have sr-only context labels, and trend indicators use direction + color (not color alone)
+  5. User can dismiss the summary card (preference persisted in sessionStorage), and a subtle "View market insights" link allows re-enabling; the card uses `role="region"` with `aria-label`, expand/collapse uses `aria-expanded`, all stats have sr-only context labels, and trend indicators use direction + color (not color alone)
 **Plans**: 2 plans
 
 Plans:
@@ -1124,7 +1124,7 @@ Plans:
 | 54. Insight Cards | v9.0 | 0/2 | Not started | - |
 | 55. Methodology Panels & Progressive Disclosure | v9.0 | 0/1 | Not started | - |
 | 56. Summary Data Layer & Types | 2/2 | Complete    | 2026-03-04 | - |
-| 57. Summary Card -- Stat Bar & Narrative | v10.0 | 0/2 | Not started | - |
+| 57. Summary Card -- Stat Bar & Narrative | 1/2 | In Progress|  | - |
 | 58. Mock Assistant Service & Chat Input | v10.0 | 0/2 | Not started | - |
 | 59. Assistant Panel & Rich Message Types | v10.0 | 0/2 | Not started | - |
 | 60. Detail Panel & Charts | v10.0 | 0/2 | Not started | - |
