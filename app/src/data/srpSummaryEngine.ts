@@ -135,34 +135,38 @@ function computeHistogramBins(listings: SRPListing[]): PriceBin[] {
   // Floor bin start to nearest $5K
   const binStart = Math.floor(minPrice / 5000) * 5000;
 
+  // Build bins, stopping when we've covered all prices
   const bins: PriceBin[] = [];
+  let assigned = 0;
+
   for (let i = 0; i < binCount; i++) {
     const bMin = binStart + i * binWidth;
-    const bMax = binStart + (i + 1) * binWidth;
     const isLast = i === binCount - 1;
 
-    const count = isLast
-      ? prices.filter((p) => p >= bMin).length -
-        bins.reduce((acc, b) => acc + b.count, 0)
-      : prices.filter((p) => p >= bMin && p < bMax).length;
-
-    const label = isLast
-      ? `${formatPriceK(bMin)}+`
-      : `${formatPriceK(bMin)}-${formatPriceK(bMax)}`;
-
-    bins.push({ min: bMin, max: isLast ? maxPrice : bMax, count, label });
+    if (isLast) {
+      // Last bin captures all remaining listings
+      const count = prices.length - assigned;
+      const label = `${formatPriceK(bMin)}+`;
+      bins.push({ min: bMin, max: maxPrice, count, label });
+      assigned += count;
+    } else {
+      const bMax = binStart + (i + 1) * binWidth;
+      const count = prices.filter((p) => p >= bMin && p < bMax).length;
+      const label = `${formatPriceK(bMin)}-${formatPriceK(bMax)}`;
+      bins.push({ min: bMin, max: bMax, count, label });
+      assigned += count;
+    }
   }
 
-  // Remove trailing empty bins
+  // Merge trailing empty bins into the last non-empty bin
   while (bins.length > 1 && bins[bins.length - 1].count === 0) {
     bins.pop();
-    // Update the new last bin to have "+" label
+  }
+  // Update last bin label to "+" format
+  if (bins.length > 1) {
     const last = bins[bins.length - 1];
     last.label = `${formatPriceK(last.min)}+`;
     last.max = maxPrice;
-    // Recount: last bin captures everything from its min onwards
-    last.count = prices.filter((p) => p >= last.min).length -
-      bins.slice(0, -1).reduce((acc, b) => acc + b.count, 0);
   }
 
   return bins;
