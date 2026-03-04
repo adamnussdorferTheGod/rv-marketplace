@@ -146,11 +146,8 @@
   font: var(--font-label-2);
   color: #6e7072;
   cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
