@@ -3,7 +3,6 @@ import Icon from '@components/ui/Icon/Icon';
 import {
   RV_TYPES,
   POPULAR_SEARCHES,
-  FEATURED_DEALERS,
 } from './heroData';
 import styles from './SearchDropdown.module.css';
 
@@ -21,11 +20,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
 
   const handleSearchClick = (query: string) => {
     navigate(`/search?${query}`);
-    onClose();
-  };
-
-  const handleDealerClick = (slug: string) => {
-    navigate(`/search?keyword=${encodeURIComponent(slug.replace(/-/g, ' '))}`);
     onClose();
   };
 
@@ -50,9 +44,9 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
         <Icon name="x_close" size={18} />
       </button>
 
-      {/* Section 1: RV Types */}
+      {/* Section 1: RV Types — horizontal scroll */}
       <section>
-        <div className={styles.typeGrid}>
+        <div className={styles.typeScroll}>
           {RV_TYPES.map((type) => (
             <button
               key={type.slug}
@@ -77,8 +71,8 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
         <div className={styles.askGlow} />
         <div className={styles.askInner}>
           <h3 className={styles.askHeading}>
-            <Icon name="sparkle" size={20} />
             Ask anything
+            <Icon name="sparkles" size={20} />
           </h3>
           <div className={styles.askChipRows}>
             <div className={styles.askChipRow}>
@@ -90,7 +84,7 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
               <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('First RV — where do I start?')}>First RV — where do I start?</button>
               <button type="button" className={styles.askChip} onClick={() => handleAiChipClick('What can I get for my budget?')}>What can I get for my budget?</button>
               <button type="button" className={styles.askCta} onClick={handleAskAnything}>
-                <Icon name="sparkle" size={16} />
+                <Icon name="sparkles" size={16} />
                 Ask any question
               </button>
             </div>
@@ -111,27 +105,6 @@ export default function SearchDropdown({ onClose }: SearchDropdownProps) {
             >
               <Icon name="search" size={20} />
               {search.label}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Section 4: Featured dealers */}
-      <section>
-        <div className={styles.sectionHeadingRow}>
-          <h3 className={styles.sectionHeading}>Dealers near you</h3>
-          <span className={styles.sponsoredBadge}>Sponsored</span>
-        </div>
-        <div className={styles.chipWrap}>
-          {FEATURED_DEALERS.map((dealer) => (
-            <button
-              key={dealer.slug}
-              type="button"
-              className={styles.searchChip}
-              onClick={() => handleDealerClick(dealer.slug)}
-            >
-              <Icon name="search" size={20} />
-              {dealer.name}
             </button>
           ))}
         </div>

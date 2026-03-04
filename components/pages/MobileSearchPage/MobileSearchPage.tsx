@@ -214,6 +214,30 @@ export default function MobileSearchPage() {
               </div>
             </div>
 
+            {/* Ask anything — AI chips */}
+            <div className={styles.section}>
+              <div className={styles.askSection}>
+                <div className={styles.askGlow} />
+                <div className={styles.askInner}>
+                  <h3 className={styles.askHeading}>
+                    Ask anything
+                    <Icon name="sparkles" size={20} />
+                  </h3>
+                  <div className={styles.askChipScroll}>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('Help me choose an RV type'))}>Help me choose an RV type</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('Towable or motorhome?'))}>Towable or motorhome?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('What are the best RV brands?'))}>What are the best RV brands?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('First RV — where do I start?'))}>First RV — where do I start?</button>
+                    <button type="button" className={styles.askChip} onClick={() => navigate('/search?aiChip=' + encodeURIComponent('What can I get for my budget?'))}>What can I get for my budget?</button>
+                    <button type="button" className={styles.askCta} onClick={() => navigate('/search?aiOpen=1')}>
+                      <Icon name="sparkles" size={16} />
+                      Ask any question
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Popular searches */}
             <div className={styles.section}>
               <h3 className={styles.sectionHeading}>Popular searches</h3>

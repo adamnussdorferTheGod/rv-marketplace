@@ -53,15 +53,23 @@
   white-space: nowrap;
 }
 
-/* 5x2 RV type grid */
-.typeGrid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+/* RV type horizontal scroll row */
+.typeScroll {
+  display: flex;
   gap: var(--space-8);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.typeScroll::-webkit-scrollbar {
+  display: none;
 }
 
 /* Individual RV type thumbnail card */
 .typeCard {
+  flex-shrink: 0;
+  width: 120px;
   cursor: pointer;
   border-radius: var(--radius-base);
   overflow: hidden;
@@ -134,6 +142,119 @@
   display: none;
 }
 
+/* ─── Ask anything section ─── */
+.askSection {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-base);
+  padding: var(--space-16) var(--space-16) var(--space-16);
+}
+
+.askGlow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  filter: blur(60px);
+  background: radial-gradient(
+    ellipse 45% 75% at 50% 50%,
+    rgba(200, 190, 100, 0.7) 0%,
+    rgba(180, 190, 130, 0.35) 40%,
+    transparent 85%
+  );
+  z-index: 0;
+}
+
+.askInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.askHeading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--rv-on-surface);
+  margin: 0;
+}
+
+.askHeading svg {
+  color: #EABB42;
+  animation: sparkle-pulse 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.askChipRows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.askChipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  align-items: center;
+}
+
+.askChip {
+  background: white;
+  border: none;
+  border-radius: 999px;
+  padding: var(--space-8) var(--space-16);
+  font: var(--font-label-2);
+  color: #6e7072;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.askChip:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.askChip:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.askCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  background: linear-gradient(90deg, #ffffff, #fffbde);
+  border: 1.5px solid var(--rv-primary);
+  border-radius: 999px;
+  padding: var(--space-8) var(--space-16);
+  font: var(--font-label-2);
+  color: var(--rv-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.askCta svg {
+  color: #EABB42;
+}
+
+.askCta:hover {
+  box-shadow: 0 2px 12px rgba(0, 104, 54, 0.15);
+  background: linear-gradient(90deg, #f0fff0, #fffbde);
+}
+
 /* ================= Responsive ================= */
 
 /* Mobile: full-screen overlay */
@@ -172,18 +293,20 @@
     background: var(--rv-border-low);
   }
 
-  .typeGrid {
-    grid-template-columns: repeat(2, 1fr);
+  .askChipRows {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * var(--space-16));
+    padding: 0 var(--space-16) 2px;
   }
 
-  .typeCard {
-    aspect-ratio: auto;
-    padding: var(--space-12);
-    gap: var(--space-8);
+  .askChipRows::-webkit-scrollbar {
+    display: none;
   }
 
-  .typeImage {
-    height: 80px;
-    flex: none;
+  .askChipRow {
+    flex-wrap: nowrap;
   }
 }

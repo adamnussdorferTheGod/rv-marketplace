@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef, type ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useSrpFilters } from '@app/src/hooks/useSrpFilters.ts';
 import { useIsMobile } from '@app/src/hooks/useIsMobile';
 import { useRecentSearches } from '@app/src/hooks/useRecentSearches';
@@ -30,7 +31,7 @@ import AdSlot from '@components/ui/AdSlot/AdSlot';
 import PopularSearches from './PopularSearches/PopularSearches';
 import SrpDisclaimer from './SrpDisclaimer/SrpDisclaimer';
 import FeaturedListings from '../HomePage/FeaturedListings/FeaturedListings';
-import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
+import { AiModeProvider, useAiMode } from '@components/sections/AiMode/AiModeContext';
 import { buildSearchContext } from '@app/src/data/srpAssistantService';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import SharedListPanel from '../../sections/CoShopping/SharedListPanel/SharedListPanel';
@@ -82,6 +83,42 @@ function buildSearchTitle(filters: FilterCriteria): string {
   }
 
   return parts.join(' ') || 'RV Search';
+}
+
+/** Reads aiChip / aiOpen URL params and triggers AI panel. Must be inside AiModeProvider. */
+function AiChipLoader({ children }: { children: ReactNode }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { openPanel, sendMessage } = useAiMode();
+  const handled = useRef(false);
+
+  useEffect(() => {
+    if (handled.current) return;
+    const aiChip = searchParams.get('aiChip');
+    const aiOpen = searchParams.get('aiOpen');
+
+    if (aiChip) {
+      handled.current = true;
+      openPanel('srp-assistant');
+      // Small delay so panel mounts before sending
+      setTimeout(() => sendMessage(aiChip), 300);
+      // Clean up param
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete('aiChip');
+        return next;
+      }, { replace: true });
+    } else if (aiOpen) {
+      handled.current = true;
+      openPanel('srp-assistant');
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete('aiOpen');
+        return next;
+      }, { replace: true });
+    }
+  }, [searchParams, openPanel, sendMessage, setSearchParams]);
+
+  return <>{children}</>;
 }
 
 export default function SearchResultsPage() {
@@ -276,6 +313,7 @@ export default function SearchResultsPage() {
 
   return (
     <AiModeProvider searchContext={srpSearchContext} filters={filters} towVehicle={savedVehicle ?? null} listings={towFilteredResults}>
+    <AiChipLoader>
     <div className={styles.searchResultsPage}>
       <div className={styles.leaderboardAd}>
         <AdSlot width={728} height={90} label="Leaderboard Ad" />
@@ -493,6 +531,7 @@ export default function SearchResultsPage() {
 
       <AiModePanel />
     </div>
+    </AiChipLoader>
     </AiModeProvider>
   );
 }
