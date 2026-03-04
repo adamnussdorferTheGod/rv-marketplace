@@ -161,6 +161,19 @@ export default function SearchResultsPage() {
     [towFilteredResults, filters]
   );
 
+  // Dismiss/restore state for SRP Summary Card
+  const [summaryDismissed, setSummaryDismissed] = useState(
+    () => sessionStorage.getItem('srpSummaryDismissed') === 'true'
+  );
+  const handleSummaryDismiss = useCallback(() => {
+    sessionStorage.setItem('srpSummaryDismissed', 'true');
+    setSummaryDismissed(true);
+  }, []);
+  const handleSummaryRestore = useCallback(() => {
+    sessionStorage.removeItem('srpSummaryDismissed');
+    setSummaryDismissed(false);
+  }, []);
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showFullSubtitle, setShowFullSubtitle] = useState(false);
   // Capture scroll restore target during init (before effects overwrite sessionStorage)
@@ -380,7 +393,17 @@ export default function SearchResultsPage() {
               </div>
             </div>
 
-            <SrpSummaryCard data={summaryData} />
+            {summaryDismissed ? (
+              <button
+                type="button"
+                className={styles.restoreInsightsLink}
+                onClick={handleSummaryRestore}
+              >
+                View market insights
+              </button>
+            ) : (
+              <SrpSummaryCard data={summaryData} onDismiss={handleSummaryDismiss} />
+            )}
 
             {/* Mobile filter/sort bar */}
             <MobileFilterBar

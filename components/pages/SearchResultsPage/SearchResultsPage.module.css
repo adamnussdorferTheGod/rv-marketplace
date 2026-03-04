@@ -432,6 +432,23 @@
   padding: 20px;
 }
 
+/* ─── Restore insights link ──────────────────────────────────────── */
+
+.restoreInsightsLink {
+  font: var(--font-label-3);
+  color: var(--rv-on-surface-variant);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: var(--space-8) 0;
+  margin-bottom: var(--space-8);
+}
+
+.restoreInsightsLink:hover {
+  color: var(--rv-primary);
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────── */
 
 /* MD: 992-1231px */
