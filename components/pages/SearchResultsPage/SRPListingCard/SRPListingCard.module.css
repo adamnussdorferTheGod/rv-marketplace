@@ -247,8 +247,7 @@
 .dealer {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
-  justify-content: center;
+  justify-content: flex-end;
   min-height: 72px;
 }
 
@@ -281,6 +280,7 @@
   gap: var(--space-4);
   color: var(--rv-on-surface-brand);
   font: var(--font-label-2);
+  margin-bottom: var(--space-8);
 }
 
 .trustedBadgeIcon {
