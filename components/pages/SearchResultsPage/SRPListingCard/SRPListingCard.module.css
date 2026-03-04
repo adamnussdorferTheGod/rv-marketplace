@@ -292,21 +292,20 @@
 
 .listCard {
   flex-direction: row;
+  height: auto;
 }
 
 .listCard .photoWrapper {
   width: 340px;
-  flex-shrink: 0;
+  flex: 0 0 340px;
   aspect-ratio: unset;
   align-self: stretch;
   background: var(--rv-surface-secondary);
 }
 
 .listPhoto {
-  object-fit: contain !important;
-  object-position: center top;
-  padding: 12px;
-  box-sizing: border-box;
+  object-fit: cover !important;
+  object-position: center;
 }
 
 .listCard .photoWrapper::after {
