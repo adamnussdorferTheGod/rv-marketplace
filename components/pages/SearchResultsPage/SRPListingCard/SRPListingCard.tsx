@@ -226,17 +226,17 @@ export default function SRPListingCard({ listing, towVerdict, variant = 'grid' }
             </div>
 
             <div className={styles.dealer}>
-              <div className={styles.dealerInfo}>
-                <span className={styles.dealerName}>{listing.dealer.name}</span>
-                <span className={styles.dealerSep}>&middot;</span>
-                <span className={styles.dealerLocation}>{location}</span>
-              </div>
               {listing.isTrustedPartner && (
                 <div className={styles.trustedBadge}>
                   <Icon name="award_star" size={20} className={styles.trustedBadgeIcon} />
                   Trusted partner
                 </div>
               )}
+              <div className={styles.dealerInfo}>
+                <span className={styles.dealerName}>{listing.dealer.name}</span>
+                <span className={styles.dealerSep}>&middot;</span>
+                <span className={styles.dealerLocation}>{location}</span>
+              </div>
             </div>
           </>
         )}
