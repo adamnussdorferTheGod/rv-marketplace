@@ -203,3 +203,45 @@
 .desktopContent {
   /* Visible by default; hidden on mobile when collapsed */
 }
+
+/* ─── Responsive: Tablet (768-991px) ─────────────────────────────── */
+
+@media (max-width: 991px) {
+  .statBar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+}
+
+/* ─── Responsive: Mobile (<768px) ────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .card {
+    padding: var(--space-12) var(--space-16);
+  }
+
+  .desktopContent {
+    display: none;
+  }
+
+  .collapsedLine {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--rv-on-surface);
+    font: var(--font-label-2);
+  }
+
+  .summaryText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+}
