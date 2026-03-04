@@ -371,7 +371,8 @@
     padding: 8px 0;
   }
 
-  .glow {
+  .glow,
+  .minimizedGlow {
     display: none;
   }
 

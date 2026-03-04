@@ -180,14 +180,19 @@ export default function SrpSummaryCard({ data, listings = [], filters, towVehicl
             <p className={styles.minimizedNarrative}>
               <span>Your search returned</span>
               <strong>{headlineStats.listingCount.toLocaleString('en-US')}</strong>
-              <span>listings. The median asking price is</span>
-              <strong>{medianFormatted}</strong>
-              <span>and the current price trend is {trendWord}</span>
-              {!trendIsFlat && (
+              <span>listings.</span>
+              {!isMobile && (
                 <>
-                  <TrendArrow direction={arrowDirection} />
-                  <strong>{trendAbs}%</strong>
-                  <MiniChart direction={chartDirection} id="min-trend" />
+                  <span>The median asking price is</span>
+                  <strong>{medianFormatted}</strong>
+                  <span>and the current price trend is {trendWord}</span>
+                  {!trendIsFlat && (
+                    <>
+                      <TrendArrow direction={arrowDirection} />
+                      <strong>{trendAbs}%</strong>
+                      <MiniChart direction={chartDirection} id="min-trend" />
+                    </>
+                  )}
                 </>
               )}
             </p>
