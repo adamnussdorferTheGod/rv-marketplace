@@ -47,7 +47,7 @@
   --rv-shadow-segment: 0px 2px 8px 0px rgba(0, 0, 0, 0.09);
 
   /* Overlays */
-  --rv-overlay-light: rgba(0, 0, 0, 0.4);
+  --rv-overlay-light: rgba(0, 0, 0, 0.6);
   --rv-overlay-medium: rgba(0, 0, 0, 0.46);
   --rv-overlay-heavy: rgba(0, 0, 0, 0.55);
   --rv-overlay-warm: rgba(49, 46, 33, 0.5);

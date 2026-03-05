@@ -14,15 +14,10 @@ import { AiModeProvider } from '@components/sections/AiMode/AiModeContext';
 import AiModePanel from '@components/sections/AiMode/AiModePanel/AiModePanel';
 import styles from './HomePage.module.css';
 
-const DISCLAIMER_KEY = 'rv-disclaimer-seen';
-
 export default function HomePage() {
-  const [showDisclaimer, setShowDisclaimer] = useState(
-    () => !localStorage.getItem(DISCLAIMER_KEY)
-  );
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
 
   const dismissDisclaimer = () => {
-    localStorage.setItem(DISCLAIMER_KEY, '1');
     setShowDisclaimer(false);
   };
 
